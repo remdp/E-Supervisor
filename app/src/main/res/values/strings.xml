@@ -1,3 +1,56 @@
 <resources>
-    <string name="app_name">ESupervisor</string>
+    <string name="app_name">E-Supervisor</string>
+    <string name="invalid_username_or_password">Invalid supervisor or password</string>
+
+    <string name="partner">Partner</string>
+    <string name="trading_agent">Trading agent</string>
+    <string name="operation_type">Type of operation</string>
+    <string name="comment">Comment</string>
+
+
+    <string name="day_month_year_date_format" formatted="false">dd MMM yyyy</string>
+
+    <string name="from">from </string>
+
+    <string name="ok" translatable="false">OK </string>
+    <string name="cancel">Cancel </string>
+
+    <!-- Docs sign in screen -->
+    <string name="supervisor">Supervisor</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="field_is_empty">field is empty</string>
+
+
+    <!-- Docs emix list screen -->
+    <string name="doc_emix_number_date_status">Date\nNumber\nStatus</string>
+    <string name="doc_emix_trading_agent_operation_type">Trading agent\nOperation type</string>
+    <string name="reason_for_rejection">reason for rejection</string>
+    <string name="document_flow">Document flow</string>
+    <string name="date_text">from ${docEmix.date.toLocalDate().toFormatString(context.getString(R.string.day_month_year_date_format)}</string>
+
+    <!-- Docs emix detail screen-->
+    <string name="reason_input">Reason input</string>
+    <string name="operation">Operation</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="PriceIndex">Price index</string>
+    <string name="PaymentDeferment">Payment deferment</string>
+    <string name="DistributionChannel">Distribution channel</string>
+
+    <!-- Result view -->
+    <string name="connection_error">Can\'t connect to the server</string>
+    <string name="auth_error">User session expired</string>
+    <string name="internal_error">Internal error! Please try again later.</string>
+    <string name="action_try_again">Try Again</string>
+
+
+    <!-- Profile screen -->
+    <string name="profile">Profile</string>
+    <string name="app_settings">App settings</string>
+    <string name="app_language">App language</string>
+    <string name="account">Account</string>
+    <string name="logout">Logout</string>
+    <string name="language_eng">English</string>
+    <string name="language_ua">Ukrainian</string>
+
 </resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">E-Супервайзер</string>
+    <string name="invalid_username_or_password">Неправильний супервайзер або пароль</string>
+
+    <string name="partner">Контрагент</string>
+    <string name="trading_agent">Торговий агент</string>
+    <string name="operation_type">Тип операції</string>
+    <string name="comment">Коментар</string>
+
+
+    <string name="day_month_year_date_format" formatted="false" translatable="false">dd MMM yyyy</string>
+
+    <string name="from">від </string>
+    <string name="cancel">Скасування </string>
+
+    <!-- Docs sign in screen -->
+    <string name="supervisor">Супервайзер</string>
+    <string name="password">Пароль</string>
+    <string name="login">Авторизуватися</string>
+    <string name="field_is_empty">Поле порожнє</string>
+
+
+    <!-- Docs emix list screen -->
+    <string name="doc_emix_number_date_status">Дата\nНомер\nСтатус</string>
+    <string name="doc_emix_trading_agent_operation_type">Торговий агент\nТип операції</string>
+    <string name="reason_for_rejection">Причина відхилення</string>
+    <string name="document_flow">Докуменообіг</string>
+    <string name="date_text">від ${docEmix.date.toLocalDate().toFormatString(context.getString(R.string.day_month_year_date_format)}</string>
+
+    <!-- Docs emix detail -->
+    <string name="reason_input">Введення причини</string>
+    <string name="operation">Операція</string>
+    <string name="manufacturer">Виробник</string>
+    <string name="PriceIndex">Індекс ціни</string>
+    <string name="PaymentDeferment">Відстрочка платежу</string>
+    <string name="DistributionChannel">Канал збуту</string>
+
+    <!-- Result view -->
+    <string name="connection_error">Неможливо підключитися до сервера</string>
+    <string name="auth_error">Час сесії вичерпано</string>
+    <string name="internal_error">Внутрішня помилка. Спробуйте пізніше</string>
+    <string name="action_try_again">Спробувати ще раз</string>
+
+
+    <!-- Profile screen -->
+    <string name="profile">Профіль</string>
+    <string name="app_settings">Налаштування</string>
+    <string name="app_language">Мова</string>
+    <string name="account">Обліковий запис</string>
+    <string name="logout">Вийти</string>
+    <string name="language_eng">Англійська</string>
+    <string name="language_ua">Українська</string>
+</resources>

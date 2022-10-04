@@ -1,5 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable-v24/ic_arrow_drop_down.xml" value="0.415" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable-v24/ic_artboard.xml" value="0.415" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable-v24/ic_avatar.xml" value="0.4965" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable-v24/ic_done.xml" value="0.3005" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable-v24/ic_done_small.xml" value="0.2195" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2195" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable-v24/ic_logo.xml" value="0.415" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable-v24/ic_operations.xml" value="0.2455" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable-v24/ic_reject.xml" value="0.3005" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable-v24/ic_reject_small.xml" value="0.3005" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable-v24/rounded_shape_2dp.xml" value="0.3945" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable-v24/rounded_shape_4_grey.xml" value="0.3165" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable-v24/rounded_shape_4dp_grey.xml" value="0.3945" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/ic_accept_green.xml" value="0.3005" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/ic_baseline_event_note_24.xml" value="0.2195" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/ic_dashboard.xml" value="0.4145" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2195" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/ic_logo_background.xml" value="0.464" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/ic_more.xml" value="0.3345" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/ic_profile.xml" value="0.4115" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/ic_settings.xml" value="0.4115" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/line_divider.xml" value="0.4715" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/rounded_shape_2_grey.xml" value="0.4475" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/rounded_shape_2dp.xml" value="0.4475" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/rounded_shape_4_grey.xml" value="0.4475" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/splash.xml" value="0.4175" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/activity_splash.xml" value="0.41875" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/container.xml" value="0.4791666666666667" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/container_doc_emix_detail_card.xml" value="0.53125" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/dialog_reason_rejection.xml" value="0.41302083333333334" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_detail.xml" value="0.67" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_detail_container_row.xml" value="0.553125" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_detail_del.xml" value="0.3578125" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_detail_fragment.xml" value="0.5" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_detail_trade_condition_fragment.xml" value="0.553125" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_details.xml" value="0.47291666666666665" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_list_fragment.xml" value="0.3925925925925926" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/docs_emix_detail.xml" value="0.4203125" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/docs_emix_list.xml" value="0.4203125" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_profile.xml" value="0.5541666666666667" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_profile_.xml" value="0.553125" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_profile_and_settings.xml" value="0.33" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_sign_in.xml" value="0.5" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_sign_in_.xml" value="0.5" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_splash.xml" value="0.41875" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_tabs.xml" value="0.67" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_doc_emix.xml" value="0.25" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_doc_emix_del.xml" value="0.31354166666666666" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_doc_emix_detail_trade_condition_header.xml" value="0.5541666666666667" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_doc_emix_list_fragment.xml" value="0.67" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_docs_emix_header.xml" value="0.553125" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_invoice_product_header.xml" value="0.5541666666666667" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_row_doc_emix.xml" value="0.5541666666666667" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/part_result_view.xml" value="0.4161458333333333" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/test.xml" value="0.553125" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/testsignin.xml" value="0.48802083333333335" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/view_result.xml" value="0.4161458333333333" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/menu/tabs_menu.xml" value="0.553125" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

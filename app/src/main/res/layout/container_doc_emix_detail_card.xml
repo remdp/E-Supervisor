@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvDocEmixDetail"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="8dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gdlnStart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/margin_big"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gdlnStart1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/margin_huge" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gdlnMiddle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gdlnEnd"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/margin_big"/>
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_very_small"
+            android:background="@drawable/rounded_shape_2dp_grey"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:paddingStart="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_very_small"
+            android:paddingEnd="@dimen/padding_small"
+            android:paddingBottom="@dimen/padding_very_small"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_little"
+            app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="@dimen/status_percent"
+            tools:text="Ожидает обработки"
+            tools:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/ivAcceptAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_small"
+            android:src="@drawable/ic_done_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
+            app:layout_constraintEnd_toStartOf="@+id/ivRejectAction"
+            app:layout_constraintTop_toTopOf="@+id/tvStatus"
+            tools:ignore="ContentDescription"
+            tools:visibility="visible"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/ivRejectAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_small"
+            android:src="@drawable/ic_reject_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
+            app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+            app:layout_constraintTop_toTopOf="@+id/tvStatus"
+            tools:ignore="ContentDescription"
+            tools:visibility="visible"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:textColor="@color/colorNileBlue"
+            android:theme="@style/ToolBarBigTitle"
+            app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+            app:layout_constraintTop_toBottomOf="@+id/tvStatus"
+            tools:text='Unidoc №2546495' />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:textColor="@color/colorNileBlue"
+            android:textSize="@dimen/text_little"
+            app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+            app:layout_constraintTop_toBottomOf="@+id/tvNumber"
+            tools:text="от 28 Сен 2019" />
+
+        <ImageView
+            android:id="@+id/vGreyBackground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:background="@drawable/rounded_shape_4dp_grey"
+            app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+            app:layout_constraintBottom_toTopOf="@+id/tvDescriptionLabel"
+            app:layout_constraintEnd_toEndOf="@+id/gdlnEnd"
+            android:layout_marginTop="@dimen/margin_big"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvPartnerLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_big"
+            android:text="@string/partner"
+            android:theme="@style/Table.SmallTitle"
+            app:layout_constraintStart_toStartOf="@+id/gdlnStart1"
+            app:layout_constraintTop_toTopOf="@+id/vGreyBackground" />
+
+        <TextView
+            android:id="@+id/tvPartner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:textColor="@color/colorNileBlue"
+            android:textSize="14sp"
+            android:theme="@style/FormText"
+            app:layout_constraintEnd_toStartOf="@+id/gdlnMiddle"
+            app:layout_constraintStart_toStartOf="@+id/gdlnStart1"
+            app:layout_constraintTop_toBottomOf="@+id/tvPartnerLabel"
+            tools:text="Palma Group Companies" />
+
+        <TextView
+            android:id="@+id/tvTradingAgentLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_big"
+            android:text="@string/trading_agent"
+            android:theme="@style/Table.SmallTitle"
+            app:layout_constraintStart_toStartOf="@+id/gdlnStart1"
+            app:layout_constraintTop_toBottomOf="@+id/tvPartner" />
+
+        <TextView
+            android:id="@+id/tvTradingAgent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_big"
+            android:textColor="@color/colorNileBlue"
+            android:textSize="14sp"
+            android:theme="@style/FormText"
+            app:layout_constraintEnd_toStartOf="@+id/gdlnMiddle"
+            app:layout_constraintStart_toStartOf="@+id/gdlnStart1"
+            app:layout_constraintTop_toBottomOf="@+id/tvTradingAgentLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/vGreyBackground"
+            tools:text="Самсонов Илья" />
+
+        <TextView
+            android:id="@+id/tvOperationTypeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_big"
+            android:text="@string/operation_type"
+            android:theme="@style/Table.SmallTitle"
+            app:layout_constraintStart_toStartOf="@+id/gdlnMiddle"
+            app:layout_constraintTop_toTopOf="@+id/vGreyBackground" />
+
+        <TextView
+            android:id="@+id/tvOperationType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:textColor="@color/colorNileBlue"
+            android:textSize="14sp"
+            android:theme="@style/FormText"
+            app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+            app:layout_constraintStart_toStartOf="@+id/gdlnMiddle"
+            app:layout_constraintTop_toBottomOf="@+id/tvOperationTypeLabel"
+            tools:text="Изменение ТУ" />
+
+
+        <TextView
+            android:id="@+id/tvDescriptionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_big"
+            android:text="@string/comment"
+            android:theme="@style/Table.SmallTitle"
+            app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+            app:layout_constraintTop_toBottomOf="@+id/vGreyBackground" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_big"
+            android:textColor="@color/colorNileBlue"
+            android:textSize="14sp"
+            android:theme="@style/FormText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+            app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescriptionLabel"
+            tools:text="Изменение ТУ" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

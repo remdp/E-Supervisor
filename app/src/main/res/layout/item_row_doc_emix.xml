@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/docEmixRowTradingCondition"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_nearly_small"
+    android:paddingBottom="@dimen/margin_nearly_small"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tvManufacturer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Beiersdorf"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_small"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriceIndex"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintWidth_percent="@dimen/det_tc_manufacturer_width_percent"/>
+
+    <TextView
+        android:id="@+id/tvPriceIndex"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small"
+        tools:text="102"
+        app:layout_constraintStart_toEndOf="@+id/tvManufacturer"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvPaymentDeferment"
+        app:layout_constraintWidth_percent="@dimen/det_tc_price_index_width_percent"/>
+
+    <TextView
+        android:id="@+id/tvPaymentDeferment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small"
+        tools:text="7"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvPriceIndex"
+        app:layout_constraintEnd_toStartOf="@+id/tvDistributionChannel"
+        app:layout_constraintWidth_percent="@dimen/det_tc_payment_deferment_width_percent"/>
+
+    <TextView
+        android:id="@+id/tvDistributionChannel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_small"
+        tools:text="Розница"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvPaymentDeferment"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="@dimen/det_tc_distribution_channel_width_percent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

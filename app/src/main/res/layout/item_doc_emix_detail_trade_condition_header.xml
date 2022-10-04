@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvManufacturer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Manufacturer"
+        android:text="@string/manufacturer"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriceIndex"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/det_tc_manufacturer_width_percent" />
+
+    <TextView
+        android:id="@+id/tvPriceIndex"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Price index"
+        android:text="@string/PriceIndex"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvPaymentDeferment"
+        app:layout_constraintStart_toEndOf="@+id/tvManufacturer"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/det_tc_price_index_width_percent" />
+
+    <TextView
+        android:id="@+id/tvPaymentDeferment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Payment deferment"
+        android:text="@string/PaymentDeferment"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvDistributionChannel"
+        app:layout_constraintStart_toEndOf="@+id/tvPriceIndex"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/det_tc_payment_deferment_width_percent" />
+
+    <TextView
+        android:id="@+id/tvDistributionChannel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Distribution channel"
+        android:text="@string/DistributionChannel"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvPaymentDeferment"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/det_tc_distribution_channel_width_percent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

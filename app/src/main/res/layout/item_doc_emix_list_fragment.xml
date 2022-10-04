@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_nearly_small"
+    android:paddingBottom="@dimen/margin_nearly_small">
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorOuterSpace"
+        android:theme="@style/Label.Regular.Text"
+        app:layout_constraintEnd_toStartOf="@id/tvTradingAgent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="@dimen/doc_emix_date_number_status_percent"
+        tools:text="17 Сент 2022" />
+
+    <TextView
+        android:id="@+id/tvNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_little"
+        android:textColor="@color/colorOuterSpace"
+        android:textStyle="bold"
+        android:theme="@style/Label.Regular.Text"
+        app:layout_constraintEnd_toEndOf="@+id/tvDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate"
+        app:layout_constraintWidth_percent="@dimen/doc_emix_date_number_status_percent"
+        tools:text="0000000012" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_little"
+        android:background="@drawable/rounded_shape_2dp"
+        android:backgroundTint="@color/colorBermudaGray"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:paddingStart="@dimen/padding_little"
+        android:paddingEnd="@dimen/padding_little"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_very_small"
+        app:layout_constraintEnd_toEndOf="@+id/tvDate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/tvDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvNumber"
+        app:layout_constraintWidth_percent="@dimen/doc_emix_date_number_status_percent"
+        tools:text="В работе" />
+
+    <TextView
+        android:id="@+id/tvTradingAgent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/margin_little"
+        android:textColor="@color/colorOuterSpace"
+        android:theme="@style/Table.SmallTitle"
+        app:layout_constraintEnd_toStartOf="@id/tvPartner"
+        app:layout_constraintStart_toEndOf="@id/tvDate"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/doc_emix_trading_agent_operation_type"
+        tools:text="Самсонов Илья" />
+
+    <TextView
+        android:id="@+id/tvOperationType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_little"
+        android:paddingHorizontal="@dimen/margin_little"
+        android:textColor="@color/colorOuterSpace"
+        android:theme="@style/Table.SmallTitle"
+        app:layout_constraintEnd_toStartOf="@id/tvPartner"
+        app:layout_constraintStart_toEndOf="@id/tvDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvTradingAgent"
+        app:layout_constraintWidth_percent="@dimen/doc_emix_trading_agent_operation_type"
+        tools:text="Изменение ТУ" />
+
+    <TextView
+        android:id="@+id/tvPartner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorOuterSpace"
+        android:theme="@style/Table.SmallTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvTradingAgent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="@dimen/doc_emix_partner"
+        tools:text="Palma Group Companies Palma Group Companies" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

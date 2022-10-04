@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dashboard"
+    app:startDestination="@id/docsEmixListFragment">
+
+    <fragment
+        android:id="@+id/docsEmixListFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.docsEmix.list.DocsEmixListFragment"
+        android:label="@string/document_flow">
+        <action
+            android:id="@+id/action_docsEmixListFragment_to_docEmixDetailFragment"
+            app:destination="@id/docEmixDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/docEmixDetailFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.DocEmixDetailFragment"
+        android:label="@string/operation">
+        <argument
+            android:name="extId"
+            app:argType="string" />
+    </fragment>
+</navigation>

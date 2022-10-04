@@ -7,4 +7,59 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- added colors-->
+    <color name="colorPrimary">#007FF8</color>
+    <color name="colorPrimaryDark">#09457F</color>
+    <color name="colorAccent">#007FF8</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorAthensGray">#F5F6F7</color>
+    <color name="colorGeyser">#DAE1E5</color>
+    <color name="colorWhite">#FFF</color>
+    <color name="colorPorcelain">#ECF0F2</color>
+    <color name="colorLoblolly">#C3D1D9</color>
+    <color name="colorMercury">#E2E2E2</color>
+    <color name="colorWhiteAlpha70">#B3FFFFFF</color>
+    <color name="colorBlack">#000</color>
+    <color name="colorWhiteAlpha20">#32ffffff</color>
+    <color name="colorNileBlueAlpha60">#9915304A</color>
+    <color name="colorNileBlueAlpha50">#8015304A</color>
+    <color name="colorNileBlueAlpha10">#1A15304A</color>
+    <color name="colorNileBlueDark">#003a5c</color>
+    <color name="colorNileBlue">#15304A</color>
+    <color name="colorSunsetOrange">#EF5350</color>
+    <color name="colorBeautyBush">#F5CECA</color>
+    <color name="colorSunsetOrangeAlpha20">#33EF5350</color>
+    <color name="colorPomegranate">#F32E1A</color>
+    <color name="colorPomegranateAlpha10">#1AF32E1A</color>
+    <color name="colorVeniceBlue">#0B4F90</color>
+    <color name="colorBermudaGray">#73899E</color>
+    <color name="colorBermudaGrayAlpha50">#8073899E</color>
+    <color name="colorBermudaGrayAlpha20">#3373899E</color>
+    <color name="colorOuterSpace">#20363D</color>
+    <color name="colorOuterSpaceAlpha50">#8020363D</color>
+    <color name="colorGreenVogue">#022248</color>
+    <color name="colorGallery">#EDEDED</color>
+    <color name="colorMountainMeadow">#27C87D</color>
+    <color name="colorMountainMeadowAlpha20">#3327C87D</color>
+    <color name="colorAtlantis">#9EC827</color>
+    <color name="colorTara">#DAF3E6</color>
+    <color name="colorSelectiveYellow">#FFBA00</color>
+    <color name="colorSelectiveYellowAlpha10">#1AFFBA00</color>
+    <color name="colorAzureRadiance">#007FF8</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorDodgerBlue">#2192FF</color>
+    <color name="colorPictonBlue">#4C9DEB</color>
+    <color name="colorHawkesBlue">#CCE5FE</color>
+    <color name="colorCasper">#B2C3D3</color>
+    <color name="colorGainsboro">#D8E1E5</color>
+    <color name="colorNepalAlpha80">#A8BDCD</color>
+    <color name="colorNepalAlpha65">#B8CAD6</color>
+    <color name="colorNepalAlpha50">#C9D6DF</color>
+    <color name="colorNepalAlpha35">#D9E2EA</color>
+    <color name="colorNepalAlpha20">#EAEEF3</color>
+
+    <color name="colorAthensGray50">#F7F7F8</color>
+    <color name="colorUnscheduledVisitBackground">#FDE0DD</color>
+
 </resources>

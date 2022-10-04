@@ -1,5 +1,7 @@
 package com.euromix.esupervisor
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -11,7 +13,13 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun testFlow() = runBlocking {
+
+        val flow: Flow<Int>
+
     }
+
+//    fun addition_isCorrect() {
+//        assertEquals(4, 2 + 2)
+//    }
 }

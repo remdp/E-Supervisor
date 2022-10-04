@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/padding_big"
+    android:paddingEnd="@dimen/padding_big"
+    android:paddingTop="@dimen/padding_nearly_small"
+    android:paddingBottom="@dimen/padding_nearly_small">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tfReasonText"
+        style="@style/MediumTitle"
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionDone"
+        android:inputType="textMultiLine"
+        android:hint="@string/reason_for_rejection"
+        android:selectAllOnFocus="true"/>
+
+</com.google.android.material.textfield.TextInputLayout>
