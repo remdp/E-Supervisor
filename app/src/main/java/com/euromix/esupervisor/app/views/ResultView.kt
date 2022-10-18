@@ -31,11 +31,11 @@ class ResultView @JvmOverloads constructor(
         this.tryAgainAction = action
     }
 
-    fun <T> setResult(fragment: BaseFragment, result: Result<T>) {
+    fun <T> setResult(fragment: BaseFragment, result: Result<T>, showPB: Boolean) {
 
         binding.messageTextView.isVisible = result is Error<*>
         binding.errorButton.isVisible = result is Error<*>
-        binding.progressBar.isVisible = result is Pending<*>
+        binding.progressBar.isVisible = result is Pending<*> && showPB
         if (result is Error) {
             Log.e(javaClass.simpleName, "Error", result.error)
             val message = when (result.error) {

@@ -7,6 +7,18 @@ plugins {
     id 'kotlinx-serialization'
 }
 
+Properties props = new Properties()
+def keystoreProperties = file("../release.properties")
+if (keystoreProperties.exists()) {
+    props.load(new FileInputStream(keystoreProperties))
+}
+
+// For Release Build
+def releaseStore = "${props.getProperty('release.key.store')}"
+def releaseStorePassword = "${props.getProperty('release.key.store.password')}"
+def releaseKeyAlias = "${props.getProperty('release.key.alias')}"
+def releaseKeyPassword = "${props.getProperty('release.key.alias.password')}"
+
 android {
     compileSdk 33
 
@@ -20,11 +32,32 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
+    signingConfigs {
         release {
-            minifyEnabled false
+            storeFile file(releaseStore)
+            storePassword releaseStorePassword
+            keyAlias releaseKeyAlias
+            keyPassword releaseKeyPassword
+        }
+    }
+
+    buildTypes {
+
+        debug {
+            debuggable = true
+            shrinkResources = false
+            minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        release {
+            debuggable = false
+            shrinkResources = false
+            minifyEnabled = false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

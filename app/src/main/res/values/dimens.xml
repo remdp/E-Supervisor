@@ -103,10 +103,10 @@
     <dimen name="sent_orders_select_group_percent">0.15</dimen>-->
 
     <!-- Doc emix detail trade condition items percent -->
-    <dimen name="det_tc_manufacturer_width_percent">0.35</dimen>
-    <dimen name="det_tc_price_index_width_percent">0.10</dimen>
-    <dimen name="det_tc_payment_deferment_width_percent">0.16</dimen>
-    <dimen name="det_tc_distribution_channel_width_percent">0.39</dimen>
+    <dimen name="det_tc_manufacturer_width_percent">0.3</dimen>
+    <dimen name="det_tc_price_index_width_percent">0.2</dimen>
+    <dimen name="det_tc_payment_deferment_width_percent">0.2</dimen>
+    <dimen name="det_tc_distribution_channel_width_percent">0.3</dimen>
 
     <!-- Docs emix list screen Percent -->
     <dimen name="doc_emix_date_number_status_percent">0.25</dimen>

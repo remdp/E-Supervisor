@@ -14,12 +14,12 @@
     <string name="from">від </string>
     <string name="cancel">Скасування </string>
 
-    <!-- Docs sign in screen -->
+    <!-- Sign in screen -->
     <string name="supervisor">Супервайзер</string>
     <string name="password">Пароль</string>
     <string name="login">Авторизуватися</string>
     <string name="field_is_empty">Поле порожнє</string>
-
+    <string name="communication_error">Помилка зв\'язку</string>
 
     <!-- Docs emix list screen -->
     <string name="doc_emix_number_date_status">Дата\nНомер\nСтатус</string>
@@ -35,6 +35,8 @@
     <string name="PriceIndex">Індекс ціни</string>
     <string name="PaymentDeferment">Відстрочка платежу</string>
     <string name="DistributionChannel">Канал збуту</string>
+    <string name="approve">Узгодити</string>
+    <string name="reject">Відхилити</string>
 
     <!-- Result view -->
     <string name="connection_error">Неможливо підключитися до сервера</string>
@@ -51,4 +53,6 @@
     <string name="logout">Вийти</string>
     <string name="language_eng">Англійська</string>
     <string name="language_ua">Українська</string>
+
+
 </resources>

@@ -55,8 +55,8 @@
                     layout="@layout/container_doc_emix_detail_card"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_medium"
-                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:layout_marginEnd="@dimen/margin_small"
                     android:layout_marginBottom="@dimen/margin_big"
 
                     app:layout_constraintBottom_toBottomOf="parent"

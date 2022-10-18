@@ -3,6 +3,7 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.euromix.esupervisor.R
@@ -13,7 +14,7 @@ import com.euromix.esupervisor.databinding.DocEmixDetailFragmentBinding
 import com.euromix.esupervisor.databinding.DocEmixDetailTradeConditionFragmentBinding
 import com.euromix.esupervisor.screens.viewModelCreator
 
-class DocEmixDetailTradeConditionFragment(val rows: List<RowTradeCondition>) :
+class DocEmixDetailTradeConditionFragment() :
     BaseFragment(R.layout.doc_emix_detail_trade_condition_fragment) {
 
     override val viewModel by viewModelCreator { DocEmixDetailTradeConditionViewModel() }
@@ -44,6 +45,18 @@ class DocEmixDetailTradeConditionFragment(val rows: List<RowTradeCondition>) :
             adapter.submitList(it)
         }
 
-        viewModel.setRowsTradeConditions(rows)
+        arguments?.let {
+            viewModel.setRowsTradeConditions(requireArguments()[ROWS] as List<RowTradeCondition>)
+        }
+    }
+
+    companion object {
+        fun newInstance(rows: List<RowTradeCondition>): DocEmixDetailTradeConditionFragment {
+            val fragment = DocEmixDetailTradeConditionFragment()
+            fragment.arguments = bundleOf(ROWS to rows)
+            return fragment
+        }
+
+        private const val ROWS = "rows"
     }
 }

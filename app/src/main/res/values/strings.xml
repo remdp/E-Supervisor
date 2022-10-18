@@ -15,11 +15,12 @@
     <string name="ok" translatable="false">OK </string>
     <string name="cancel">Cancel </string>
 
-    <!-- Docs sign in screen -->
+    <!-- Sign in screen -->
     <string name="supervisor">Supervisor</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="field_is_empty">field is empty</string>
+    <string name="communication_error">Communication error</string>
 
 
     <!-- Docs emix list screen -->
@@ -36,6 +37,8 @@
     <string name="PriceIndex">Price index</string>
     <string name="PaymentDeferment">Payment deferment</string>
     <string name="DistributionChannel">Distribution channel</string>
+    <string name="approve">Approve</string>
+    <string name="reject">Reject</string>
 
     <!-- Result view -->
     <string name="connection_error">Can\'t connect to the server</string>
@@ -52,5 +55,7 @@
     <string name="logout">Logout</string>
     <string name="language_eng">English</string>
     <string name="language_ua">Ukrainian</string>
+
+
 
 </resources>

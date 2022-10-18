@@ -11,6 +11,7 @@ import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.databinding.DocEmixListFragmentBinding
+import com.euromix.esupervisor.screens.main.auth.SignInFragmentDirections
 import com.euromix.esupervisor.screens.viewModelCreator
 
 class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
@@ -31,17 +32,12 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
         }
 
         binding.srl.setOnRefreshListener {
-            binding.srl.isRefreshing = false
             viewModel.reload()
         }
-
-
-
 
         binding.vResult.setTryAgainAction { viewModel.reload() }
 
         val adapter = DocsEmixAdapter { docEmix ->
-
             val direction =
                 DocsEmixListFragmentDirections.actionDocsEmixListFragmentToDocEmixDetailFragment(
                     docEmix.extId
@@ -63,7 +59,7 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
             binding.rvList.addItemDecoration(divider)
         }
 
-        viewModel.docsEmix.observeResults(this, view, binding.vResult) {
+        viewModel.docsEmix.observeResults(this, view, binding.vResult, binding.srl) {
             adapter.docsEmix = it
         }
     }

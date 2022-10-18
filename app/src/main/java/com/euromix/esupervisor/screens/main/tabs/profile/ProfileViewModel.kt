@@ -1,4 +1,4 @@
-package ua.cn.stu.navcomponent.tabs.screens.main.tabs.profile
+package com.euromix.esupervisor.screens.main.tabs.profile
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope

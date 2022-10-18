@@ -25,6 +25,7 @@
         <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/ic_profile.xml" value="0.4115" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/ic_settings.xml" value="0.4115" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/line_divider.xml" value="0.4715" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/progress.xml" value="0.4465" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/rounded_shape_2_grey.xml" value="0.4475" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/rounded_shape_2dp.xml" value="0.4475" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/drawable/rounded_shape_4_grey.xml" value="0.4475" />
@@ -49,7 +50,7 @@
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_sign_in.xml" value="0.5" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_sign_in_.xml" value="0.5" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_splash.xml" value="0.41875" />
-        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_tabs.xml" value="0.67" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_tabs.xml" value="0.4860994102780118" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_doc_emix.xml" value="0.25" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_doc_emix_del.xml" value="0.31354166666666666" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_doc_emix_detail_trade_condition_header.xml" value="0.5541666666666667" />

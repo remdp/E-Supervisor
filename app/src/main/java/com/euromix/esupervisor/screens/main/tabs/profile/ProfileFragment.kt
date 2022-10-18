@@ -2,7 +2,6 @@ package com.euromix.esupervisor.screens.main.tabs.profile
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Language
@@ -10,7 +9,6 @@ import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.databinding.FragmentProfileAndSettingsBinding
 import com.euromix.esupervisor.screens.viewModelCreator
 import com.yariksoffice.lingver.Lingver
-import ua.cn.stu.navcomponent.tabs.screens.main.tabs.profile.ProfileViewModel
 import java.util.*
 
 class ProfileFragment : BaseFragment(R.layout.fragment_profile_and_settings) {

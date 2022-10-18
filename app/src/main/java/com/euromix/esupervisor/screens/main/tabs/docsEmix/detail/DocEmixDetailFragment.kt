@@ -28,15 +28,10 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
         binding = DocEmixDetailFragmentBinding.bind(view)
         val context = view.context
 
-        binding.iDocEmixDetailCard.ivAcceptAction.setOnClickListener {
-            viewModel.acceptDocEmixDetail()
-        }
+        binding.iDocEmixDetailCard.btnApprove.setOnClickListener { viewModel.acceptDocEmixDetail() }
+        binding.iDocEmixDetailCard.btnReject.setOnClickListener { showInputReasonDialog() }
 
         binding.vResult.setTryAgainAction { viewModel.reload() }
-
-        binding.iDocEmixDetailCard.ivRejectAction.setOnClickListener {
-            showInputReasonDialog()
-        }
 
         viewModel.docEmixDetail.observeResults(this, view, binding.vResult) { docEmixDetail ->
 
@@ -55,19 +50,20 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
             binding.iDocEmixDetailCard.tvTradingAgent.text = docEmixDetail.tradingAgent
 
             if (docEmixDetail.canBeAgreed) {
-                binding.iDocEmixDetailCard.ivAcceptAction.visible()
-                binding.iDocEmixDetailCard.ivRejectAction.visible()
+                binding.iDocEmixDetailCard.btnApprove.visible()
+                binding.iDocEmixDetailCard.btnReject.visible()
             } else {
-                binding.iDocEmixDetailCard.ivAcceptAction.gone()
-                binding.iDocEmixDetailCard.ivRejectAction.gone()
+                binding.iDocEmixDetailCard.btnApprove.gone()
+                binding.iDocEmixDetailCard.btnReject.gone()
             }
-
             docEmixDetail.rowTradeConditions?.let { insertNestedFragment(it) }
         }
+
     }
 
     private fun insertNestedFragment(rows: List<RowTradeCondition>) {
-        val childFragment = DocEmixDetailTradeConditionFragment(rows)
+
+        val childFragment = DocEmixDetailTradeConditionFragment.newInstance(rows)
         val transaction = childFragmentManager.beginTransaction()
         transaction.replace(R.id.fCVRowsTradingCondition, childFragment).commit()
     }
@@ -95,15 +91,4 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
             dialog.show()
         }
     }
-
-    companion object {
-
-        private const val ARG_EXT_ID = "EXT_ID"
-        fun newInstance(extId: String): DocEmixDetailFragment {
-            val fragment = DocEmixDetailFragment()
-            fragment.arguments = bundleOf(ARG_EXT_ID to extId)
-            return fragment
-        }
-    }
-
 }

@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         Singletons.init(applicationContext)
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
-        setSupportActionBar(binding.toolbar)
+         setSupportActionBar(binding.toolbar)
 
         // preparing root nav controller
         val navController = getRootNavController()
@@ -55,10 +55,6 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
 
-        // updating username in the toolbar
-//        viewModel.username.observe(this) {
-//            binding.tvUsername.text = it
-//        }
     }
 
     override fun onDestroy() {
@@ -106,9 +102,9 @@ class MainActivity : AppCompatActivity() {
     private val destinationListener =
         NavController.OnDestinationChangedListener { _, destination, arguments ->
 
-            if (arguments == null){
+            if (arguments == null) {
                 supportActionBar?.hide()
-            }else{
+            } else {
                 supportActionBar?.title = prepareTitle(destination.label, arguments)
                 supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.colorVeniceBlue)))

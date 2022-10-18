@@ -10,13 +10,17 @@ import com.euromix.esupervisor.app.Singletons
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.databinding.FragmentSignInBinding
 import com.euromix.esupervisor.screens.viewModelCreator
-import ua.cn.stu.navcomponent.tabs.screens.main.auth.SignInViewModel
 
 class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
     private lateinit var binding: FragmentSignInBinding
 
-    private val viewModel by viewModelCreator { SignInViewModel(Singletons.accountRepository) }
+    private val viewModel by viewModelCreator {
+        SignInViewModel(
+            Singletons.accountRepository,
+            requireContext()
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,8 +41,10 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     }
 
     private fun observeState() = viewModel.state.observe(viewLifecycleOwner) {
-        binding.etLogin.error = if (it.emptyUserNameError) getString(R.string.field_is_empty) else null
-        binding.etPassword.error = if (it.emptyPasswordError) getString(R.string.field_is_empty) else null
+        binding.etLogin.error =
+            if (it.emptyUserNameError) getString(R.string.field_is_empty) else null
+        binding.etPassword.error =
+            if (it.emptyPasswordError) getString(R.string.field_is_empty) else null
 
         binding.etLogin.isEnabled = it.enableViews
         binding.etPassword.isEnabled = it.enableViews
@@ -46,17 +52,20 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
         binding.progressBar.visibility = if (it.showProgress) View.VISIBLE else View.INVISIBLE
     }
 
-    private fun observeShowAuthErrorMessageEvent() = viewModel.showAuthToastEvent.observeEvent(viewLifecycleOwner) {
-        Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-    }
+    private fun observeShowAuthErrorMessageEvent() =
+        viewModel.showAuthToastEvent.observeEvent(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
 
-    private fun observeClearPasswordEvent() = viewModel.clearPasswordEvent.observeEvent(viewLifecycleOwner) {
-        binding.etPassword.text?.clear()
-    }
+    private fun observeClearPasswordEvent() =
+        viewModel.clearPasswordEvent.observeEvent(viewLifecycleOwner) {
+            binding.etPassword.text?.clear()
+        }
 
-    private fun observeNavigateToTabsEvent() = viewModel.navigateToTabsEvent.observeEvent(viewLifecycleOwner) {
-        findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
+    private fun observeNavigateToTabsEvent() =
+        viewModel.navigateToTabsEvent.observeEvent(viewLifecycleOwner) {
+            findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
 
-    }
+        }
 
 }
