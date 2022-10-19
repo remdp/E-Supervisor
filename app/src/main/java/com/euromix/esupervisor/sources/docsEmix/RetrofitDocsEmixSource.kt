@@ -4,8 +4,11 @@ import com.euromix.esupervisor.app.model.docsEmix.DocsEmixSource
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.sources.base.BaseRetrofitSource
 import com.euromix.esupervisor.sources.base.RetrofitConfig
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RetrofitDocsEmixSource(
+@Singleton
+class RetrofitDocsEmixSource @Inject constructor(
     config: RetrofitConfig
 ) : BaseRetrofitSource(config), DocsEmixSource {
 

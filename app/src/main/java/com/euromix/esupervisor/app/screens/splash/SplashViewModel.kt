@@ -6,12 +6,15 @@ import com.euromix.esupervisor.app.model.accounts.AccountRepository
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * SplashViewModel checks whether user is signed-in or not.
  */
-class SplashViewModel(
+@HiltViewModel
+class SplashViewModel @Inject constructor(
     private val accountRepository: AccountRepository
 ) : ViewModel() {
 

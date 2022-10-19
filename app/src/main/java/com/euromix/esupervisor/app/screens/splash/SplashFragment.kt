@@ -4,20 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.Singletons
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.databinding.FragmentSplashBinding
 import com.euromix.esupervisor.screens.main.MainActivity
 import com.euromix.esupervisor.screens.main.MainActivityArgs
-import com.euromix.esupervisor.screens.viewModelCreator
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     private lateinit var binding: FragmentSplashBinding
 
-    private val viewModel by viewModelCreator { SplashViewModel(Singletons.accountRepository) }
+    //private val viewModel by viewModelCreator { SplashViewModel(Singletons.accountRepository) }
+    private val viewModel by viewModels<SplashViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

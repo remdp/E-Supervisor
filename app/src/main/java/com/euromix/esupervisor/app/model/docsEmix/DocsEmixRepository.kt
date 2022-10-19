@@ -6,9 +6,11 @@ import com.euromix.esupervisor.app.model.wrapBackendExceptions
 import com.euromix.esupervisor.app.utils.async.LazyFlowSubject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class DocsEmixRepository(
+@Singleton
+class DocsEmixRepository @Inject constructor(
     private val docsEmixSource: DocsEmixSource
 ) {
 

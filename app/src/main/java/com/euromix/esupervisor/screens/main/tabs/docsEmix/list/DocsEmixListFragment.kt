@@ -2,6 +2,7 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.list
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,10 +14,15 @@ import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.databinding.DocEmixListFragmentBinding
 import com.euromix.esupervisor.screens.main.auth.SignInFragmentDirections
 import com.euromix.esupervisor.screens.viewModelCreator
+import dagger.hilt.android.AndroidEntryPoint
+import ua.cn.stu.navcomponent.tabs.screens.main.auth.SignInViewModel
 
+@AndroidEntryPoint
 class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
 
-    override val viewModel by viewModelCreator { DocsEmixListViewModel() }
+//    override val viewModel by viewModelCreator { DocsEmixListViewModel() }
+    override val viewModel by viewModels<DocsEmixListViewModel>()
+
     private lateinit var binding: DocEmixListFragmentBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

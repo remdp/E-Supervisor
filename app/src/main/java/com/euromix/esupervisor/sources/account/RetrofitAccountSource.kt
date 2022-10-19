@@ -8,8 +8,12 @@ import com.euromix.esupervisor.sources.account.entities.TokenEntity
 import com.euromix.esupervisor.sources.base.BaseRetrofitSource
 import com.euromix.esupervisor.sources.base.RetrofitConfig
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RetrofitAccountSource(config: RetrofitConfig) : BaseRetrofitSource(config), AccountSource {
+@Singleton
+class RetrofitAccountSource @Inject constructor(config: RetrofitConfig) :
+    BaseRetrofitSource(config), AccountSource {
 
     private val accountApi = retrofit.create(AccountApi::class.java)
 
@@ -19,6 +23,5 @@ class RetrofitAccountSource(config: RetrofitConfig) : BaseRetrofitSource(config)
             val signInRequestEntity = SignInRequestEntity.createInstance(username, password)
             accountApi.signIn(signInRequestEntity)
         }
-
     }
 }

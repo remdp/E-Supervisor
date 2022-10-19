@@ -1,22 +1,23 @@
-package com.euromix.esupervisor.screens.main.auth
+package ua.cn.stu.navcomponent.tabs.screens.main.auth
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.model.AuthExceptionWithMessage
-import com.euromix.esupervisor.app.model.ConnectionException
-import com.euromix.esupervisor.app.model.EmptyFieldException
-import com.euromix.esupervisor.app.model.Field
+import com.euromix.esupervisor.app.model.*
 import com.euromix.esupervisor.app.model.accounts.AccountRepository
+import com.euromix.esupervisor.app.model.accounts.AccountSource
 import com.euromix.esupervisor.app.utils.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignInViewModel(
-    private val accountRepository: AccountRepository,
+@HiltViewModel
+class SignInViewModel @Inject constructor(
+    accountRepository: AccountRepository,
     private val context: Context
-) : ViewModel() {
+) : BaseViewModel() {
+
 
     private val _state = MutableLiveData(State())
     val state = _state.share()
@@ -24,8 +25,8 @@ class SignInViewModel(
     private val _clearPasswordEvent = MutableUnitLiveEvent()
     val clearPasswordEvent = _clearPasswordEvent.share()
 
-    private val _showErrorToastEvent = MutableLiveEvent<String>()
-    val showAuthToastEvent = _showErrorToastEvent.share()
+    private val _showAuthErrorToastEvent = MutableLiveEvent<String>()
+    val showAuthToastEvent = _showAuthErrorToastEvent.share()
 
     private val _navigateToTabsEvent = MutableUnitLiveEvent()
     val navigateToTabsEvent = _navigateToTabsEvent.share()
@@ -37,6 +38,8 @@ class SignInViewModel(
             launchTabsScreen()
         } catch (e: EmptyFieldException) {
             processEmptyFieldException(e)
+        } catch (e: AuthException) {
+      //      processAuthException()
         } catch (e: AuthExceptionWithMessage) {
             processAuthException(e.message)
         }
@@ -77,7 +80,7 @@ class SignInViewModel(
 
     private fun clearPasswordField() = _clearPasswordEvent.publishEvent()
 
-    private fun showAuthErrorToast(message: String) = _showErrorToastEvent.publishEvent(message)
+    private fun showAuthErrorToast(message: String) = _showAuthErrorToastEvent.publishEvent(message)
 
     private fun launchTabsScreen() = _navigateToTabsEvent.publishEvent()
 
