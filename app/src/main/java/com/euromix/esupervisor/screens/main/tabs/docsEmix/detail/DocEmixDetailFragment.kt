@@ -14,13 +14,22 @@ import com.euromix.esupervisor.app.utils.*
 import com.euromix.esupervisor.databinding.DialogReasonRejectionBinding
 import com.euromix.esupervisor.databinding.DocEmixDetailFragmentBinding
 import com.euromix.esupervisor.screens.viewModelCreator
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
 
-    override val viewModel by viewModelCreator { DocEmixDetailViewModel(args.extId) }
+    @Inject lateinit var factory: DocEmixDetailViewModel.Factory
+
+    override val viewModel by viewModelCreator { factory.create(args.extId) }
+
+  //  override val viewModel by viewModelCreator { DocEmixDetailViewModel(args.extId) }
 
     private lateinit var binding: DocEmixDetailFragmentBinding
     private val args by navArgs<DocEmixDetailFragmentArgs>()
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

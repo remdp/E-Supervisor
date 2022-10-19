@@ -4,20 +4,25 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
+import androidx.fragment.app.viewModels
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Language
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.databinding.FragmentProfileAndSettingsBinding
 import com.euromix.esupervisor.screens.viewModelCreator
 import com.yariksoffice.lingver.Lingver
+import dagger.hilt.android.AndroidEntryPoint
+import ua.cn.stu.navcomponent.tabs.screens.main.auth.SignInViewModel
 import ua.cn.stu.navcomponent.tabs.screens.main.tabs.profile.ProfileViewModel
 import java.util.*
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment(R.layout.fragment_profile_and_settings) {
 
     private lateinit var binding: FragmentProfileAndSettingsBinding
 
-    override val viewModel by viewModelCreator { ProfileViewModel() }
+   // override val viewModel by viewModelCreator { ProfileViewModel() }
+    override val viewModel by viewModels<ProfileViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -3,6 +3,7 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.euromix.esupervisor.R
@@ -12,11 +13,13 @@ import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.databinding.DocEmixDetailFragmentBinding
 import com.euromix.esupervisor.databinding.DocEmixDetailTradeConditionFragmentBinding
 import com.euromix.esupervisor.screens.viewModelCreator
+import dagger.hilt.android.AndroidEntryPoint
 
-class DocEmixDetailTradeConditionFragment(val rows: List<RowTradeCondition>) :
+@AndroidEntryPoint
+class DocEmixDetailTradeConditionFragment(private val rows: List<RowTradeCondition>) :
     BaseFragment(R.layout.doc_emix_detail_trade_condition_fragment) {
 
-    override val viewModel by viewModelCreator { DocEmixDetailTradeConditionViewModel() }
+    override val viewModel by viewModels<DocEmixDetailTradeConditionViewModel>()
 
     private lateinit var binding: DocEmixDetailTradeConditionFragmentBinding
 

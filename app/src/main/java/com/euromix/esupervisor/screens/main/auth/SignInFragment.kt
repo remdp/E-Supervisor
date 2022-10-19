@@ -3,20 +3,22 @@ package com.euromix.esupervisor.screens.main.auth
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.Singletons
+import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.databinding.FragmentSignInBinding
-import com.euromix.esupervisor.screens.viewModelCreator
+import dagger.hilt.android.AndroidEntryPoint
 import ua.cn.stu.navcomponent.tabs.screens.main.auth.SignInViewModel
 
-class SignInFragment : Fragment(R.layout.fragment_sign_in) {
+@AndroidEntryPoint
+class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
     private lateinit var binding: FragmentSignInBinding
 
-    private val viewModel by viewModelCreator { SignInViewModel(Singletons.accountRepository) }
+   // private val viewModel by viewModelCreator { SignInViewModel() }
+    override val viewModel by viewModels<SignInViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

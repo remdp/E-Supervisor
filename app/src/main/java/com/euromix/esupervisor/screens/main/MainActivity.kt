@@ -11,17 +11,12 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.Singletons
 import com.euromix.esupervisor.databinding.ActivityMainBinding
 import com.euromix.esupervisor.screens.main.tabs.TabsFragment
-import com.euromix.esupervisor.screens.viewModelCreator
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
-
-//class MainActivity : AppCompatActivity(), Navigator {
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    // view-model is used for observing username to be displayed in the toolbar
-    private val viewModel by viewModelCreator { MainActivityViewModel() }
 
     // nav controller of the current screen
     private var navController: NavController? = null
@@ -43,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Singletons.init(applicationContext)
+       // Singletons.init(applicationContext)
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
         setSupportActionBar(binding.toolbar)
@@ -55,10 +50,6 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
 
-        // updating username in the toolbar
-//        viewModel.username.observe(this) {
-//            binding.tvUsername.text = it
-//        }
     }
 
     override fun onDestroy() {

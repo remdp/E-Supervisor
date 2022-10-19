@@ -6,12 +6,16 @@ import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.app.model.*
 import com.euromix.esupervisor.app.model.accounts.AccountRepository
 import com.euromix.esupervisor.app.model.accounts.AccountSource
+import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignInViewModel(
-    private val accountRepository: AccountRepository
-) : ViewModel() {
+@HiltViewModel
+class SignInViewModel @Inject constructor(
+    accountRepository: AccountRepository
+) : BaseViewModel() {
 
     private val _state = MutableLiveData(State())
     val state = _state.share()

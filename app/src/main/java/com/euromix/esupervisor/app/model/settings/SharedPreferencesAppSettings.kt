@@ -1,9 +1,13 @@
 package com.euromix.esupervisor.app.model.settings
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class SharedPreferencesAppSettings(
-    appContext: Context
+@Singleton
+class SharedPreferencesAppSettings @Inject constructor(
+    @ApplicationContext appContext: Context
 ) : AppSettings {
 
     private val sharedPreferences =

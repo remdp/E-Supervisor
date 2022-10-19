@@ -2,23 +2,25 @@ package com.euromix.esupervisor.app.screens.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.euromix.esupervisor.app.Singletons
 import com.euromix.esupervisor.app.model.AuthException
 import com.euromix.esupervisor.app.model.BackendException
 import com.euromix.esupervisor.app.model.ConnectionException
+import com.euromix.esupervisor.app.model.accounts.AccountRepository
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-open class BaseViewModel() : ViewModel() {
+open class BaseViewModel () : ViewModel() {
 
-    val accountRepository = Singletons.accountRepository
+    @Inject lateinit var accountRepository: AccountRepository
 
     private val _showErrorMessageResEvent = MutableLiveEvent<Int>()
     val showErrorMessageResEvent = _showErrorMessageResEvent.share()
-//
+
+    //
     private val _showErrorMessageEvent = MutableLiveEvent<String>()
     val showErrorMessageEvent = _showErrorMessageEvent.share()
 //
@@ -31,7 +33,7 @@ open class BaseViewModel() : ViewModel() {
                 block.invoke(this)
             } catch (e: ConnectionException) {
                 // logError(e)
-               // _showErrorMessageResEvent.publishEvent(R.string.connection_error)
+                // _showErrorMessageResEvent.publishEvent(R.string.connection_error)
                 _showErrorMessageEvent.publishEvent("Connection error")
             } catch (e: BackendException) {
                 //logError(e)
