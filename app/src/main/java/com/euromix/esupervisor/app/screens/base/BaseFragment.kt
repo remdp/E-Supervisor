@@ -17,19 +17,13 @@ abstract class BaseFragment(@LayoutRes layoutId: Int): Fragment(layoutId) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        viewModel.showErrorMessageEvent.observeEvent(viewLifecycleOwner) {
-//            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-//        }
-//
-//        viewModel.showErrorMessageResEvent.observeEvent(viewLifecycleOwner) {
-//            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-//        }
-//
-//        viewModel.showAuthErrorAndRestartEvent.observeEvent(viewLifecycleOwner) {
-//            //Toast.makeText(requireContext(), R.string.auth_error, Toast.LENGTH_SHORT).show()
-//            Toast.makeText(requireContext(), "Auth error", Toast.LENGTH_SHORT).show()
-//           // logout()
-//        }
+        viewModel.showErrorMessageEvent.observeEvent(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.showErrorMessageResEvent.observeEvent(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun logout() {

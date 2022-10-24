@@ -102,7 +102,6 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnLogin"
-        android:indeterminateDrawable="@drawable/progress"/>
+        app:layout_constraintTop_toTopOf="@id/btnLogin"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

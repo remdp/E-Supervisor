@@ -8,15 +8,16 @@ import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.app.model.Result
+import com.euromix.esupervisor.app.model.accounts.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DocsEmixListViewModel @Inject constructor(
-    //private val docsEmixRepository: DocsEmixRepository = Singletons.docsEmixRepository
+    accountRepository: AccountRepository,
     private val docsEmixRepository: DocsEmixRepository
-) : BaseViewModel() {
+) : BaseViewModel(accountRepository) {
 
     private val _docsEmix = MutableLiveData<Result<List<DocEmix>>>()
     val docsEmix = _docsEmix.share()

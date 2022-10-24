@@ -1,12 +1,12 @@
-package ua.cn.stu.navcomponent.tabs.screens.main.auth
+package com.euromix.esupervisor.screens.main.auth
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.*
 import com.euromix.esupervisor.app.model.accounts.AccountRepository
-import com.euromix.esupervisor.app.model.accounts.AccountSource
+import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -14,19 +14,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    accountRepository: AccountRepository,
-    private val context: Context
-) : BaseViewModel() {
-
+    accountRepository: AccountRepository
+) : BaseViewModel(accountRepository) {
 
     private val _state = MutableLiveData(State())
     val state = _state.share()
 
     private val _clearPasswordEvent = MutableUnitLiveEvent()
     val clearPasswordEvent = _clearPasswordEvent.share()
-
-    private val _showAuthErrorToastEvent = MutableLiveEvent<String>()
-    val showAuthToastEvent = _showAuthErrorToastEvent.share()
 
     private val _navigateToTabsEvent = MutableUnitLiveEvent()
     val navigateToTabsEvent = _navigateToTabsEvent.share()
@@ -38,16 +33,13 @@ class SignInViewModel @Inject constructor(
             launchTabsScreen()
         } catch (e: EmptyFieldException) {
             processEmptyFieldException(e)
-        } catch (e: AuthException) {
-      //      processAuthException()
         } catch (e: AuthExceptionWithMessage) {
-            processAuthException(e.message)
-        }
-        catch (e: ConnectionException){
-            processException(e, context.getString(R.string.communication_error))
-        }
-        catch (e: Exception) {
-            processException(e)
+            clearPasswordField()
+            processException(e, e.message)
+        } catch (e: ConnectionException) {
+            processException(e, R.string.communication_error)
+        } catch (e: Exception) {
+            processException(e, null)
         }
     }
 
@@ -59,19 +51,11 @@ class SignInViewModel @Inject constructor(
         )
     }
 
-    private fun processAuthException(message: String) {
-        _state.value = _state.requireValue().copy(
-            signInInProgress = false
-        )
-        clearPasswordField()
-        showAuthErrorToast(message)
-    }
+    private fun <T> processException(e: Exception, message: T?) {
 
-    private fun processException(e: Exception, message: String? = null) {
         _state.value = _state.requireValue().copy(signInInProgress = false)
-        with(_showErrorToastEvent) {
-            publishEvent( message?: e.cause?.message.toString())
-        }
+        processBaseException(e, message)
+
     }
 
     private fun showProgress() {
@@ -79,8 +63,6 @@ class SignInViewModel @Inject constructor(
     }
 
     private fun clearPasswordField() = _clearPasswordEvent.publishEvent()
-
-    private fun showAuthErrorToast(message: String) = _showAuthErrorToastEvent.publishEvent(message)
 
     private fun launchTabsScreen() = _navigateToTabsEvent.publishEvent()
 

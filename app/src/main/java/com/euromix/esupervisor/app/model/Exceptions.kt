@@ -21,10 +21,6 @@ class AuthExceptionWithMessage(
     override val message: String
 ) : AppException(cause = cause)
 
-class AuthExceptionForInMemoryRepository() : AppException()
-
-class InvalidCredentialsException(cause: Exception) : AppException(cause = cause)
-
 open class BackendException(
     val code: Int,
     message: String
@@ -33,8 +29,6 @@ open class BackendException(
 class ConnectionException(cause: Throwable) : AppException(cause = cause)
 
 class ParseBackendResponseException(cause: Throwable): AppException(cause = cause)
-
-//class AuthException(cause: Throwable) : AppException(cause = cause)
 
 internal inline fun <T> wrapBackendExceptions(block: () -> T): T {
     try {

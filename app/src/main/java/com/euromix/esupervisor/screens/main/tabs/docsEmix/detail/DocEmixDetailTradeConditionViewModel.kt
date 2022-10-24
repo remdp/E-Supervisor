@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DocEmixDetailTradeConditionViewModel @Inject constructor(accountRepository: AccountRepository) :
-    BaseViewModel() {
+    BaseViewModel(accountRepository) {
 
     private val _rowsTradeConditions = MutableLiveData<List<RowTradeCondition>>()
     val rowsTradeConditions = _rowsTradeConditions.share()

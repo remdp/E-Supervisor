@@ -19,7 +19,6 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile_and_settings) {
 
     private lateinit var binding: FragmentProfileAndSettingsBinding
 
-   // override val viewModel by viewModelCreator { ProfileViewModel() }
     override val viewModel by viewModels<ProfileViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

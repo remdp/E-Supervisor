@@ -10,7 +10,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
      accountRepository: AccountRepository
-) : BaseViewModel() {
+) : BaseViewModel(accountRepository) {
 
     private val _account = MutableLiveData<String>()
     val account = _account.share()

@@ -12,10 +12,7 @@ import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.databinding.DocEmixListFragmentBinding
-import com.euromix.esupervisor.screens.main.auth.SignInFragmentDirections
-import com.euromix.esupervisor.screens.viewModelCreator
 import dagger.hilt.android.AndroidEntryPoint
-import ua.cn.stu.navcomponent.tabs.screens.main.auth.SignInViewModel
 
 @AndroidEntryPoint
 class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {

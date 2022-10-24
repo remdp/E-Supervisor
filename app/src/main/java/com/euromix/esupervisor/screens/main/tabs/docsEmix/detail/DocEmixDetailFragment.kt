@@ -24,12 +24,8 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
 
     override val viewModel by viewModelCreator { factory.create(args.extId) }
 
-  //  override val viewModel by viewModelCreator { DocEmixDetailViewModel(args.extId) }
-
     private lateinit var binding: DocEmixDetailFragmentBinding
     private val args by navArgs<DocEmixDetailFragmentArgs>()
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,9 +39,6 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
         binding.vResult.setTryAgainAction { viewModel.reload() }
 
         viewModel.docEmixDetail.observeResults(this, view, binding.vResult) { docEmixDetail ->
-
-//            val texDate = docEmixDetail.date.toLocalDate()
-//                .toFormatString(context.getString(R.string.day_month_year_date_format))
 
             binding.iDocEmixDetailCard.tvDate.text =
                 with(docEmixDetail.date) { textDate(this, context) }
