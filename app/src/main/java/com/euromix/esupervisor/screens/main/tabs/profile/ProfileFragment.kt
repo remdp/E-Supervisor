@@ -5,10 +5,9 @@ import android.view.View
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.Language
+import com.euromix.esupervisor.app.enums.Language
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.databinding.FragmentProfileAndSettingsBinding
-import com.euromix.esupervisor.screens.viewModelCreator
 import com.yariksoffice.lingver.Lingver
 import dagger.hilt.android.AndroidEntryPoint
 

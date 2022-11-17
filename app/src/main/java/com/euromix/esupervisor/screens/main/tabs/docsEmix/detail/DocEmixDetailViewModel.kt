@@ -11,7 +11,6 @@ import com.euromix.esupervisor.app.model.accounts.AccountRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 class DocEmixDetailViewModel @AssistedInject constructor(
     @Assisted private val extId: String,
@@ -19,8 +18,8 @@ class DocEmixDetailViewModel @AssistedInject constructor(
     private val docEmixDetailRepository: DocEmixDetailRepository
 ) : BaseViewModel(accountRepository) {
 
-    private val _docEmixDetail = MutableLiveData<Result<DocEmixDetail>>()
-    val docEmixDetail = _docEmixDetail.share()
+    private val _docEmixChangeTCDetail = MutableLiveData<Result<DocEmixDetail>>()
+    val docEmixDetail = _docEmixChangeTCDetail.share()
 
     init {
         getDocEmixDetail()
@@ -29,15 +28,21 @@ class DocEmixDetailViewModel @AssistedInject constructor(
     private fun getDocEmixDetail() {
         viewModelScope.safeLaunch {
             docEmixDetailRepository.getDocEmixDetail(extId).collect { result ->
-                _docEmixDetail.value = result
+                _docEmixChangeTCDetail.value = result
             }
         }
+
+//        viewModelScope.launch {
+//            docEmixDetailRepository.getDocEmixDetail(extId).collect { result ->
+//                _docEmixDetail.value = result
+//            }
+//        }
     }
 
     fun acceptDocEmixDetail() {
         viewModelScope.safeLaunch {
             docEmixDetailRepository.acceptDocEmixDetail(extId).collect { result ->
-                _docEmixDetail.value = result
+                _docEmixChangeTCDetail.value = result
             }
         }
     }
@@ -45,7 +50,7 @@ class DocEmixDetailViewModel @AssistedInject constructor(
     fun rejectDocEmixDetail(reason: String) {
         viewModelScope.safeLaunch {
             docEmixDetailRepository.rejectDocEmixDetail(extId, reason).collect { result ->
-                _docEmixDetail.value = result
+                _docEmixChangeTCDetail.value = result
             }
         }
     }

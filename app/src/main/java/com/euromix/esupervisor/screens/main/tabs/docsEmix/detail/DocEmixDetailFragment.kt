@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.model.docEmix.entities.RowTradeCondition
+import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.*
 import com.euromix.esupervisor.databinding.DialogReasonRejectionBinding
 import com.euromix.esupervisor.databinding.DocEmixDetailFragmentBinding
+import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.DocEmixDetailVPFragment
 import com.euromix.esupervisor.screens.viewModelCreator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -45,10 +45,11 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
 
             binding.iDocEmixDetailCard.tvNumber.text = docEmixDetail.number
             binding.iDocEmixDetailCard.tvPartner.text = docEmixDetail.partner
-            binding.iDocEmixDetailCard.tvStatus.text = docEmixDetail.status
+            //binding.iDocEmixDetailCard.tvStatus.text = docEmixDetail.status
+            binding.iDocEmixDetailCard.tvStatus.setNonStandartStatusText(docEmixDetail.status)
             binding.iDocEmixDetailCard.tvStatus.setColorStatus(docEmixDetail.status)
             binding.iDocEmixDetailCard.tvDescription.text = docEmixDetail.description
-            binding.iDocEmixDetailCard.tvOperationType.text = docEmixDetail.operationType
+            binding.iDocEmixDetailCard.tvOperationType.text = getString(docEmixDetail.operationType.nameStringRes())
             binding.iDocEmixDetailCard.tvTradingAgent.text = docEmixDetail.tradingAgent
 
             if (docEmixDetail.canBeAgreed) {
@@ -58,14 +59,15 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                 binding.iDocEmixDetailCard.btnApprove.gone()
                 binding.iDocEmixDetailCard.btnReject.gone()
             }
-            docEmixDetail.rowTradeConditions?.let { insertNestedFragment(it) }
+            //docEmixDetail.rowTradeConditions?.let { insertNestedFragment(it) }
+            insertNestedFragment(docEmixDetail)
         }
 
     }
 
-    private fun insertNestedFragment(rows: List<RowTradeCondition>) {
+    private fun insertNestedFragment(docEmixDetail: DocEmixDetail) {
 
-        val childFragment = DocEmixDetailTradeConditionFragment.newInstance(rows)
+        val childFragment = DocEmixDetailVPFragment.newInstance(docEmixDetail)
         val transaction = childFragmentManager.beginTransaction()
         transaction.replace(R.id.fCVRowsTradingCondition, childFragment).commit()
     }

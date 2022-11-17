@@ -1,5 +1,6 @@
 package com.euromix.esupervisor.app.model.accounts
 
+import com.euromix.esupervisor.app.enums.Field
 import com.euromix.esupervisor.app.model.*
 import com.euromix.esupervisor.app.model.settings.AppSettings
 import javax.inject.Inject

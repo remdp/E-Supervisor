@@ -1,8 +1,7 @@
-package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail
+package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.tradeConditionPage
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -10,10 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.docEmix.entities.RowTradeCondition
 import com.euromix.esupervisor.app.screens.base.BaseFragment
-import com.euromix.esupervisor.app.screens.base.BaseViewModel
-import com.euromix.esupervisor.databinding.DocEmixDetailFragmentBinding
 import com.euromix.esupervisor.databinding.DocEmixDetailTradeConditionFragmentBinding
-import com.euromix.esupervisor.screens.viewModelCreator
+import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.DocEmixDetailAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,11 +51,12 @@ class DocEmixDetailTradeConditionFragment() :
     }
 
     companion object {
-        fun newInstance(rows: List<RowTradeCondition>): DocEmixDetailTradeConditionFragment {
-            val fragment = DocEmixDetailTradeConditionFragment()
-            fragment.arguments = bundleOf(ROWS to rows)
-            return fragment
-        }
+        fun newInstance(rows: List<RowTradeCondition>?): DocEmixDetailTradeConditionFragment =
+            DocEmixDetailTradeConditionFragment().also { fragment ->
+                rows?.let {
+                    fragment.arguments = bundleOf(ROWS to rows)
+                }
+            }
 
         private const val ROWS = "rows"
     }

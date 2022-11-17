@@ -37,13 +37,18 @@
     <string name="DistributionChannel">Канал збуту</string>
     <string name="approve">Узгодити</string>
     <string name="reject">Відхилити</string>
+    <string name="working_name">Робоче найменування</string>
+    <string name="inner_distribution_channel">Канал збуту (внутр.)</string>
+    <string name="edrpou">ЕГРПОУ</string>
+    <string name="change_tc">Зміна ТУ</string>
+    <string name="new_partner_fact">Новий клієнт (факт)</string>
+    <string name="undefined">Не визначене</string>
 
     <!-- Result view -->
-    <string name="connection_error">Неможливо підключитися до сервера</string>
+    <string name="connection_error">Сервер не відповідає</string>
     <string name="auth_error">Час сесії вичерпано</string>
     <string name="internal_error">Внутрішня помилка. Спробуйте пізніше</string>
     <string name="action_try_again">Спробувати ще раз</string>
-
 
     <!-- Profile screen -->
     <string name="profile">Профіль</string>
@@ -53,6 +58,5 @@
     <string name="logout">Вийти</string>
     <string name="language_eng">Англійська</string>
     <string name="language_ua">Українська</string>
-
 
 </resources>

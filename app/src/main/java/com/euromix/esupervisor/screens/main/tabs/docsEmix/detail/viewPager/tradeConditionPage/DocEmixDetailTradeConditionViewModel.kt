@@ -1,4 +1,4 @@
-package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail
+package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.tradeConditionPage
 
 import androidx.lifecycle.MutableLiveData
 import com.euromix.esupervisor.app.model.accounts.AccountRepository

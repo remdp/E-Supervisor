@@ -1,6 +1,5 @@
 package com.euromix.esupervisor.sources.docsEmixDetail
 
-import com.euromix.esupervisor.app.model.docEmix.DocEmixDetailRepository
 import com.euromix.esupervisor.app.model.docEmix.DocEmixDetailSource
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.sources.base.BaseRetrofitSource

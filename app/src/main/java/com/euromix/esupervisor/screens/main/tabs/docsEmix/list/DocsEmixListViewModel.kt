@@ -27,7 +27,7 @@ class DocsEmixListViewModel @Inject constructor(
     }
 
     fun getDocsEmix() {
-        viewModelScope.launch {
+        viewModelScope.safeLaunch {
 
             val cf = docsEmixRepository.getDocsEmix()
             cf.collect { result ->

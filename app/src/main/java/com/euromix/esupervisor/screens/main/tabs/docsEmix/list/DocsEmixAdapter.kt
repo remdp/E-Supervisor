@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.app.utils.setColorStatus
+import com.euromix.esupervisor.app.utils.setNonStandartStatusText
 import com.euromix.esupervisor.app.utils.textDate
 import com.euromix.esupervisor.databinding.ItemDocEmixListFragmentBinding
 
@@ -54,7 +55,8 @@ class DocsEmixAdapter(
             holder.itemView.tag = docEmix
             val context = holder.itemView.context
 
-            tvStatus.text = docEmix.status
+            //tvStatus.text = docEmix.status
+            tvStatus.setNonStandartStatusText(docEmix.status)
             tvStatus.setColorStatus(docEmix.status)
 //            tvDate.text = context.getString(R.string.from) + " " + docEmix.date.toLocalDate()
 //                .toFormatString(context.getString(R.string.day_month_year_date_format))

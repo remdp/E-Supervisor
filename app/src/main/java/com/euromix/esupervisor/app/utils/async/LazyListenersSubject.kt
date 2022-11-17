@@ -56,34 +56,11 @@ class LazyListenersSubject<A : Any, T : Any>(
     }
 
     /**
-     * Reload all cached data.
-     * [silentMode] - if set to `true`, [Pending] result is not emitted to listeners
-     */
-    fun reloadAll(silentMode: Boolean = false) = handlerExecutor.execute {
-        futures.forEach { entry ->
-            val argument = entry.key
-            val record = entry.value
-            restart(argument, record, silentMode)
-        }
-    }
-
-    /**
      * Reload cached data for the specified argument.
      */
     fun reloadArgument(argument: A, silentMode: Boolean = false) = handlerExecutor.execute {
         val record = futures[argument] ?: return@execute
         restart(argument, record, silentMode)
-    }
-
-    /**
-     * Manually update all values without triggering a [loader].
-     */
-    fun updateAllValues(newValue: T?) {
-        futures.forEach {
-            val result = if (newValue == null) Empty() else Success(newValue)
-            it.value.lastValue = result
-            publish(it.key, result)
-        }
     }
 
     private fun cancel(argument: A) {

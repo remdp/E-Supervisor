@@ -39,23 +39,26 @@
     <string name="DistributionChannel">Distribution channel</string>
     <string name="approve">Approve</string>
     <string name="reject">Reject</string>
+    <string name="working_name">Working name</string>
+    <string name="inner_distribution_channel">Inner distribution channel</string>
+    <string name="edrpou">EDRPOU</string>
+    <string name="change_tc">Change TC</string>
+    <string name="new_partner_fact">New partner fact</string>
+    <string name="undefined">Undefined</string>
 
     <!-- Result view -->
-    <string name="connection_error">Can\'t connect to the server</string>
+    <string name="connection_error">Connection timeout</string>
     <string name="auth_error">User session expired</string>
     <string name="internal_error">Internal error! Please try again later.</string>
     <string name="action_try_again">Try Again</string>
-
 
     <!-- Profile screen -->
     <string name="profile">Profile</string>
     <string name="app_settings">App settings</string>
     <string name="app_language">App language</string>
-    <string name="account">Account</string>
+    <string name="account" translatable="false">Account</string>
     <string name="logout">Logout</string>
     <string name="language_eng">English</string>
     <string name="language_ua">Ukrainian</string>
-
-
 
 </resources>

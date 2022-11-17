@@ -1,4 +1,4 @@
-package com.euromix.esupervisor.app.model
+package com.euromix.esupervisor.app.enums
 
 enum class Field {
     Username,

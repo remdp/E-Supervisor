@@ -1,7 +1,6 @@
 package com.euromix.esupervisor.app.model.docEmix
 
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
-import com.euromix.esupervisor.sources.docsEmixDetail.entities.DocEmixDetailRequestAgreementEntity
 
 interface DocEmixDetailSource {
 

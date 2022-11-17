@@ -41,15 +41,17 @@ class ResultView @JvmOverloads constructor(
             val message = when (result.error) {
                 is ConnectionException -> context.getString(R.string.connection_error)
                 is AuthException -> context.getString(R.string.auth_error)
-                is BackendException -> result.error.message
-                else -> context.getString(R.string.internal_error)
+                //  is BackendException -> result.error.message
+                //else -> context.getString(R.string.internal_error)
+                else -> result.error.message
             }
             binding.messageTextView.text = message
-            if (result.error is AuthExceptionWithMessage) {
-                Toast.makeText(context, result.error.message, Toast.LENGTH_LONG).show()
-                fragment.logout()
-            } else if (result.error is AuthException) {
+//            if (result.error is BackendExceptionWithMessage) {
+//                Toast.makeText(context, result.error.message, Toast.LENGTH_LONG).show()
 //                fragment.logout()
+//            } else
+            if (result.error is AuthException) {
+                fragment.logout()
             } else {
                 renderTryAgainButton()
             }

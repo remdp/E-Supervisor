@@ -6,7 +6,6 @@ import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.model.wrapBackendExceptions
 import com.euromix.esupervisor.app.utils.async.LazyFlowSubject
-import com.euromix.esupervisor.sources.docsEmixDetail.entities.DocEmixDetailRequestAgreementEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -16,9 +15,9 @@ class DocEmixDetailRepository @Inject constructor(
     private val docEmixDetailSource: DocEmixDetailSource
 ) {
 
-    private val docEmixDetailLazyFlowSubject = LazyFlowSubject<Map<String, Any>, DocEmixDetail> {
-        wrapBackendExceptions {
-            try {
+    private val docEmixChangeTCDetailLazyFlowSubject =
+        LazyFlowSubject<Map<String, Any>, DocEmixDetail> {
+            wrapBackendExceptions {
                 if (it.containsKey(APPROVE)) {
 
                     if (it[APPROVE] as Boolean)
@@ -31,29 +30,24 @@ class DocEmixDetailRepository @Inject constructor(
                 } else {
                     return@LazyFlowSubject docEmixDetailSource.getDocEmixDetail(it[EXTID].toString())
                 }
-
-            } catch (e: BackendException) {
-                if (e.code == 404) throw AuthException(e)
-                else throw e
             }
         }
-    }
 
     fun getDocEmixDetail(extId: String): Flow<Result<DocEmixDetail>> {
-        return docEmixDetailLazyFlowSubject.listen(mapOf(EXTID to extId))
+        return docEmixChangeTCDetailLazyFlowSubject.listen(mapOf(EXTID to extId))
     }
 
-    fun reload(extId: String){
-        docEmixDetailLazyFlowSubject.reloadArgument(mapOf(EXTID to extId))
+    fun reload(extId: String) {
+        docEmixChangeTCDetailLazyFlowSubject.reloadArgument(mapOf(EXTID to extId))
     }
 
     fun acceptDocEmixDetail(extId: String): Flow<Result<DocEmixDetail>> {
-        return docEmixDetailLazyFlowSubject.listen(mapOf(EXTID to extId, APPROVE to true))
+        return docEmixChangeTCDetailLazyFlowSubject.listen(mapOf(EXTID to extId, APPROVE to true))
     }
 
     fun rejectDocEmixDetail(extId: String, reason: String): Flow<Result<DocEmixDetail>> {
 
-        return docEmixDetailLazyFlowSubject.listen(
+        return docEmixChangeTCDetailLazyFlowSubject.listen(
             mapOf(
                 EXTID to extId,
                 APPROVE to false,
@@ -67,6 +61,7 @@ class DocEmixDetailRepository @Inject constructor(
         const val EXTID = "id"
         const val APPROVE = "approve"
         const val BODY_AGREEMENT = "bodyAgreement"
+
 
     }
 

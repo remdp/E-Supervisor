@@ -23,24 +23,10 @@ class LazyFlowSubject<A : Any, T : Any>(
     }
 
     /**
-     * @see [LazyListenersSubject.reloadAll]
-     */
-    fun reloadAll(silentMode: Boolean = false) {
-        lazyListenersSubject.reloadAll(silentMode)
-    }
-
-    /**
      * @see LazyListenersSubject.reloadArgument
      */
     fun reloadArgument(argument: A, silentMode: Boolean = false) {
         lazyListenersSubject.reloadArgument(argument, silentMode)
-    }
-
-    /**
-     * @see LazyListenersSubject.updateAllValues
-     */
-    fun updateAllValues(newValue: T?) {
-        lazyListenersSubject.updateAllValues(newValue)
     }
 
     /**

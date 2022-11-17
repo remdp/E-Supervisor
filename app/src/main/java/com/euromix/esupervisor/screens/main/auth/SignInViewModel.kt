@@ -1,9 +1,9 @@
 package com.euromix.esupervisor.screens.main.auth
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.enums.Field
 import com.euromix.esupervisor.app.model.*
 import com.euromix.esupervisor.app.model.accounts.AccountRepository
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
@@ -33,7 +33,7 @@ class SignInViewModel @Inject constructor(
             launchTabsScreen()
         } catch (e: EmptyFieldException) {
             processEmptyFieldException(e)
-        } catch (e: AuthExceptionWithMessage) {
+        } catch (e: BackendException) {
             clearPasswordField()
             processException(e, e.message)
         } catch (e: ConnectionException) {

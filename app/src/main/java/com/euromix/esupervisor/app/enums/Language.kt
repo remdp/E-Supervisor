@@ -1,4 +1,4 @@
-package com.euromix.esupervisor.app
+package com.euromix.esupervisor.app.enums
 
 import com.euromix.esupervisor.R
 import java.util.*

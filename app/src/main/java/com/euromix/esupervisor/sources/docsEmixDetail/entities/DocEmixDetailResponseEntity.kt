@@ -1,12 +1,9 @@
 package com.euromix.esupervisor.sources.docsEmixDetail.entities
 
+import com.euromix.esupervisor.app.enums.DocEmixOperationType
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.model.docEmix.entities.RowTradeCondition
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
-import kotlinx.serialization.Required
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 
 data class DocEmixDetailResponseEntity(
@@ -15,10 +12,24 @@ data class DocEmixDetailResponseEntity(
     val number: String,
     val description: String,
     @field:Json(name = "trading_agent") val tradingAgent: String,
-    @field:Json(name = "operation_type") val operationType: String,
+    @field:Json(name = "operation_type") val operationType: Int,
     val partner: String,
     val status: String,
     @field:Json(name = "can_be_agreed") val canBeAgreed: Boolean,
+    //new partner data
+    @field:Json(name = "working_name") val workingName: String,
+    @field:Json(name = "inner_distribution_channel") val innerDistributionChannel: String,
+    val edrpou: String,
+    //new outlet data
+    @field:Json(name = "outlet_name") val outletName: String,
+    @field:Json(name = "institution_type") val institutionType: String,
+    @field:Json(name = "institution_number") val institutionNumber: String,
+    @field:Json(name = "general_outlet") val generalOutlet: String,
+    @field:Json(name = "new_general_outlet") val newGeneralOutlet: Boolean,
+    @field:Json(name = "outlet_format") val outletFormat: String,
+    val locality: String,
+    val street: String,
+    @field:Json(name = "house_number") val houseNumber: String,
     @field:Json(name = "trade_conditions_list") val tradeConditionResponseEntities: List<RowTradeConditionResponseEntity>?
 ) {
     fun toDocEmixDetail(): DocEmixDetail = DocEmixDetail(
@@ -27,11 +38,23 @@ data class DocEmixDetailResponseEntity(
         number = number,
         description = description,
         tradingAgent = tradingAgent,
-        operationType = operationType,
+        operationType = DocEmixOperationType.getByIndex(operationType),
         partner = partner,
         status = status,
         canBeAgreed = canBeAgreed,
-        rowTradeConditions = toRowTradeCondition()
+        workingName = workingName,
+        innerDistributionChannel = innerDistributionChannel,
+        edrpou = edrpou,
+        outletName = outletName,
+        institutionType = institutionType,
+        institutionNumber = institutionNumber,
+        generalOutlet = generalOutlet,
+        newGeneralOutlet = newGeneralOutlet,
+        outletFormat = outletFormat,
+        locality = locality,
+        street = street,
+        houseNumber = houseNumber,
+        rowTradeConditions = toRowTradeCondition(),
     )
 
     private fun toRowTradeCondition(): List<RowTradeCondition> {

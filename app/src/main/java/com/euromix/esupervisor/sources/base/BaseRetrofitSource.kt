@@ -26,6 +26,9 @@ open class BaseRetrofitSource(retrofitConfig: RetrofitConfig) {
         }
         //retrofit
         catch (e: HttpException) {
+
+            if (e.code() == 403) throw AuthException(e)
+
             throw createBackendException(e)
         }
         //mostly retrofit
@@ -37,21 +40,16 @@ open class BaseRetrofitSource(retrofitConfig: RetrofitConfig) {
     }
 
     private fun createBackendException(e: HttpException): Exception {
-        return try {
-            val d = e.response()!!.errorBody()!!.string()
-            val errorBody: ErrorResponseBody = errorAdapter.fromJson(
-                d
-            )!!
-            if (e.code() == 403)
-                 AuthExceptionWithMessage(e,errorBody.error)
-            else
-                 AuthException(e)
-            //BackendException(e.code(), errorBody.error)
 
-        } catch (e: Exception) {
-            //throw ParseBackendResponseException(e)
-            throw AuthException(e)
+        val jsonFromServer = e.response()?.errorBody()?.string()
+
+        val stringError = try {
+            errorAdapter.fromJson(jsonFromServer)?.error
+        }catch (e: Exception){
+            jsonFromServer
         }
+
+        return BackendException(e.code(), e, stringError ?: e.message)
     }
 
     class ErrorResponseBody(
