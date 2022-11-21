@@ -2,8 +2,8 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.trad
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.viewModels
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.euromix.esupervisor.R
@@ -45,8 +45,9 @@ class DocEmixDetailTradeConditionFragment() :
             adapter.submitList(it)
         }
 
-        arguments?.let {
-            viewModel.setRowsTradeConditions(requireArguments()[ROWS] as List<RowTradeCondition>)
+        arguments?.let { bundle ->
+            bundle.getParcelableArrayList(ROWS, RowTradeCondition::class.java)
+                ?.let { viewModel.setRowsTradeConditions(it) }
         }
     }
 

@@ -2,12 +2,13 @@
 <resources>
     <string name="app_name">E-Супервайзер</string>
     <string name="invalid_username_or_password">Неправильний супервайзер або пароль</string>
+    <string name="in_developing">В розробці</string>
+    <string name="undefined">Не визначене</string>
 
     <string name="partner">Контрагент</string>
     <string name="trading_agent">Торговий агент</string>
     <string name="operation_type">Тип операції</string>
     <string name="comment">Коментар</string>
-
 
     <string name="day_month_year_date_format" formatted="false" translatable="false">dd MMM yyyy</string>
 
@@ -42,7 +43,17 @@
     <string name="edrpou">ЕГРПОУ</string>
     <string name="change_tc">Зміна ТУ</string>
     <string name="new_partner_fact">Новий клієнт (факт)</string>
-    <string name="undefined">Не визначене</string>
+    <string name="new_partner_data">Дані нового контрагента</string>
+    <string name="new_outlet_data">Дані нової торгової точки</string>
+    <string name="outlet_name">"Найменування торгової точки"</string>
+    <string name="institution_type">"Тип закладу"</string>
+    <string name="institution_number">"Номер закладу"</string>
+    <string name="general_outlet">"Загальна торгова точка"</string>
+    <string name="new_general_outlet">"Нова загальна торгова точка"</string>
+    <string name="outlet_format">"Фомат торгової точки"</string>
+    <string name="locality">"Населений пункт"</string>
+    <string name="street">"Вулиця"</string>
+    <string name="house_number">"Номер будинку"</string>
 
     <!-- Result view -->
     <string name="connection_error">Сервер не відповідає</string>

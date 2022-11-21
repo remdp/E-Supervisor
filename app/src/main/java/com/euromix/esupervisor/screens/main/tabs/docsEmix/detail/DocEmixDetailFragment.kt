@@ -7,13 +7,15 @@ import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.enums.DocEmixOperationType
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.*
 import com.euromix.esupervisor.databinding.DialogReasonRejectionBinding
 import com.euromix.esupervisor.databinding.DocEmixDetailFragmentBinding
-import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.DocEmixDetailVPFragment
+import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.VPFragmentAdapter
 import com.euromix.esupervisor.screens.viewModelCreator
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -40,36 +42,49 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
 
         viewModel.docEmixDetail.observeResults(this, view, binding.vResult) { docEmixDetail ->
 
-            binding.iDocEmixDetailCard.tvDate.text =
-                with(docEmixDetail.date) { textDate(this, context) }
+            with(binding){
+                iDocEmixDetailCard.tvDate.text =
+                    with(docEmixDetail.date) { textDate(this, context) }
 
-            binding.iDocEmixDetailCard.tvNumber.text = docEmixDetail.number
-            binding.iDocEmixDetailCard.tvPartner.text = docEmixDetail.partner
-            //binding.iDocEmixDetailCard.tvStatus.text = docEmixDetail.status
-            binding.iDocEmixDetailCard.tvStatus.setNonStandartStatusText(docEmixDetail.status)
-            binding.iDocEmixDetailCard.tvStatus.setColorStatus(docEmixDetail.status)
-            binding.iDocEmixDetailCard.tvDescription.text = docEmixDetail.description
-            binding.iDocEmixDetailCard.tvOperationType.text = getString(docEmixDetail.operationType.nameStringRes())
-            binding.iDocEmixDetailCard.tvTradingAgent.text = docEmixDetail.tradingAgent
+                iDocEmixDetailCard.tvNumber.text = docEmixDetail.number
+                iDocEmixDetailCard.tvPartner.text = docEmixDetail.partner
+                iDocEmixDetailCard.tvStatus.setNonStandartStatusText(docEmixDetail.status)
+                iDocEmixDetailCard.tvStatus.setColorStatus(docEmixDetail.status)
+                iDocEmixDetailCard.tvDescription.text = docEmixDetail.description
+                iDocEmixDetailCard.tvOperationType.text = getString(docEmixDetail.operationType.nameStringRes())
+                iDocEmixDetailCard.tvTradingAgent.text = docEmixDetail.tradingAgent
 
-            if (docEmixDetail.canBeAgreed) {
-                binding.iDocEmixDetailCard.btnApprove.visible()
-                binding.iDocEmixDetailCard.btnReject.visible()
-            } else {
-                binding.iDocEmixDetailCard.btnApprove.gone()
-                binding.iDocEmixDetailCard.btnReject.gone()
+                if (docEmixDetail.canBeAgreed) {
+                    iDocEmixDetailCard.btnApprove.visible()
+                    iDocEmixDetailCard.btnReject.visible()
+                } else {
+                    iDocEmixDetailCard.btnApprove.gone()
+                    iDocEmixDetailCard.btnReject.gone()
+                }
+                setupViewPager(docEmixDetail)
             }
-            //docEmixDetail.rowTradeConditions?.let { insertNestedFragment(it) }
-            insertNestedFragment(docEmixDetail)
         }
-
     }
 
-    private fun insertNestedFragment(docEmixDetail: DocEmixDetail) {
+    private fun setupViewPager(docEmixDetail: DocEmixDetail) {
 
-        val childFragment = DocEmixDetailVPFragment.newInstance(docEmixDetail)
-        val transaction = childFragmentManager.beginTransaction()
-        transaction.replace(R.id.fCVRowsTradingCondition, childFragment).commit()
+        with(binding) {
+            vpTabs.adapter = VPFragmentAdapter(this@DocEmixDetailFragment, docEmixDetail)
+
+            if (docEmixDetail.operationType == DocEmixOperationType.NewPartnerFact){
+                TabLayoutMediator(tlTabs,vpTabs){tab, position ->
+
+                    tab.text = when(position){
+                        NEW_PARTNER_PAGE -> getString(R.string.new_partner_data)
+                        NEW_OUTLET_PAGE -> getString(R.string.new_outlet_data)
+                        else -> getString(R.string.in_developing)
+                    }
+                }.attach()
+            }
+            else{
+                tlTabs.gone()
+            }
+        }
     }
 
     private fun showInputReasonDialog() {
@@ -94,5 +109,10 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
             dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
             dialog.show()
         }
+    }
+
+    companion object {
+        const val NEW_PARTNER_PAGE = 0
+        const val NEW_OUTLET_PAGE = 1
     }
 }

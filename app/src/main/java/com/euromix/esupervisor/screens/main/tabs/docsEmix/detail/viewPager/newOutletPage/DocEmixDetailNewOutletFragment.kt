@@ -8,7 +8,6 @@ import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.databinding.DocEmixDetailNewOutletFragmentBinding
-import com.euromix.esupervisor.databinding.DocEmixDetailNewPartnerFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,8 +39,9 @@ class DocEmixDetailNewOutletFragment :
             }
         }
 
-        arguments?.let {
-            viewModel.setViewState(requireArguments()[VIEW_STATE] as ViewState)
+        arguments?.let { bundle ->
+            bundle.getParcelable(VIEW_STATE, ViewState::class.java)
+                ?.let { it -> viewModel.setViewState(it) }
         }
     }
 

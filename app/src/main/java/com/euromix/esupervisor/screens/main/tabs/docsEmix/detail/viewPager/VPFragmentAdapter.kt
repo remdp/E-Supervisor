@@ -5,6 +5,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
+import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.DocEmixDetailFragment
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOutletPage.DocEmixDetailNewOutletFragment
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newPartnerPage.DocEmixDetailNewPartnerFragment
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.tradeConditionPage.DocEmixDetailTradeConditionFragment
@@ -25,10 +26,10 @@ class VPFragmentAdapter(fragment: Fragment, val docEmixDetail: DocEmixDetail) :
             )
             DocEmixOperationType.NewPartnerFact -> {
                 when (position) {
-                    DocEmixDetailVPFragment.NEW_PARTNER_PAGE -> DocEmixDetailNewPartnerFragment.newInstance(
+                    DocEmixDetailFragment.NEW_PARTNER_PAGE -> DocEmixDetailNewPartnerFragment.newInstance(
                         docEmixDetail
                     )
-                    DocEmixDetailVPFragment.NEW_OUTLET_PAGE -> DocEmixDetailNewOutletFragment.newInstance(
+                    DocEmixDetailFragment.NEW_OUTLET_PAGE -> DocEmixDetailNewOutletFragment.newInstance(
                         docEmixDetail
                     )
                     else -> Fragment(R.layout.empty_fragment)

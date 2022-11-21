@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gdlnStart"
@@ -20,11 +20,18 @@
             app:layout_constraintGuide_begin="@dimen/margin_small" />
 
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gdlnH4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
+
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gdlnHCenter"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+            app:layout_constraintGuide_percent="0.37" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gdlnEnd"
@@ -47,40 +54,41 @@
 
         <TextView
             android:id="@+id/tvOutletNameLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
-            android:layout_marginEnd="@dimen/margin_small"
-            android:text="Outlet name"
+            android:text="@string/outlet_name"
             android:theme="@style/Table.SmallTitle"
             app:layout_constraintEnd_toStartOf="@+id/gdlnHCenter"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
             app:layout_constraintTop_toTopOf="@+id/vGreyBackground" />
 
         <TextView
             android:id="@+id/tvOutletName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorNileBlue"
             android:textSize="14sp"
             android:theme="@style/FormText"
             app:layout_constraintBottom_toBottomOf="@+id/tvOutletNameLabel"
+            app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
             app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
             tools:text="лоток бакалея" />
 
         <TextView
             android:id="@+id/tvInnerDSChannelLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
-            android:layout_marginEnd="@dimen/margin_small"
-            android:text="Institution type"
+            android:text="@string/institution_type"
             android:theme="@style/Table.SmallTitle"
-            app:layout_constraintEnd_toStartOf="@+id/gdlnHCenter"
+            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
             app:layout_constraintTop_toBottomOf="@+id/tvOutletNameLabel" />
 
         <TextView
             android:id="@+id/tvInstitutionType"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorNileBlue"
             android:textSize="14sp"
@@ -91,13 +99,12 @@
 
         <TextView
             android:id="@+id/tvInstitutionNumberLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
-            android:layout_marginEnd="@dimen/margin_small"
-            android:text="Institution number"
+            android:text="@string/institution_number"
             android:theme="@style/Table.SmallTitle"
-            app:layout_constraintEnd_toStartOf="@+id/gdlnHCenter"
+            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
             app:layout_constraintTop_toBottomOf="@+id/tvInnerDSChannelLabel" />
 
         <TextView
@@ -113,82 +120,81 @@
 
         <TextView
             android:id="@+id/tvGeneralOutletLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
-            android:layout_marginEnd="@dimen/margin_small"
-            android:text="General outlet"
+            android:text="@string/general_outlet"
             android:theme="@style/Table.SmallTitle"
-            app:layout_constraintEnd_toStartOf="@+id/gdlnHCenter"
+            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
             app:layout_constraintTop_toBottomOf="@+id/tvInstitutionNumberLabel" />
 
         <TextView
             android:id="@+id/tvGeneralOutlet"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorNileBlue"
             android:textSize="14sp"
             android:theme="@style/FormText"
             app:layout_constraintBottom_toBottomOf="@+id/tvGeneralOutletLabel"
             app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
+            app:layout_constraintEnd_toEndOf="@id/vGreyBackground"
             tools:text="Рынок Новый, Точка на рынке Контейнер, 430" />
 
         <TextView
             android:id="@+id/tvNewGeneralOutletLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
-            android:layout_marginEnd="@dimen/margin_small"
-            android:text="New general outlet"
+            android:text="@string/new_general_outlet"
             android:theme="@style/Table.SmallTitle"
             app:layout_constraintEnd_toStartOf="@+id/gdlnHCenter"
-            app:layout_constraintTop_toBottomOf="@+id/tvGeneralOutletLabel" />
+            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
+            app:layout_constraintTop_toBottomOf="@+id/tvGeneralOutletLabel"
+            tools:text="Нова загальна торгова точка" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/swNewGeneralOutlet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             app:layout_constraintBottom_toBottomOf="@+id/tvNewGeneralOutletLabel"
             app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
             app:layout_constraintTop_toTopOf="@+id/tvNewGeneralOutletLabel" />
 
         <TextView
             android:id="@+id/tvOutletFormatLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
-            android:layout_marginEnd="@dimen/margin_small"
-            android:text="Outlet format"
+            android:text="@string/outlet_format"
             android:theme="@style/Table.SmallTitle"
-            app:layout_constraintEnd_toStartOf="@+id/gdlnHCenter"
+            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
             app:layout_constraintTop_toBottomOf="@+id/tvNewGeneralOutletLabel" />
 
         <TextView
             android:id="@+id/tvOutletFormat"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorNileBlue"
             android:textSize="14sp"
             android:theme="@style/FormText"
             app:layout_constraintBottom_toBottomOf="@+id/tvOutletFormatLabel"
+            app:layout_constraintEnd_toEndOf="@id/vGreyBackground"
             app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
             tools:text="МАФ (киоск/павильон/ларек)" />
 
         <TextView
             android:id="@+id/tvLocalityLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
-            android:layout_marginEnd="@dimen/margin_small"
-            android:text="Locality"
+            android:text="@string/locality"
             android:theme="@style/Table.SmallTitle"
-            app:layout_constraintEnd_toStartOf="@+id/gdlnHCenter"
+            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
             app:layout_constraintTop_toBottomOf="@+id/tvOutletFormatLabel" />
 
         <TextView
             android:id="@+id/tvLocality"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorNileBlue"
             android:textSize="14sp"
@@ -199,18 +205,17 @@
 
         <TextView
             android:id="@+id/tvStreetLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
-            android:layout_marginEnd="@dimen/margin_small"
-            android:text="Street"
+            android:text="@string/street"
             android:theme="@style/Table.SmallTitle"
-            app:layout_constraintEnd_toStartOf="@+id/gdlnHCenter"
+            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
             app:layout_constraintTop_toBottomOf="@+id/tvLocalityLabel" />
 
         <TextView
             android:id="@+id/tvStreet"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorNileBlue"
             android:textSize="14sp"
@@ -221,20 +226,19 @@
 
         <TextView
             android:id="@+id/tvHouseNumberLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
-            android:layout_marginEnd="@dimen/margin_small"
             android:layout_marginBottom="@dimen/margin_small"
-            android:text="House number"
+            android:text="@string/house_number"
             android:theme="@style/Table.SmallTitle"
-            app:layout_constraintEnd_toStartOf="@+id/gdlnHCenter"
-            app:layout_constraintTop_toBottomOf="@+id/tvStreetLabel"
-            app:layout_constraintBottom_toBottomOf="@+id/vGreyBackground"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
+            app:layout_constraintTop_toBottomOf="@+id/tvStreetLabel" />
 
         <TextView
             android:id="@+id/tvHouseNumber"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorNileBlue"
             android:textSize="14sp"

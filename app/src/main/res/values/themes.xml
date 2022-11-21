@@ -18,6 +18,11 @@
         <item name="textInputStyle">@style/GlobalTextInputStyle</item>
         <item name="materialButtonStyle">@style/GlobalButtonStyle</item>
     </style>
+    
+    <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
 
     <style name="GlobalButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="android:textAllCaps">false</item>
