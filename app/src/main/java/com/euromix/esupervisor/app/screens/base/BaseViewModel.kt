@@ -12,8 +12,10 @@ import com.euromix.esupervisor.app.utils.share
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-open class BaseViewModel (val accountRepository: AccountRepository) :
+open class BaseViewModel (val accountRepository: AccountRepository?) :
     ViewModel() {
+
+    constructor() : this(null)
 
    private val _showErrorMessageResEvent = MutableLiveEvent<Int>()
     val showErrorMessageResEvent = _showErrorMessageResEvent.share()
@@ -58,7 +60,7 @@ open class BaseViewModel (val accountRepository: AccountRepository) :
     }
 
     fun logout() {
-        accountRepository.logout()
+        accountRepository?.logout()
     }
 
 }

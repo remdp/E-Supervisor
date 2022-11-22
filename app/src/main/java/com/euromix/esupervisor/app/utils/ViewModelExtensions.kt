@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
-import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.Result
+import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.views.ResultView
 
@@ -49,3 +49,4 @@ fun <T> LiveData<Result<T>>.observeResults(
 
     }
 }
+

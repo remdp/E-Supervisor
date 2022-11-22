@@ -8,9 +8,9 @@ import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.databinding.DocEmixDetailNewPartnerFragmentBinding
+import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOutletPage.DocEmixDetailNewOutletFragment
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class DocEmixDetailNewPartnerFragment :
     BaseFragment(R.layout.doc_emix_detail_new_partner_fragment) {
 
@@ -32,17 +32,15 @@ class DocEmixDetailNewPartnerFragment :
             }
         }
 
-        arguments?.let { bundle ->
-            bundle.getParcelable(VIEW_STATE, ViewState::class.java)
-                ?.let { it -> viewModel.setViewState(it) }
-        }
+        viewModel.setViewState(arguments?.get(VIEW_STATE) as ViewState)
+
     }
 
     companion object {
         fun newInstance(docEmixDetail: DocEmixDetail): DocEmixDetailNewPartnerFragment =
-            DocEmixDetailNewPartnerFragment().also { fragment ->
+            DocEmixDetailNewPartnerFragment().apply {
 
-                fragment.arguments = bundleOf(
+                arguments = bundleOf(
                     VIEW_STATE to ViewState(
                         docEmixDetail.workingName,
                         docEmixDetail.innerDistributionChannel,
@@ -54,3 +52,5 @@ class DocEmixDetailNewPartnerFragment :
         private const val VIEW_STATE = "view_state"
     }
 }
+
+

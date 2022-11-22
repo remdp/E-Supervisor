@@ -2,7 +2,7 @@ package com.euromix.esupervisor.app.model.docEmix.entities
 
 import android.os.Parcelable
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
 @Parcelize

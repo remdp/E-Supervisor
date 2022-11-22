@@ -73,6 +73,7 @@
             android:theme="@style/FormText"
             app:layout_constraintBottom_toBottomOf="@+id/tvOutletNameLabel"
             app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
+            app:layout_constraintTop_toTopOf="@+id/tvOutletNameLabel"
             tools:text="Клімова Л.А." />
 
         <TextView
@@ -95,6 +96,7 @@
             android:theme="@style/FormText"
             app:layout_constraintBottom_toBottomOf="@+id/tvInnerDSChannelLabel"
             app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
+            app:layout_constraintTop_toTopOf="@+id/tvInnerDSChannelLabel"
             tools:text="ТТ" />
 
         <TextView
@@ -119,6 +121,7 @@
             android:theme="@style/FormText"
             app:layout_constraintBottom_toBottomOf="@+id/tvInstitutionNumberLabel"
             app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
+            app:layout_constraintTop_toTopOf="@+id/tvInstitutionNumberLabel"
             tools:text="2524711908" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

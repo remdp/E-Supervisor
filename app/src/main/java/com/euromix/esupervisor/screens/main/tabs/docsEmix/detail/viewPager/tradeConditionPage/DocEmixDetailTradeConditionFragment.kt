@@ -11,9 +11,10 @@ import com.euromix.esupervisor.app.model.docEmix.entities.RowTradeCondition
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.databinding.DocEmixDetailTradeConditionFragmentBinding
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.DocEmixDetailAdapter
+import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOutletPage.DocEmixDetailNewOutletFragment
+import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOutletPage.ViewState
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class DocEmixDetailTradeConditionFragment() :
     BaseFragment(R.layout.doc_emix_detail_trade_condition_fragment) {
 
@@ -45,10 +46,7 @@ class DocEmixDetailTradeConditionFragment() :
             adapter.submitList(it)
         }
 
-        arguments?.let { bundle ->
-            bundle.getParcelableArrayList(ROWS, RowTradeCondition::class.java)
-                ?.let { viewModel.setRowsTradeConditions(it) }
-        }
+        viewModel.setRowsTradeConditions(arguments?.get(ROWS) as List<RowTradeCondition>)
     }
 
     companion object {

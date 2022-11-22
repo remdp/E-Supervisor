@@ -2,16 +2,11 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newO
 
 import android.os.Parcelable
 import androidx.lifecycle.MutableLiveData
-import com.euromix.esupervisor.app.model.accounts.AccountRepository
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.share
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.android.parcel.Parcelize
-import javax.inject.Inject
+import kotlinx.parcelize.Parcelize
 
-@HiltViewModel
-class DocEmixDetailNewOutletViewModel @Inject constructor(accountRepository: AccountRepository) :
-    BaseViewModel(accountRepository) {
+class DocEmixDetailNewOutletViewModel : BaseViewModel() {
 
     private val _viewState = MutableLiveData<ViewState>()
     val viewState = _viewState.share()

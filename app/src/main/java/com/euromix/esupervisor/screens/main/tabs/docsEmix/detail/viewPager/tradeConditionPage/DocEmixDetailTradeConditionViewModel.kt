@@ -8,9 +8,7 @@ import com.euromix.esupervisor.app.utils.share
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@HiltViewModel
-class DocEmixDetailTradeConditionViewModel @Inject constructor(accountRepository: AccountRepository) :
-    BaseViewModel(accountRepository) {
+class DocEmixDetailTradeConditionViewModel: BaseViewModel() {
 
     private val _rowsTradeConditions = MutableLiveData<List<RowTradeCondition>>()
     val rowsTradeConditions = _rowsTradeConditions.share()

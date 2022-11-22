@@ -31,12 +31,6 @@ class DocEmixDetailViewModel @AssistedInject constructor(
                 _docEmixChangeTCDetail.value = result
             }
         }
-
-//        viewModelScope.launch {
-//            docEmixDetailRepository.getDocEmixDetail(extId).collect { result ->
-//                _docEmixDetail.value = result
-//            }
-//        }
     }
 
     fun acceptDocEmixDetail() {
@@ -65,5 +59,4 @@ class DocEmixDetailViewModel @AssistedInject constructor(
     interface Factory {
         fun create(extId: String): DocEmixDetailViewModel
     }
-
 }

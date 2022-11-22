@@ -29,7 +29,7 @@ class SignInViewModel @Inject constructor(
     fun signIn(userName: String, password: String) = viewModelScope.launch {
         showProgress()
         try {
-            accountRepository.signIn(userName, password)
+            accountRepository?.signIn(userName, password)
             launchTabsScreen()
         } catch (e: EmptyFieldException) {
             processEmptyFieldException(e)
