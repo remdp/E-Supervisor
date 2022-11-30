@@ -47,6 +47,7 @@
     <string name="new_partner_fact">New partner fact</string>
     <string name="new_partner_data">New partner data</string>
     <string name="new_outlet_data">New outlet data</string>
+    <string name="tc_data">Trade condition</string>
     <string name="outlet_name">"Outlet name"</string>
     <string name="institution_type">"Institution type"</string>
     <string name="institution_number">"Institution number"</string>

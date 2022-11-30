@@ -14,7 +14,7 @@ class VPFragmentAdapter(fragment: Fragment, val docEmixDetail: DocEmixDetail) :
     FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {
         return if (docEmixDetail.operationType == DocEmixOperationType.ChangeTC) 1
-        else 2
+        else 3
     }
 
     override fun createFragment(position: Int): Fragment {
@@ -31,6 +31,9 @@ class VPFragmentAdapter(fragment: Fragment, val docEmixDetail: DocEmixDetail) :
                     )
                     DocEmixDetailFragment.NEW_OUTLET_PAGE -> DocEmixDetailNewOutletFragment.newInstance(
                         docEmixDetail
+                    )
+                    DocEmixDetailFragment.TC_PAGE -> DocEmixDetailTradeConditionFragment.newInstance(
+                        docEmixDetail.rowTradeConditions
                     )
                     else -> Fragment(R.layout.empty_fragment)
                 }

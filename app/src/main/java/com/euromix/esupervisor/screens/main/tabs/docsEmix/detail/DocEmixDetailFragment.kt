@@ -77,6 +77,7 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                     tab.text = when(position){
                         NEW_PARTNER_PAGE -> getString(R.string.new_partner_data)
                         NEW_OUTLET_PAGE -> getString(R.string.new_outlet_data)
+                        TC_PAGE -> getString(R.string.tc_data)
                         else -> getString(R.string.in_developing)
                     }
                 }.attach()
@@ -114,5 +115,6 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
     companion object {
         const val NEW_PARTNER_PAGE = 0
         const val NEW_OUTLET_PAGE = 1
+        const val TC_PAGE = 2
     }
 }

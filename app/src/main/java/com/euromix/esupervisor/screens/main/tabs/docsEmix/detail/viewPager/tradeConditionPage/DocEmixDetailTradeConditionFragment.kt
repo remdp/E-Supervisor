@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.docEmix.entities.RowTradeCondition
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.parcelable
 import com.euromix.esupervisor.databinding.DocEmixDetailTradeConditionFragmentBinding
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.DocEmixDetailAdapter
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOutletPage.DocEmixDetailNewOutletFragment
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOutletPage.ViewState
+import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newPartnerPage.DocEmixDetailNewPartnerFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 class DocEmixDetailTradeConditionFragment() :
@@ -46,7 +48,8 @@ class DocEmixDetailTradeConditionFragment() :
             adapter.submitList(it)
         }
 
-        viewModel.setRowsTradeConditions(arguments?.get(ROWS) as List<RowTradeCondition>)
+        arguments?.parcelable<List<RowTradeCondition>>(ROWS)
+            ?.let { viewModel.setRowsTradeConditions(it) }
     }
 
     companion object {

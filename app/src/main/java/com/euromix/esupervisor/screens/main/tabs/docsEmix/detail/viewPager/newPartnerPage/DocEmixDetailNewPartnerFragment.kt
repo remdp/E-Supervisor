@@ -1,5 +1,6 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newPartnerPage
 
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
@@ -7,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.parcelable
 import com.euromix.esupervisor.databinding.DocEmixDetailNewPartnerFragmentBinding
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOutletPage.DocEmixDetailNewOutletFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +34,7 @@ class DocEmixDetailNewPartnerFragment :
             }
         }
 
-        viewModel.setViewState(arguments?.get(VIEW_STATE) as ViewState)
+        arguments?.parcelable<ViewState>(VIEW_STATE)?.let { viewModel.setViewState(it) }
 
     }
 
@@ -52,5 +54,4 @@ class DocEmixDetailNewPartnerFragment :
         private const val VIEW_STATE = "view_state"
     }
 }
-
 

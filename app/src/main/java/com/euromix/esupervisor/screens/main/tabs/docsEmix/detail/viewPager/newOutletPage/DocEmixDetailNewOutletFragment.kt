@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.parcelable
 import com.euromix.esupervisor.databinding.DocEmixDetailNewOutletFragmentBinding
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newPartnerPage.DocEmixDetailNewPartnerFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +40,7 @@ class DocEmixDetailNewOutletFragment :
             }
         }
 
-        viewModel.setViewState(arguments?.get(VIEW_STATE) as ViewState)
+        arguments?.parcelable<ViewState>(VIEW_STATE)?.let { viewModel.setViewState(it) }
 
     }
 

@@ -45,6 +45,7 @@
     <string name="new_partner_fact">Новий клієнт (факт)</string>
     <string name="new_partner_data">Дані нового контрагента</string>
     <string name="new_outlet_data">Дані нової торгової точки</string>
+    <string name="tc_data">Торгові умови</string>
     <string name="outlet_name">"Найменування торгової точки"</string>
     <string name="institution_type">"Тип закладу"</string>
     <string name="institution_number">"Номер закладу"</string>
