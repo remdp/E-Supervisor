@@ -16,6 +16,7 @@ data class DocEmixDetail(
     val partner: String,
     val status: String,
     val canBeAgreed: Boolean,
+    val sum: Float?,
     //new partner data
     val workingName: String?,
     val innerDistributionChannel: String?,
@@ -30,7 +31,9 @@ data class DocEmixDetail(
     val locality: String?,
     val street: String?,
     val houseNumber: String?,
-    val rowTradeConditions: List<RowTradeCondition>?
+    val rowsTradeConditions: List<RowTradeCondition>?,
+    val rowsReturnRequest: List<RowReturnRequest>?,
+    val picturesPaths: List<PicturesPaths>?
 ):Parcelable
 
 
@@ -42,3 +45,20 @@ data class RowTradeCondition(
     val paymentDeferment: Int,
     val distributionChannel: String
 ):Parcelable
+
+@Parcelize
+data class RowReturnRequest(
+    val row: Int,
+    val goods: String,
+    val series: String,
+    val amount: Float,
+    val unit: String,
+    val price: Float,
+    val sum: Float,
+    val base: String
+):Parcelable
+
+@Parcelize
+data class PicturesPaths(
+    val path: String
+): Parcelable

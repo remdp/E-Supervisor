@@ -14,7 +14,8 @@ data class DocsEmixResponseEntity(
     @field:Json(name = "trading_agent") val tradingAgent: String?,
     @field:Json(name = "operation_type") val operationType: String?,
     val partner: String,
-    val status: String
+    val status: String,
+    val sum: Float?
 ) {
 
     fun toDocEmix(): DocEmix = DocEmix(
@@ -27,7 +28,8 @@ data class DocsEmixResponseEntity(
         tradingAgent = tradingAgent,
         operationType = operationType,
         partner = partner,
-        status = status
+        status = status,
+        sum = sum
     )
 
 }

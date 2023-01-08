@@ -65,6 +65,8 @@ class DocsEmixAdapter(
             tvPartner.text = docEmix.partner
             tvOperationType.text = docEmix.operationType
             tvTradingAgent.text = docEmix.tradingAgent
+            tvSum.text = (docEmix.sum ?: "").toString()
+           // tvSum.text = if (docEmix.sum == null) "" else docEmix.sum.toString()
 
         }
     }

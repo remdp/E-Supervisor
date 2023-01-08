@@ -6,9 +6,14 @@
     <string name="undefined">Не визначене</string>
 
     <string name="partner">Контрагент</string>
+    <string name="partner_sum">Контрагент\nСума</string>
     <string name="trading_agent">Торговий агент</string>
     <string name="operation_type">Тип операції</string>
     <string name="comment">Коментар</string>
+    <string name="amount">Кількість</string>
+    <string name="price">Ціна</string>
+    <string name="sum">Сума</string>
+    <string name="base">Документ підстава</string>
 
     <string name="day_month_year_date_format" formatted="false" translatable="false">dd MMM yyyy</string>
 
@@ -43,8 +48,11 @@
     <string name="edrpou">ЕГРПОУ</string>
     <string name="change_tc">Зміна ТУ</string>
     <string name="new_partner_fact">Новий клієнт (факт)</string>
+    <string name="picture_number">Мал %1$s</string>
+    <string name="trade_condition">Торгові умови</string>
     <string name="new_partner_data">Дані нового контрагента</string>
     <string name="new_outlet_data">Дані нової торгової точки</string>
+    <string name="return_request">Заявка на повернення</string>
     <string name="tc_data">Торгові умови</string>
     <string name="outlet_name">"Найменування торгової точки"</string>
     <string name="institution_type">"Тип закладу"</string>
@@ -55,6 +63,9 @@
     <string name="locality">"Населений пункт"</string>
     <string name="street">"Вулиця"</string>
     <string name="house_number">"Номер будинку"</string>
+    <string name="goods">"Товар"</string>
+    <string name="series">"Серія"</string>
+    <string name="unit">"Од. виміру"</string>
 
     <!-- Result view -->
     <string name="connection_error">Сервер не відповідає</string>

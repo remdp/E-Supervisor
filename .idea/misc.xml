@@ -41,6 +41,7 @@
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_detail_fragment.xml" value="0.4533446953557733" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_detail_new_outlet_fragment.xml" value="0.5541666666666667" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_detail_new_partner_fragment.xml" value="0.553125" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_detail_return_request_fragment.xml" value="0.553125" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_detail_trade_condition_fragment.xml" value="0.553125" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_detail_vp_fragment.xml" value="0.41484375" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/doc_emix_details.xml" value="0.47291666666666665" />
@@ -48,6 +49,7 @@
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/docs_emix_detail.xml" value="0.4203125" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/docs_emix_list.xml" value="0.4203125" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/empty_fragment.xml" value="0.5541666666666667" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_photo.xml" value="0.553125" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_profile.xml" value="0.5541666666666667" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_profile_.xml" value="0.553125" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_profile_and_settings.xml" value="0.33" />
@@ -57,12 +59,15 @@
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/fragment_tabs.xml" value="0.4860994102780118" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_doc_emix.xml" value="0.25" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_doc_emix_del.xml" value="0.31354166666666666" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_doc_emix_detail_return_request_header.xml" value="0.553125" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_doc_emix_detail_trade_condition_header.xml" value="0.5541666666666667" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_doc_emix_list_fragment.xml" value="0.67" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_docs_emix_header.xml" value="0.553125" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_invoice_product_header.xml" value="0.5541666666666667" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_row_doc_emix.xml" value="0.5541666666666667" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/item_row_return_request.xml" value="0.45384615384615384" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/part_result_view.xml" value="0.4161458333333333" />
+        <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/photo_fragment.xml" value="0.33125" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/test.xml" value="0.553125" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/testsignin.xml" value="0.48802083333333335" />
         <entry key="..\:/repo/ESupervisor/app/src/main/res/layout/view_result.xml" value="0.4161458333333333" />

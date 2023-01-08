@@ -10,19 +10,23 @@ enum class DocEmixOperationType {
     NewPartnerFact {
         override fun nameStringRes(): Int = R.string.new_partner_fact
     },
+    ReturnRequest {
+        override fun nameStringRes(): Int = R.string.return_request
+    },
     Undefined {
         override fun nameStringRes(): Int = R.string.undefined
     };
 
     abstract fun nameStringRes(): Int
 
-    companion object{
+    companion object {
 
         fun getByIndex(index: Int): DocEmixOperationType {
 
             return when (index) {
                 0 -> ChangeTC
                 1 -> NewPartnerFact
+                2 -> ReturnRequest
                 else -> Undefined
             }
         }

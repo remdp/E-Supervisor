@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
@@ -22,7 +23,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
 
-    @Inject lateinit var factory: DocEmixDetailViewModel.Factory
+    @Inject
+    lateinit var factory: DocEmixDetailViewModel.Factory
 
     override val viewModel by viewModelCreator { factory.create(args.extId) }
 
@@ -42,7 +44,7 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
 
         viewModel.docEmixDetail.observeResults(this, view, binding.vResult) { docEmixDetail ->
 
-            with(binding){
+            with(binding) {
                 iDocEmixDetailCard.tvDate.text =
                     with(docEmixDetail.date) { textDate(this, context) }
 
@@ -51,7 +53,8 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                 iDocEmixDetailCard.tvStatus.setNonStandartStatusText(docEmixDetail.status)
                 iDocEmixDetailCard.tvStatus.setColorStatus(docEmixDetail.status)
                 iDocEmixDetailCard.tvDescription.text = docEmixDetail.description
-                iDocEmixDetailCard.tvOperationType.text = getString(docEmixDetail.operationType.nameStringRes())
+                iDocEmixDetailCard.tvOperationType.text =
+                    getString(docEmixDetail.operationType.nameStringRes())
                 iDocEmixDetailCard.tvTradingAgent.text = docEmixDetail.tradingAgent
 
                 if (docEmixDetail.canBeAgreed) {
@@ -61,6 +64,13 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                     iDocEmixDetailCard.btnApprove.gone()
                     iDocEmixDetailCard.btnReject.gone()
                 }
+
+                if (docEmixDetail.operationType == DocEmixOperationType.ReturnRequest) {
+                    iDocEmixDetailCard.tvSum.text = docEmixDetail.sum.toString()
+                    iDocEmixDetailCard.tvSumLabel.visible()
+                    iDocEmixDetailCard.tvSum.visible()
+                }
+
                 setupViewPager(docEmixDetail)
             }
         }
@@ -71,18 +81,50 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
         with(binding) {
             vpTabs.adapter = VPFragmentAdapter(this@DocEmixDetailFragment, docEmixDetail)
 
-            if (docEmixDetail.operationType == DocEmixOperationType.NewPartnerFact){
-                TabLayoutMediator(tlTabs,vpTabs){tab, position ->
+            if (docEmixDetail.operationType == DocEmixOperationType.NewPartnerFact || (docEmixDetail.picturesPaths?.size
+                    ?: 0) > 0
+            ) {
+                TabLayoutMediator(tlTabs, vpTabs) { tab, position ->
 
-                    tab.text = when(position){
-                        NEW_PARTNER_PAGE -> getString(R.string.new_partner_data)
-                        NEW_OUTLET_PAGE -> getString(R.string.new_outlet_data)
-                        TC_PAGE -> getString(R.string.tc_data)
-                        else -> getString(R.string.in_developing)
+                    when (docEmixDetail.operationType) {
+
+                        DocEmixOperationType.ChangeTC -> {
+
+                            tab.text = when (position) {
+                                CHANGE_TC_PAGE -> getString(R.string.trade_condition)
+                                else -> getString(
+                                    R.string.picture_number,
+                                    position + 1 - VPFragmentAdapter.CHANGE_TC_FRAGMENTS_COUNT
+                                )
+                            }
+                        }
+                        DocEmixOperationType.NewPartnerFact -> {
+
+                            tab.text = when (position) {
+                                NEW_PARTNER_PAGE -> getString(R.string.new_partner_data)
+                                NEW_OUTLET_PAGE -> getString(R.string.new_outlet_data)
+                                TC_PAGE -> getString(R.string.tc_data)
+                                else -> getString(
+                                    R.string.picture_number,
+                                    position + 1 - VPFragmentAdapter.NEW_PARTNER_FACT_FRAGMENTS_COUNT
+                                )
+
+                            }
+                        }
+                        DocEmixOperationType.ReturnRequest -> {
+
+                            tab.text = when (position) {
+                                RETURN_REQUEST_PAGE -> getString(R.string.goods)
+                                else -> getString(
+                                    R.string.picture_number,
+                                    position + 1 - VPFragmentAdapter.RETURN_REQUEST_FRAGMENTS_COUNT
+                                )
+                            }
+                        }
+                        else -> {}
                     }
                 }.attach()
-            }
-            else{
+            } else {
                 tlTabs.gone()
             }
         }
@@ -113,8 +155,10 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
     }
 
     companion object {
+        const val CHANGE_TC_PAGE = 0
         const val NEW_PARTNER_PAGE = 0
         const val NEW_OUTLET_PAGE = 1
         const val TC_PAGE = 2
+        const val RETURN_REQUEST_PAGE = 0
     }
 }

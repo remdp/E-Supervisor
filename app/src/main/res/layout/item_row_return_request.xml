@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/docEmixRowReturnRequest"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/margin_small">
+
+    <TextView
+        android:id="@+id/tvGoods"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small"
+        android:textColor="@color/colorPrimary"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toTopOf="@+id/tvSeries"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/det_rr_goods_width_percent"
+        tools:text="Тістечко бісквітне Лавіто 1,2 кг" />
+
+    <TextView
+        android:id="@+id/tvSeries"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGoods"
+        app:layout_constraintWidth_percent="@dimen/det_rr_goods_width_percent"
+        tools:text="00-00009237, 4820180813131" />
+
+    <TextView
+        android:id="@+id/tvAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toTopOf="@+id/tvUnit"
+        app:layout_constraintStart_toEndOf="@+id/tvGoods"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/det_rr_amount_width_percent"
+        tools:text="0,247" />
+
+    <TextView
+        android:id="@+id/tvUnit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvGoods"
+        app:layout_constraintTop_toBottomOf="@+id/tvAmount"
+        app:layout_constraintWidth_percent="@dimen/det_rr_amount_width_percent"
+        tools:text="ящ" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toTopOf="@+id/tvSum"
+        app:layout_constraintStart_toEndOf="@+id/tvAmount"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/det_rr_price_width_percent"
+        tools:text="213,53" />
+
+    <TextView
+        android:id="@+id/tvSum"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvAmount"
+        app:layout_constraintTop_toBottomOf="@+id/tvPrice"
+        app:layout_constraintWidth_percent="@dimen/det_rr_price_width_percent"
+        tools:text="52,74" />
+
+    <TextView
+        android:id="@+id/tvBase"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small"
+        android:theme="@style/Label.SmallTitle"
+        android:layout_marginStart="@dimen/margin_nearly_little"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvPrice"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/det_rr_base_width_percent"
+        tools:text="Реализация товаров V2 DP_00000032138 от 11.10.2022 18:12:40" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

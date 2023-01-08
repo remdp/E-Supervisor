@@ -11,11 +11,6 @@ import com.euromix.esupervisor.app.model.docEmix.entities.RowTradeCondition
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.parcelable
 import com.euromix.esupervisor.databinding.DocEmixDetailTradeConditionFragmentBinding
-import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.DocEmixDetailAdapter
-import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOutletPage.DocEmixDetailNewOutletFragment
-import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOutletPage.ViewState
-import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newPartnerPage.DocEmixDetailNewPartnerFragment
-import dagger.hilt.android.AndroidEntryPoint
 
 class DocEmixDetailTradeConditionFragment() :
     BaseFragment(R.layout.doc_emix_detail_trade_condition_fragment) {
@@ -28,7 +23,7 @@ class DocEmixDetailTradeConditionFragment() :
         super.onViewCreated(view, savedInstanceState)
 
         binding = DocEmixDetailTradeConditionFragmentBinding.bind(view)
-        val adapter = DocEmixDetailAdapter()
+        val adapter = DocEmixDetailTradeConditionAdapter()
         binding.rvRowsTradeCondition.adapter = adapter
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

@@ -87,12 +87,26 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorOuterSpace"
         android:theme="@style/Table.SmallTitle"
+        android:paddingHorizontal="@dimen/margin_little"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tvTradingAgent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:layout_constraintWidth_percent="@dimen/doc_emix_partner"
         tools:text="Palma Group Companies Palma Group Companies" />
-
+    <TextView
+        android:id="@+id/tvSum"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorOuterSpace"
+        android:theme="@style/Table.SmallTitle"
+        android:layout_marginTop="@dimen/margin_little"
+        android:paddingHorizontal="@dimen/margin_little"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvTradingAgent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPartner"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="@dimen/doc_emix_partner"
+        tools:text="2554.54" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,7 +33,7 @@
         android:id="@+id/tvPartner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/partner"
+        android:text="@string/partner_sum"
         android:theme="@style/Label.SmallTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvTradingAgentOperationType"

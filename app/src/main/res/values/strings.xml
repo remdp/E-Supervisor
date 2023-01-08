@@ -5,10 +5,14 @@
     <string name="undefined">Undefined</string>
 
     <string name="partner">Partner</string>
+    <string name="partner_sum">Partner\nSum</string>
     <string name="trading_agent">Trading agent</string>
     <string name="operation_type">Type of operation</string>
     <string name="comment">Comment</string>
-
+    <string name="amount">Amount</string>
+    <string name="price">Price</string>
+    <string name="sum">Sum</string>
+    <string name="base">Base</string>
 
     <string name="day_month_year_date_format" formatted="false">dd MMM yyyy</string>
 
@@ -45,8 +49,11 @@
     <string name="edrpou">EDRPOU</string>
     <string name="change_tc">Change TC</string>
     <string name="new_partner_fact">New partner fact</string>
+    <string name="picture_number">Pic %1$s</string>
+    <string name="trade_condition">Trade condition</string>
     <string name="new_partner_data">New partner data</string>
     <string name="new_outlet_data">New outlet data</string>
+    <string name="return_request">Return request</string>
     <string name="tc_data">Trade condition</string>
     <string name="outlet_name">"Outlet name"</string>
     <string name="institution_type">"Institution type"</string>
@@ -57,6 +64,10 @@
     <string name="locality">"Locality"</string>
     <string name="street">"Street"</string>
     <string name="house_number">"House number"</string>
+    <string name="goods">"Goods"</string>
+    <string name="series">"Series"</string>
+    <string name="unit">"Unit"</string>
+
 
     <!-- Result view -->
     <string name="connection_error">Connection timeout</string>

@@ -113,5 +113,11 @@
     <dimen name="doc_emix_trading_agent_operation_type">0.35</dimen>
     <dimen name="doc_emix_partner">0.35</dimen>
 
+    <!-- Doc emix detail return request items percent -->
+    <dimen name="det_rr_goods_width_percent">0.37</dimen>
+    <dimen name="det_rr_amount_width_percent">0.14</dimen>
+    <dimen name="det_rr_price_width_percent">0.14</dimen>
+    <dimen name="det_rr_base_width_percent">0.35</dimen>
+
     >
 </resources>

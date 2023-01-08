@@ -13,5 +13,6 @@ data class DocEmix(
     val tradingAgent: String?,
     val operationType: String?,
     val partner: String,
-    val status: String
+    val status: String,
+    val sum: Float?
 )

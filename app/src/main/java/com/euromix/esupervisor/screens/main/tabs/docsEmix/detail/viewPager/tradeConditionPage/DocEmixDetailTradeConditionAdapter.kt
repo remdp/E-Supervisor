@@ -1,18 +1,17 @@
-package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail
+package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.tradeConditionPage
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.docEmix.entities.RowTradeCondition
-import com.euromix.esupervisor.app.utils.async.LazyFlowSubject
 import com.euromix.esupervisor.databinding.ItemRowDocEmixBinding
 
-class DocEmixDetailAdapter :
-    ListAdapter<RowTradeCondition, DocEmixDetailAdapter.DocEmixDetailViewHolder>(ACTION_COMPARATOR) {
+class DocEmixDetailTradeConditionAdapter :
+    ListAdapter<RowTradeCondition, DocEmixDetailTradeConditionAdapter.DocEmixDetailViewHolder>(
+        ACTION_COMPARATOR
+    ) {
 
     companion object {
         private val ACTION_COMPARATOR = object :
@@ -36,15 +35,6 @@ class DocEmixDetailAdapter :
 
     override fun onBindViewHolder(holder: DocEmixDetailViewHolder, position: Int) {
         holder.bind(getItem(position))
-        val rowTradeCondition = (getItem(position))
-
-        with(holder.binding) {
-            tvManufacturer.text = rowTradeCondition.manufacturer
-            tvPriceIndex.text = rowTradeCondition.priceIndex.toString()
-            tvPaymentDeferment.text = rowTradeCondition.paymentDeferment.toString()
-            tvDistributionChannel.text = rowTradeCondition.distributionChannel
-        }
-
     }
 
     inner class DocEmixDetailViewHolder(val binding: ItemRowDocEmixBinding) :

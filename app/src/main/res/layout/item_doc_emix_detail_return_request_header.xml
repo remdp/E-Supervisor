@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvGoods"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/goods"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toTopOf="@+id/tvSeries"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/det_rr_goods_width_percent"
+        tools:text="Goods" />
+
+    <TextView
+        android:id="@+id/tvSeries"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/series"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGoods"
+        app:layout_constraintWidth_percent="@dimen/det_rr_goods_width_percent"
+        tools:text="Series" />
+
+    <TextView
+        android:id="@+id/tvAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/amount"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toTopOf="@+id/tvUnit"
+        app:layout_constraintStart_toEndOf="@+id/tvGoods"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/det_rr_amount_width_percent"
+        tools:text="Amount" />
+
+    <TextView
+        android:id="@+id/tvUnit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/unit"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvGoods"
+        app:layout_constraintTop_toBottomOf="@+id/tvAmount"
+        app:layout_constraintWidth_percent="@dimen/det_rr_amount_width_percent"
+        tools:text="Unit" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/price"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toTopOf="@+id/tvSum"
+        app:layout_constraintStart_toEndOf="@+id/tvAmount"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/det_rr_price_width_percent"
+        tools:text="Price" />
+
+    <TextView
+        android:id="@+id/tvSum"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sum"
+        android:theme="@style/Label.SmallTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvAmount"
+        app:layout_constraintTop_toBottomOf="@+id/tvPrice"
+        app:layout_constraintWidth_percent="@dimen/det_rr_price_width_percent"
+        tools:text="Sum" />
+
+    <TextView
+        android:id="@+id/tvBase"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/base"
+        android:theme="@style/Label.SmallTitle"
+        android:layout_marginStart="@dimen/margin_little"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvPrice"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/det_rr_base_width_percent"
+        tools:text="Base" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
