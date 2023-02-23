@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.DocEmixOperationType

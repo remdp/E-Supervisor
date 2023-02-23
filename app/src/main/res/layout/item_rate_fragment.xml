@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvTradingAgent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small"
+        android:theme="@style/Label.SmallTitle"
+        android:layout_marginTop="@dimen/margin_nearly_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Грибінюк С. І." />
+
+    <ProgressBar
+        android:id="@+id/pb"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_indicator_progress_height"
+        android:progressDrawable="@drawable/progressbar_background_clip"
+        android:layout_marginTop="@dimen/margin_little"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTradingAgent"
+        tools:max="100"
+        tools:progress="50"
+        tools:secondaryProgress="75"
+        />
+
+    <TextView
+        android:id="@+id/tvFact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/FormTitleBold"
+        android:layout_marginStart="@dimen/margin_small"
+        tools:text="2586.25"
+        app:layout_constraintBottom_toBottomOf="@+id/pb"
+        app:layout_constraintStart_toStartOf="@+id/pb"
+        app:layout_constraintTop_toTopOf="@+id/pb" />
+
+    <TextView
+        android:id="@+id/tvPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small"
+        android:theme="@style/FormTitleBold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pb"
+        tools:text="26%" />
+
+    <TextView
+        android:id="@+id/tvPlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/FormTitleBold"
+        android:layout_marginEnd="@dimen/margin_small"
+        tools:text="685.23"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/pb"
+        app:layout_constraintTop_toTopOf="@+id/pb" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

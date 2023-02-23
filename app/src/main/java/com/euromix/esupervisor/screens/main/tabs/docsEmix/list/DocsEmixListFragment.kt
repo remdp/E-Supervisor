@@ -17,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
 
-//    override val viewModel by viewModelCreator { DocsEmixListViewModel() }
     override val viewModel by viewModels<DocsEmixListViewModel>()
 
     private lateinit var binding: DocEmixListFragmentBinding
@@ -25,14 +24,6 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DocEmixListFragmentBinding.bind(view)
-        binding.rvList.setOnClickListener {
-            val docsEmix = it.tag as DocEmix
-            val direction =
-                DocsEmixListFragmentDirections.actionDocsEmixListFragmentToDocEmixDetailFragment(
-                    docsEmix.extId
-                )
-            findNavController().navigate(direction)
-        }
 
         binding.srl.setOnRefreshListener {
             viewModel.reload()

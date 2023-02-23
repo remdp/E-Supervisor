@@ -119,5 +119,6 @@
     <dimen name="det_rr_price_width_percent">0.14</dimen>
     <dimen name="det_rr_base_width_percent">0.35</dimen>
 
+    <dimen name="height_indicator_progress_height">42dp</dimen>
     >
 </resources>

@@ -76,4 +76,10 @@
     <style name="Label.Regular.Text" parent="LabelText">
         <item name="android:fontFamily">@font/montserrat_regular</item>
     </style>
+
+    <style name="FormTitleBold">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textColor">@color/colorNileBlue</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+    </style>
 </resources>

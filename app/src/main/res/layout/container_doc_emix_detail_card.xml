@@ -111,14 +111,13 @@
             android:id="@+id/vGreyBackground"
             android:layout_width="0dp"
             android:layout_height="0dp"
-
             android:layout_marginTop="@dimen/margin_big"
+            android:layout_marginBottom="@dimen/margin_nearly_small"
             android:background="@drawable/rounded_shape_4dp_grey"
-            app:layout_constraintBottom_toTopOf="@+id/tvDescriptionLabel"
             app:layout_constraintEnd_toEndOf="@+id/gdlnEnd"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/gdlnStart"
             app:layout_constraintTop_toBottomOf="@+id/tvDate"
+            app:layout_constraintBottom_toTopOf="@id/tvDescriptionLabel"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -159,14 +158,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_medium"
             android:textColor="@color/colorNileBlue"
             android:textSize="14sp"
             android:theme="@style/FormText"
             app:layout_constraintEnd_toStartOf="@+id/gdlnMiddle"
             app:layout_constraintStart_toStartOf="@+id/gdlnStart1"
             app:layout_constraintTop_toBottomOf="@+id/tvTradingAgentLabel"
-            app:layout_constraintBottom_toBottomOf="@+id/vGreyBackground"
             tools:text="Самсонов Илья" />
 
         <TextView
@@ -210,31 +207,29 @@
             android:id="@+id/tvSum"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
             android:layout_marginStart="@dimen/margin_medium"
-            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_small"
             android:textColor="@color/colorNileBlue"
             android:textSize="14sp"
             android:theme="@style/FormText"
 
-            app:layout_constraintBottom_toBottomOf="@+id/vGreyBackground"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
             app:layout_constraintStart_toStartOf="@+id/gdlnMiddle"
             app:layout_constraintTop_toBottomOf="@+id/tvTradingAgentLabel"
             tools:text="2563.32"
-            android:visibility="gone"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
 
         <TextView
             android:id="@+id/tvDescriptionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_big"
             android:text="@string/comment"
             android:theme="@style/Table.SmallTitle"
             app:layout_constraintStart_toStartOf="@+id/gdlnStart"
-            app:layout_constraintTop_toBottomOf="@+id/vGreyBackground" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTradingAgent" />
 
         <TextView
             android:id="@+id/tvDescription"

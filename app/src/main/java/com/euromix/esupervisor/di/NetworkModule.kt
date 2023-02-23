@@ -19,13 +19,15 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMoshi(): Moshi{
-        return Moshi.Builder().build()
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder()
+            //.add(moshiAdapter())
+            .build()
     }
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(settings: AppSettings): OkHttpClient{
+    fun provideOkHttpClient(settings: AppSettings): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(createAuthorizationInterceptor(settings))
             .build()
@@ -44,7 +46,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi) :Retrofit{
+    fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
 
         return Retrofit.Builder()
             .baseUrl(Const.BASE_URL)

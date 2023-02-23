@@ -1,7 +1,5 @@
 package com.euromix.esupervisor.app.model.docEmix
 
-import com.euromix.esupervisor.app.model.AuthException
-import com.euromix.esupervisor.app.model.BackendException
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.model.wrapBackendExceptions

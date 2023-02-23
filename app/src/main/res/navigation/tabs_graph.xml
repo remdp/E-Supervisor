@@ -6,4 +6,5 @@
 
     <include app:graph="@navigation/dashboard_graph" />
     <include app:graph="@navigation/profile_graph" />
+    <include app:graph="@navigation/rates_graph" />
 </navigation>

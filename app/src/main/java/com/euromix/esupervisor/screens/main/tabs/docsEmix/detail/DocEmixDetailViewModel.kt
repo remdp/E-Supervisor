@@ -7,7 +7,7 @@ import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.app.model.Result
-import com.euromix.esupervisor.app.model.accounts.AccountRepository
+import com.euromix.esupervisor.app.model.account.AccountRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

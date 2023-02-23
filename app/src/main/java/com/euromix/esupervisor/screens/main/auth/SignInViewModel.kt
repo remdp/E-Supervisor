@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.Field
 import com.euromix.esupervisor.app.model.*
-import com.euromix.esupervisor.app.model.accounts.AccountRepository
+import com.euromix.esupervisor.app.model.account.AccountRepository
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel

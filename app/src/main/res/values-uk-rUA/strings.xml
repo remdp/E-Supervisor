@@ -32,6 +32,7 @@
     <string name="doc_emix_trading_agent_operation_type">Торговий агент\nТип операції</string>
     <string name="reason_for_rejection">Причина відхилення</string>
     <string name="document_flow">Докуменообіг</string>
+    <string name="agreement">Узгодження</string>
     <string name="date_text">від ${docEmix.date.toLocalDate().toFormatString(context.getString(R.string.day_month_year_date_format)}</string>
 
     <!-- Docs emix detail -->
@@ -66,6 +67,18 @@
     <string name="goods">"Товар"</string>
     <string name="series">"Серія"</string>
     <string name="unit">"Од. виміру"</string>
+
+    <!-- Rates screen-->
+    <string name="rates">Показники</string>
+    <string name="period_selection">Вибір периоду</string>
+    <string name="sales_plan_fact">План факт продажу</string>
+    <string name="outlets_with_orders">Торгові точки із замовленнями</string>
+    <string name="coverage">Покриття</string>
+    <string name="visits_efficiency_plan">Ефективність візитів план</string>
+    <string name="visits_efficiency_fact">Ефективність візитів факт</string>
+    <string name="total_fact">Разом: факт %1$s</string>
+    <string name="plan">план</string>
+    <string name="total_plan">план %1$s</string>
 
     <!-- Result view -->
     <string name="connection_error">Сервер не відповідає</string>

@@ -13,8 +13,10 @@ import androidx.navigation.fragment.findNavController
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.databinding.ActivityMainBinding
 import com.euromix.esupervisor.screens.main.tabs.TabsFragment
+import com.euromix.esupervisor.screens.main.tabs.rates.RatesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -38,10 +40,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-       // Singletons.init(applicationContext)
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
-         setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.toolbar)
 
         // preparing root nav controller
         val navController = getRootNavController()
@@ -134,6 +135,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         matcher.appendTail(title)
+
+        if (arguments?.containsKey("screenTitle") == true) {
+            title.append(arguments.getString("screenTitle"))
+        }
         return title.toString()
     }
 

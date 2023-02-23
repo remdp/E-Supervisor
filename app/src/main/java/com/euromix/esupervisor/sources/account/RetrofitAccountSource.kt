@@ -1,13 +1,10 @@
 package com.euromix.esupervisor.sources.account
 
-import com.euromix.esupervisor.app.model.accounts.AccountSource
-import com.euromix.esupervisor.app.model.accounts.entities.Account
+import com.euromix.esupervisor.app.model.account.AccountSource
 import com.euromix.esupervisor.sources.account.entities.SignInRequestEntity
 import com.euromix.esupervisor.sources.account.entities.SignInResponseEntity
-import com.euromix.esupervisor.sources.account.entities.TokenEntity
 import com.euromix.esupervisor.sources.base.BaseRetrofitSource
 import com.euromix.esupervisor.sources.base.RetrofitConfig
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 

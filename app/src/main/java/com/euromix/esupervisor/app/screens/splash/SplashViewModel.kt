@@ -2,7 +2,7 @@ package com.euromix.esupervisor.app.screens.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.euromix.esupervisor.app.model.accounts.AccountRepository
+import com.euromix.esupervisor.app.model.account.AccountRepository
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share

@@ -1,8 +1,6 @@
-package com.euromix.esupervisor.app.model.accounts
+package com.euromix.esupervisor.app.model.account
 
-import com.euromix.esupervisor.app.model.accounts.entities.Account
 import com.euromix.esupervisor.sources.account.entities.SignInResponseEntity
-import kotlinx.coroutines.flow.Flow
 
 interface AccountSource {
 
