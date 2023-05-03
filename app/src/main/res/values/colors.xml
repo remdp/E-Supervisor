@@ -61,5 +61,21 @@
 
     <color name="colorAthensGray50">#F7F7F8</color>
     <color name="colorUnscheduledVisitBackground">#FDE0DD</color>
+    <color name="gray_100">#F2F5F8</color>
+    <color name="gray_200">#E2E8EC</color>
+    <color name="gray_400">#818C98</color>
+    <color name="gray_500">#6A7781</color>
+    <color name="blue">#167AFA</color>
+    <color name="blue_10">#1A167AFA</color>
+    <color name="orange">#FF830A</color>
+    <color name="orange_light">#FCAF56</color>
+    <color name="green">#5B9F3A</color>
+    <color name="green_light">#95BD82</color>
+    <color name="red">#EB3223</color>
+    <color name="red_light">#FF6D6D</color>
+    <color name="dark_alpha_40">#6604132A</color>
+    <color name="dark_alpha_5">#0D041329</color>
+    <color name="gray_200_alpha_40">#66FFFFFF</color>
+    <color name="dark_alpha_20">#33041329</color>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.euromix.esupervisor.app.model.settings
 
 import android.content.Context
+import com.euromix.esupervisor.app.enums.Role
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -37,8 +38,21 @@ class SharedPreferencesAppSettings @Inject constructor(
         return sharedPreferences.getString(PREF_CURRENT_USER_NAME, "") ?: "undefined"
     }
 
+    override fun setCurrentRole(role: Role) {
+        editor.putString(PREF_CURRENT_ROLE, role.toString())
+        editor.apply()
+    }
+
+    override fun getCurrentRole(): Role = Role.toRole(
+        sharedPreferences.getString(
+            PREF_CURRENT_ROLE,
+            Role.SUPERVISOR.toString()
+        )
+    )
+
     companion object {
         private const val PREF_CURRENT_ACCOUNT_TOKEN = "currentToken"
         private const val PREF_CURRENT_USER_NAME = "currentUserName"
+        private const val PREF_CURRENT_ROLE = "role"
     }
 }

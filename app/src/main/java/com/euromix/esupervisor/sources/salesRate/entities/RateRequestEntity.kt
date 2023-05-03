@@ -8,9 +8,10 @@ import kotlinx.parcelize.RawValue
 @Parcelize
 data class RateRequestEntity(
     val rate: String,
-    val tradingAgentId: String? = null,
+    val detailId: String? = null,
     @field:Json(name = "start_date") val startDate: String,
     @field:Json(name = "end_date") val endDate: String,
+    @field:Json(name = "detail_level") val detailLevel: Int,
     val completed: Boolean = false
 ):Parcelable
 

@@ -36,12 +36,12 @@ class LazyListenersSubject<A : Any, T : Any>(
     fun addListener(argument: A, listener: ValueListener<T>) = handlerExecutor.execute {
         val listenerRecord = ListenerRecord(argument, listener)
         listeners.add(listenerRecord)
-        val futureRecord = futures[argument]
-        if (futureRecord == null) {
+//        val futureRecord = futures[argument]
+//        if (futureRecord == null) {
             execute(argument)
-        } else {
-            listener.invoke(futureRecord.lastValue)
-        }
+//        } else {
+//            listener.invoke(futureRecord.lastValue)
+//        }
     }
 
     /**

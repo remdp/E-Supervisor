@@ -8,8 +8,10 @@ import com.euromix.esupervisor.app.model.account.AccountRepository
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 open class BaseViewModel(val accountRepository: AccountRepository?) :
     ViewModel() {

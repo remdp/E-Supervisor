@@ -1,257 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cvDocEmixDetailNewPartner"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="8dp">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tvOutletNameLabel"
+        style="@style/Text.Label.14.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="@dimen/DP_16"
+        android:text="@string/outlet_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gdlnStart"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/margin_small" />
+    <TextView
+        android:id="@+id/tvOutletName"
+        style="@style/Text.Label.16.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutletNameLabel"
+        tools:text="Продукты №438" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gdlnH4"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.04" />
+    <TextView
+        android:id="@+id/tvInstitutionTypeLabel"
+        style="@style/Text.Label.14.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="@dimen/DP_6"
+        android:text="@string/institution_type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutletName" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gdlnHCenter"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.37" />
+    <TextView
+        android:id="@+id/tvInstitutionType"
+        style="@style/Text.Label.16.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvInstitutionTypeLabel"
+        tools:text="Магазин" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gdlnEnd"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/margin_small" />
+    <TextView
+        android:id="@+id/tvOutletFormatLabel"
+        style="@style/Text.Label.14.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="@dimen/DP_6"
+        android:text="@string/outlet_format"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvInstitutionType" />
 
-        <View
-            android:id="@+id/vGreyBackground"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/rounded_shape_4dp_grey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
-            app:layout_constraintStart_toStartOf="@+id/gdlnStart"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/margin_little"
-            android:layout_marginBottom="@dimen/margin_little"/>
+    <TextView
+        android:id="@+id/tvOutletFormat"
+        style="@style/Text.Label.16.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutletFormatLabel"
+        tools:text="Магазин прилавочного типу" />
 
-        <TextView
-            android:id="@+id/tvOutletNameLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
-            android:text="@string/outlet_name"
-            android:theme="@style/Table.SmallTitle"
-            app:layout_constraintEnd_toStartOf="@+id/gdlnHCenter"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
-            app:layout_constraintTop_toTopOf="@+id/vGreyBackground" />
+    <ImageView
+        android:id="@+id/ivDivider"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_16"
+        android:background="@color/gray_100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutletFormat" />
 
-        <TextView
-            android:id="@+id/tvOutletName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorNileBlue"
-            android:textSize="14sp"
-            android:theme="@style/FormText"
-            app:layout_constraintBottom_toBottomOf="@+id/tvOutletNameLabel"
-            app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
-            app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
-            app:layout_constraintTop_toTopOf="@+id/tvOutletNameLabel"
-            tools:text="лоток бакалея" />
+    <TextView
+        android:id="@+id/tvVisitDaysLabel"
+        style="@style/Text.Label.14.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="@dimen/DP_16"
+        android:text="@string/visit_days"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivDivider" />
 
-        <TextView
-            android:id="@+id/tvInnerDSChannelLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
-            android:text="@string/institution_type"
-            android:theme="@style/Table.SmallTitle"
-            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
-            app:layout_constraintTop_toBottomOf="@+id/tvOutletNameLabel" />
+    <TextView
+        android:id="@+id/tvVisitDay1Label"
+        style="@style/Text.Label.14.Medium.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="@dimen/DP_8"
+        android:drawableLeft="@drawable/ic_check_empty"
+        android:drawablePadding="@dimen/DP_6"
+        android:text="@string/monday"
+        app:layout_constraintEnd_toStartOf="@+id/tvVisitDay3Label"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvVisitDaysLabel" />
 
-        <TextView
-            android:id="@+id/tvInstitutionType"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorNileBlue"
-            android:textSize="14sp"
-            android:theme="@style/FormText"
-            app:layout_constraintBottom_toBottomOf="@+id/tvInnerDSChannelLabel"
-            app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
-            app:layout_constraintTop_toTopOf="@+id/tvInnerDSChannelLabel"
-            tools:text="Точка на рынке" />
+    <TextView
+        android:id="@+id/tvVisitDay2Label"
+        style="@style/Text.Label.14.Medium.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_check_empty"
+        android:drawablePadding="@dimen/DP_6"
+        android:text="@string/tuesday"
+        app:layout_constraintStart_toStartOf="@+id/tvVisitDay1Label"
+        app:layout_constraintTop_toBottomOf="@+id/tvVisitDay1Label" />
 
-        <TextView
-            android:id="@+id/tvInstitutionNumberLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
-            android:text="@string/institution_number"
-            android:theme="@style/Table.SmallTitle"
-            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
-            app:layout_constraintTop_toBottomOf="@+id/tvInnerDSChannelLabel" />
+    <TextView
+        android:id="@+id/tvVisitDay3Label"
+        style="@style/Text.Label.14.Medium.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_check_empty"
+        android:drawablePadding="@dimen/DP_6"
+        android:text="@string/wednesday"
+        app:layout_constraintEnd_toStartOf="@+id/tvVisitDay5Label"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvVisitDay1Label"
+        app:layout_constraintTop_toTopOf="@+id/tvVisitDay1Label" />
 
-        <TextView
-            android:id="@+id/tvInstitutionNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorNileBlue"
-            android:textSize="14sp"
-            android:theme="@style/FormText"
-            app:layout_constraintBottom_toBottomOf="@+id/tvInstitutionNumberLabel"
-            app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
-            tools:text="15" />
+    <TextView
+        android:id="@+id/tvVisitDay4Label"
+        style="@style/Text.Label.14.Medium.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_check_empty"
+        android:drawablePadding="@dimen/DP_6"
+        android:text="@string/thursday"
+        app:layout_constraintStart_toStartOf="@+id/tvVisitDay3Label"
+        app:layout_constraintTop_toBottomOf="@+id/tvVisitDay3Label" />
 
-        <TextView
-            android:id="@+id/tvGeneralOutletLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
-            android:text="@string/general_outlet"
-            android:theme="@style/Table.SmallTitle"
-            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
-            app:layout_constraintTop_toBottomOf="@+id/tvInstitutionNumberLabel" />
+    <TextView
+        android:id="@+id/tvVisitDay5Label"
+        style="@style/Text.Label.14.Medium.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_check_empty"
+        android:drawablePadding="@dimen/DP_6"
+        android:text="@string/friday"
+        app:layout_constraintEnd_toStartOf="@+id/tvVisitDay7Label"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvVisitDay3Label"
+        app:layout_constraintTop_toTopOf="@+id/tvVisitDay3Label" />
 
-        <TextView
-            android:id="@+id/tvGeneralOutlet"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorNileBlue"
-            android:textSize="14sp"
-            android:theme="@style/FormText"
-            app:layout_constraintBottom_toBottomOf="@+id/tvGeneralOutletLabel"
-            app:layout_constraintEnd_toEndOf="@id/vGreyBackground"
-            app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
-            app:layout_constraintTop_toTopOf="@+id/tvGeneralOutletLabel"
-            tools:text="Рынок Новый, Точка на рынке Контейнер, 430" />
+    <TextView
+        android:id="@+id/tvVisitDay6Label"
+        style="@style/Text.Label.14.Medium.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_check_empty"
+        android:drawablePadding="@dimen/DP_6"
+        android:text="@string/saturday"
+        app:layout_constraintStart_toStartOf="@+id/tvVisitDay5Label"
+        app:layout_constraintTop_toBottomOf="@+id/tvVisitDay5Label" />
 
-        <TextView
-            android:id="@+id/tvNewGeneralOutletLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
-            android:text="@string/new_general_outlet"
-            android:theme="@style/Table.SmallTitle"
-            app:layout_constraintEnd_toStartOf="@+id/gdlnHCenter"
-            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
-            app:layout_constraintTop_toBottomOf="@+id/tvGeneralOutletLabel"
-            tools:text="Нова загальна торгова точка" />
+    <TextView
+        android:id="@+id/tvVisitDay7Label"
+        style="@style/Text.Label.14.Medium.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_16"
+        android:drawableLeft="@drawable/ic_check_empty"
+        android:drawablePadding="@dimen/DP_6"
+        android:text="@string/sunday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvVisitDay5Label"
+        app:layout_constraintTop_toTopOf="@+id/tvVisitDay5Label" />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/swNewGeneralOutlet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/tvNewGeneralOutletLabel"
-            app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
-            app:layout_constraintTop_toTopOf="@+id/tvNewGeneralOutletLabel" />
+    <TextView
+        android:id="@+id/tvVisitsFrequencyLabel"
+        style="@style/Text.Label.14.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="@dimen/DP_14"
+        android:text="@string/visits_frequency"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvVisitDay2Label" />
 
-        <TextView
-            android:id="@+id/tvOutletFormatLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
-            android:text="@string/outlet_format"
-            android:theme="@style/Table.SmallTitle"
-            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
-            app:layout_constraintTop_toBottomOf="@+id/tvNewGeneralOutletLabel" />
+    <TextView
+        android:id="@+id/tvVisitsFrequency"
+        style="@style/Text.Label.16.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:text="@string/visit_days"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvVisitsFrequencyLabel" />
 
-        <TextView
-            android:id="@+id/tvOutletFormat"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorNileBlue"
-            android:textSize="14sp"
-            android:theme="@style/FormText"
-            app:layout_constraintBottom_toBottomOf="@+id/tvOutletFormatLabel"
-            app:layout_constraintEnd_toEndOf="@id/vGreyBackground"
-            app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
-            app:layout_constraintTop_toTopOf="@+id/tvOutletFormatLabel"
-            tools:text="МАФ (киоск/павильон/ларек)" />
+    <ImageView
+        android:id="@+id/ivBottomDivider"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_14"
+        android:background="@color/gray_100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvVisitsFrequency" />
 
-        <TextView
-            android:id="@+id/tvLocalityLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
-            android:text="@string/locality"
-            android:theme="@style/Table.SmallTitle"
-            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
-            app:layout_constraintTop_toBottomOf="@+id/tvOutletFormatLabel" />
-
-        <TextView
-            android:id="@+id/tvLocality"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorNileBlue"
-            android:textSize="14sp"
-            android:theme="@style/FormText"
-            app:layout_constraintBottom_toBottomOf="@+id/tvLocalityLabel"
-            app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
-            app:layout_constraintTop_toTopOf="@+id/tvLocalityLabel"
-            tools:text="Маріуполь" />
-
-        <TextView
-            android:id="@+id/tvStreetLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
-            android:text="@string/street"
-            android:theme="@style/Table.SmallTitle"
-            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
-            app:layout_constraintTop_toBottomOf="@+id/tvLocalityLabel" />
-
-        <TextView
-            android:id="@+id/tvStreet"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorNileBlue"
-            android:textSize="14sp"
-            android:theme="@style/FormText"
-            app:layout_constraintBottom_toBottomOf="@+id/tvStreetLabel"
-            app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
-            app:layout_constraintTop_toTopOf="@+id/tvStreetLabel"
-            tools:text="Пилипа Орлика" />
-
-        <TextView
-            android:id="@+id/tvHouseNumberLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
-            android:layout_marginBottom="@dimen/margin_small"
-            android:text="@string/house_number"
-            android:theme="@style/Table.SmallTitle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/gdlnH4"
-            app:layout_constraintTop_toBottomOf="@+id/tvStreetLabel" />
-
-        <TextView
-            android:id="@+id/tvHouseNumber"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorNileBlue"
-            android:textSize="14sp"
-            android:theme="@style/FormText"
-            app:layout_constraintBottom_toBottomOf="@+id/tvHouseNumberLabel"
-            app:layout_constraintStart_toStartOf="@+id/gdlnHCenter"
-            tools:text="26" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

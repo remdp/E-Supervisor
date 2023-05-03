@@ -1,19 +1,23 @@
 package com.euromix.esupervisor.app.enums
 
+import android.content.Context
+import android.widget.TextView
+import com.euromix.esupervisor.App
+import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 
 enum class DocEmixOperationType {
-
-    ChangeTC {
+    CHANGE_TC {
         override fun nameStringRes(): Int = R.string.change_tc
     },
-    NewPartnerFact {
+    NEW_PARTNER_FACT {
         override fun nameStringRes(): Int = R.string.new_partner_fact
     },
-    ReturnRequest {
+    RETURN_REQUEST {
         override fun nameStringRes(): Int = R.string.return_request
     },
-    Undefined {
+    UNDEFINED {
         override fun nameStringRes(): Int = R.string.undefined
     };
 
@@ -21,13 +25,47 @@ enum class DocEmixOperationType {
 
     companion object {
 
+        fun stringRepresentation(context: Context, docEmixOperationType: DocEmixOperationType): String =
+            App.getString(context, docEmixOperationType.nameStringRes())
+
+        fun designTV(
+            tvOperationType: TextView,
+            operationType: DocEmixOperationType,
+            status: Status,
+            detail: Boolean = false
+        ) {
+
+            tvOperationType.text = stringRepresentation(tvOperationType.context, operationType)
+            tvOperationType.background = getOperationTypeDrawable(tvOperationType.context, status, detail)
+            tvOperationType.setTextColor(
+                getColor(
+                    tvOperationType.context,
+                    getOperationTypeTextColor(status)
+                )
+            )
+        }
+
+        private fun getOperationTypeTextColor(status: Status) =
+            when (status) {
+                Status.IN_THE_PROCESS_OF_APPROVAL -> R.color.blue
+                else -> R.color.gray_400
+            }
+
+        private fun getOperationTypeDrawable(context: Context, status: Status, detail: Boolean = false) =
+            App.getDrawable(
+                context, when (status) {
+                    Status.IN_THE_PROCESS_OF_APPROVAL -> R.drawable.bg_operation_type_blue
+                    else -> if (detail) R.drawable.bg_operation_type_white else R.drawable.bg_operation_type_gray
+                }
+            )
+
+        fun operationTypes() = arrayOf(CHANGE_TC, NEW_PARTNER_FACT, RETURN_REQUEST)
+
         fun getByIndex(index: Int): DocEmixOperationType {
 
-            return when (index) {
-                0 -> ChangeTC
-                1 -> NewPartnerFact
-                2 -> ReturnRequest
-                else -> Undefined
+            return if (index == -1) UNDEFINED else {
+                val operationTypes = operationTypes()
+                if (operationTypes.size > index) operationTypes[index] else UNDEFINED
             }
         }
     }

@@ -5,42 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gdlnStart"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/margin_medium" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gdlnEnd"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/margin_medium" />
-
-    <include
-        android:id="@+id/iTcHeader"
-        layout="@layout/item_doc_emix_detail_trade_condition_header"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
-        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRowsTradeCondition"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:paddingStart="@dimen/margin_medium"
-        android:paddingEnd="@dimen/margin_medium"
+        android:background="@color/gray_100"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iTcHeader"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_row_doc_emix"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

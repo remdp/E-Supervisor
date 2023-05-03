@@ -2,6 +2,7 @@ package com.euromix.esupervisor.app.model.docEmix.entities
 
 import android.os.Parcelable
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
+import com.euromix.esupervisor.app.enums.Status
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
@@ -14,7 +15,7 @@ data class DocEmixDetail(
     val tradingAgent: String,
     val operationType: DocEmixOperationType,
     val partner: String,
-    val status: String,
+    val status: Status,
     val canBeAgreed: Boolean,
     val sum: Float?,
     //new partner data
@@ -31,11 +32,18 @@ data class DocEmixDetail(
     val locality: String?,
     val street: String?,
     val houseNumber: String?,
+    val visitDay1:Boolean,
+    val visitDay2:Boolean,
+    val visitDay3:Boolean,
+    val visitDay4:Boolean,
+    val visitDay5:Boolean,
+    val visitDay6:Boolean,
+    val visitDay7:Boolean,
+    val visitsFrequency: String,
     val rowsTradeConditions: List<RowTradeCondition>?,
     val rowsReturnRequest: List<RowReturnRequest>?,
-    val picturesPaths: List<PicturesPaths>?
+    val imagesPaths: List<ImagesPaths>?
 ):Parcelable
-
 
 @Parcelize
 data class RowTradeCondition(
@@ -43,7 +51,8 @@ data class RowTradeCondition(
     val manufacturer: String,
     val priceIndex: Int,
     val paymentDeferment: Int,
-    val distributionChannel: String
+    val distributionChannel: String,
+    val imageURI: String
 ):Parcelable
 
 @Parcelize
@@ -55,10 +64,12 @@ data class RowReturnRequest(
     val unit: String,
     val price: Float,
     val sum: Float,
-    val base: String
+    val base: String,
+    val baseDate: String,
+    val imageURI: String
 ):Parcelable
 
 @Parcelize
-data class PicturesPaths(
+data class ImagesPaths(
     val path: String
 ): Parcelable

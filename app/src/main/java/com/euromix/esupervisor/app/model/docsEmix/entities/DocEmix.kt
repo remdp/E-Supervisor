@@ -1,7 +1,8 @@
 package com.euromix.esupervisor.app.model.docsEmix.entities
 
+import com.euromix.esupervisor.app.enums.DocEmixOperationType
+import com.euromix.esupervisor.app.enums.Status
 import java.time.LocalDateTime
-import java.util.*
 
 data class DocEmix(
     val extId: String,
@@ -11,8 +12,8 @@ data class DocEmix(
     val number: String,
     val description: String,
     val tradingAgent: String?,
-    val operationType: String?,
+    val operationType: DocEmixOperationType,
     val partner: String,
-    val status: String,
+    val status: Status,
     val sum: Float?
 )

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="GlobalTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:minWidth">@dimen/DP_260</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxStrokeColor">@color/selector_input_layout_stroke_color</item>
+        <item name="boxStrokeWidth">@dimen/DP_1</item>
+        <item name="boxStrokeWidthFocused">@dimen/DP_1</item>
+        <item name="hintTextAppearance">@style/InputHintLabel</item>
+<!--        <item name="hintTextAppearance">@style/MyCustomAppearance</item>>-->
+        <item name="hintTextColor">@color/gray_400</item>
+        <item name="android:textColorHint">@color/gray_500</item>
+
+<!--        <item name="textInputStyle">@style/AppTheme.TextInputLayout.OutlinedBox</item>-->
+        <!--        <item name="android:textColorHint">@color/selector_input_layout_hint_color</item>-->
+        <!--        <item name="fontFamily">@font/roboto_regular</item>-->
+        <!--        <item name="textSi">@dimen/DP_8</item>-->
+        <!--        <item name="android:textColor">@color/purple_200</item>-->
+
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay</item>
+
+        <!--        <item name="cornerFamily">rounded</item>-->
+        <!--        <item name="cornerSize">@dimen/DP_20</item>-->
+    </style>
+
+    <style name="ShapeAppearanceOverlay">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/DP_8</item>
+    </style>
+
+<!--    <style name="InputHintLabel" parent="TextAppearance.Design.Hint">-->
+<!--        <item name="android:textSize">28sp</item>-->
+<!--    </style>-->
+
+    <style name="InputHintLabel" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="BottomNavigationViewStyle">
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+<!--    <style name="MyCustomAppearance" parent="TextAppearance.AppCompat">-->
+<!--&lt;!&ndash;        <item name="android:textColor">?attr/colorPrimary</item>&ndash;&gt;-->
+<!--        <item name="android:fontFamily">@font/roboto_italic</item>-->
+<!--        <item name="android:textStyle">italic</item>-->
+<!--        &lt;!&ndash; your custom attributes &ndash;&gt;-->
+<!--    </style>-->
+
+<!--    <style name="InputTextLabel" parent="Widget.AppCompat.EditText">-->
+<!--        <item name="android:textSize">@dimen/SP_8</item>-->
+<!--        <item name="fontFamily">@font/roboto_italic</item>-->
+<!--    </style>-->
+
+<!--    <style name="AppTheme.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
+<!--        <item name="materialThemeOverlay">-->
+<!--            @style/AppTheme.ThemeOverlay.TextInputEditText.OutlinedBox-->
+<!--        </item>-->
+<!--    </style>-->
+
+<!--    <style name="AppTheme.ThemeOverlay.TextInputEditText.OutlinedBox" parent="@style/ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">-->
+<!--        <item name="android:textSize">30sp</item>-->
+<!--    </style>-->
+
+
+</resources>

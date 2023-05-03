@@ -3,68 +3,113 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/DP_8"
+    android:background="@drawable/bg_4dp_white"
+    android:padding="@dimen/DP_8">
+
+    <com.euromix.esupervisor.app.utils.customIndicator.CustomProgressIndicator
+        android:id="@+id/pi"
+        style="@style/Text.Label.16.Medium"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center"
+        app:directionC="clockwise"
+        app:dotColor="@color/blue"
+        app:dotWidth="@dimen/DP_8"
+        app:enableProgressAnimation="true"
+        app:gradientEndColor="@color/blue"
+        app:gradientTypeC="sweep"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:progressBackgroundColor="@color/white"
+        app:progressBackgroundStrokeWidth="0dp"
+        app:progressColor="@color/white"
+        app:progressStrokeWidth="@dimen/DP_8"
+        app:textSize="@dimen/SP_16" />
 
     <TextView
         android:id="@+id/tvTradingAgent"
+        style="@style/Text.Label.14.Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_small"
+        android:layout_marginStart="@dimen/DP_8"
+        android:textSize="@dimen/SP_16"
         android:theme="@style/Label.SmallTitle"
-        android:layout_marginTop="@dimen/margin_nearly_small"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ivGray100"
+        app:layout_constraintStart_toEndOf="@+id/pi"
+        app:layout_constraintTop_toTopOf="@+id/pi"
+        app:layout_constraintVertical_chainStyle="spread_inside"
         tools:text="Грибінюк С. І." />
 
-    <ProgressBar
-        android:id="@+id/pb"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_indicator_progress_height"
-        android:progressDrawable="@drawable/progressbar_background_clip"
-        android:layout_marginTop="@dimen/margin_little"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/ivGray100"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_20"
+        android:layout_marginStart="@dimen/DP_8"
+        android:background="@drawable/bg_2dp_gray_100"
+        app:layout_constraintBottom_toTopOf="@+id/ivBlue10"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTradingAgent"
-        tools:max="100"
-        tools:progress="50"
-        tools:secondaryProgress="75"
-        />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/pi"
+        app:layout_constraintTop_toBottomOf="@+id/tvTradingAgent" />
 
     <TextView
-        android:id="@+id/tvFact"
+        android:id="@+id/tvPlanLabel"
+        style="@style/Text.Label.14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:theme="@style/FormTitleBold"
-        android:layout_marginStart="@dimen/margin_small"
-        tools:text="2586.25"
-        app:layout_constraintBottom_toBottomOf="@+id/pb"
-        app:layout_constraintStart_toStartOf="@+id/pb"
-        app:layout_constraintTop_toTopOf="@+id/pb" />
-
-    <TextView
-        android:id="@+id/tvPercent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_small"
-        android:theme="@style/FormTitleBold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/pb"
-        tools:text="26%" />
+        android:layout_marginStart="@dimen/DP_4"
+        android:text="@string/plan"
+        app:layout_constraintBottom_toBottomOf="@+id/ivGray100"
+        app:layout_constraintStart_toStartOf="@+id/ivGray100"
+        app:layout_constraintTop_toTopOf="@+id/ivGray100"
+        tools:text="План:" />
 
     <TextView
         android:id="@+id/tvPlan"
+        style="@style/Text.Label.14.Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:theme="@style/FormTitleBold"
-        android:layout_marginEnd="@dimen/margin_small"
-        tools:text="685.23"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/pb"
-        app:layout_constraintTop_toTopOf="@+id/pb" />
+        android:layout_marginEnd="@dimen/DP_4"
+        app:layout_constraintBottom_toBottomOf="@+id/ivGray100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivGray100"
+        tools:text="2547" />
 
+    <ImageView
+        android:id="@+id/ivBlue10"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_20"
+        android:layout_marginStart="@dimen/DP_8"
+        android:background="@drawable/bg_2dp_blue_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toEndOf="@+id/pi"
+        app:layout_constraintTop_toBottomOf="@+id/ivGray100" />
+
+    <TextView
+        android:id="@+id/tvFactLabel"
+        style="@style/Text.Label.14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_4"
+        android:text="@string/fact"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBlue10"
+        app:layout_constraintStart_toStartOf="@+id/ivBlue10"
+        app:layout_constraintTop_toTopOf="@+id/ivBlue10"
+        tools:text="Факт:" />
+
+    <TextView
+        android:id="@+id/tvFact"
+        style="@style/Text.Label.14.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_4"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBlue10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivBlue10"
+        tools:text="1584" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.ScrollView
 import androidx.core.view.children
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +26,9 @@ fun <T> LiveData<Result<T>>.observeResults(
     root: View,
     resultView: ResultView,
     srl: SwipeRefreshLayout? = null,
-    onSuccess: (T) -> Unit,
+    exclusionView: View? = null,
+    onSuccess: (T) -> Unit
+
 ) {
     observe(fragment.viewLifecycleOwner) { result ->
 
@@ -38,13 +41,14 @@ fun <T> LiveData<Result<T>>.observeResults(
             rootView.children
                 .filter { it != resultView }
                 .forEach {
+                    if (it != exclusionView)
                     it.isVisible = result !is Error<*>
                 }
         }
 
-        val showPBInResultView = srl !is SwipeRefreshLayout
-        if (!showPBInResultView) srl!!.isRefreshing = result is Pending
-        resultView.setResult(fragment, result, showPBInResultView)
+        srl?.let { it.isRefreshing = result is Pending }
+        resultView.setResult(fragment, result, srl == null)
+
         if (result is Success) onSuccess.invoke(result.value)
 
     }

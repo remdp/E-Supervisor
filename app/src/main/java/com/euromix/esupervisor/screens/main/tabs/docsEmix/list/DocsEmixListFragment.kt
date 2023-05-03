@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.euromix.esupervisor.R
-//import com.euromix.esupervisor.databinding.DocsEmixListBinding
-import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.designedPeriodView
 import com.euromix.esupervisor.app.utils.observeResults
+import com.euromix.esupervisor.app.utils.setPeriodSelection
+import com.euromix.esupervisor.app.utils.textDate
 import com.euromix.esupervisor.databinding.DocEmixListFragmentBinding
+import com.euromix.esupervisor.screens.main.tabs.TitleData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,41 +23,64 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
     override val viewModel by viewModels<DocsEmixListViewModel>()
 
     private lateinit var binding: DocEmixListFragmentBinding
+    private val args by navArgs<DocsEmixListFragmentArgs>()
+
+    private val adapter = DocsEmixAdapter { docEmix ->
+        val direction =
+            DocsEmixListFragmentDirections.actionDocsEmixListFragmentToDocEmixDetailFragment(
+                extId = docEmix.extId,
+                titleData = TitleData(
+                    docEmix.number,
+                    with(docEmix.date) { textDate(this) })
+            )
+        findNavController().navigate(direction)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding = DocEmixListFragmentBinding.bind(view)
-
-        binding.srl.setOnRefreshListener {
-            viewModel.reload()
-        }
-
-        binding.vResult.setTryAgainAction { viewModel.reload() }
-
-        val adapter = DocsEmixAdapter { docEmix ->
-            val direction =
-                DocsEmixListFragmentDirections.actionDocsEmixListFragmentToDocEmixDetailFragment(
-                    docEmix.extId
-                )
-            findNavController().navigate(direction)
-        }
-
-        val layoutManager = LinearLayoutManager(requireContext())
-        binding.rvList.layoutManager = layoutManager
         binding.rvList.adapter = adapter
 
-        val divider = DividerItemDecoration(
-            binding.rvList.context,
-            layoutManager.orientation
-        )
-        val drawable = binding.rvList.context.getDrawable(R.drawable.line_divider)
-        if (drawable != null) {
-            divider.setDrawable(drawable)
-            binding.rvList.addItemDecoration(divider)
+        setupObservers(view)
+        setupListeners()
+
+        setPeriodSelection(binding.iSelection.etPeriod, parentFragmentManager) {
+            viewModel.updatePeriod(it)
         }
+
+         viewModel.updateSelection(args.selection)
+
+    }
+
+    private fun setupObservers(view: View){
 
         viewModel.docsEmix.observeResults(this, view, binding.vResult, binding.srl) {
             adapter.docsEmix = it
         }
+
+        viewModel.selection.observe(viewLifecycleOwner) {
+
+            designedPeriodView(binding.iSelection.etPeriod, it?.period)
+            viewModel.reload()
+
+        }
+
     }
+
+    private fun setupListeners(){
+        binding.srl.setOnRefreshListener { viewModel.reload() }
+        binding.vResult.setTryAgainAction { viewModel.reload() }
+
+        binding.iSelection.ivFunnel.setOnClickListener {
+
+            val direction =
+                DocsEmixListFragmentDirections.actionDocsEmixListFragmentToDocsEmixSelectionFragment(
+                    selection = viewModel.selection.value
+                )
+            findNavController().navigate(direction)
+
+        }
+    }
+
 }

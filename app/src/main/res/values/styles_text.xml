@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Text" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Text.Label">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Text.Label.28">
+        <item name="android:textSize">@dimen/SP_28</item>
+    </style>
+
+    <style name="Text.Label.28.Bold">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Text.Label.26">
+        <item name="android:textSize">@dimen/SP_26</item>
+    </style>
+
+    <style name="Text.Label.26.Bold">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Text.Label.24">
+        <item name="android:textSize">@dimen/SP_24</item>
+    </style>
+
+    <style name="Text.Label.24.Bold">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Text.Label.22">
+        <item name="android:textSize">@dimen/SP_22</item>
+    </style>
+
+    <style name="Text.Label.22.Bold">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Text.Label.20">
+        <item name="android:textSize">@dimen/SP_20</item>
+    </style>
+
+    <style name="Text.Label.20.Bold">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Text.Label.18">
+        <item name="android:textSize">@dimen/SP_18</item>
+    </style>
+
+    <style name="Text.Label.18.Bold">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Text.Label.16">
+        <item name="android:textSize">@dimen/SP_16</item>
+    </style>
+
+    <style name="Text.Label.16.Medium">
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Text.Label.16.Medium.Gray400">
+        <item name="android:textColor">@color/gray_400</item>
+    </style>
+
+
+
+    <style name="Text.Label.16.Gray500">
+        <item name="android:textColor">@color/gray_500</item>
+    </style>
+
+    <style name="Text.Label.16.Bold">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Text.Label.16.DarkAlpha40">
+        <item name="android:textColor">@color/dark_alpha_40</item>
+    </style>
+
+
+    <style name="Text.Label.14.Medium">
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Text.Label.14.Medium.Gray400">
+        <item name="android:textColor">@color/gray_400</item>
+    </style>
+
+    <style name="Text.Label.14.Medium.Gray500">
+        <item name="android:textColor">@color/gray_500</item>
+    </style>
+
+    <style name="Text.Label.14">
+        <item name="android:textSize">@dimen/SP_14</item>
+    </style>
+
+    <style name="Text.Label.14.Gray400">
+        <item name="android:textColor">@color/gray_400</item>
+    </style>
+
+    <style name="Text.Label.14.Gray500">
+        <item name="android:textColor">@color/gray_500</item>
+    </style>
+
+    <style name="Text.Label.14.Bold">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Text.Label.12">
+        <item name="android:textSize">@dimen/SP_12</item>
+    </style>
+
+    <style name="Text.Label.12.Gray400">
+        <item name="android:textColor">@color/gray_400</item>
+    </style>
+
+    <style name="Text.Label.12.Gray500">
+        <item name="android:textColor">@color/gray_500</item>
+    </style>
+
+    <style name="Text.Label.12.Bold">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Text.Label.12.Medium">
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Text.Label.10">
+        <item name="android:textSize">@dimen/SP_10</item>
+    </style>
+
+    <style name="Text.Label.10.Bold">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Text.Label.8">
+        <item name="android:textSize">@dimen/SP_8</item>
+    </style>
+
+    <style name="Text.Label.8.Bold">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+</resources>

@@ -5,13 +5,13 @@ import com.squareup.moshi.Json
 
 data class RateResponseEntity(
     @field:Json(name = "object_name") val objectName: String,
-    @field:Json(name = "trading_agent_id") val tradingAgentId: String,
+    @field:Json(name = "object_id") val objectId: String,
     val plan: Float,
     val fact: Float,
 ) {
     fun toRateData(): RateData = RateData(
         rateObject = objectName,
-        tradingAgentId = tradingAgentId,
+        rateObjectId = objectId,
         plan = plan,
         fact = fact
     )

@@ -5,11 +5,15 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.navOptions
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.utils.findTopNavController
 import com.euromix.esupervisor.app.utils.observeEvent
+import com.euromix.esupervisor.screens.main.tabs.TabsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 abstract class BaseFragment(@LayoutRes layoutId: Int): Fragment(layoutId) {
 
     abstract val viewModel: BaseViewModel

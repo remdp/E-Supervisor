@@ -1,100 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/docEmixRowReturnRequest"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="@dimen/DP_8"
     android:background="@color/white"
-    android:layout_marginTop="@dimen/margin_small">
+    android:layout_marginBottom="@dimen/DP_8">
+
+    <ImageView
+        android:id="@+id/ivGoods"
+        android:layout_width="102dp"
+        android:layout_height="102dp"
+        android:src="@drawable/ic_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:srcCompat="@drawable/ic_logo" />
 
     <TextView
         android:id="@+id/tvGoods"
+        style="@style/Text.Label.16.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_small"
-        android:textColor="@color/colorPrimary"
-        android:theme="@style/Label.SmallTitle"
-        app:layout_constraintBottom_toTopOf="@+id/tvSeries"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/DP_12"
+        android:layout_marginEnd="@dimen/DP_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivGoods"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="@dimen/det_rr_goods_width_percent"
-        tools:text="Тістечко бісквітне Лавіто 1,2 кг" />
+        tools:text="Тістечко бісквітне “Полуничка” 1.7 кг" />
 
     <TextView
         android:id="@+id/tvSeries"
+        style="@style/Text.Label.12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_small"
-        android:theme="@style/Label.SmallTitle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/DP_12"
+        android:layout_marginTop="@dimen/DP_2"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:text="@string/price_index"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivGoods"
         app:layout_constraintTop_toBottomOf="@+id/tvGoods"
-        app:layout_constraintWidth_percent="@dimen/det_rr_goods_width_percent"
-        tools:text="00-00009237, 4820180813131" />
-
-    <TextView
-        android:id="@+id/tvAmount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_small"
-        android:theme="@style/Label.SmallTitle"
-        app:layout_constraintBottom_toTopOf="@+id/tvUnit"
-        app:layout_constraintStart_toEndOf="@+id/tvGoods"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="@dimen/det_rr_amount_width_percent"
-        tools:text="0,247" />
-
-    <TextView
-        android:id="@+id/tvUnit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_small"
-        android:theme="@style/Label.SmallTitle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvGoods"
-        app:layout_constraintTop_toBottomOf="@+id/tvAmount"
-        app:layout_constraintWidth_percent="@dimen/det_rr_amount_width_percent"
-        tools:text="ящ" />
-
-    <TextView
-        android:id="@+id/tvPrice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_small"
-        android:theme="@style/Label.SmallTitle"
-        app:layout_constraintBottom_toTopOf="@+id/tvSum"
-        app:layout_constraintStart_toEndOf="@+id/tvAmount"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="@dimen/det_rr_price_width_percent"
-        tools:text="213,53" />
-
-    <TextView
-        android:id="@+id/tvSum"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_small"
-        android:theme="@style/Label.SmallTitle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvAmount"
-        app:layout_constraintTop_toBottomOf="@+id/tvPrice"
-        app:layout_constraintWidth_percent="@dimen/det_rr_price_width_percent"
-        tools:text="52,74" />
+        tools:text="00-00000350, 4820180811571" />
 
     <TextView
         android:id="@+id/tvBase"
-        android:layout_width="0dp"
+        style="@style/Text.Label.12"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_small"
-        android:theme="@style/Label.SmallTitle"
-        android:layout_marginStart="@dimen/margin_nearly_little"
+        android:layout_marginStart="@dimen/DP_12"
+        android:layout_marginTop="@dimen/DP_2"
+        android:textColor="@color/gray_500"
+        app:layout_constraintStart_toEndOf="@+id/ivGoods"
+        app:layout_constraintTop_toBottomOf="@+id/tvSeries"
+        tools:text="V2 DP_00000004979" />
+
+    <TextView
+        android:id="@+id/tvBaseDate"
+        style="@style/Text.Label.12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:textColor="@color/gray_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSeries"
+        tools:text="10.01.2023" />
+
+    <ImageView
+        android:id="@+id/ivGray100"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/DP_12"
+        android:layout_marginTop="@dimen/DP_8"
+        android:background="@drawable/bg_8dp_gray_100"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvPrice"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="@dimen/det_rr_base_width_percent"
-        tools:text="Реализация товаров V2 DP_00000032138 от 11.10.2022 18:12:40" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivGoods"
+        app:layout_constraintTop_toBottomOf="@+id/tvBase" />
+
+    <TextView
+        android:id="@+id/tvAmountLabel"
+        style="@style/Text.Label.12.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_2"
+        android:layout_marginStart="@dimen/DP_8"
+        android:text="@string/amount"
+        app:layout_constraintStart_toStartOf="@+id/ivGray100"
+        app:layout_constraintTop_toTopOf="@+id/ivGray100"
+        tools:text="Кількість:" />
+
+    <TextView
+        android:id="@+id/tvAmount"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_18"
+        android:text="@string/amount"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAmountLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvAmountLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvAmountLabel"
+        tools:text="1.0" />
+
+    <TextView
+        android:id="@+id/tvUnitLabel"
+        style="@style/Text.Label.12.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_2"
+        android:layout_marginBottom="@dimen/DP_2"
+        android:text="@string/unit"
+        app:layout_constraintBottom_toBottomOf="@+id/ivGray100"
+        app:layout_constraintStart_toStartOf="@+id/ivGray100"
+        app:layout_constraintTop_toBottomOf="@+id/tvAmountLabel"
+        tools:text="Од. виміру:" />
+
+    <TextView
+        android:id="@+id/tvUnit"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/amount"
+        app:layout_constraintBottom_toBottomOf="@+id/tvUnitLabel"
+        app:layout_constraintStart_toStartOf="@+id/tvAmount"
+        app:layout_constraintTop_toTopOf="@+id/tvUnitLabel"
+        tools:text="ящик" />
+
+    <TextView
+        android:id="@+id/tvSum"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:text="@string/amount"
+        app:layout_constraintBottom_toBottomOf="@+id/tvUnitLabel"
+        app:layout_constraintEnd_toEndOf="@+id/ivGray100"
+        app:layout_constraintTop_toTopOf="@+id/tvAmountLabel"
+        tools:text="311.45 грн" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

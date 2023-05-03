@@ -4,16 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.euromix.esupervisor.app.enums.DocEmixOperationType
+import com.euromix.esupervisor.app.enums.Status
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
-import com.euromix.esupervisor.app.utils.setColorStatus
-import com.euromix.esupervisor.app.utils.setNonStandartStatusText
 import com.euromix.esupervisor.app.utils.textDate
 import com.euromix.esupervisor.databinding.ItemDocEmixListFragmentBinding
 
-typealias DocEmixActionListener = (docEmix: DocEmix) -> Unit
-
 class DocsEmixAdapter(
-    private val docEmixActionListener: DocEmixActionListener
+    private val docEmixActionListener: (docEmix: DocEmix) -> Unit
 ) :
     RecyclerView.Adapter<DocsEmixAdapter.DocsEmixViewHolder>(), View.OnClickListener {
 
@@ -27,7 +25,6 @@ class DocsEmixAdapter(
         val docEmix = p0?.tag as DocEmix
 
         docEmixActionListener.invoke(docEmix)
-
     }
 
     override fun getItemCount(): Int {
@@ -39,7 +36,6 @@ class DocsEmixAdapter(
         val binding = ItemDocEmixListFragmentBinding.inflate(inflater, parent, false)
 
         binding.root.setOnClickListener(this)
-
         return DocsEmixViewHolder(binding)
     }
 
@@ -48,17 +44,14 @@ class DocsEmixAdapter(
         val docEmix = docsEmix[position]
         with(holder.binding) {
             holder.itemView.tag = docEmix
-            val context = holder.itemView.context
+            Status.designTV(tvStatus, docEmix.status)
+            DocEmixOperationType.designTV(tvOperationType,docEmix.operationType, docEmix.status)
 
-            tvStatus.setNonStandartStatusText(docEmix.status)
-            tvStatus.setColorStatus(docEmix.status)
-            tvDate.text = with(docEmix.date) { textDate(this, context) }
+            tvDate.text = with(docEmix.date) { textDate(this) }
             tvNumber.text = docEmix.number
             tvPartner.text = docEmix.partner
-            tvOperationType.text = docEmix.operationType
             tvTradingAgent.text = docEmix.tradingAgent
             tvSum.text = (docEmix.sum ?: "").toString()
-
         }
     }
 

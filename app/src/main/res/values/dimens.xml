@@ -1,91 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="big_width">260dp</dimen>
-    <dimen name="medium_space">12dp</dimen>
-    <dimen name="large_space">30dp</dimen>
-
-    <dimen name="margin_start_image_logo_in_toolbar">108dp</dimen>
-
-    <dimen name="dashboard_item_stroke_width">3dp</dimen>
-    <dimen name="dashboard_item_corner_radius">8dp</dimen>
-    <dimen name="dashboard_item_width">140dp</dimen>
-    <dimen name="dashboard_item_height">90dp</dimen>
-
-    <!-- height -->
-    <dimen name="height_small">8dp</dimen>
-    <dimen name="height_medium">16dp</dimen>
-    <dimen name="height_big">24dp</dimen>
-    <dimen name="height_large">32dp</dimen>
-    <dimen name="height_huge">48dp</dimen>
-
-    <!-- size -->
-    <dimen name="size_very_small">2dp</dimen>
-    <dimen name="size_little">4dp</dimen>
-    <dimen name="size_small">8dp</dimen>
-    <dimen name="size_nearly_small">12dp</dimen>
-    <dimen name="size_medium">16dp</dimen>
-    <dimen name="size_big">24dp</dimen>
-    <dimen name="size_large">32dp</dimen>
-    <dimen name="size_huge">48dp</dimen>
-    <dimen name="size_very_huge">68dp</dimen>
-
-    <!-- width -->
-    <dimen name="width_small">8dp</dimen>
-    <dimen name="width_medium">16dp</dimen>
-    <dimen name="width_big">24dp</dimen>
-    <dimen name="width_large">32dp</dimen>
-    <dimen name="width_nearly_large">36dp</dimen>
-    <dimen name="width_almost_huge">48dp</dimen>
-    <dimen name="width_huge">48dp</dimen>
-
-    <!-- radius -->
-    <dimen name="radius_little">3dp</dimen>
-    <dimen name="radius_small">8dp</dimen>
-    <dimen name="radius_medium">16dp</dimen>
-    <dimen name="radius_big">24dp</dimen>
-    <dimen name="radius_large">32dp</dimen>
-    <dimen name="radius_huge">48dp</dimen>
-
-    <!-- margin -->
-    <dimen name="margin_smallest">1dp</dimen>
-    <dimen name="margin_very_small">2dp</dimen>
-    <dimen name="margin_nearly_very_small">3dp</dimen>
-    <dimen name="margin_little">4dp</dimen>
-    <dimen name="margin_nearly_little">6dp</dimen>
-    <dimen name="margin_small">8dp</dimen>
-    <dimen name="margin_nearly_small">12dp</dimen>
-    <dimen name="margin_medium">16dp</dimen>
-    <dimen name="margin_big">24dp</dimen>
-    <dimen name="margin_large">32dp</dimen>
-    <dimen name="margin_nearly_large">40dp</dimen>
-    <dimen name="margin_huge">48dp</dimen>
-    <dimen name="margin_very_huge">64dp</dimen>
-    <dimen name="margin_very_huge_plus">82dp</dimen>
-
-    <!-- padding -->
-    <dimen name="padding_very_small">2dp</dimen>
-    <dimen name="padding_little">4dp</dimen>
-    <dimen name="padding_nearly_little">6dp</dimen>
-    <dimen name="padding_small">8dp</dimen>
-    <dimen name="padding_nearly_small">12dp</dimen>
-    <dimen name="padding_medium">16dp</dimen>
-    <dimen name="padding_big">24dp</dimen>
-    <dimen name="padding_large">32dp</dimen>
-    <dimen name="padding_huge">48dp</dimen>
-
     <!-- text size -->
-    <dimen name="text_very_little">8sp</dimen>
-    <dimen name="text_very_small">10sp</dimen>
-    <dimen name="text_little">12sp</dimen>
-    <dimen name="text_default">14sp</dimen>
-    <dimen name="text_small">16sp</dimen>
-    <dimen name="text_medium">18sp</dimen>
-    <dimen name="text_big">20sp</dimen>
-    <dimen name="text_large">22sp</dimen>
-    <dimen name="text_huge">24sp</dimen>
-    <dimen name="text_very_large">26sp</dimen>
-    <dimen name="text_very_huge">28sp</dimen>
+    <dimen name="SP_8">8sp</dimen>
+    <dimen name="SP_10">10sp</dimen>
+    <dimen name="SP_12">12sp</dimen>
+    <dimen name="SP_14">14sp</dimen>
+    <dimen name="SP_16">16sp</dimen>
+    <dimen name="SP_18">18sp</dimen>
+    <dimen name="SP_20">20sp</dimen>
+    <dimen name="SP_22">22sp</dimen>
+    <dimen name="SP_24">24sp</dimen>
+    <dimen name="SP_26">26sp</dimen>
+    <dimen name="SP_28">28sp</dimen>
 
+    <dimen name="DP_1">1dp</dimen>
+    <dimen name="DP_2">2dp</dimen>
+    <dimen name="DP_3">3dp</dimen>
+    <dimen name="DP_4">4dp</dimen>
+    <dimen name="DP_6">6dp</dimen>
+    <dimen name="DP_8">8dp</dimen>
+    <dimen name="DP_10">10dp</dimen>
+    <dimen name="DP_12">12dp</dimen>
+    <dimen name="DP_14">14dp</dimen>
+    <dimen name="DP_16">16dp</dimen>
+    <dimen name="DP_18">18dp</dimen>
+    <dimen name="DP_20">20dp</dimen>
+    <dimen name="DP_22">22dp</dimen>
+    <dimen name="DP_24">24dp</dimen>
+    <dimen name="DP_26">26dp</dimen>
+    <dimen name="DP_28">28dp</dimen>
+    <dimen name="DP_64">64dp</dimen>
+    <dimen name="DP_80">80dp</dimen>
+    <dimen name="DP_92">92dp</dimen>
+    <dimen name="DP_96">96dp</dimen>
+    <dimen name="DP_100">100dp</dimen>
+    <dimen name="DP_114">114dp</dimen>
+    <dimen name="DP_116">116dp</dimen>
+    <dimen name="DP_260">260dp</dimen>
     <!-- elevation -->
     <dimen name="elevation_little">2dp</dimen>
     <dimen name="elevation_small">4dp</dimen>
@@ -97,10 +48,6 @@
 
     <!-- Items Percent -->
     <dimen name="status_percent">0.24</dimen>
-    <!--<dimen name="sent_orders_outlet_partner_form_trade_percent">0.36</dimen>
-    <dimen name="sent_orders_amount_delivery_date_percent">0.2</dimen>
-    <dimen name="sent_orders_create_date_percent">0.15</dimen>
-    <dimen name="sent_orders_select_group_percent">0.15</dimen>-->
 
     <!-- Doc emix detail trade condition items percent -->
     <dimen name="det_tc_manufacturer_width_percent">0.3</dimen>
@@ -120,5 +67,6 @@
     <dimen name="det_rr_base_width_percent">0.35</dimen>
 
     <dimen name="height_indicator_progress_height">42dp</dimen>
-    >
+
+
 </resources>

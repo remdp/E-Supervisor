@@ -5,16 +5,29 @@
     <string name="undefined">Undefined</string>
 
     <string name="partner">Partner</string>
+    <string name="partner_colon">Partner:</string>
     <string name="partner_sum">Partner\nSum</string>
     <string name="trading_agent">Trading agent</string>
-    <string name="operation_type">Type of operation</string>
+    <string name="trading_agent_colon">Trading agent:</string>
+    <string name="operation_type">Operation type</string>
     <string name="comment">Comment</string>
-    <string name="amount">Amount</string>
+    <string name="amount">Amount:</string>
     <string name="price">Price</string>
     <string name="sum">Sum</string>
     <string name="base">Base</string>
+    <string name="status">Status</string>
 
-    <string name="day_month_year_date_format" formatted="false">dd MMM yyyy</string>
+    <!-- Statuses -->
+    <string name="done">Done</string>>
+    <string name="in_the_process_of_approval">In the process of approval</string>>
+    <string name="agreed">Agreed</string>>
+    <string name="error">Error</string>>
+    <string name="rejected">Rejected</string>>
+    <string name="in_work">In work</string>>
+    
+
+<!--    <string name="day_month_year_date_format" formatted="false" translatable="false" >dd MMM yyyy</string>-->
+    <string name="day_month_year_date_format" formatted="false" translatable="false" >dd MMM yyyy</string>
 
     <string name="from">from </string>
 
@@ -22,9 +35,11 @@
     <string name="cancel">Cancel </string>
 
     <!-- Sign in screen -->
+    <string name="authorization">Authorization</string>
     <string name="supervisor">Supervisor</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="signin">Sign in</string>
     <string name="field_is_empty">field is empty</string>
     <string name="communication_error">Communication error</string>
 
@@ -42,12 +57,12 @@
     <string name="manufacturer">Manufacturer</string>
     <string name="PriceIndex">Price index</string>
     <string name="PaymentDeferment">Payment deferment</string>
-    <string name="DistributionChannel">Distribution channel</string>
+    <string name="DistributionChannel">Distribution channel:</string>
     <string name="approve">Approve</string>
     <string name="reject">Reject</string>
     <string name="working_name">Working name</string>
     <string name="inner_distribution_channel">Inner distribution channel</string>
-    <string name="edrpou">EDRPOU</string>
+    <string name="edrpou">EDRPOU:</string>
     <string name="change_tc">Change TC</string>
     <string name="new_partner_fact">New partner fact</string>
     <string name="picture_number">Pic %1$s</string>
@@ -57,17 +72,33 @@
     <string name="return_request">Return request</string>
     <string name="tc_data">Trade condition</string>
     <string name="outlet_name">"Outlet name"</string>
-    <string name="institution_type">"Institution type"</string>
+    <string name="institution_type">"Institution type:"</string>
     <string name="institution_number">"Institution number"</string>
     <string name="general_outlet">"General outlet"</string>
     <string name="new_general_outlet">"New general outlet"</string>
-    <string name="outlet_format">"Outlet format"</string>
+    <string name="outlet_format">"Outlet format:"</string>
     <string name="locality">"Locality"</string>
     <string name="street">"Street"</string>
     <string name="house_number">"House number"</string>
     <string name="goods">"Goods"</string>
     <string name="series">"Series"</string>
-    <string name="unit">"Unit"</string>
+    <string name="unit">"Unit:"</string>
+    <string name="price_index">"Price index:"</string>
+    <string name="payment_deferment">"Payment deferment:"</string>
+    <string name="distribution_channel">"Distribution channel:"</string>
+    <string name="gallery">"Gallery"</string>
+    <string name="outlet">"Outlet"</string>
+    <string name="visit_days">"Visiting day:"</string>
+    <string name="sunday">"Sunday"</string>
+    <string name="monday">"Monday"</string>
+    <string name="tuesday">"Tuesday"</string>
+    <string name="wednesday">"Wednesday"</string>
+    <string name="thursday">"Thursday"</string>
+    <string name="friday">"Friday"</string>
+    <string name="saturday">"Saturday"</string>
+    <string name="visits_frequency">"Frequency of visits:"</string>
+    <string name="photo">"Photo"</string>
+
 
     <!-- Rates screen-->
     <string name="rates">Rates</string>
@@ -77,9 +108,12 @@
     <string name="coverage">Coverage</string>
     <string name="visits_efficiency_plan">efficiency of visits plan</string>
     <string name="visits_efficiency_fact">efficiency of visits fact</string>
-    <string name="total_fact">Total: fact %1$s</string>
-    <string name="plan">plan</string>
-    <string name="total_plan">plan %1$s</string>
+    <string name="total_fact">Fact</string>
+    <string name="fact">Fact:</string>
+<!--    <string name="total_fact">Total: fact %1$s</string>-->
+    <string name="plan">Plan:</string>
+    <string name="total_plan">Plan</string>
+<!--    <string name="total_plan">plan %1$s</string>-->
 
 
     <!-- Result view -->
@@ -96,5 +130,19 @@
     <string name="logout">Logout</string>
     <string name="language_eng">English</string>
     <string name="language_ua">Ukrainian</string>
+    <string name="lang_eng">ENG</string>
+    <string name="lang_ua">UKR</string>
+    <string name="name">Name</string>
+    <string name="change_language">Change language</string>
+    <string name="version">Version</string>
+    <string name="role">Role</string>
+    <string name="head_t_d">Head of the TD</string>
+    <string name="director">Director</string>
+
+
+    <!-- Selection screen -->
+    <string name="error_min_length">search string must be at least %1$s characters long</string>
+    <string name="clear">Clear</string>
+    <string name="filter">Filter</string>
 
 </resources>

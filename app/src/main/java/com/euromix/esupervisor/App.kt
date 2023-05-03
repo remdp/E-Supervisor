@@ -1,7 +1,9 @@
 package com.euromix.esupervisor
 
 import android.app.Application
+import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import com.yariksoffice.lingver.Lingver
 import dagger.hilt.android.HiltAndroidApp
 import java.text.SimpleDateFormat
@@ -10,7 +12,7 @@ import java.time.ZoneId
 import java.util.*
 
 @HiltAndroidApp
-class App: Application() {
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -25,11 +27,19 @@ class App: Application() {
             Date.from(YearMonth.now().atDay(1).atStartOfDay(ZoneId.systemDefault()).toInstant())
 
         fun endCurrentMonth(): Date =
-            Date.from(YearMonth.now().atEndOfMonth().atStartOfDay(ZoneId.systemDefault()).toInstant())
+            Date.from(
+                YearMonth.now().atEndOfMonth().atStartOfDay(ZoneId.systemDefault()).toInstant()
+            )
 
-        fun formattedDate(date: Date): String = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(date)
+        fun formattedDate(date: Date): String =
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(date)
 
-        fun dateFromString(date: String) = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date)
+        fun getColor(context: Context, id: Int) = ContextCompat.getColor(context, id)
+
+        fun getDrawable(context: Context, id: Int) = ContextCompat.getDrawable(context, id)
+
+        fun getString(context: Context, id: Int) = context.getString(id)
+
     }
 
 }

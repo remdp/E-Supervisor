@@ -4,12 +4,12 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.*
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.databinding.ViewResultBinding
 
 class ResultView @JvmOverloads constructor(
@@ -41,15 +41,9 @@ class ResultView @JvmOverloads constructor(
             val message = when (result.error) {
                 is ConnectionException -> context.getString(R.string.connection_error)
                 is AuthException -> context.getString(R.string.auth_error)
-                //  is BackendException -> result.error.message
-                //else -> context.getString(R.string.internal_error)
                 else -> result.error.message
             }
             binding.messageTextView.text = message
-//            if (result.error is BackendExceptionWithMessage) {
-//                Toast.makeText(context, result.error.message, Toast.LENGTH_LONG).show()
-//                fragment.logout()
-//            } else
             if (result.error is AuthException) {
                 fragment.logout()
             } else {
@@ -59,8 +53,10 @@ class ResultView @JvmOverloads constructor(
     }
 
     private fun renderTryAgainButton() {
-        binding.errorButton.setOnClickListener { tryAgainAction?.invoke() }
-        binding.errorButton.setText(R.string.action_try_again)
+        if (tryAgainAction == null) binding.errorButton.gone()
+        else {
+            binding.errorButton.setOnClickListener { tryAgainAction?.invoke() }
+            binding.errorButton.setText(R.string.action_try_again)
+        }
     }
-
 }

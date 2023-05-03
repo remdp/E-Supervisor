@@ -9,5 +9,7 @@
         android:id="@+id/profileFragment"
         android:name="com.euromix.esupervisor.screens.main.tabs.profile.ProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile_and_settings" />
+        tools:layout="@layout/fragment_profile_and_settings">
+    </fragment>
 </navigation>
+

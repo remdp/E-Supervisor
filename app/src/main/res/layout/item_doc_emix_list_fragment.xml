@@ -4,109 +4,128 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/margin_nearly_small"
-    android:paddingBottom="@dimen/margin_nearly_small">
-
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorOuterSpace"
-        android:theme="@style/Label.Regular.Text"
-        app:layout_constraintEnd_toStartOf="@id/tvTradingAgent"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintWidth_percent="@dimen/doc_emix_date_number_status_percent"
-        tools:text="17 Сент 2022" />
+    android:layout_marginTop="@dimen/DP_8"
+    android:background="@drawable/layout_background">
 
     <TextView
         android:id="@+id/tvNumber"
-        android:layout_width="0dp"
+        style="@style/Text.Label.14.Bold"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_little"
-        android:textColor="@color/colorOuterSpace"
-        android:textStyle="bold"
-        android:theme="@style/Label.Regular.Text"
-        app:layout_constraintEnd_toEndOf="@+id/tvDate"
+        android:layout_marginStart="@dimen/DP_8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDate"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="@dimen/doc_emix_date_number_status_percent"
-        tools:text="0000000012" />
+        tools:text="DP_B0000000328" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        style="@style/Text.Label.14.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        app:layout_constraintStart_toEndOf="@id/tvNumber"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="@dimen/doc_emix_date_number_status_percent"
+        tools:text="30.01.2023" />
 
     <TextView
         android:id="@+id/tvStatus"
+        style="@style/Text.Label.12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_little"
-        android:background="@drawable/rounded_shape_2dp"
-        android:backgroundTint="@color/colorBermudaGray"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:paddingStart="@dimen/padding_little"
-        android:paddingEnd="@dimen/padding_little"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/text_very_small"
-        app:layout_constraintEnd_toEndOf="@+id/tvDate"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/tvDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvNumber"
-        app:layout_constraintWidth_percent="@dimen/doc_emix_date_number_status_percent"
-        tools:text="В работе" />
-
-    <TextView
-        android:id="@+id/tvTradingAgent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/margin_little"
-        android:textColor="@color/colorOuterSpace"
-        android:theme="@style/Table.SmallTitle"
-        app:layout_constraintEnd_toStartOf="@id/tvPartner"
-        app:layout_constraintStart_toEndOf="@id/tvDate"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:drawablePadding="@dimen/DP_8"
+        android:textAllCaps="true"
+        app:drawableStartCompat="@drawable/ic_refresh"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="@dimen/doc_emix_trading_agent_operation_type"
-        tools:text="Самсонов Илья" />
+        app:layout_constraintWidth_percent="@dimen/doc_emix_date_number_status_percent"
+        tools:text="У процесі узгодження"
+        tools:textColor="@color/orange" />
 
     <TextView
         android:id="@+id/tvOperationType"
-        android:layout_width="0dp"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_little"
-        android:paddingHorizontal="@dimen/margin_little"
-        android:textColor="@color/colorOuterSpace"
-        android:theme="@style/Table.SmallTitle"
-        app:layout_constraintEnd_toStartOf="@id/tvPartner"
-        app:layout_constraintStart_toEndOf="@id/tvDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvTradingAgent"
+        android:layout_marginStart="@dimen/DP_8"
+        android:background="@drawable/bg_operation_type_blue"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_6"
+        android:paddingEnd="@dimen/DP_6"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSum"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvSum"
         app:layout_constraintWidth_percent="@dimen/doc_emix_trading_agent_operation_type"
-        tools:text="Изменение ТУ" />
+        tools:text="Заявка на повернення" />
 
     <TextView
-        android:id="@+id/tvPartner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorOuterSpace"
-        android:theme="@style/Table.SmallTitle"
-        android:paddingHorizontal="@dimen/margin_little"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvTradingAgent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintWidth_percent="@dimen/doc_emix_partner"
-        tools:text="Palma Group Companies Palma Group Companies" />
-    <TextView
         android:id="@+id/tvSum"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_marginEnd="@dimen/DP_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvStatus"
+        tools:text="2 554.54" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorOuterSpace"
-        android:theme="@style/Table.SmallTitle"
-        android:layout_marginTop="@dimen/margin_little"
-        android:paddingHorizontal="@dimen/margin_little"
+        android:layout_marginTop="@dimen/DP_10"
+        android:background="@drawable/layout_background_gray100"
+        android:padding="@dimen/DP_6"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvTradingAgent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPartner"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintWidth_percent="@dimen/doc_emix_partner"
-        tools:text="2554.54" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOperationType">
+
+        <TextView
+            android:id="@+id/tvTradingAgentLabel"
+            style="@style/Text.Label.14.Gray500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trading_agent_colon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Торговий агент:" />
+
+        <TextView
+            android:id="@+id/tvTradingAgent"
+            style="@style/Text.Label.14.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/DP_8"
+            app:layout_constraintStart_toEndOf="@id/tvTradingAgentLabel"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Смолякова В. М." />
+
+        <TextView
+            android:id="@+id/tvPartnerLabel"
+            style="@style/Text.Label.14.Gray500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DP_6"
+            android:text="@string/partner_colon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTradingAgentLabel"
+            tools:text="Контрагент:" />
+
+        <TextView
+            android:id="@+id/tvPartner"
+            style="@style/Text.Label.14.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/DP_8"
+            android:layout_marginTop="@dimen/DP_6"
+            app:layout_constraintStart_toEndOf="@id/tvTradingAgentLabel"
+            app:layout_constraintTop_toBottomOf="@+id/tvTradingAgent"
+            tools:text="Грудинская М. В." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

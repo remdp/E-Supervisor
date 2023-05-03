@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="@dimen/padding_big"
-    android:paddingEnd="@dimen/padding_big"
-    android:paddingTop="@dimen/padding_nearly_small"
-    android:paddingBottom="@dimen/padding_nearly_small">
+    android:paddingStart="@dimen/DP_24"
+    android:paddingEnd="@dimen/DP_24"
+    android:paddingTop="@dimen/DP_12"
+    android:paddingBottom="@dimen/DP_12">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tfReasonText"

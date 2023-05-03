@@ -19,32 +19,18 @@ class DocEmixDetailTradeConditionFragment() :
 
     private lateinit var binding: DocEmixDetailTradeConditionFragmentBinding
 
+    private val adapter = DocEmixDetailTradeConditionAdapter()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = DocEmixDetailTradeConditionFragmentBinding.bind(view)
-        val adapter = DocEmixDetailTradeConditionAdapter()
         binding.rvRowsTradeCondition.adapter = adapter
 
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.rvRowsTradeCondition.layoutManager = layoutManager
-
-        val divider = DividerItemDecoration(
-            binding.rvRowsTradeCondition.context,
-            layoutManager.orientation
-        )
-        val drawable = binding.rvRowsTradeCondition.context.getDrawable(R.drawable.line_divider)
-        if (drawable != null) {
-            divider.setDrawable(drawable)
-            binding.rvRowsTradeCondition.addItemDecoration(divider)
-        }
-
-        viewModel.rowsTradeConditions.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-        }
-
         arguments?.parcelable<List<RowTradeCondition>>(ROWS)
-            ?.let { viewModel.setRowsTradeConditions(it) }
+            ?.let {
+                adapter.rowTradeCondition = it
+            }
     }
 
     companion object {
@@ -55,6 +41,6 @@ class DocEmixDetailTradeConditionFragment() :
                 }
             }
 
-        private const val ROWS = "rows"
+        private const val ROWS = "ROWS"
     }
 }

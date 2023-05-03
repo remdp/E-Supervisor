@@ -1,8 +1,9 @@
 package com.euromix.esupervisor.sources.docsEmixDetail.entities
 
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
+import com.euromix.esupervisor.app.enums.Status
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
-import com.euromix.esupervisor.app.model.docEmix.entities.PicturesPaths
+import com.euromix.esupervisor.app.model.docEmix.entities.ImagesPaths
 import com.euromix.esupervisor.app.model.docEmix.entities.RowReturnRequest
 import com.euromix.esupervisor.app.model.docEmix.entities.RowTradeCondition
 import com.squareup.moshi.Json
@@ -16,7 +17,7 @@ data class DocEmixDetailResponseEntity(
     @field:Json(name = "trading_agent") val tradingAgent: String,
     @field:Json(name = "operation_type") val operationType: Int,
     val partner: String,
-    val status: String,
+    val status: Int,
     @field:Json(name = "can_be_agreed") val canBeAgreed: Boolean,
     val sum: Float?,
     //new partner data
@@ -33,9 +34,17 @@ data class DocEmixDetailResponseEntity(
     val locality: String,
     val street: String,
     @field:Json(name = "house_number") val houseNumber: String,
+    @field:Json(name = "visit_day_1") val visitDay1: Boolean,
+    @field:Json(name = "visit_day_2") val visitDay2: Boolean,
+    @field:Json(name = "visit_day_3") val visitDay3: Boolean,
+    @field:Json(name = "visit_day_4") val visitDay4: Boolean,
+    @field:Json(name = "visit_day_5") val visitDay5: Boolean,
+    @field:Json(name = "visit_day_6") val visitDay6: Boolean,
+    @field:Json(name = "visit_day_7") val visitDay7: Boolean,
+    @field:Json(name = "visits_frequency") val visitsFrequency: String?,
     @field:Json(name = "trade_conditions_list") val tradeConditionResponseEntities: List<RowTradeConditionResponseEntity>?,
     @field:Json(name = "return_request_list") val returnRequestResponseEntities: List<RowReturnRequestResponseEntity>?,
-    @field:Json(name = "pictures_paths") val picturesPaths: List<PicturesPaths>?
+    @field:Json(name = "pictures_paths") val imagesPaths: List<ImagesPaths>?
 
 ) {
     fun toDocEmixDetail(): DocEmixDetail = DocEmixDetail(
@@ -46,7 +55,7 @@ data class DocEmixDetailResponseEntity(
         tradingAgent = tradingAgent,
         operationType = DocEmixOperationType.getByIndex(operationType),
         partner = partner,
-        status = status,
+        status = Status.getByIndex(status),
         canBeAgreed = canBeAgreed,
         sum = sum,
         workingName = workingName,
@@ -61,9 +70,17 @@ data class DocEmixDetailResponseEntity(
         locality = locality,
         street = street,
         houseNumber = houseNumber,
+        visitDay1 = visitDay1,
+        visitDay2 = visitDay2,
+        visitDay3 = visitDay3,
+        visitDay4 = visitDay4,
+        visitDay5 = visitDay5,
+        visitDay6 = visitDay6,
+        visitDay7 = visitDay7,
+        visitsFrequency = visitsFrequency ?: "",
         rowsTradeConditions = toRowTradeCondition(),
         rowsReturnRequest = toRowReturnRequest(),
-        picturesPaths = picturesPaths
+        imagesPaths = imagesPaths
     )
 
     private fun toRowTradeCondition(): List<RowTradeCondition> {
@@ -77,14 +94,15 @@ data class DocEmixDetailResponseEntity(
                     manufacturer = it.manufacturer,
                     priceIndex = it.priceIndex,
                     paymentDeferment = it.paymentDeferment,
-                    distributionChannel = it.distributionChannel
+                    distributionChannel = it.distributionChannel,
+                    imageURI = it.imageURI
                 )
             )
         }
         return tradeConditionList
     }
 
-    private fun toRowReturnRequest(): List<RowReturnRequest>{
+    private fun toRowReturnRequest(): List<RowReturnRequest> {
 
         val returnRequestList: MutableList<RowReturnRequest> = mutableListOf()
 
@@ -98,7 +116,9 @@ data class DocEmixDetailResponseEntity(
                     unit = it.unit,
                     price = it.price,
                     sum = it.sum,
-                    base = it.base
+                    base = it.base,
+                    baseDate = it.baseDate,
+                    imageURI = it.imageURI
                 )
             )
         }
@@ -111,7 +131,8 @@ data class RowTradeConditionResponseEntity(
     val manufacturer: String,
     @field:Json(name = "price_index") val priceIndex: Int,
     @field:Json(name = "payment_deferment") val paymentDeferment: Int,
-    @field:Json(name = "distribution_channel") val distributionChannel: String
+    @field:Json(name = "distribution_channel") val distributionChannel: String,
+    @field:Json(name = "image_uri") val imageURI: String
 )
 
 data class RowReturnRequestResponseEntity(
@@ -122,5 +143,7 @@ data class RowReturnRequestResponseEntity(
     val unit: String,
     val price: Float,
     val sum: Float,
-    val base: String
+    val base: String,
+    @field:Json(name = "base_date") val baseDate: String,
+    @field:Json(name = "image_uri") val imageURI: String
 )

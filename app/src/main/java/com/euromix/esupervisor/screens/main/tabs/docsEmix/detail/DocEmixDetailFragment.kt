@@ -1,20 +1,33 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail
 
+
 import android.content.DialogInterface
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
+import androidx.viewpager2.widget.ViewPager2
+import com.euromix.esupervisor.App.Companion.getColor
+import com.euromix.esupervisor.App.Companion.getDrawable
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
+import com.euromix.esupervisor.app.enums.Status
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
-import com.euromix.esupervisor.app.utils.*
+import com.euromix.esupervisor.app.utils.gone
+import com.euromix.esupervisor.app.utils.observeResults
+import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.DialogReasonRejectionBinding
 import com.euromix.esupervisor.databinding.DocEmixDetailFragmentBinding
+import com.euromix.esupervisor.databinding.TabHeaderBinding
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.VPFragmentAdapter
 import com.euromix.esupervisor.screens.viewModelCreator
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -28,103 +41,184 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
     override val viewModel by viewModelCreator { factory.create(args.extId) }
 
     private lateinit var binding: DocEmixDetailFragmentBinding
+    private lateinit var bindingTLHeader: TabHeaderBinding
     private val args by navArgs<DocEmixDetailFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = DocEmixDetailFragmentBinding.bind(view)
-        val context = view.context
 
-        binding.iDocEmixDetailCard.btnApprove.setOnClickListener { viewModel.acceptDocEmixDetail() }
-        binding.iDocEmixDetailCard.btnReject.setOnClickListener { showInputReasonDialog() }
+        setupListeners()
+        setupObservers(view)
 
-        binding.vResult.setTryAgainAction { viewModel.reload() }
+    }
 
-        viewModel.docEmixDetail.observeResults(this, view, binding.vResult) { docEmixDetail ->
+    private fun setupObservers(view: View) {
+
+        viewModel.docEmixDetail.observeResults(
+            this,
+            view,
+            binding.vResult,
+            null,
+            binding.clAppbarBottom
+        ) { docEmixDetail ->
 
             with(binding) {
-                iDocEmixDetailCard.tvDate.text =
-                    with(docEmixDetail.date) { textDate(this, context) }
 
-                iDocEmixDetailCard.tvNumber.text = docEmixDetail.number
-                iDocEmixDetailCard.tvPartner.text = docEmixDetail.partner
-                iDocEmixDetailCard.tvStatus.setNonStandartStatusText(docEmixDetail.status)
-                iDocEmixDetailCard.tvStatus.setColorStatus(docEmixDetail.status)
-                iDocEmixDetailCard.tvDescription.text = docEmixDetail.description
-                iDocEmixDetailCard.tvOperationType.text =
-                    getString(docEmixDetail.operationType.nameStringRes())
-                iDocEmixDetailCard.tvTradingAgent.text = docEmixDetail.tradingAgent
+                tvPartner.text = docEmixDetail.partner
+                Status.designTV(tvStatus, docEmixDetail.status)
+                DocEmixOperationType.designTV(
+                    tvOperationType,
+                    docEmixDetail.operationType,
+                    docEmixDetail.status,
+                    true
+                )
+                tvDescription.text = docEmixDetail.description
 
-                if (docEmixDetail.canBeAgreed) {
-                    iDocEmixDetailCard.btnApprove.visible()
-                    iDocEmixDetailCard.btnReject.visible()
-                } else {
-                    iDocEmixDetailCard.btnApprove.gone()
-                    iDocEmixDetailCard.btnReject.gone()
+                tvTradingAgent.text = docEmixDetail.tradingAgent
+                clAppbarBottom.isVisible = docEmixDetail.canBeAgreed
+
+                if (docEmixDetail.operationType == DocEmixOperationType.NEW_PARTNER_FACT) {
+                    tvDistribChannelLabel.visible()
+                    tvDistribChannel.visible()
+                    tvEDRPOULabel.visible()
+                    tvEDRPOU.visible()
+                    tvPartner.text = docEmixDetail.workingName
+                    tvDistribChannel.text = docEmixDetail.innerDistributionChannel
+                    tvEDRPOU.text = docEmixDetail.edrpou
                 }
-
-                if (docEmixDetail.operationType == DocEmixOperationType.ReturnRequest) {
-                    iDocEmixDetailCard.tvSum.text = docEmixDetail.sum.toString()
-                    iDocEmixDetailCard.tvSumLabel.visible()
-                    iDocEmixDetailCard.tvSum.visible()
-                }
-
                 setupViewPager(docEmixDetail)
             }
         }
+
+    }
+
+    private fun setupListeners() {
+        binding.btnApprove.setOnClickListener { viewModel.acceptDocEmixDetail() }
+        binding.btnReject.setOnClickListener { showInputReasonDialog() }
+        binding.vResult.setTryAgainAction { viewModel.reload() }
     }
 
     private fun setupViewPager(docEmixDetail: DocEmixDetail) {
 
         with(binding) {
+
             vpTabs.adapter = VPFragmentAdapter(this@DocEmixDetailFragment, docEmixDetail)
 
-            if (docEmixDetail.operationType == DocEmixOperationType.NewPartnerFact || (docEmixDetail.picturesPaths?.size
+            if (docEmixDetail.operationType == DocEmixOperationType.NEW_PARTNER_FACT || (docEmixDetail.imagesPaths?.size
                     ?: 0) > 0
             ) {
-                TabLayoutMediator(tlTabs, vpTabs) { tab, position ->
-
-                    when (docEmixDetail.operationType) {
-
-                        DocEmixOperationType.ChangeTC -> {
-
-                            tab.text = when (position) {
-                                CHANGE_TC_PAGE -> getString(R.string.trade_condition)
-                                else -> getString(
-                                    R.string.picture_number,
-                                    position + 1 - VPFragmentAdapter.CHANGE_TC_FRAGMENTS_COUNT
-                                )
-                            }
-                        }
-                        DocEmixOperationType.NewPartnerFact -> {
-
-                            tab.text = when (position) {
-                                NEW_PARTNER_PAGE -> getString(R.string.new_partner_data)
-                                NEW_OUTLET_PAGE -> getString(R.string.new_outlet_data)
-                                TC_PAGE -> getString(R.string.tc_data)
-                                else -> getString(
-                                    R.string.picture_number,
-                                    position + 1 - VPFragmentAdapter.NEW_PARTNER_FACT_FRAGMENTS_COUNT
-                                )
-
-                            }
-                        }
-                        DocEmixOperationType.ReturnRequest -> {
-
-                            tab.text = when (position) {
-                                RETURN_REQUEST_PAGE -> getString(R.string.goods)
-                                else -> getString(
-                                    R.string.picture_number,
-                                    position + 1 - VPFragmentAdapter.RETURN_REQUEST_FRAGMENTS_COUNT
-                                )
-                            }
-                        }
-                        else -> {}
-                    }
-                }.attach()
+                addTabsListener(tlTabs)
+                addTabsMediator(tlTabs, vpTabs, docEmixDetail)
+                addDividerTabs(tlTabs)
+                tlTabs.visible()
             } else {
                 tlTabs.gone()
+            }
+        }
+    }
+
+    private fun addTabsListener(tlTabs: TabLayout) {
+
+        tlTabs.addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+
+                tab.customView?.let {
+                    val bindingTab = TabHeaderBinding.bind(it)
+                    bindingTab.tvLeft.setTextColor(getColor(it.context, R.color.blue))
+
+                    bindingTab.tvRight.setTextColor(getColor(it.context, R.color.blue))
+
+                    bindingTab.tvRight.background =
+                        getDrawable(it.context, R.drawable.bg_4dp_blue_10)
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+
+                tab.customView?.let {
+                    val bindingTab = TabHeaderBinding.bind(it)
+                    bindingTab.tvLeft.setTextColor(getColor(it.context, R.color.gray_400))
+
+                    bindingTab.tvRight.setTextColor(getColor(it.context, R.color.gray_400))
+                    bindingTab.tvRight.background =
+                        getDrawable(it.context, R.drawable.bg_4dp_dark_5)
+                }
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+    }
+
+    private fun addTabsMediator(
+        tlTabs: TabLayout,
+        vpTabs: ViewPager2,
+        docEmixDetail: DocEmixDetail
+    ) {
+        TabLayoutMediator(tlTabs, vpTabs) { tab, position ->
+
+            bindingTLHeader = TabHeaderBinding.inflate(layoutInflater, null, false)
+            with(bindingTLHeader) {
+
+                when (docEmixDetail.operationType) {
+
+
+                    DocEmixOperationType.CHANGE_TC -> {
+                        //todo if necessary
+                    }
+                    DocEmixOperationType.NEW_PARTNER_FACT -> {
+                        when (position) {
+                            0 -> {
+                                tvLeft.text = getString(R.string.outlet)
+                                tvRight.gone()
+                            }
+                            1 -> {
+                                tvLeft.text = getString(R.string.tc_data)
+                                tvRight.text =
+                                    (if (docEmixDetail.rowsTradeConditions == null) 0 else docEmixDetail.rowsTradeConditions.size).toString()
+                            }
+                            else -> {
+                                tvLeft.text = getString(R.string.photo)
+                                tvRight.text =
+                                    (if (docEmixDetail.imagesPaths == null) 0 else docEmixDetail.imagesPaths.size).toString()
+                            }
+                        }
+                    }
+                    DocEmixOperationType.RETURN_REQUEST -> {
+
+                        when (position) {
+                            0 -> {
+                                tvLeft.text = getString(R.string.goods)
+                                tvRight.text =
+                                    (if (docEmixDetail.rowsReturnRequest == null) 0 else docEmixDetail.rowsReturnRequest.size).toString()
+                            }
+                            else -> {
+                                tvLeft.text = getString(R.string.gallery)
+                                tvRight.text =
+                                    (if (docEmixDetail.imagesPaths == null) 0 else docEmixDetail.imagesPaths.size).toString()
+                            }
+                        }
+                    }
+                    else -> {}
+                }
+            }
+
+            tab.customView = bindingTLHeader.root
+
+        }.attach()
+    }
+
+    private fun addDividerTabs(tlTabs: TabLayout) {
+
+        tlTabs.getChildAt(0).let {
+
+            if (it is LinearLayout) {
+                it.showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
+                val drawable = GradientDrawable()
+                drawable.setColor(getColor(it.context, R.color.dark_alpha_20))
+                drawable.setSize(3, 1)
+                it.dividerDrawable = drawable
             }
         }
     }
@@ -153,11 +247,4 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
         }
     }
 
-    companion object {
-        const val CHANGE_TC_PAGE = 0
-        const val NEW_PARTNER_PAGE = 0
-        const val NEW_OUTLET_PAGE = 1
-        const val TC_PAGE = 2
-        const val RETURN_REQUEST_PAGE = 0
-    }
 }

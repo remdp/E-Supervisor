@@ -1,9 +1,9 @@
 package com.euromix.esupervisor.screens.main
 
 import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
@@ -11,14 +11,16 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.utils.parcelable
 import com.euromix.esupervisor.databinding.ActivityMainBinding
 import com.euromix.esupervisor.screens.main.tabs.TabsFragment
-import com.euromix.esupervisor.screens.main.tabs.rates.RatesViewModel
+import com.euromix.esupervisor.screens.main.tabs.TitleData
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.regex.Pattern
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
 
     // nav controller of the current screen
     private var navController: NavController? = null
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
+        binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
         setSupportActionBar(binding.toolbar)
 
         // preparing root nav controller
@@ -50,7 +52,6 @@ class MainActivity : AppCompatActivity() {
         onNavControllerActivated(navController)
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
-
     }
 
     override fun onDestroy() {
@@ -97,15 +98,7 @@ class MainActivity : AppCompatActivity() {
 
     private val destinationListener =
         NavController.OnDestinationChangedListener { _, destination, arguments ->
-
-            if (arguments == null) {
-                supportActionBar?.hide()
-            } else {
-                supportActionBar?.title = prepareTitle(destination.label, arguments)
-                supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
-                supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.colorVeniceBlue)))
-                supportActionBar?.show()
-            }
+            prepareActionBar(arguments, destination)
         }
 
     private fun isStartDestination(destination: NavDestination?): Boolean {
@@ -115,31 +108,22 @@ class MainActivity : AppCompatActivity() {
         return startDestinations.contains(destination.id)
     }
 
-    private fun prepareTitle(label: CharSequence?, arguments: Bundle?): String {
+    private fun prepareActionBar(arguments: Bundle?, destination: NavDestination) {
 
-        // code for this method has been copied from Google sources :)
+        if (arguments == null || !arguments.containsKey(KEY_TITLE_DATA)) {
+            supportActionBar?.hide()
+        } else {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
+            supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
+            supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.gray_100)))
+            supportActionBar?.show()
 
-        if (label == null) return ""
-        val title = StringBuffer()
-        val fillInPattern = Pattern.compile("\\{(.+?)\\}")
-        val matcher = fillInPattern.matcher(label)
-        while (matcher.find()) {
-            val argName = matcher.group(1)
-            if (arguments != null && arguments.containsKey(argName)) {
-                matcher.appendReplacement(title, "")
-                title.append(arguments[argName].toString())
-            } else {
-                throw IllegalArgumentException(
-                    "Could not find $argName in $arguments to fill label $label"
-                )
-            }
+            val titleData = arguments.parcelable<TitleData>(KEY_TITLE_DATA)
+
+            binding.tvStartText.text = titleData?.startText
+            binding.tvEndText.text = titleData?.endText
         }
-        matcher.appendTail(title)
-
-        if (arguments?.containsKey("screenTitle") == true) {
-            title.append(arguments.getString("screenTitle"))
-        }
-        return title.toString()
     }
 
     private fun isSignedIn(): Boolean {
@@ -153,4 +137,8 @@ class MainActivity : AppCompatActivity() {
     private fun getTabsDestination(): Int = R.id.tabsFragment
 
     private fun getSignInDestination(): Int = R.id.signInFragment
+
+    companion object {
+        const val KEY_TITLE_DATA = "titleData"
+    }
 }

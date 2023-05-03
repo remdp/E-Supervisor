@@ -4,61 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_100"
     tools:context=".screens.main.auth.SignInFragment">
+    <TextView
+        android:id="@+id/tvAuthorization"
+        style="@style/Text.Label.16.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="16dp"
+        android:text="@string/authorization"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Авторизація" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gdlnTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
-
-    <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gdlnTop"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <ImageView
-        android:id="@+id/ivArtBoard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_artboard"
-        app:layout_constraintBottom_toTopOf="@+id/tiLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivLogo"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tiLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_big"
-        android:hint="@string/supervisor"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_16"
+        android:hint="@string/login"
         app:layout_constraintBottom_toTopOf="@+id/tiPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivArtBoard">
+        app:layout_constraintTop_toTopOf="@+id/gdlnTop">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
             android:imeOptions="actionNext"
             android:inputType="text"
-            android:lines="1" />
+            android:lines="1"
+            android:textSize="@dimen/SP_16" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tiPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="@dimen/DP_28"
+        android:layout_marginEnd="@dimen/DP_16"
         android:hint="@string/password"
         app:layout_constraintBottom_toTopOf="@+id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,24 +66,30 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:lines="1" />
+            android:lines="1"
+            android:textSize="@dimen/SP_16" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnLogin"
-        style="@style/GlobalTextInputStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_big"
-        android:text="@string/login"
-        android:backgroundTint="@color/colorVeniceBlue"
-        app:layout_constraintBottom_toTopOf="@+id/gdlnBotttom"
+        android:layout_marginTop="@dimen/SP_28"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/signin"
+        android:textSize="@dimen/SP_16"
+        android:textAllCaps="true"
+        app:cornerRadius="@dimen/DP_8"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/tiPassword"
+        tools:text="Авторизуватись" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gdlnBotttom"
@@ -102,6 +105,6 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnLogin"/>
+        app:layout_constraintTop_toTopOf="@id/btnLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

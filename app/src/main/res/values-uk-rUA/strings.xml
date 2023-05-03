@@ -6,24 +6,35 @@
     <string name="undefined">Не визначене</string>
 
     <string name="partner">Контрагент</string>
+    <string name="partner_colon">Контрагент:</string>
     <string name="partner_sum">Контрагент\nСума</string>
     <string name="trading_agent">Торговий агент</string>
+    <string name="trading_agent_colon">Торговий агент:</string>
     <string name="operation_type">Тип операції</string>
     <string name="comment">Коментар</string>
-    <string name="amount">Кількість</string>
+    <string name="amount">Кількість:</string>
     <string name="price">Ціна</string>
     <string name="sum">Сума</string>
     <string name="base">Документ підстава</string>
+    <string name="status">Статус</string>
 
-    <string name="day_month_year_date_format" formatted="false" translatable="false">dd MMM yyyy</string>
+    <!-- Statuses -->
+    <string name="done">Виконано</string>>
+    <string name="in_the_process_of_approval">У процесі узгодження</string>>
+    <string name="agreed">Узгоджений</string>>
+    <string name="error">Помилка</string>>
+    <string name="rejected">Відхилений</string>>
+    <string name="in_work">В роботі</string>>
 
     <string name="from">від </string>
-    <string name="cancel">Скасування </string>
+    <string name="cancel">Відміна </string>
 
     <!-- Sign in screen -->
+    <string name="authorization">Авторизація</string>
     <string name="supervisor">Супервайзер</string>
     <string name="password">Пароль</string>
-    <string name="login">Авторизуватися</string>
+    <string name="login">Логін</string>
+    <string name="signin">Авторизуватись</string>
     <string name="field_is_empty">Поле порожнє</string>
     <string name="communication_error">Помилка зв\'язку</string>
 
@@ -41,12 +52,12 @@
     <string name="manufacturer">Виробник</string>
     <string name="PriceIndex">Індекс ціни</string>
     <string name="PaymentDeferment">Відстрочка платежу</string>
-    <string name="DistributionChannel">Канал збуту</string>
+    <string name="DistributionChannel">Канал збуту:</string>
     <string name="approve">Узгодити</string>
     <string name="reject">Відхилити</string>
     <string name="working_name">Робоче найменування</string>
     <string name="inner_distribution_channel">Канал збуту (внутр.)</string>
-    <string name="edrpou">ЕГРПОУ</string>
+    <string name="edrpou">ЕГРПОУ:</string>
     <string name="change_tc">Зміна ТУ</string>
     <string name="new_partner_fact">Новий клієнт (факт)</string>
     <string name="picture_number">Мал %1$s</string>
@@ -54,19 +65,34 @@
     <string name="new_partner_data">Дані нового контрагента</string>
     <string name="new_outlet_data">Дані нової торгової точки</string>
     <string name="return_request">Заявка на повернення</string>
-    <string name="tc_data">Торгові умови</string>
-    <string name="outlet_name">"Найменування торгової точки"</string>
-    <string name="institution_type">"Тип закладу"</string>
+    <string name="tc_data">Торг. умови</string>
+    <string name="outlet_name">"Найменування торгової точки:"</string>
+    <string name="institution_type">"Тип закладу:"</string>
     <string name="institution_number">"Номер закладу"</string>
     <string name="general_outlet">"Загальна торгова точка"</string>
     <string name="new_general_outlet">"Нова загальна торгова точка"</string>
-    <string name="outlet_format">"Фомат торгової точки"</string>
+    <string name="outlet_format">"Формат торгової точки:"</string>
     <string name="locality">"Населений пункт"</string>
     <string name="street">"Вулиця"</string>
     <string name="house_number">"Номер будинку"</string>
     <string name="goods">"Товар"</string>
     <string name="series">"Серія"</string>
-    <string name="unit">"Од. виміру"</string>
+    <string name="unit">"Од. виміру:"</string>
+    <string name="price_index">"Індекс ціни:"</string>
+    <string name="payment_deferment">"Відстрочка платежу:"</string>
+    <string name="distribution_channel">"Канал збуту:"</string>
+    <string name="gallery">"Галерея"</string>
+    <string name="outlet">"Торгова точка"</string>
+    <string name="visit_days">"Дні відвідувань:"</string>
+    <string name="sunday">"Неділя"</string>
+    <string name="monday">"Понеділок"</string>
+    <string name="tuesday">"Вівторок"</string>
+    <string name="wednesday">"Середа"</string>
+    <string name="thursday">"Четвер"</string>
+    <string name="friday">"П'ятниця"</string>
+    <string name="saturday">"Субота"</string>
+    <string name="visits_frequency">"Періодичність відвідувань:"</string>
+    <string name="photo">"Фото"</string>
 
     <!-- Rates screen-->
     <string name="rates">Показники</string>
@@ -76,9 +102,10 @@
     <string name="coverage">Покриття</string>
     <string name="visits_efficiency_plan">Ефективність візитів план</string>
     <string name="visits_efficiency_fact">Ефективність візитів факт</string>
-    <string name="total_fact">Разом: факт %1$s</string>
-    <string name="plan">план</string>
-    <string name="total_plan">план %1$s</string>
+    <string name="fact">Факт:</string>
+    <string name="total_fact">Факт</string>
+    <string name="plan">План:</string>
+    <string name="total_plan">План</string>
 
     <!-- Result view -->
     <string name="connection_error">Сервер не відповідає</string>
@@ -94,5 +121,19 @@
     <string name="logout">Вийти</string>
     <string name="language_eng">Англійська</string>
     <string name="language_ua">Українська</string>
+    <string name="lang_eng">АНГЛ</string>
+    <string name="lang_ua">УКР</string>
+    <string name="name">Ім\'я</string>
+    <string name="change_language">Зміна мови</string>
+    <string name="version">Версія</string>
+    <string name="role">Роль</string>
+    <string name="head_t_d">НТВ</string>
+    <string name="director">Директор</string>
+
+
+    <!-- Selection screen -->
+    <string name="error_min_length">рядок пошуку має бути не менше %1$s-х символів</string>
+    <string name="clear">Очистити</string>
+    <string name="filter">Фільтр</string>
 
 </resources>

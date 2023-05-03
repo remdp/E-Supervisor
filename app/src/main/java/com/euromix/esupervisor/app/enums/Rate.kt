@@ -28,7 +28,6 @@ enum class Rate {
     abstract fun nameStringsRes(): Int
     abstract fun stringRepresentation(): String
 
-
     companion object {
         fun allRates(): List<Rate> = listOf(
             SalesPlanFact,
@@ -38,17 +37,12 @@ enum class Rate {
             VisitsEfficiencyFact
         )
 
-        fun manufacturerDetailRates(): List<Rate> = listOf(
-            SalesPlanFact,
-            Coverage
-        )
-
-
+        fun maxDetailLevel(position: Int) = if (allRates()[position] == SalesPlanFact) 3 else 2
 
         fun stringRepresentation(position: Int): String =
             allRates()[position].stringRepresentation()
 
-        private const val COVERAGE_NAME_REQUEST = "coverage"
+        private const val COVERAGE_NAME_REQUEST = "COVERAGE"
         private const val OUTLETS_WITH_ORDERS_NAME_REQUEST = "outlets_with_orders_rate"
         private const val SALE_NAME_REQUEST = "sale_rate"
         private const val VISITS_EFFICIENCY_NAME_REQUEST = "visits_efficiency"

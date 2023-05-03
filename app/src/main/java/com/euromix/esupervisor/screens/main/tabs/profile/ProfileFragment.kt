@@ -2,15 +2,15 @@ package com.euromix.esupervisor.screens.main.tabs.profile
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.viewModels
+import com.euromix.esupervisor.BuildConfig
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.Language
+import com.euromix.esupervisor.app.enums.Role
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.databinding.FragmentProfileAndSettingsBinding
 import com.yariksoffice.lingver.Lingver
 import dagger.hilt.android.AndroidEntryPoint
-
 import java.util.*
 
 @AndroidEntryPoint
@@ -24,59 +24,62 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile_and_settings) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileAndSettingsBinding.bind(view)
 
-        binding.btnLogout.setOnClickListener { logout() }
-        observeAccountDetails()
-        setLanguage()
+        binding.tvLogout.setOnClickListener { logout() }
+        binding.tvVersion.text = BuildConfig.VERSION_NAME
+        setupObservers()
+        setCheckedRBtn()
+        setLanguageListeners()
     }
 
-    private fun observeAccountDetails() {
+    private fun setupObservers() {
+
         viewModel.account.observe(viewLifecycleOwner) { account ->
             if (account == null) return@observe
             binding.tvLogin.text = account
         }
+
+        viewModel.role.observe(viewLifecycleOwner) {
+
+            binding.tvRole.text = Role.stringRepresentation(requireContext(), it)
+
+        }
     }
 
-    private fun setLanguage() {
+    private fun setCheckedRBtn() {
         when (Lingver.getInstance().getLanguage()) {
-            Language.ENG.locale().language -> binding.tvLanguage.setText(Language.ENG.nameStringRes())
-            Language.UA.locale().language -> binding.tvLanguage.setText(Language.UA.nameStringRes())
-            else -> binding.tvLanguage.setText(Language.UNDEFINED.nameStringRes())
+            Language.ENG.locale().language -> binding.radioGroup.check(R.id.rbtnEn)
+            Language.UA.locale().language -> binding.radioGroup.check(R.id.rbtnUa)
+            else -> binding.radioGroup.check(R.id.rbtnEn)
         }
-        binding.tvLanguage.setOnClickListener {
+    }
 
-            val titles = Language.values().associateBy { language ->
-                getString(language.nameStringRes())
-            }
+    private fun setLanguageListeners() {
+        binding.rbtnEn.setOnClickListener { setLanguage(Locale.ENGLISH.language) }
+        binding.rbtnUa.setOnClickListener { setLanguage(Language.UA.locale().language) }
 
-            val popup = PopupMenu(requireContext(), binding.tvLanguage)
-            titles.forEach { popup.menu.add(it.key) }
+    }
 
-            popup.setOnMenuItemClickListener { selectedTitle ->
-                val selectedLanguage: Language =
-                    titles[selectedTitle.toString()] ?: Language.UNDEFINED
-                if (Lingver.getInstance().getLanguage() != selectedLanguage.locale().language) {
-                    Lingver.getInstance().setLocale(
-                        requireContext(),
-                        selectedLanguage.locale().language ?: Locale.ENGLISH.language
-                    )
-                    binding.tvLanguage.text = getString(selectedLanguage.nameStringRes())
-                    reloadStringResourcesOnScreen()
-                }
-                true
-            }
-            popup.show()
+    private fun setLanguage(lang: String) {
+
+        val currentLang = Lingver.getInstance().getLanguage()
+        if (currentLang != lang) {
+            Lingver.getInstance().setLocale(requireContext(), lang)
+            reloadStringResourcesOnScreen()
         }
     }
 
     private fun reloadStringResourcesOnScreen() {
 
         with(binding) {
-            tvAppSettings.text = getString(R.string.app_settings)
-            tvAppLanguage.text = getString(R.string.app_language)
-            tvAccount.text = getString(R.string.account)
-            btnLogout.text = getString(R.string.logout)
+            tvUserLabel.text = getString(R.string.name)
+            tvLogout.text = getString(R.string.logout)
+            tvChangeLanguageLabel.text = getString(R.string.change_language)
+            rbtnUa.text = getString(R.string.lang_ua)
+            rbtnEn.text = getString(R.string.lang_eng)
+            tvVersionLabel.text = getString(R.string.version)
+            tvRoleLabel.text = getString(R.string.role)
+            tvRole.text = Role.stringRepresentation(requireContext(), viewModel.getCurrentRole())
+
         }
     }
-
-
 }

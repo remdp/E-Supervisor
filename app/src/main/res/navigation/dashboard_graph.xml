@@ -11,6 +11,14 @@
         <action
             android:id="@+id/action_docsEmixListFragment_to_docEmixDetailFragment"
             app:destination="@id/docEmixDetailFragment" />
+        <action
+            android:id="@+id/action_docsEmixListFragment_to_docsEmixSelectionFragment"
+            app:destination="@id/docsEmixSelectionFragment" />
+        <argument
+            android:name="selection"
+            app:argType="com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/docEmixDetailFragment"
@@ -19,5 +27,35 @@
         <argument
             android:name="extId"
             app:argType="string" />
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+        <action
+            android:id="@+id/action_docEmixDetailFragment_to_imageFragment"
+            app:destination="@id/imageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/docsEmixSelectionFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.docsEmix.selection.DocsEmixSelectionFragment"
+        android:label="DocsEmixSelectionFragment" >
+        <action
+            android:id="@+id/action_docsEmixSelectionFragment_to_docsEmixListFragment"
+            app:destination="@id/docsEmixListFragment" />
+        <argument
+            android:name="selection"
+            app:argType="com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.imagesPage.ImageFragment"
+        android:label="ImageFragment" >
+        <argument
+            android:name="imageUri"
+            app:argType="string" />
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
     </fragment>
 </navigation>

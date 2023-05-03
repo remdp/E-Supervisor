@@ -3,62 +3,109 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/docEmixRowTradingCondition"
+    android:layout_marginBottom="@dimen/DP_6"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/margin_nearly_small"
-    android:paddingBottom="@dimen/margin_nearly_small"
     android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/ivManufacturer"
+        android:layout_width="@dimen/DP_80"
+        android:layout_height="@dimen/DP_80"
+        android:layout_margin="@dimen/DP_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:src="@drawable/ic_logo"
+        tools:srcCompat="@drawable/ic_logo" />
 
     <TextView
         android:id="@+id/tvManufacturer"
+        style="@style/Text.Label.16.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="Beiersdorf"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/text_small"
-        android:theme="@style/Label.SmallTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_marginStart="@dimen/DP_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivManufacturer"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvPriceIndex"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintWidth_percent="@dimen/det_tc_manufacturer_width_percent"/>
+        tools:text="Мономах" />
+
+    <TextView
+        android:id="@+id/tvPriceIndexLabel"
+        style="@style/Text.Label.12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:textColor="@color/red_light"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPriceIndex"
+        app:layout_constraintStart_toEndOf="@+id/ivManufacturer"
+        app:layout_constraintTop_toTopOf="@+id/tvPriceIndex"
+        android:text = "@string/price_index"
+        tools:text="Індекс ціни:" />
 
     <TextView
         android:id="@+id/tvPriceIndex"
-        android:layout_width="0dp"
+        style="@style/Text.Label.12"
+        android:background ="@drawable/bg_price_index_tv"
+        android:layout_marginTop="@dimen/DP_1"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:paddingTop="@dimen/DP_1"
+        android:paddingBottom="@dimen/DP_1"
+        android:paddingStart="@dimen/DP_6"
+        android:paddingEnd="@dimen/DP_6"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_small"
-        tools:text="102"
-        app:layout_constraintStart_toEndOf="@+id/tvManufacturer"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvPaymentDeferment"
-        app:layout_constraintWidth_percent="@dimen/det_tc_price_index_width_percent"/>
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvManufacturer"
+        tools:text="95" />
+
+    <TextView
+        android:id="@+id/tvPaymentDefermentLabel"
+        style="@style/Text.Label.12.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPaymentDeferment"
+        app:layout_constraintStart_toEndOf="@+id/ivManufacturer"
+        app:layout_constraintTop_toTopOf="@+id/tvPaymentDeferment"
+        android:text = "@string/payment_deferment"
+        tools:text="Відстрочка платежу:" />
 
     <TextView
         android:id="@+id/tvPaymentDeferment"
-        android:layout_width="0dp"
+        style="@style/Text.Label.14.Medium"
+        android:layout_marginTop="@dimen/DP_1"
+        android:layout_marginEnd="@dimen/DP_16"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_small"
-        tools:text="7"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvPriceIndex"
-        app:layout_constraintEnd_toStartOf="@+id/tvDistributionChannel"
-        app:layout_constraintWidth_percent="@dimen/det_tc_payment_deferment_width_percent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceIndex"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/tvDistributionChannelLabel"
+        style="@style/Text.Label.12.Gray500"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDistributionChannel"
+        app:layout_constraintStart_toEndOf="@+id/ivManufacturer"
+        app:layout_constraintTop_toTopOf="@+id/tvDistributionChannel"
+        android:text = "@string/distribution_channel"
+        tools:text="Канал збуту:" />
 
     <TextView
         android:id="@+id/tvDistributionChannel"
-        android:layout_width="0dp"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/text_small"
-        tools:text="Розница"
+        android:layout_marginTop="@dimen/DP_1"
+        android:layout_marginEnd="@dimen/DP_16"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvPaymentDeferment"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintWidth_percent="@dimen/det_tc_distribution_channel_width_percent"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvPaymentDeferment"
+        tools:text="TT" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

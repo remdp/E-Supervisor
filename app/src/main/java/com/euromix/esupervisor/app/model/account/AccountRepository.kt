@@ -1,6 +1,7 @@
 package com.euromix.esupervisor.app.model.account
 
 import com.euromix.esupervisor.app.enums.Field
+import com.euromix.esupervisor.app.enums.Role
 import com.euromix.esupervisor.app.model.*
 import com.euromix.esupervisor.app.model.settings.AppSettings
 import javax.inject.Inject
@@ -29,10 +30,15 @@ class AccountRepository @Inject constructor(
             throw e
         }
         appSettings.setCurrentToken(token.data.access_token)
+        appSettings.setCurrentRole(Role.getByIndex(token.data.role))
     }
 
     fun getCurrentUser(): String {
         return appSettings.getCurrentUserName()
+    }
+
+    fun getCurrentRole(): Role{
+        return appSettings.getCurrentRole()
     }
 
     fun logout() {

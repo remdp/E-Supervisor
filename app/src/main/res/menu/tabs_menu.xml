@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:id="@+id/dashboard"
-        android:icon="@drawable/ic_baseline_event_note_24"
+        android:icon="@drawable/ic_agreement"
         android:title="@string/agreement" />
     <item
         android:id="@+id/rates_graph"
-        android:icon="@drawable/ic_baseline_data_exploration_24"
-        android:title="@string/rates" />
+        android:icon="@drawable/ic_rates"
+        android:title="@string/rates"/>
     <item
         android:id="@+id/profile"
-        android:icon="@drawable/ic_profile"
-        android:title="@string/profile" />
+        android:icon="@drawable/ic_account"
+        android:title="@string/profile"/>
 </menu>
