@@ -1,16 +1,17 @@
 package com.euromix.esupervisor.app.model.docsEmix.entities
 
 import android.os.Parcelable
+import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
 data class DocsEmixSelection(
     val period: Pair<Date, Date>? = null,
-    val tradingAgent: ItemSelection? = null,
-    val partner: ItemSelection? = null,
-    val operationType: ItemSelection? = null,
-    val status: ItemSelection? = null
+    val tradingAgent: ServerPair? = null,
+    val partner: ServerPair? = null,
+    val operationType: ServerPair? = null,
+    val status: ServerPair? = null
 ) : Parcelable {
 
     companion object {
@@ -20,11 +21,11 @@ data class DocsEmixSelection(
     }
 }
 
-@Parcelize
-data class ItemSelection(
-    val id: String,
-    val presentation: String
-) : Parcelable
+//@Parcelize
+//data class ServerPair(
+//    val id: String,
+//    val presentation: String
+//) : Parcelable
 
 
 

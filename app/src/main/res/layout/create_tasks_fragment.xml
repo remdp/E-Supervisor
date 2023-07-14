@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/btnCancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray_100"
+            android:paddingStart="@dimen/DP_8"
+            android:paddingEnd="@dimen/DP_8">
+
+            <TextView
+                android:id="@+id/tvDeadline"
+                style="@style/Text.Label.16.Gray500"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_8dp_white_border"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="@dimen/DP_12"
+                android:focusable="false"
+                android:hint="@string/deadline"
+                android:padding="@dimen/DP_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Строк виконання" />
+
+            <TextView
+                android:id="@+id/tvTaskType"
+                style="@style/Text.Label.16.Gray500"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_8"
+                android:background="@drawable/bg_8dp_white_border"
+                android:hint="@string/task_type"
+                android:padding="@dimen/DP_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDeadline" />
+
+            <EditText
+                android:id="@+id/tvDescription"
+                style="@style/Text.Label.16.Gray500"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_8"
+                android:background="@drawable/bg_8dp_white"
+                android:hint="@string/description"
+                android:lines="2"
+                android:paddingStart="@dimen/DP_12"
+                android:paddingTop="@dimen/DP_18"
+                android:paddingEnd="@dimen/DP_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTaskType" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/DP_2"
+                android:layout_marginBottom="@dimen/DP_2"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDescription"
+                app:layout_constraintEnd_toEndOf="@+id/tvDescription"
+                app:srcCompat="@drawable/ic_bottom_right_multiline" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cbOutlets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_16"
+                app:buttonIcon="@drawable/ic_checkbox_white_off"
+                app:buttonTint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription">
+
+            </com.google.android.material.checkbox.MaterialCheckBox>
+
+
+            <ImageView
+                android:id="@+id/ivFunnel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_16"
+                android:background="@drawable/bg_8dp_white"
+                android:padding="@dimen/DP_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+                app:srcCompat="@drawable/ic_funnel" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tiSearch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_16"
+                android:layout_weight="1"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivFunnel"
+                app:startIconDrawable="@drawable/ic_search"
+                app:startIconTint="@color/gray_300">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSearch"
+                    style="@style/Text.Label.16.Gray500"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:hint="@string/search"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSelectionItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tiSearch"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_outlet_create_task" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+    <Button
+        android:id="@+id/btnCancel"
+        style="@style/Text.Label.14.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:backgroundTint="@color/white"
+        android:paddingTop="@dimen/DP_12"
+        android:paddingBottom="@dimen/DP_12"
+        android:text="@string/cancel"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnOk"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/blue"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/btnOk"
+        style="@style/Text.Label.14.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/DP_12"
+        android:paddingBottom="@dimen/DP_12"
+        android:text="@string/ok"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCancel" />
+
+    <com.euromix.esupervisor.app.views.ResultView
+        android:id="@+id/vResult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,7 +47,7 @@ class DocsEmixAdapter(
             Status.designTV(tvStatus, docEmix.status)
             DocEmixOperationType.designTV(tvOperationType,docEmix.operationType, docEmix.status)
 
-            tvDate.text = with(docEmix.date) { textDate(this) }
+            tvDate.text = textDate(docEmix.date)
             tvNumber.text = docEmix.number
             tvPartner.text = docEmix.partner
             tvTradingAgent.text = docEmix.tradingAgent

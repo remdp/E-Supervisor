@@ -5,14 +5,13 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.screens.base.BaseFragment
-import com.euromix.esupervisor.app.utils.designedPeriodView
+//import com.euromix.esupervisor.app.utils.designedPeriodView
 import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.app.utils.setPeriodSelection
 import com.euromix.esupervisor.app.utils.textDate
+import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.DocEmixListFragmentBinding
 import com.euromix.esupervisor.screens.main.tabs.TitleData
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +21,7 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
 
     override val viewModel by viewModels<DocsEmixListViewModel>()
 
-    private lateinit var binding: DocEmixListFragmentBinding
+    private val binding by viewBinding<DocEmixListFragmentBinding>()
     private val args by navArgs<DocsEmixListFragmentArgs>()
 
     private val adapter = DocsEmixAdapter { docEmix ->
@@ -39,21 +38,24 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = DocEmixListFragmentBinding.bind(view)
         binding.rvList.adapter = adapter
 
         setupObservers(view)
         setupListeners()
+        viewModel.updateSelection(args.selection)
 
-        setPeriodSelection(binding.iSelection.etPeriod, parentFragmentManager) {
+        setPeriodSelection(
+            binding.iSelection.etPeriod,
+            viewModel.selection.value?.period,
+            parentFragmentManager
+        ) {
             viewModel.updatePeriod(it)
         }
 
-         viewModel.updateSelection(args.selection)
 
     }
 
-    private fun setupObservers(view: View){
+    private fun setupObservers(view: View) {
 
         viewModel.docsEmix.observeResults(this, view, binding.vResult, binding.srl) {
             adapter.docsEmix = it
@@ -61,14 +63,14 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
 
         viewModel.selection.observe(viewLifecycleOwner) {
 
-            designedPeriodView(binding.iSelection.etPeriod, it?.period)
+            //designedPeriodView(binding.iSelection.etPeriod, it?.period)
             viewModel.reload()
 
         }
 
     }
 
-    private fun setupListeners(){
+    private fun setupListeners() {
         binding.srl.setOnRefreshListener { viewModel.reload() }
         binding.vResult.setTryAgainAction { viewModel.reload() }
 

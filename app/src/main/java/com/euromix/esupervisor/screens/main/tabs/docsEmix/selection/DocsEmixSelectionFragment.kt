@@ -7,29 +7,23 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.Const.MIN_LENGTH_SEARCH_STRING
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
-import com.euromix.esupervisor.app.utils.observeResults
-import com.euromix.esupervisor.app.utils.setOnClickListenerLocalSelection
-import com.euromix.esupervisor.app.utils.setOnClickListenerServerSelection
-import com.euromix.esupervisor.app.utils.setSelectionOnEditorActionListener
+import com.euromix.esupervisor.app.utils.*
 import com.euromix.esupervisor.databinding.DocsEmixSelectionFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_fragment) {
 
     override val viewModel by viewModels<DocsSelectionViewModel>()
 
-    private lateinit var binding: DocsEmixSelectionFragmentBinding
+    private val binding by viewBinding<DocsEmixSelectionFragmentBinding>()
     private val args by navArgs<DocsEmixSelectionFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding = DocsEmixSelectionFragmentBinding.bind(view)
-
         viewModel.updateSelection(args.selection)
 
         setupListeners()
@@ -50,13 +44,15 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
         binding.btnCancel.setOnClickListener { findNavController().popBackStack() }
 
         binding.etTradingAgent.setOnClickListener { binding.tiTradingAgent.error = null }
-        binding.etTradingAgent.setOnFocusChangeListener { _, _ ->  binding.tiTradingAgent.error = null}
-        binding.etTradingAgent.setSelectionOnEditorActionListener(viewModel::findTradingAgents)
+        binding.etTradingAgent.setOnFocusChangeListener { _, _ ->
+            binding.tiTradingAgent.error = null
+        }
+        binding.etTradingAgent.setEtOnEditorActionListener(viewModel::findTradingAgents)
         binding.etTradingAgent.setOnClickListenerServerSelection(viewModel::updateTradingAgentSelection)
 
         binding.etPartner.setOnClickListener { binding.tiPartner.error = null }
-        binding.etPartner.setOnFocusChangeListener { _, _ ->  binding.tiPartner.error = null}
-        binding.etPartner.setSelectionOnEditorActionListener(viewModel::findPartners)
+        binding.etPartner.setOnFocusChangeListener { _, _ -> binding.tiPartner.error = null }
+        binding.etPartner.setEtOnEditorActionListener(viewModel::findPartners)
         binding.etPartner.setOnClickListenerServerSelection(viewModel::updatePartnerSelection)
 
         binding.tvOperationType.setOnClickListenerLocalSelection(
@@ -139,27 +135,25 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
 
         viewModel.foundTradingAgents.observeResults(this, view, binding.vResult) {
             if (it.isNotEmpty())
-                viewModel.popupWindow(requireContext(), it, viewModel::updateTradingAgentSelection)
+                popupWindow(requireContext(), it, viewModel::updateTradingAgentSelection)
                     .showAsDropDown(binding.etTradingAgent)
         }
 
         viewModel.foundPartners.observeResults(this, view, binding.vResult) {
             if (it.isNotEmpty())
-                viewModel.popupWindow(requireContext(), it, viewModel::updatePartnerSelection)
+                popupWindow(requireContext(), it, viewModel::updatePartnerSelection)
                     .showAsDropDown(binding.etPartner)
         }
 
         viewModel.errorsMinLength.observe(viewLifecycleOwner) {
 
-                binding.tiTradingAgent.error = if (it.minLengthTradingAgentError) getString(
-                    R.string.error_min_length,
-                    DocsSelectionViewModel.MIN_LENGTH_SEARCH_STRING
-                ) else null
+            binding.tiTradingAgent.error = if (it.minLengthTradingAgentError) getString(
+                R.string.error_min_length
+            ) else null
 
-                binding.tiPartner.error = if (it.minLengthPartnerError) getString(
-                    R.string.error_min_length,
-                    DocsSelectionViewModel.MIN_LENGTH_SEARCH_STRING
-                ) else null
+            binding.tiPartner.error = if (it.minLengthPartnerError) getString(
+                R.string.error_min_length
+            ) else null
         }
     }
 

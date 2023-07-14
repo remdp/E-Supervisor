@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_100"
+    android:paddingStart="@dimen/DP_8"
+    android:paddingEnd="@dimen/DP_8">
+
+    <TextView
+        android:id="@+id/tvTaskState"
+        style="@style/Text.Label.12.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/status_corners"
+        android:drawablePadding="@dimen/DP_8"
+        android:padding="@dimen/DP_4"
+        android:textAllCaps="true"
+        app:drawableStartCompat="@drawable/ic_refresh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Виконано"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvDeadlineLabel"
+        style="@style/Text.Label.14.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/deadline_colon"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDeadline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvDeadline"
+        tools:text="Строк виконання:" />
+
+    <TextView
+        android:id="@+id/tvDeadline"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTaskState"
+        tools:text="30.02.2023" />
+
+    <TextView
+        android:id="@+id/tvOutletLabel"
+        style="@style/Text.Label.14.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/outlet_colon"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPartner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvPartner"
+        tools:text="Торгова точка:" />
+
+    <TextView
+        android:id="@+id/tvPartner"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDeadline"
+        tools:text="Ярош Александр Николаевич " />
+
+    <TextView
+        android:id="@+id/tvOutlet"
+        style="@style/Text.Label.12.Gray500"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_6"
+        android:gravity="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvOutletLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvPartner"
+        tools:text="ул. Заводская,5 м-н Продукты  ул. Заводская,5 м-н Продукты " />
+
+    <TextView
+        android:id="@+id/tvTaskTypeLabel"
+        style="@style/Text.Label.14.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/task_type_colon"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTaskType"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTaskType"
+        tools:text="Тип завдання:" />
+
+    <TextView
+        android:id="@+id/tvTaskType"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_10"
+        android:gravity="end"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_6"
+        android:paddingEnd="@dimen/DP_6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvTaskTypeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutlet"
+        tools:text="Ввод новых Торговых марок" />
+
+    <TextView
+        android:id="@+id/tvExecutorLabel"
+        style="@style/Text.Label.14.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/executor_colon"
+        app:layout_constraintBottom_toBottomOf="@+id/tvExecutor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvExecutor"
+        tools:text="Виконавець:" />
+
+    <TextView
+        android:id="@+id/tvExecutor"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTaskType"
+        tools:text="Шаблий Максим" />
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tvAttachPhoto"-->
+    <!--        style="@style/Text.Label.14.Gray500"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="@dimen/DP_10"-->
+    <!--        android:drawablePadding="@dimen/DP_8"-->
+    <!--        android:text="@string/attach_photo"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/tvExecutor"-->
+    <!--        tools:drawableStartCompat="@drawable/ic_checkbox_on" />-->
+
+    <TextView
+        android:id="@+id/tvDescription"
+        style="@style/Text.Label.16.Gray500"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_10"
+        android:background="@drawable/bg_comment_tv"
+        android:hint="@string/description"
+        android:lines="3"
+        android:paddingStart="@dimen/DP_12"
+        android:paddingTop="@dimen/DP_18"
+        android:paddingEnd="@dimen/DP_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvExecutor"
+        tools:text="Відвантажити акцію Мономах Оригінал 6+1 відділом в 41 ТТ до 31.05" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_2"
+        android:layout_marginBottom="@dimen/DP_2"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDescription"
+        app:layout_constraintEnd_toEndOf="@+id/tvDescription"
+        app:srcCompat="@drawable/ic_bottom_right_multiline" />
+
+    <com.euromix.esupervisor.app.views.ResultView
+        android:id="@+id/vResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

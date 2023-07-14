@@ -2,7 +2,6 @@ package com.euromix.esupervisor.sources.docsEmix
 
 import com.euromix.esupervisor.app.model.docsEmix.DocsEmixSource
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
-import com.euromix.esupervisor.app.model.docsEmix.entities.ItemSelection
 import com.euromix.esupervisor.sources.base.BaseRetrofitSource
 import com.euromix.esupervisor.sources.base.RetrofitConfig
 import com.euromix.esupervisor.sources.docsEmix.entities.DocsEmixRequestEntity
@@ -28,15 +27,15 @@ class RetrofitDocsEmixSource @Inject constructor(
         }
     }
 
-    override suspend fun findTradingAgents(searchString: String): List<ItemSelection> {
-        return wrapRetrofitException {
-            docsEmixApi.findTradingAgents(searchString)
-        }
-    }
-
-    override suspend fun findPartners(searchString: String): List<ItemSelection> {
-        return wrapRetrofitException {
-            docsEmixApi.findPartners(searchString)
-        }
-    }
+//    override suspend fun findTradingAgents(searchString: String): List<ServerPair> {
+//        return wrapRetrofitException {
+//            docsEmixApi.findTradingAgents(searchString)
+//        }
+//    }
+//
+//    override suspend fun findPartners(searchString: String): List<ServerPair> {
+//        return wrapRetrofitException {
+//            docsEmixApi.findPartners(searchString)
+//        }
+//    }
 }

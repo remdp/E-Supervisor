@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cbPartner"
+        style="@style/CheckBox"
+        android:layout_width="match_parent"
+        android:paddingStart="@dimen/DP_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Конотоп В.А." />
+
+    <TextView
+        android:id="@+id/tvOutlet"
+        style="@style/Text.Label.14.Gray400"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_32"
+        android:text="Харківська область, місто. Харків, вулиця Червоні Ряди, будинок. 15"
+        app:layout_constraintStart_toStartOf="@+id/cbPartner"
+        app:layout_constraintTop_toBottomOf="@+id/cbPartner" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

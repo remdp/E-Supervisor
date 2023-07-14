@@ -9,3 +9,6 @@ private fun LocalDate.toFormatString(format: String): String =
 
 fun textDate(date: LocalDateTime): String =
     date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+
+fun textDate(date: LocalDate): String =
+    date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))

@@ -53,7 +53,7 @@ class RatesViewModel @Inject constructor(
             )
 
         } else
-            _state.value = _state.value?.copy(ratePosition = ratePosition)
+            _state.value = _state.value?.copy(ratePosition = ratePosition, detailLevel = 0)
     }
 
     fun updateState(detailId: String) {

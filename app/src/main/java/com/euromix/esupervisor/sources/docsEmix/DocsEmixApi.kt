@@ -1,8 +1,8 @@
 package com.euromix.esupervisor.sources.docsEmix
 
-import com.euromix.esupervisor.app.model.docsEmix.entities.ItemSelection
 import com.euromix.esupervisor.sources.docsEmix.entities.DocsEmixResponseEntity
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Header
 
 interface DocsEmixApi {
 
@@ -11,10 +11,10 @@ interface DocsEmixApi {
         @Header("request") request: String? = null
     ): List<DocsEmixResponseEntity>
 
-    @GET("trading_agents")
-    suspend fun findTradingAgents(@Query("search_string") searchString: String): List<ItemSelection>
-
-    @GET("partners")
-    suspend fun findPartners(@Query("search_string") searchString: String): List<ItemSelection>
+//    @GET("trading_agents")
+//    suspend fun findTradingAgents(@Query("search_string") searchString: String): List<ServerPair>
+//
+//    @GET("partners")
+//    suspend fun findPartners(@Query("search_string") searchString: String): List<ServerPair>
 
 }

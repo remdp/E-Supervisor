@@ -4,6 +4,8 @@
     <string name="invalid_username_or_password">Неправильний супервайзер або пароль</string>
     <string name="in_developing">В розробці</string>
     <string name="undefined">Не визначене</string>
+    <string name="period_selection">Вибір периоду</string>
+    <string name="date_selection">Вибір дати</string>
 
     <string name="partner">Контрагент</string>
     <string name="partner_colon">Контрагент:</string>
@@ -24,7 +26,7 @@
     <string name="agreed">Узгоджений</string>>
     <string name="error">Помилка</string>>
     <string name="rejected">Відхилений</string>>
-    <string name="in_work">В роботі</string>>
+    <string name="in_work">У роботі</string>>
 
     <string name="from">від </string>
     <string name="cancel">Відміна </string>
@@ -83,6 +85,7 @@
     <string name="distribution_channel">"Канал збуту:"</string>
     <string name="gallery">"Галерея"</string>
     <string name="outlet">"Торгова точка"</string>
+    <string name="outlet_colon">"Торгова точка:"</string>
     <string name="visit_days">"Дні відвідувань:"</string>
     <string name="sunday">"Неділя"</string>
     <string name="monday">"Понеділок"</string>
@@ -96,12 +99,12 @@
 
     <!-- Rates screen-->
     <string name="rates">Показники</string>
-    <string name="period_selection">Вибір периоду</string>
     <string name="sales_plan_fact">План факт продажу</string>
     <string name="outlets_with_orders">Торгові точки із замовленнями</string>
     <string name="coverage">Покриття</string>
     <string name="visits_efficiency_plan">Ефективність візитів план</string>
     <string name="visits_efficiency_fact">Ефективність візитів факт</string>
+    <string name="number_of_visits_average_per_day">Кількість візитів середнє за день</string>
     <string name="fact">Факт:</string>
     <string name="total_fact">Факт</string>
     <string name="plan">План:</string>
@@ -130,10 +133,39 @@
     <string name="head_t_d">НТВ</string>
     <string name="director">Директор</string>
 
-
     <!-- Selection screen -->
     <string name="error_min_length">рядок пошуку має бути не менше %1$s-х символів</string>
     <string name="clear">Очистити</string>
     <string name="filter">Фільтр</string>
+
+    <!-- tasks  -->
+    <string name="tasks">Завдання</string>
+    <string name="state_colon">Стан:</string>
+    <string name="deadline_colon">Строк виконання:</string>
+    <string name="deadline">Строк виконання</string>
+    <string name="description_colon">Опис:</string>
+    <string name="description">Опис</string>
+    <string name="attach_photo">Докласти фото:</string>
+    <string name="task_producer">Постановник завдання</string>
+    <string name="task_type">Тип завдання</string>
+    <string name="task_type_colon">Тип завдання:</string>
+    <string name="executor">Виконавець</string>
+    <string name="executor_colon">Виконавець:</string>
+    <string name="draft">Чернетка</string>
+    <string name="task_state">Стан завдання</string>
+    <string name="only_my_tasks">Тільки мої завдання</string>
+    <string name="only_overdue_tasks">Тільки протерміновані завдання</string>
+    <string name="new_task">Нове завдання</string>
+    <string name="search">пошук</string>
+    <string name="outlets_types">Типи торгових точок</string>
+    <string name="tasks_creation_result_title">Результат створення завдань</string>
+    <string name="tasks_creation_result">Створено %1$s завдань(ня)</string>
+    <string name="tasks_creation_error">Виникла помилка у процесі створення завдань</string>
+    <string name="trading_agents">Торгові агенти</string>
+    <string name="need_fill_colon">Необхідно заповнити:</string>
+    <string name="outlets">Торгові точки</string>
+    <string name="validation_errors">Помилки перевірки</string>
+    <string name="need_select_ta">Необхідно вибрати хоча б одного торгового агента</string>
+
 
 </resources>

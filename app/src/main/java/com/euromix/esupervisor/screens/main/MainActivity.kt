@@ -1,8 +1,10 @@
 package com.euromix.esupervisor.screens.main
 
+import android.content.res.Configuration
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -11,6 +13,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.utils.addSoftKeyboardVisibilityListener
 import com.euromix.esupervisor.app.utils.parcelable
 import com.euromix.esupervisor.databinding.ActivityMainBinding
 import com.euromix.esupervisor.screens.main.tabs.TabsFragment

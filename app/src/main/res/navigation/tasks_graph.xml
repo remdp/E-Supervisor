@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tasks_graph"
+    app:startDestination="@id/tasksFragment">
+
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.tasks.list.TasksFragment"
+        android:label="TasksFragment" >
+        <action
+            android:id="@+id/action_tasksFragment_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment" />
+        <action
+            android:id="@+id/action_tasksFragment_to_createTaskFragment"
+            app:destination="@id/createTaskFragment" />
+        <action
+            android:id="@+id/action_tasksFragment_to_tasksSelectionFragment"
+            app:destination="@id/tasksSelectionFragment" />
+        <argument
+            android:name="selection"
+            app:argType="com.euromix.esupervisor.app.model.tasks.entities.TasksSelection"
+            app:nullable="true"
+            android:defaultValue="@null"/>
+    </fragment>
+    <fragment
+        android:id="@+id/taskDetailFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.tasks.detail.TaskDetailFragment"
+        android:label="TaskDetailFragment" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+    </fragment>
+    <fragment
+        android:id="@+id/createTaskFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.tasks.createTask.CreateTasksFragment"
+        android:label="CreateTaskFragment" >
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+        <action
+            android:id="@+id/action_createTaskFragment_to_outletsSelectionFragment"
+            app:destination="@id/outletsSelectionFragment" />
+        <argument
+            android:name="outletsSelection"
+            app:argType="com.euromix.esupervisor.app.model.tasks.entities.TasksCreateOutletsSelection"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/tasksSelectionFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.tasks.selection.TasksSelectionFragment"
+        android:label="TasksSelectionFragment" >
+        <action
+            android:id="@+id/action_tasksSelectionFragment_to_tasksFragment"
+            app:destination="@id/tasksFragment" />
+        <argument
+            android:name="selection"
+            app:argType="com.euromix.esupervisor.app.model.tasks.entities.TasksSelection"
+            app:nullable="true"
+            android:defaultValue="@null"/>
+    </fragment>
+    <fragment
+        android:id="@+id/outletsSelectionFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.tasks.selection.OutletsSelectionFragment"
+        android:label="OutletsSelectionFragment" >
+        <action
+            android:id="@+id/action_outletsSelectionFragment_to_createTaskFragment"
+            app:destination="@id/createTaskFragment" />
+    </fragment>
+</navigation>

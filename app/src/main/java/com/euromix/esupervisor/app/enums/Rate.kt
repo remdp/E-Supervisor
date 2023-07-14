@@ -1,5 +1,6 @@
 package com.euromix.esupervisor.app.enums
 
+import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
 
 enum class Rate {
@@ -23,7 +24,19 @@ enum class Rate {
     OutletsWithOrders {
         override fun nameStringsRes(): Int = R.string.outlets_with_orders
         override fun stringRepresentation(): String = Rate.OUTLETS_WITH_ORDERS_NAME_REQUEST
-    };
+    },
+    TDP {
+        override fun nameStringsRes(): Int = R.string.tdp
+        override fun stringRepresentation(): String = Rate.TDP_NAME_REQUEST
+    },
+//    VisitsAverage {
+//        override fun nameStringsRes() = R.string.number_of_visits_average_per_day
+//        override fun stringRepresentation(): String {
+//            App.getString()
+//        }
+//
+//    }
+    ;
 
     abstract fun nameStringsRes(): Int
     abstract fun stringRepresentation(): String
@@ -34,7 +47,8 @@ enum class Rate {
             // OutletsWithOrders,
             Coverage,
             VisitsEfficiencyPlan,
-            VisitsEfficiencyFact
+            VisitsEfficiencyFact,
+            TDP
         )
 
         fun maxDetailLevel(position: Int) = if (allRates()[position] == SalesPlanFact) 3 else 2
@@ -46,5 +60,6 @@ enum class Rate {
         private const val OUTLETS_WITH_ORDERS_NAME_REQUEST = "outlets_with_orders_rate"
         private const val SALE_NAME_REQUEST = "sale_rate"
         private const val VISITS_EFFICIENCY_NAME_REQUEST = "visits_efficiency"
+        private const val TDP_NAME_REQUEST = "TDP"
     }
 }

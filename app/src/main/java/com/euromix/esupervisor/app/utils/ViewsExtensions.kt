@@ -1,26 +1,25 @@
 package com.euromix.esupervisor.app.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Matrix
 import android.graphics.Rect
-import android.graphics.Shader
-import android.graphics.SweepGradient
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
-import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
 import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.Status
-import com.euromix.esupervisor.app.model.docsEmix.entities.ItemSelection
+import com.euromix.esupervisor.app.enums.TaskState
+import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.utils.customIndicator.CustomProgressIndicator
-import com.euromix.esupervisor.app.utils.customIndicator.DefaultProgressTextAdapter
 
 fun View.showKeyboard() {
     requestFocus()
@@ -43,7 +42,19 @@ fun TextView.setIconStatus(status: Status) {
     setCompoundDrawablesWithIntrinsicBounds(status.getIconId(), 0, 0, 0)
 }
 
-fun EditText.setSelectionOnEditorActionListener(searchFunction: (String) -> Unit) {
+fun TextView.setTextColorTaskState(taskState: TaskState) {
+    setTextColor(context.colorStateList(taskState.getColor()))
+}
+
+fun TextView.setIconTaskState(taskState: TaskState) {
+    setCompoundDrawablesWithIntrinsicBounds(taskState.getIconId(), 0, 0, 0)
+}
+
+fun ImageButton.setIconCollapse(collapse: Boolean) {
+    setImageResource(if (collapse) R.drawable.ic_arrow_drop_down_black else R.drawable.ic_arrow_drop_up_black)
+}
+
+fun EditText.setEtOnEditorActionListener(searchFunction: (String) -> Unit) {
 
     setOnEditorActionListener { v, actionId, event ->
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -59,7 +70,7 @@ fun EditText.setSelectionOnEditorActionListener(searchFunction: (String) -> Unit
     }
 }
 
-fun EditText.setOnClickListenerServerSelection(onCLick: (ItemSelection?) -> Unit) {
+fun EditText.setOnClickListenerServerSelection(onCLick: (ServerPair?) -> Unit) {
 
     setOnTouchListener { v, event ->
 
@@ -81,17 +92,18 @@ fun EditText.setOnClickListenerServerSelection(onCLick: (ItemSelection?) -> Unit
     }
 }
 
+@SuppressLint("ClickableViewAccessibility")
 fun TextView.setOnClickListenerLocalSelection(
-    itemsList: List<ItemSelection>,
-    updaterSelection: (ItemSelection?) -> Unit,
+    itemsList: List<ServerPair>,
+    updaterSelection: (ServerPair?) -> Unit,
     onClick: (
-        itemsList: List<ItemSelection>,
-        updaterSelection: (ItemSelection?) -> Unit,
+        itemsList: List<ServerPair>,
+        updaterSelection: (ServerPair?) -> Unit,
         anchor: View,
         click: Int,
-        emptyChecker:()-> Boolean
+        emptyChecker: () -> Boolean
     ) -> Unit,
-    emptyChecker:()-> Boolean
+    emptyChecker: () -> Boolean
 ) {
 
     setOnTouchListener { v, event ->
@@ -100,7 +112,7 @@ fun TextView.setOnClickListenerLocalSelection(
             MotionEvent.ACTION_UP -> {
                 val textLocation = IntArray(2)
                 getLocationOnScreen(textLocation)
-                if (event.rawX <= textLocation[0] + getTotalPaddingLeft()) {
+                if (event.rawX <= textLocation[0] + totalPaddingLeft) {
                     // Left drawable was tapped
 
                 } else if (event.rawX >= textLocation[0] + getWidth() - getTotalPaddingRight()) {

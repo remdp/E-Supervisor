@@ -11,6 +11,8 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.time.Duration
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -21,7 +23,7 @@ class NetworkModule {
     @Singleton
     fun provideMoshi(): Moshi {
         return Moshi.Builder()
-            //.add(moshiAdapter())
+            //.add(PairAdapter())
             .build()
     }
 
@@ -29,6 +31,8 @@ class NetworkModule {
     @Singleton
     fun provideOkHttpClient(settings: AppSettings): OkHttpClient {
         return OkHttpClient.Builder()
+            .readTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(createAuthorizationInterceptor(settings))
             .build()
     }
@@ -50,7 +54,7 @@ class NetworkModule {
 
         return Retrofit.Builder()
             .baseUrl(Const.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()
     }

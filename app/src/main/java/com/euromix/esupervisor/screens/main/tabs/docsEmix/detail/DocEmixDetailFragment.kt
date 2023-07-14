@@ -20,6 +20,7 @@ import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.observeResults
+import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.DialogReasonRejectionBinding
 import com.euromix.esupervisor.databinding.DocEmixDetailFragmentBinding
@@ -40,15 +41,12 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
 
     override val viewModel by viewModelCreator { factory.create(args.extId) }
 
-    private lateinit var binding: DocEmixDetailFragmentBinding
+    private val binding by viewBinding<DocEmixDetailFragmentBinding>()
     private lateinit var bindingTLHeader: TabHeaderBinding
     private val args by navArgs<DocEmixDetailFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding = DocEmixDetailFragmentBinding.bind(view)
-
         setupListeners()
         setupObservers(view)
 
@@ -91,7 +89,6 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                 setupViewPager(docEmixDetail)
             }
         }
-
     }
 
     private fun setupListeners() {

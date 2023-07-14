@@ -5,6 +5,10 @@
         android:icon="@drawable/ic_agreement"
         android:title="@string/agreement" />
     <item
+        android:id="@+id/tasks_graph"
+        android:icon="@drawable/ic_tasks"
+        android:title="@string/tasks" />
+    <item
         android:id="@+id/rates_graph"
         android:icon="@drawable/ic_rates"
         android:title="@string/rates"/>

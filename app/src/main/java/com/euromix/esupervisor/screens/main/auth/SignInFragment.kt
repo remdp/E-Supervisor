@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.observeEvent
+import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.FragmentSignInBinding
 import com.euromix.esupervisor.screens.viewModelCreator
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,19 +16,18 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
-    private lateinit var binding: FragmentSignInBinding
+    private val binding by viewBinding<FragmentSignInBinding>()
 
-   // override val viewModel by viewModelCreator { SignInViewModel() }
+    // override val viewModel by viewModelCreator { SignInViewModel() }
     override val viewModel by viewModels<SignInViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentSignInBinding.bind(view)
         binding.btnLogin.setOnClickListener { onSignInButtonPressed() }
 
         observeState()
         observeClearPasswordEvent()
-    //    observeShowAuthErrorMessageEvent()
+        //    observeShowAuthErrorMessageEvent()
         observeNavigateToTabsEvent()
     }
 
@@ -39,8 +39,10 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
     }
 
     private fun observeState() = viewModel.state.observe(viewLifecycleOwner) {
-        binding.tiLogin.error = if (it.emptyUserNameError) getString(R.string.field_is_empty) else null
-        binding.tiPassword.error = if (it.emptyPasswordError) getString(R.string.field_is_empty) else null
+        binding.tiLogin.error =
+            if (it.emptyUserNameError) getString(R.string.field_is_empty) else null
+        binding.tiPassword.error =
+            if (it.emptyPasswordError) getString(R.string.field_is_empty) else null
 
         binding.tiLogin.isEnabled = it.enableViews
         binding.tiPassword.isEnabled = it.enableViews
@@ -52,13 +54,15 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 //        Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
 //    }
 
-    private fun observeClearPasswordEvent() = viewModel.clearPasswordEvent.observeEvent(viewLifecycleOwner) {
-        binding.etPassword.text?.clear()
-    }
+    private fun observeClearPasswordEvent() =
+        viewModel.clearPasswordEvent.observeEvent(viewLifecycleOwner) {
+            binding.etPassword.text?.clear()
+        }
 
-    private fun observeNavigateToTabsEvent() = viewModel.navigateToTabsEvent.observeEvent(viewLifecycleOwner) {
-        findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
+    private fun observeNavigateToTabsEvent() =
+        viewModel.navigateToTabsEvent.observeEvent(viewLifecycleOwner) {
+            findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
 
-    }
+        }
 
 }

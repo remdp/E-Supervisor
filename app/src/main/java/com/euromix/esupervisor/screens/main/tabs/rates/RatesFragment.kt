@@ -1,30 +1,30 @@
 package com.euromix.esupervisor.screens.main.tabs.rates
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.Rate
-import com.euromix.esupervisor.app.model.rates.entities.*
+import com.euromix.esupervisor.app.model.rates.entities.RateData
 import com.euromix.esupervisor.app.screens.base.BaseFragment
-import com.euromix.esupervisor.app.utils.*
+import com.euromix.esupervisor.app.utils.clear
+import com.euromix.esupervisor.app.utils.draw
+import com.euromix.esupervisor.app.utils.observeResults
+import com.euromix.esupervisor.app.utils.setPeriodSelection
+import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.RatesFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
-import java.util.*
-
 
 @AndroidEntryPoint
 class RatesFragment : BaseFragment(R.layout.rates_fragment) {
 
     override val viewModel by viewModels<RatesViewModel>()
 
-    private lateinit var binding: RatesFragmentBinding
+    private val binding by viewBinding<RatesFragmentBinding>()
 
     private var adapter = RateAdapter(lifecycleScope) {
 
@@ -42,12 +42,15 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = RatesFragmentBinding.bind(view)
         binding.rvList.adapter = adapter
 
         setupObservers(view)
         setupListeners()
-        setPeriodSelection(binding.etPeriodSelection, parentFragmentManager) {
+        setPeriodSelection(
+            binding.etPeriodSelection,
+            viewModel.state.value?.ratePeriod,
+            parentFragmentManager
+        ) {
             it?.let { viewModel.updateState(ratePeriod = it) }
         }
 
@@ -62,15 +65,7 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
             issueTotalViews(it)
         }
 
-        viewModel.state.observe(viewLifecycleOwner) {
-
-            designedPeriodView(
-                binding.etPeriodSelection,
-                Pair(it.ratePeriod.first, it.ratePeriod.second),
-                false
-            )
-            viewModel.fetchRate()
-        }
+        viewModel.state.observe(viewLifecycleOwner) { viewModel.fetchRate() }
     }
 
     private fun setupListeners() {
@@ -107,7 +102,7 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
 
         binding.spinner.adapter = SpinnerRatesAdapter(
             requireContext(),
-            R.layout.spinner_rates_drop_down_item,
+            R.layout.spinner_drop_down_item,
             Rate.allRates()
         )
 

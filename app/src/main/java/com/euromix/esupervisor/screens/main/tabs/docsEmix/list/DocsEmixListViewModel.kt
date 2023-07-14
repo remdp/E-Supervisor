@@ -3,12 +3,12 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.list
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.App.Companion.formattedDate
+import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.docsEmix.DocsEmixRepository
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
+import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.share
-import com.euromix.esupervisor.app.model.Result
-import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
 import com.euromix.esupervisor.sources.docsEmix.entities.DocsEmixRequestEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
@@ -28,14 +28,14 @@ class DocsEmixListViewModel @Inject constructor(
     private fun getDocsEmix() {
         viewModelScope.safeLaunch {
 
-            val cf = docsEmixRepository.getDocsEmix(requestFromSettings())
+            val cf = docsEmixRepository.getDocsEmix(requestFromSelection())
             cf.collect { result ->
                 _docsEmix.value = result
             }
         }
     }
 
-    private fun requestFromSettings() =
+    private fun requestFromSelection() =
         DocsEmixRequestEntity(
             startDate = _selection.value?.period?.let { formattedDate(it.first) },
             endDate = _selection.value?.period?.let { formattedDate(it.second) },

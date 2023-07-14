@@ -3,6 +3,8 @@
     <string name="invalid_username_or_password">Invalid supervisor or password</string>
     <string name="in_developing">In developing</string>
     <string name="undefined">Undefined</string>
+    <string name="period_selection">Period selection</string>
+    <string name="date_selection">Date selection</string>
 
     <string name="partner">Partner</string>
     <string name="partner_colon">Partner:</string>
@@ -24,10 +26,10 @@
     <string name="error">Error</string>>
     <string name="rejected">Rejected</string>>
     <string name="in_work">In work</string>>
-    
 
-<!--    <string name="day_month_year_date_format" formatted="false" translatable="false" >dd MMM yyyy</string>-->
-    <string name="day_month_year_date_format" formatted="false" translatable="false" >dd MMM yyyy</string>
+
+    <!--    <string name="day_month_year_date_format" formatted="false" translatable="false" >dd MMM yyyy</string>-->
+    <string name="day_month_year_date_format" formatted="false" translatable="false">dd MMM yyyy</string>
 
     <string name="from">from </string>
 
@@ -88,6 +90,7 @@
     <string name="distribution_channel">"Distribution channel:"</string>
     <string name="gallery">"Gallery"</string>
     <string name="outlet">"Outlet"</string>
+    <string name="outlet_colon">"Outlet:"</string>
     <string name="visit_days">"Visiting day:"</string>
     <string name="sunday">"Sunday"</string>
     <string name="monday">"Monday"</string>
@@ -102,18 +105,19 @@
 
     <!-- Rates screen-->
     <string name="rates">Rates</string>
-    <string name="period_selection">Period selection</string>
     <string name="sales_plan_fact">Sales plan fact</string>
     <string name="outlets_with_orders">Outlets with order</string>
     <string name="coverage">Coverage</string>
-    <string name="visits_efficiency_plan">efficiency of visits plan</string>
-    <string name="visits_efficiency_fact">efficiency of visits fact</string>
+    <string name="visits_efficiency_plan">Efficiency of visits plan</string>
+    <string name="visits_efficiency_fact">Efficiency of visits fact</string>
+    <string name="number_of_visits_average_per_day">Number of visits average per day</string>
     <string name="total_fact">Fact</string>
     <string name="fact">Fact:</string>
-<!--    <string name="total_fact">Total: fact %1$s</string>-->
+    <!--    <string name="total_fact">Total: fact %1$s</string>-->
     <string name="plan">Plan:</string>
     <string name="total_plan">Plan</string>
-<!--    <string name="total_plan">plan %1$s</string>-->
+    <string name="tdp" translatable="false">TDP</string>
+    <!--    <string name="total_plan">plan %1$s</string>-->
 
 
     <!-- Result view -->
@@ -139,10 +143,39 @@
     <string name="head_t_d">Head of the TD</string>
     <string name="director">Director</string>
 
-
     <!-- Selection screen -->
     <string name="error_min_length">search string must be at least %1$s characters long</string>
     <string name="clear">Clear</string>
     <string name="filter">Filter</string>
+
+    <!-- tasks -->
+    <string name="tasks">Tasks</string>
+    <string name="state_colon">State:</string>
+    <string name="deadline_colon">Deadline:</string>
+    <string name="deadline">Deadline</string>
+    <string name="description_colon">Description:</string>
+    <string name="description">Description</string>
+    <string name="attach_photo">Attach photo</string>
+    <string name="task_producer">Task producer</string>
+    <string name="task_type">Task type</string>
+    <string name="task_type_colon">Task type:</string>
+    <string name="executor">Executor</string>
+    <string name="executor_colon">Executor:</string>
+    <string name="draft">Draft</string>
+    <string name="task_state">Task state</string>
+    <string name="only_my_tasks">Only my tasks</string>
+    <string name="only_overdue_tasks">Only overdue tasks</string>
+    <string name="new_task">New task</string>
+    <string name="search">search</string>
+    <string name="outlets_types">Types of outlets</string>
+    <string name="tasks_creation_result_title">Tasks creation result</string>
+    <string name="tasks_creation_result">%1$s tasks created</string>
+    <string name="tasks_creation_error">An error occurred while creating tasks</string>
+    <string name="trading_agents">Trading agents</string>
+    <string name="need_fill_colon">You need to fill:</string>
+    <string name="outlets">Outlets</string>
+    <string name="validation_errors">Validation errors</string>
+    <string name="need_select_ta">You must select at least one trading agent</string>
+
 
 </resources>

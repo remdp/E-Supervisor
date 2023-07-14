@@ -1,8 +1,7 @@
 package com.euromix.esupervisor.app.model.docsEmix
 
-import com.euromix.esupervisor.app.model.*
+import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
-import com.euromix.esupervisor.app.model.docsEmix.entities.ItemSelection
 import com.euromix.esupervisor.app.utils.async.LazyFlowSubject
 import com.euromix.esupervisor.sources.docsEmix.entities.DocsEmixRequestEntity
 import kotlinx.coroutines.flow.Flow
@@ -22,19 +21,19 @@ class DocsEmixRepository @Inject constructor(
         return docsEmixLazyFlowSubject.listen(request)
     }
 
-    private val tradingAgentsFlowSubject = LazyFlowSubject<String, List<ItemSelection>> {
-        docsEmixSource.findTradingAgents(it)
-    }
-
-    private val partnersFlowSubject = LazyFlowSubject<String, List<ItemSelection>> {
-        docsEmixSource.findPartners(it)
-    }
-
-    fun findTradingAgents(stringSearch: String): Flow<Result<List<ItemSelection>>> {
-        return tradingAgentsFlowSubject.listen(stringSearch)
-    }
-
-    fun findPartners(stringSearch: String): Flow<Result<List<ItemSelection>>> {
-        return partnersFlowSubject.listen(stringSearch)
-    }
+//    private val tradingAgentsFlowSubject = LazyFlowSubject<String, List<ServerPair>> {
+//        docsEmixSource.findTradingAgents(it)
+//    }
+//
+//    private val partnersFlowSubject = LazyFlowSubject<String, List<ServerPair>> {
+//        docsEmixSource.findPartners(it)
+//    }
+//
+//    fun findTradingAgents(stringSearch: String): Flow<Result<List<ServerPair>>> {
+//        return tradingAgentsFlowSubject.listen(stringSearch)
+//    }
+//
+//    fun findPartners(stringSearch: String): Flow<Result<List<ServerPair>>> {
+//        return partnersFlowSubject.listen(stringSearch)
+//    }
 }

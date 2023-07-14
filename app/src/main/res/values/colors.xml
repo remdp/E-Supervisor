@@ -63,6 +63,7 @@
     <color name="colorUnscheduledVisitBackground">#FDE0DD</color>
     <color name="gray_100">#F2F5F8</color>
     <color name="gray_200">#E2E8EC</color>
+    <color name="gray_300">#A8B4BE</color>
     <color name="gray_400">#818C98</color>
     <color name="gray_500">#6A7781</color>
     <color name="blue">#167AFA</color>

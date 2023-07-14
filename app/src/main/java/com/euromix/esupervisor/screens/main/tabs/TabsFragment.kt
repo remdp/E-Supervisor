@@ -10,19 +10,19 @@ import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.Role
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
+import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.FragmentTabsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TabsFragment : BaseFragment(R.layout.fragment_tabs) {
 
-    private lateinit var binding: FragmentTabsBinding
+    private val binding by viewBinding<FragmentTabsBinding>()
 
     override val viewModel by viewModels<TabsViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentTabsBinding.bind(view)
 
         val navHostFragment =
             childFragmentManager.findFragmentById(R.id.tabsContainer) as NavHostFragment

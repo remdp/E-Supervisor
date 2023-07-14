@@ -8,6 +8,7 @@ import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.Language
 import com.euromix.esupervisor.app.enums.Role
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.FragmentProfileAndSettingsBinding
 import com.yariksoffice.lingver.Lingver
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,13 +17,12 @@ import java.util.*
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment(R.layout.fragment_profile_and_settings) {
 
-    private lateinit var binding: FragmentProfileAndSettingsBinding
+    private val binding by viewBinding<FragmentProfileAndSettingsBinding>()
 
     override val viewModel by viewModels<ProfileViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentProfileAndSettingsBinding.bind(view)
 
         binding.tvLogout.setOnClickListener { logout() }
         binding.tvVersion.text = BuildConfig.VERSION_NAME
