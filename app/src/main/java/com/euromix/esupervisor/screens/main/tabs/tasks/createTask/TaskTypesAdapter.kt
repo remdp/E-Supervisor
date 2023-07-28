@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
-import com.euromix.esupervisor.databinding.SpinnerDropDownItemBinding
+import com.euromix.esupervisor.databinding.DropDownItemSpinnerBinding
 
 class TaskTypesAdapter(context: Context) :
     ArrayAdapter<ServerPair>(context, R.layout.selection_dropdown_item) {
@@ -28,18 +28,17 @@ class TaskTypesAdapter(context: Context) :
 
     private fun prepareConvertView(position: Int, convertView: View?, parent: ViewGroup): View {
         val binding = if (convertView == null)
-            SpinnerDropDownItemBinding.inflate(
+            DropDownItemSpinnerBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
-        else SpinnerDropDownItemBinding.bind(convertView)
+        else DropDownItemSpinnerBinding.bind(convertView)
 
         binding.ctvItem.text = list[position].presentation
 
         return binding.root
     }
-
     override fun getCount() = list.size
 
 }

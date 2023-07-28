@@ -109,6 +109,8 @@
     <string name="total_fact">Факт</string>
     <string name="plan">План:</string>
     <string name="total_plan">План</string>
+    <string name="balance_unit">Балансова одиниця</string>
+    <string name="trading_team">Торгова команда</string>
 
     <!-- Result view -->
     <string name="connection_error">Сервер не відповідає</string>

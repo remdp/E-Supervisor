@@ -39,6 +39,8 @@
     <dimen name="DP_100">100dp</dimen>
     <dimen name="DP_114">114dp</dimen>
     <dimen name="DP_116">116dp</dimen>
+    <dimen name="DP_135">135dp</dimen>
+    <dimen name="DP_145">145dp</dimen>
     <dimen name="DP_260">260dp</dimen>
     <!-- elevation -->
     <dimen name="elevation_little">2dp</dimen>

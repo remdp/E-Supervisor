@@ -6,8 +6,8 @@ import com.squareup.moshi.Json
 data class RateResponseEntity(
     @field:Json(name = "object_name") val objectName: String,
     @field:Json(name = "object_id") val objectId: String,
-    val plan: Float,
-    val fact: Float,
+    val plan: Double,
+    val fact: Double,
 ) {
     fun toRateData(): RateData = RateData(
         rateObject = objectName,

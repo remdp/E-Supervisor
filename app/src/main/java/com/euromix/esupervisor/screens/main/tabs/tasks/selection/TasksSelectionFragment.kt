@@ -7,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.model.tasks.entities.TasksSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.*
@@ -44,35 +43,10 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
 
         binding.btnCancel.setOnClickListener { findNavController().popBackStack() }
 
-//        binding.etTaskProducer.setOnClickListener { binding.tiTaskProducer.error = null }
-//        binding.etTaskProducer.setOnFocusChangeListener { _, _ ->
-//            binding.etTaskProducer.error = null
-//        }
-//        binding.etTaskProducer.setEtOnEditorActionListener(viewModel::findTradingAgents)
-//        binding.etTaskProducer.setOnClickListenerServerSelection(viewModel::updateTaskProducerSelection)
-
         binding.etPartner.setOnClickListener { binding.tiPartner.error = null }
         binding.etPartner.setOnFocusChangeListener { _, _ -> binding.tiPartner.error = null }
         binding.etPartner.setEtOnEditorActionListener(viewModel::findPartners)
         binding.etPartner.setOnClickListenerServerSelection(viewModel::updatePartnerSelection)
-//
-//        binding.etTaskType.setOnClickListener { binding.tiTaskType.error = null }
-//        binding.etTaskType.setOnFocusChangeListener { _, _ -> binding.tiTaskType.error = null }
-//        binding.etTaskType.setEtOnEditorActionListener(viewModel::findTasksType)
-//        binding.etTaskType.setOnClickListenerServerSelection(viewModel::updateTasksTypeSelection)
-
-//        binding.tvTaskType.setOnClickListenerLocalSelection(
-//            viewModel.taskTypesForChoose,
-//            viewModel::updateTasksTypeSelection,
-//            viewModel::handleViewClick,
-//            viewModel::checkTaskTypeEmpty
-//        )
-
-        binding.tvTaskType.setOnClickListener {
-
-
-            //   val ff = viewModel.taskTypesForChoose
-        }
 
         binding.tvTaskState.setOnClickListenerLocalSelection(
             viewModel.getTasksStateForChoose(requireContext()),
@@ -109,13 +83,6 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
     private fun setupObservers(view: View) {
 
         viewModel.selection.observe(viewLifecycleOwner) {
-//            binding.etTaskProducer.setText(it?.taskProducer?.presentation)
-//            binding.etTaskProducer.setCompoundDrawablesWithIntrinsicBounds(
-//                0,
-//                0,
-//                if (it?.taskProducer == null) R.drawable.ic_arrow_drop_down_gray_400 else R.drawable.ic_cross_gray_300,
-//                0
-//            )
 
             binding.etPartner.setText(it?.partner?.presentation)
             binding.etPartner.setCompoundDrawablesWithIntrinsicBounds(
@@ -124,14 +91,6 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
                 if (it?.partner == null) R.drawable.ic_arrow_drop_down_gray_400 else R.drawable.ic_cross_gray_300,
                 0
             )
-
-//            binding.etTaskType.setText(it?.taskType?.presentation)
-//            binding.etTaskType.setCompoundDrawablesWithIntrinsicBounds(
-//                0,
-//                0,
-//                if (it?.taskType == null) R.drawable.ic_arrow_drop_down_gray_400 else R.drawable.ic_cross_gray_300,
-//                0
-//            )
 
             binding.tvTaskType.text = it?.taskType?.presentation
             binding.tvTaskType.setCompoundDrawablesWithIntrinsicBounds(
@@ -190,15 +149,9 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
             }
         }
 
-//        viewModel.foundTradingAgents.observeResults(this, view, binding.vResult) {
-//            if (it.isNotEmpty())
-//                popupWindow(requireContext(), it, viewModel::updateTaskProducerSelection)
-//                    .showAsDropDown(binding.etTaskProducer)
-//        }
-
         viewModel.foundPartners.observeResults(this, view, binding.vResult) {
             if (it.isNotEmpty())
-                popupWindow(requireContext(), it, viewModel::updatePartnerSelection)
+                popupWindowForSelections(requireContext(), it, viewModel::updatePartnerSelection)
                     .showAsDropDown(binding.etPartner)
         }
 
@@ -209,34 +162,19 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
                 viewModel::handleViewClick,
                 viewModel::checkTaskTypeEmpty
             )
-//            if (it.isNotEmpty())
-//                popupWindow(requireContext(), it, viewModel::updateTasksTypeSelection)
-//                    .showAsDropDown(binding.tvTaskType)
 
         }
 
         viewModel.foundExecutors.observeResults(this, view, binding.vResult) {
             if (it.isNotEmpty())
-                popupWindow(requireContext(), it, viewModel::updateExecutorsSelection)
+                popupWindowForSelections(requireContext(), it, viewModel::updateExecutorsSelection)
                     .showAsDropDown(binding.etExecutor)
         }
 
-
         viewModel.errorsMinLength.observe(viewLifecycleOwner) {
-
-//            binding.tiTaskProducer.error = if (it.minLengthTradingAgentError) getString(
-//                R.string.error_min_length
-//            ) else null
-
             binding.tiPartner.error = if (it.minLengthPartnerError) getString(
                 R.string.error_min_length
             ) else null
-
-//            binding.tiTaskType.error = if (it.minLengthTradingAgentError) getString(
-//                R.string.error_min_length,
-//                Const.MIN_LENGTH_SEARCH_STRING
-//            ) else null
-
             binding.tiExecutor.error = if (it.minLengthExecutorError) getString(
                 R.string.error_min_length
             ) else null

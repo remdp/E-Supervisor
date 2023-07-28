@@ -1,0 +1,11 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_8dp_white"
+    android:id="@+id/tv"
+    style="@style/Text.Label.16.Gray500"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/DP_12"
+    tools:text="План факту продажу">
+</TextView>

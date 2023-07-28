@@ -117,6 +117,8 @@
     <string name="plan">Plan:</string>
     <string name="total_plan">Plan</string>
     <string name="tdp" translatable="false">TDP</string>
+    <string name="balance_unit">Balance unit</string>
+    <string name="trading_team">Trading team</string>
     <!--    <string name="total_plan">plan %1$s</string>-->
 
 

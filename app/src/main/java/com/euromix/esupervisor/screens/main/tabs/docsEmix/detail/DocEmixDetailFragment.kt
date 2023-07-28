@@ -59,7 +59,7 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
             view,
             binding.vResult,
             null,
-            binding.clAppbarBottom
+            listOf( binding.clAppbarBottom)
         ) { docEmixDetail ->
 
             with(binding) {

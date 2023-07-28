@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.ScrollView
 import androidx.core.view.children
-import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +25,7 @@ fun <T> LiveData<Result<T>>.observeResults(
     root: View,
     resultView: ResultView,
     srl: SwipeRefreshLayout? = null,
-    exclusionView: View? = null,
+    exclusionViews: List<View>? = null,
     onSuccess: (T) -> Unit
 
 ) {
@@ -41,8 +40,9 @@ fun <T> LiveData<Result<T>>.observeResults(
             rootView.children
                 .filter { it != resultView }
                 .forEach {
-                    if (it != exclusionView)
-                    it.isVisible = result !is Error<*>
+
+                    if (result is Error) it.isVisible = false
+                    //    it.isVisible = result !is Error<*>
                 }
         }
 

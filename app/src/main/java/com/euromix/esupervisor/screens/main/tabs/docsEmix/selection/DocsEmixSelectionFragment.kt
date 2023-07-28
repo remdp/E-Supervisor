@@ -7,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.Const.MIN_LENGTH_SEARCH_STRING
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.*
@@ -135,13 +134,13 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
 
         viewModel.foundTradingAgents.observeResults(this, view, binding.vResult) {
             if (it.isNotEmpty())
-                popupWindow(requireContext(), it, viewModel::updateTradingAgentSelection)
+                popupWindowForSelections(requireContext(), it, viewModel::updateTradingAgentSelection)
                     .showAsDropDown(binding.etTradingAgent)
         }
 
         viewModel.foundPartners.observeResults(this, view, binding.vResult) {
             if (it.isNotEmpty())
-                popupWindow(requireContext(), it, viewModel::updatePartnerSelection)
+                popupWindowForSelections(requireContext(), it, viewModel::updatePartnerSelection)
                     .showAsDropDown(binding.etPartner)
         }
 

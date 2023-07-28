@@ -12,14 +12,13 @@ import com.euromix.esupervisor.app.model.common.SearchRepository
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
-import com.euromix.esupervisor.app.utils.popupWindow
+import com.euromix.esupervisor.app.utils.popupWindowForSelections
 import com.euromix.esupervisor.app.utils.share
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class DocsSelectionViewModel @Inject constructor(
-    //private val docsEmixRepository: DocsEmixRepository,
     private val searchRepository: SearchRepository
 ) : BaseViewModel() {
 
@@ -139,7 +138,7 @@ class DocsSelectionViewModel @Inject constructor(
     ) {
 
         if (click == 0 || emptyChecker())
-            popupWindow(
+            popupWindowForSelections(
                 anchor.context,
                 itemsList,
                 updaterSelection
@@ -161,10 +160,6 @@ class DocsSelectionViewModel @Inject constructor(
             }
         }
     }
-
-//    companion object {
-//        const val MIN_LENGTH_SEARCH_STRING = 3
-//    }
 }
 
 data class ErrorsMinLength(

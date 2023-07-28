@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface SearchApi {
 
-    @GET("find_trading_agents")
+    @GET("trading_agents_find")
     suspend fun findTradingAgents(@Query("search_string") searchString: String): List<ServerPair>
 
     @GET("partners")

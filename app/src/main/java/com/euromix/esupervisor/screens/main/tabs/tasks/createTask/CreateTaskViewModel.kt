@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
@@ -16,10 +15,9 @@ import com.euromix.esupervisor.app.model.tasks.TasksRepository
 import com.euromix.esupervisor.app.model.tasks.entities.TasksCreateOutletsSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
-import com.euromix.esupervisor.app.utils.popupWindow
+import com.euromix.esupervisor.app.utils.popupWindowForSelections
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
-import com.euromix.esupervisor.screens.main.tabs.tasks.selection.OutletsSelectionViewModel
 import com.euromix.esupervisor.screens.main.tabs.tasks.selection.SelectionItemOutlet
 import com.euromix.esupervisor.sources.tasks.createTask.entities.OutletsForCreateTaskRequestEntity
 import com.euromix.esupervisor.sources.tasks.createTask.entities.TasksCreateRequestEntity
@@ -196,7 +194,7 @@ class CreateTaskViewModel @Inject constructor(
     ) {
 
         if (click == 0 || emptyChecker())
-            popupWindow(
+            popupWindowForSelections(
                 anchor.context,
                 itemsList,
                 updaterSelection

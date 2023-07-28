@@ -7,59 +7,44 @@ enum class Rate {
 
     SalesPlanFact {
         override fun nameStringsRes(): Int = R.string.sales_plan_fact
-        override fun stringRepresentation(): String = Rate.SALE_NAME_REQUEST
     },
     Coverage {
         override fun nameStringsRes(): Int = R.string.coverage
-        override fun stringRepresentation(): String = Rate.COVERAGE_NAME_REQUEST
     },
     VisitsEfficiencyPlan {
         override fun nameStringsRes(): Int = R.string.visits_efficiency_plan
-        override fun stringRepresentation(): String = Rate.VISITS_EFFICIENCY_NAME_REQUEST
     },
     VisitsEfficiencyFact {
         override fun nameStringsRes(): Int = R.string.visits_efficiency_fact
-        override fun stringRepresentation(): String = Rate.VISITS_EFFICIENCY_NAME_REQUEST
     },
     OutletsWithOrders {
         override fun nameStringsRes(): Int = R.string.outlets_with_orders
-        override fun stringRepresentation(): String = Rate.OUTLETS_WITH_ORDERS_NAME_REQUEST
     },
     TDP {
         override fun nameStringsRes(): Int = R.string.tdp
-        override fun stringRepresentation(): String = Rate.TDP_NAME_REQUEST
     },
-//    VisitsAverage {
-//        override fun nameStringsRes() = R.string.number_of_visits_average_per_day
-//        override fun stringRepresentation(): String {
-//            App.getString()
-//        }
-//
-//    }
+
+    Undefined {
+        override fun nameStringsRes() = R.string.undefined
+    }
     ;
 
     abstract fun nameStringsRes(): Int
-    abstract fun stringRepresentation(): String
 
     companion object {
         fun allRates(): List<Rate> = listOf(
             SalesPlanFact,
-            // OutletsWithOrders,
             Coverage,
             VisitsEfficiencyPlan,
             VisitsEfficiencyFact,
             TDP
         )
+        fun getByIndex(index: Int): Rate {
 
-        fun maxDetailLevel(position: Int) = if (allRates()[position] == SalesPlanFact) 3 else 2
-
-        fun stringRepresentation(position: Int): String =
-            allRates()[position].stringRepresentation()
-
-        private const val COVERAGE_NAME_REQUEST = "COVERAGE"
-        private const val OUTLETS_WITH_ORDERS_NAME_REQUEST = "outlets_with_orders_rate"
-        private const val SALE_NAME_REQUEST = "sale_rate"
-        private const val VISITS_EFFICIENCY_NAME_REQUEST = "visits_efficiency"
-        private const val TDP_NAME_REQUEST = "TDP"
+            return if (index == -1) Undefined else {
+                val rates = Rate.allRates()
+                if (rates.size > index) rates[index] else Undefined
+            }
+        }
     }
 }

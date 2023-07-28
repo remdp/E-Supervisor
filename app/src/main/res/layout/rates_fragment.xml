@@ -1,186 +1,267 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_100">
+    tools:ignore="RtlHardcoded">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gdlnStart"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/DP_8" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gdlnEnd"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/DP_8" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="0dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/DP_8"
-        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/gray_100">
 
-    <EditText
-        android:id="@+id/etPeriodSelection"
-        style="@style/Text.Label.16"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/DP_8"
-        android:autofillHints=""
-        android:background="@drawable/bg_8dp_white"
-        android:drawableEnd="@drawable/ic_calendar"
-        android:drawablePadding="@dimen/DP_12"
-        android:focusable="false"
-        android:hint="@string/period_selection"
-        android:inputType="date"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/cToolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll"
+            app:toolbarId="@+id/toolbar">
 
-        android:paddingStart="@dimen/DP_10"
-        android:paddingTop="@dimen/DP_10"
-        android:paddingEnd="@dimen/DP_10"
-        android:paddingBottom="@dimen/DP_10"
-        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
-        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_100"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="1">
 
-    <ImageView
-        android:id="@+id/ivTopWhite"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/DP_116"
-        android:layout_marginTop="@dimen/DP_8"
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gdlnStart"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="@dimen/DP_8" />
 
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPeriodSelection" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gdlnEnd"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="@dimen/DP_8" />
 
-    <ImageView
-        android:id="@+id/ivPlan"
-        android:layout_width="@dimen/DP_114"
-        android:layout_height="@dimen/DP_100"
-        android:background="@drawable/bg_8dp_gray_100_border"
-        app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
-        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
-        app:layout_constraintTop_toTopOf="@+id/ivTopWhite" />
+                <Spinner
+                    android:id="@+id/spRates"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/DP_8"
+                    android:background="@drawable/bg_8dp_white_border"
+                    app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+                    app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvPlanLabel"
-        style="@style/Text.Label.16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/DP_20"
-        android:text="@string/total_plan"
-        app:layout_constraintEnd_toEndOf="@+id/ivPlan"
-        app:layout_constraintStart_toStartOf="@+id/ivPlan"
-        app:layout_constraintTop_toTopOf="@+id/ivPlan" />
+                <Spinner
+                    android:id="@+id/spDetailing"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/DP_8"
+                    android:background="@drawable/bg_8dp_white_border"
+                    app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+                    app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+                    app:layout_constraintTop_toBottomOf="@+id/spRates" />
 
-    <TextView
-        android:id="@+id/tvTotalPlan"
-        style="@style/Text.Label.20.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/DP_8"
-        app:layout_constraintEnd_toEndOf="@+id/ivPlan"
-        app:layout_constraintStart_toStartOf="@+id/ivPlan"
-        app:layout_constraintTop_toBottomOf="@+id/tvPlanLabel"
-        tools:text="2 554 256" />
+                <EditText
+                    android:id="@+id/etPeriodSelection"
+                    style="@style/Text.Label.16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/DP_8"
+                    android:layout_marginBottom="@dimen/DP_8"
+                    android:autofillHints=""
+                    android:background="@drawable/bg_8dp_white"
+                    android:drawableEnd="@drawable/ic_calendar"
+                    android:drawablePadding="@dimen/DP_12"
+                    android:focusable="false"
+                    android:hint="@string/period_selection"
+                    android:inputType="date"
+                    android:paddingStart="@dimen/DP_10"
+                    android:paddingTop="@dimen/DP_10"
+                    android:paddingEnd="@dimen/DP_10"
+                    android:paddingBottom="@dimen/DP_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+                    app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+                    app:layout_constraintTop_toBottomOf="@+id/spDetailing" />
 
-    <com.euromix.esupervisor.app.utils.customIndicator.CustomProgressIndicator
-        android:id="@+id/piTotal"
-        style="@style/Text.Label.28.Bold"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:directionC="clockwise"
-        app:dotWidth="0dp"
-        app:drawDot="true"
-        app:enableProgressAnimation="true"
-        app:fillBackground="false"
-        app:gradientEndColor="@color/blue"
-        app:gradientTypeC="sweep"
-        app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ivTopWhite"
-        app:progressBackgroundColor="@color/white"
-        app:progressBackgroundStrokeWidth="0dp"
-        app:progressCapC="round"
-        app:progressColor="@color/white"
-        app:progressStrokeWidth="10dp"
-        app:textColor="@color/white" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/ivFact"
-        android:layout_width="@dimen/DP_114"
-        android:layout_height="@dimen/DP_100"
-        android:background="@drawable/bg_8dp_blue_10_border"
-        app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
-        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
-        app:layout_constraintTop_toTopOf="@+id/ivTopWhite" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/tvFactLabel"
-        style="@style/Text.Label.16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/DP_20"
-        android:text="@string/total_fact"
-        app:layout_constraintEnd_toEndOf="@+id/ivFact"
-        app:layout_constraintStart_toStartOf="@+id/ivFact"
-        app:layout_constraintTop_toTopOf="@+id/ivFact" />
 
-    <TextView
-        android:id="@+id/tvTotalFact"
-        style="@style/Text.Label.20.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/DP_8"
-        app:layout_constraintEnd_toEndOf="@+id/ivFact"
-        app:layout_constraintStart_toStartOf="@+id/ivFact"
-        app:layout_constraintTop_toBottomOf="@+id/tvFactLabel"
-        tools:text="1 256 432" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/srl"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray_100">
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivTopWhite">
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gdlnStartNested"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/DP_8" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvList"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/DP_8"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/DP_8"
-            android:paddingEnd="@dimen/DP_8"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:itemCount="3"
-            tools:listitem="@layout/item_rate_fragment" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gdlnEndNested"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/DP_8" />
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            <TextView
+                android:id="@+id/tvDetailPath"
+                style="@style/Text.Label.16.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_8"
+                android:drawablePadding="@dimen/DP_10"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_arrow_back"
+                app:layout_constraintStart_toStartOf="@+id/gdlnStartNested"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Сиенко Аким/Unilever"
+                tools:visibility="visible" />
 
-    <com.euromix.esupervisor.app.views.ResultView
-        android:id="@+id/vResult"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/ivTopWhite"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/DP_116"
+                android:layout_marginTop="@dimen/DP_8"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailPath" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/ivPlan"
+                android:layout_width="@dimen/DP_135"
+                android:layout_height="@dimen/DP_100"
+                android:background="@drawable/bg_8dp_gray_100_border"
+                app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
+                app:layout_constraintStart_toStartOf="@+id/gdlnStartNested"
+                app:layout_constraintTop_toTopOf="@+id/ivTopWhite" />
+
+            <TextView
+                android:id="@+id/tvPlanLabel"
+                style="@style/Text.Label.16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_20"
+                android:text="@string/total_plan"
+                app:layout_constraintEnd_toEndOf="@+id/ivPlan"
+                app:layout_constraintStart_toStartOf="@+id/ivPlan"
+                app:layout_constraintTop_toTopOf="@+id/ivPlan" />
+
+            <TextView
+                android:id="@+id/tvTotalPlan"
+                style="@style/Text.Label.18.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_8"
+                app:layout_constraintEnd_toEndOf="@+id/ivPlan"
+                app:layout_constraintStart_toStartOf="@+id/ivPlan"
+                app:layout_constraintTop_toBottomOf="@+id/tvPlanLabel"
+                tools:text="2 554 256" />
+
+            <com.euromix.esupervisor.app.utils.customIndicator.CustomProgressIndicator
+                android:id="@+id/piTotal"
+                style="@style/Text.Label.28.Bold"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:directionC="clockwise"
+                app:dotWidth="0dp"
+                app:drawDot="true"
+                app:enableProgressAnimation="true"
+                app:fillBackground="false"
+                app:gradientEndColor="@color/blue"
+                app:gradientTypeC="sweep"
+                app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivTopWhite"
+                app:progressBackgroundColor="@color/white"
+                app:progressBackgroundStrokeWidth="0dp"
+                app:progressCapC="round"
+                app:progressColor="@color/white"
+                app:progressStrokeWidth="10dp"
+                app:textColor="@color/white" />
+
+            <ImageView
+                android:id="@+id/ivFact"
+                android:layout_width="@dimen/DP_135"
+                android:layout_height="@dimen/DP_100"
+                android:background="@drawable/bg_8dp_blue_10_border"
+                app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
+                app:layout_constraintEnd_toStartOf="@+id/gdlnEndNested"
+                app:layout_constraintTop_toTopOf="@+id/ivTopWhite" />
+
+            <TextView
+                android:id="@+id/tvFactLabel"
+                style="@style/Text.Label.16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_20"
+                android:text="@string/total_fact"
+                app:layout_constraintEnd_toEndOf="@+id/ivFact"
+                app:layout_constraintStart_toStartOf="@+id/ivFact"
+                app:layout_constraintTop_toTopOf="@+id/ivFact" />
+
+            <TextView
+                android:id="@+id/tvTotalFact"
+                style="@style/Text.Label.18.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_8"
+                app:layout_constraintEnd_toEndOf="@+id/ivFact"
+                app:layout_constraintStart_toStartOf="@+id/ivFact"
+                app:layout_constraintTop_toBottomOf="@+id/tvFactLabel"
+                tools:text="1 256 432" />
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/srl"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivTopWhite">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvList"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/DP_8"
+                    android:clipToPadding="false"
+                    android:paddingStart="@dimen/DP_8"
+                    android:paddingEnd="@dimen/DP_8"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_rate_fragment" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <com.euromix.esupervisor.app.views.ResultView
+                android:id="@+id/vResult"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

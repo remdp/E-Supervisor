@@ -17,7 +17,7 @@ import java.text.DecimalFormat
 
 class RateAdapter(
     private val lifecycleScope: LifecycleCoroutineScope,
-    private val onItemClicked: (rate: RateData) -> Unit
+    private val onItemClicked: (v: View?) -> Unit
 ) :
     RecyclerView.Adapter<RateAdapter.ViewHolder>(), View.OnClickListener {
 
@@ -43,11 +43,11 @@ class RateAdapter(
             holder.itemView.tag = rate
 
             tvTradingAgent.text = rate.rateObject
-            tvPlan.text = DecimalFormat("###,###").format(rate.plan)
-            tvFact.text = DecimalFormat("###,###").format(rate.fact)
+            tvPlan.text = DecimalFormat("###,###.##").format(rate.plan)
+            tvFact.text = DecimalFormat("###,###.##").format(rate.fact)
 
-            val plan = rate.plan.toDouble()
-            val fact = rate.fact.toDouble()
+            val plan = rate.plan
+            val fact = rate.fact
 
             if (plan != 0.0 && fact != 0.0) {
 
@@ -87,7 +87,6 @@ class RateAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     override fun onClick(v: View?) {
-        val rate = v?.tag as RateData
-        onItemClicked.invoke(rate)
+        onItemClicked.invoke(v)
     }
 }

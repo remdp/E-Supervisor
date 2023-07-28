@@ -7,12 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.enums.TaskState
 import com.euromix.esupervisor.app.model.Result
-import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.common.SearchRepository
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.tasks.entities.TasksSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
-import com.euromix.esupervisor.app.utils.popupWindow
+import com.euromix.esupervisor.app.utils.popupWindowForSelections
 import com.euromix.esupervisor.app.utils.share
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -21,9 +20,6 @@ import javax.inject.Inject
 class TasksSelectionViewModel @Inject constructor(
     private val searchRepository: SearchRepository
 ) : BaseViewModel() {
-
-//    private val _foundTradingAgents = MutableLiveData<Result<List<ServerPair>>>()
-//    val foundTradingAgents = _foundTradingAgents.share()
 
     private val _foundPartners = MutableLiveData<Result<List<ServerPair>>>()
     val foundPartners = _foundPartners.share()
@@ -40,24 +36,10 @@ class TasksSelectionViewModel @Inject constructor(
     private val _errorsMinLength = MutableLiveData<ErrorsMinLength>()
     val errorsMinLength = _errorsMinLength.share()
 
-    // var taskTypesForChoose: List<ServerPair> = listOf()
-//    val taskTypesForChoose: List<ServerPair>
-//        get() = _taskTypesForChoose
-
     init {
         findTasksType()
         _errorsMinLength.value = ErrorsMinLength()
     }
-
-//    fun findTradingAgents(searchString: String) {
-//        if (verifyMinLength(searchString, 0)) {
-//            viewModelScope.safeLaunch {
-//                searchRepository.findTradingAgents(searchString).collect {
-//                    _foundTradingAgents.value = it
-//                }
-//            }
-//        }
-//    }
 
     fun findPartners(searchString: String) {
         if (verifyMinLength(searchString, 1)) {
@@ -77,16 +59,6 @@ class TasksSelectionViewModel @Inject constructor(
         }
     }
 
-//    fun findTasksType(searchString: String) {
-//        if (verifyMinLength(searchString, 0)) {
-//            viewModelScope.safeLaunch {
-//                searchRepository.findTasksType(searchString).collect {
-//                    _foundTasksType.value = it
-//                }
-//            }
-//        }
-//    }
-
     fun findExecutors(searchString: String) {
         if (verifyMinLength(searchString, 2)) {
             viewModelScope.safeLaunch {
@@ -96,12 +68,6 @@ class TasksSelectionViewModel @Inject constructor(
             }
         }
     }
-
-//    fun updateTaskProducerSelection(taskProducer: ServerPair?) {
-//        _selection.value =
-//            if (_selection.value == null) TasksSelection(taskProducer = taskProducer)
-//            else _selection.value!!.copy(taskProducer = taskProducer)
-//    }
 
     fun updatePartnerSelection(partner: ServerPair?) {
         _selection.value = if (_selection.value == null) TasksSelection(partner = partner)
@@ -174,7 +140,7 @@ class TasksSelectionViewModel @Inject constructor(
     ) {
 
         if (click == 0 || emptyChecker())
-            popupWindow(
+            popupWindowForSelections(
                 anchor.context,
                 itemsList,
                 updaterSelection
@@ -188,8 +154,6 @@ class TasksSelectionViewModel @Inject constructor(
         return (searchString.length >= Const.MIN_LENGTH_SEARCH_STRING).also {
             if (!it) {
                 when (indexVerifyField) {
-//                    0 -> _errorsMinLength.value =
-//                        _errorsMinLength.value?.copy(minLengthTradingAgentError = true)
                     0 -> _errorsMinLength.value =
                         _errorsMinLength.value?.copy(minLengthPartnerError = true)
                     else -> _errorsMinLength.value =
@@ -201,7 +165,6 @@ class TasksSelectionViewModel @Inject constructor(
 }
 
 data class ErrorsMinLength(
-  // val minLengthTradingAgentError: Boolean = false,
     val minLengthPartnerError: Boolean = false,
     val minLengthExecutorError: Boolean = false
 )

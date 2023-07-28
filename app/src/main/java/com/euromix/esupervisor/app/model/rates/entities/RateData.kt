@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class RateData(
     val rateObject: String,
-    val rateObjectId: String? = null,
-    val plan: Float,
-    val fact: Float
+    val rateObjectId: String,
+    val plan: Double,
+    val fact: Double
 ):Parcelable
