@@ -3,6 +3,8 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.list
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
@@ -15,6 +17,8 @@ import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.DocEmixListFragmentBinding
 import com.euromix.esupervisor.screens.main.tabs.TitleData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
@@ -57,21 +61,24 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
 
     private fun setupObservers(view: View) {
 
-        viewModel.docsEmix.observeResults(this, view, binding.vResult, binding.srl) {
-            adapter.docsEmix = it
-        }
+        viewModel.viewState
+            .flowWithLifecycle(lifecycle)
+            .onEach {
+                adapter.docsEmix = it.items
+            }
+            .launchIn(lifecycleScope)
 
-        viewModel.selection.observe(viewLifecycleOwner) {
-
-            //designedPeriodView(binding.iSelection.etPeriod, it?.period)
-            viewModel.reload()
-
-        }
+//        viewModel.docsEmix.observeResults(this, view, binding.vResult, binding.srl) {
+//
+//        }
+//
+//        viewModel.selection.observe(viewLifecycleOwner) { viewModel.reload() }
 
     }
 
     private fun setupListeners() {
-        binding.srl.setOnRefreshListener { viewModel.reload() }
+       // binding.srl.setOnRefreshListener { viewModel.reload() }
+        binding.srl.setOnRefreshListener { viewModel.getDocsEmixNew() }
         binding.vResult.setTryAgainAction { viewModel.reload() }
 
         binding.iSelection.ivFunnel.setOnClickListener {

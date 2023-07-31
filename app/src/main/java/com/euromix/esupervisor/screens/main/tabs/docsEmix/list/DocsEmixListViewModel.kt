@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.App.Companion.formattedDate
 import com.euromix.esupervisor.app.model.Result
+import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.docsEmix.DocsEmixRepository
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
@@ -11,6 +12,8 @@ import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.sources.docsEmix.entities.DocsEmixRequestEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import java.util.*
 import javax.inject.Inject
 
@@ -19,15 +22,26 @@ class DocsEmixListViewModel @Inject constructor(
     private val docsEmixRepository: DocsEmixRepository
 ) : BaseViewModel() {
 
+    private val mutableViewState = MutableStateFlow(ViewState())
+    val viewState = mutableViewState.asStateFlow()
+
     private val _docsEmix = MutableLiveData<Result<List<DocEmix>>>()
     val docsEmix = _docsEmix.share()
 
     private val _selection = MutableLiveData<DocsEmixSelection?>()
     val selection = _selection.share()
 
+    fun getDocsEmixNew() {
+        viewModelScope.safeLaunch {
+            val cf = docsEmixRepository.getDocsEmixNew(requestFromSelection())
+            cf.collect { result ->
+                mutableViewState.value = mutableViewState.value.copy(items = (result as Success).value)
+                //
+            }
+        }
+    }
     private fun getDocsEmix() {
         viewModelScope.safeLaunch {
-
             val cf = docsEmixRepository.getDocsEmix(requestFromSelection())
             cf.collect { result ->
                 _docsEmix.value = result
@@ -45,7 +59,9 @@ class DocsEmixListViewModel @Inject constructor(
             status = _selection.value?.status?.id
         )
 
-    fun reload() { getDocsEmix() }
+    fun reload() {
+        getDocsEmix()
+    }
 
     fun updatePeriod(period: Pair<Date, Date>?) {
         _selection.value = if (_selection.value == null) DocsEmixSelection(
@@ -58,4 +74,10 @@ class DocsEmixListViewModel @Inject constructor(
         if ((_selection.value == null && selection == null) || selection != null)
             _selection.value = selection
     }
+
+    data class ViewState(
+        val period: Pair<Date, Date>? = null,
+        val items: List<DocEmix> = listOf(),
+        val isLoading: Boolean = false
+    )
 }
