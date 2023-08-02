@@ -10,6 +10,7 @@
     <string name="partner_colon">Partner:</string>
     <string name="partner_sum">Partner\nSum</string>
     <string name="trading_agent">Trading agent</string>
+    <string name="route">Route</string>
     <string name="trading_agent_colon">Trading agent:</string>
     <string name="operation_type">Operation type</string>
     <string name="comment">Comment</string>
@@ -119,6 +120,7 @@
     <string name="tdp" translatable="false">TDP</string>
     <string name="balance_unit">Balance unit</string>
     <string name="trading_team">Trading team</string>
+    <string name="number_orders">The numbers of orders</string>
     <!--    <string name="total_plan">plan %1$s</string>-->
 
 

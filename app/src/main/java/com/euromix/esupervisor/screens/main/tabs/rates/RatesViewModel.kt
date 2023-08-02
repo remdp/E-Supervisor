@@ -112,7 +112,7 @@ class RatesViewModel @Inject constructor(
                     endDate = formattedDate(state.ratePeriod.second),
                     buId = state.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.BalanceUnit }?.selectionObject?.id,
                     ttId = state.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.TradingTeam }?.selectionObject?.id,
-                    taId = state.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.TradingAgent }?.selectionObject?.id,
+                    routeId = state.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.Route }?.selectionObject?.id,
                     manufacturerId = state.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.Manufacturer }?.selectionObject?.id,
                     completed = completed
                 )

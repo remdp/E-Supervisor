@@ -9,7 +9,7 @@ data class RateRequestEntity(
     val rate: Int,
     @field:Json(name = "balance_unit_id") val buId: String?,
     @field:Json(name = "trading_team_id") val ttId: String?,
-    @field:Json(name = "trading_agent_id") val taId: String?,
+    @field:Json(name = "route_id") val routeId: String?,
     @field:Json(name = "manufacturer_id") val manufacturerId: String?,
     @field:Json(name = "start_date") val startDate: String,
     @field:Json(name = "end_date") val endDate: String,

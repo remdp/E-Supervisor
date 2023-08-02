@@ -31,12 +31,13 @@
     <TextView
         android:id="@+id/tvTradingAgent"
         style="@style/Text.Label.14.Bold"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/DP_8"
         android:textSize="@dimen/SP_16"
         android:theme="@style/Label.SmallTitle"
         app:layout_constraintBottom_toTopOf="@+id/ivGray100"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/pi"
         app:layout_constraintTop_toTopOf="@+id/pi"
         app:layout_constraintVertical_chainStyle="spread_inside"
@@ -46,6 +47,7 @@
         android:id="@+id/ivGray100"
         android:layout_width="0dp"
         android:layout_height="@dimen/DP_20"
+        android:layout_marginTop="@dimen/DP_4"
         android:layout_marginStart="@dimen/DP_8"
         android:background="@drawable/bg_2dp_gray_100"
         app:layout_constraintBottom_toTopOf="@+id/ivBlue10"
@@ -81,11 +83,11 @@
         android:id="@+id/ivBlue10"
         android:layout_width="0dp"
         android:layout_height="@dimen/DP_20"
+        android:layout_marginTop="@dimen/DP_4"
         android:layout_marginStart="@dimen/DP_8"
         android:background="@drawable/bg_2dp_blue_10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toEndOf="@+id/pi"
         app:layout_constraintTop_toBottomOf="@+id/ivGray100" />
 

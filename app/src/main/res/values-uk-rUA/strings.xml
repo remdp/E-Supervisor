@@ -11,6 +11,7 @@
     <string name="partner_colon">Контрагент:</string>
     <string name="partner_sum">Контрагент\nСума</string>
     <string name="trading_agent">Торговий агент</string>
+    <string name="route">Маршрут</string>
     <string name="trading_agent_colon">Торговий агент:</string>
     <string name="operation_type">Тип операції</string>
     <string name="comment">Коментар</string>
@@ -111,6 +112,7 @@
     <string name="total_plan">План</string>
     <string name="balance_unit">Балансова одиниця</string>
     <string name="trading_team">Торгова команда</string>
+    <string name="number_orders">Кількість замовлень</string>
 
     <!-- Result view -->
     <string name="connection_error">Сервер не відповідає</string>

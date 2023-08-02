@@ -31,8 +31,8 @@ class NetworkModule {
     @Singleton
     fun provideOkHttpClient(settings: AppSettings): OkHttpClient {
         return OkHttpClient.Builder()
-            .readTimeout(30, TimeUnit.SECONDS)
-            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(45, TimeUnit.SECONDS)
+            .connectTimeout(45, TimeUnit.SECONDS)
             .addInterceptor(createAuthorizationInterceptor(settings))
             .build()
     }

@@ -18,8 +18,8 @@ enum class RatesDetailing {
             TODO("Not yet implemented")
         }
     },
-    TradingAgent {
-        override fun nameStringRes() = R.string.trading_agent
+    Route {
+        override fun nameStringRes() = R.string.route
 
         override fun stringRepresentation(): String {
             TODO("Not yet implemented")
@@ -48,7 +48,7 @@ enum class RatesDetailing {
 
         fun allLevels(rate: Rate? = null): List<RatesDetailing> {
 
-            val list = mutableListOf(BalanceUnit, TradingTeam, TradingAgent)
+            val list = mutableListOf(BalanceUnit, TradingTeam, Route)
 
             if (rate == Rate.SalesPlanFact || rate == null) list.add(Manufacturer)
             return list

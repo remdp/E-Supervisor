@@ -24,6 +24,10 @@ enum class Rate {
         override fun nameStringsRes(): Int = R.string.tdp
     },
 
+    NumberOrders{
+        override fun nameStringsRes() = R.string.number_orders
+    },
+
     Undefined {
         override fun nameStringsRes() = R.string.undefined
     }
@@ -37,7 +41,8 @@ enum class Rate {
             Coverage,
             VisitsEfficiencyPlan,
             VisitsEfficiencyFact,
-            TDP
+            TDP,
+            NumberOrders
         )
         fun getByIndex(index: Int): Rate {
 
