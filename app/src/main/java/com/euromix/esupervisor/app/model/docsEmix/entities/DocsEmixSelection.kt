@@ -7,7 +7,6 @@ import java.util.*
 
 @Parcelize
 data class DocsEmixSelection(
-    val period: Pair<Date, Date>? = null,
     val tradingAgent: ServerPair? = null,
     val partner: ServerPair? = null,
     val operationType: ServerPair? = null,
@@ -20,12 +19,6 @@ data class DocsEmixSelection(
             selection == null || (selection.tradingAgent == null && selection.partner == null && selection.operationType == null && selection.status == null)
     }
 }
-
-//@Parcelize
-//data class ServerPair(
-//    val id: String,
-//    val presentation: String
-//) : Parcelable
 
 
 

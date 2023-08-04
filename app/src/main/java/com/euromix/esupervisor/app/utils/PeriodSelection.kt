@@ -18,8 +18,15 @@ fun setPeriodSelection(
 ) {
     val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
     val picker = dateRangePicker.build()
-
     designedPeriodView(et, period)
+
+    picker.addOnPositiveButtonClickListener {
+
+        with(Pair(Date(it.first), Date(it.second))) {
+            periodUpdater(this)
+            designedPeriodView(et, this)
+        }
+    }
 
     et.setOnTouchListener { v, event ->
 
@@ -30,18 +37,9 @@ fun setPeriodSelection(
 
                 if (event.rawX >= textLocation[0] + et.width - et.totalPaddingRight) {
                     // Right drawable was tapped
-                    designedPeriodView(et,null)
                     periodUpdater(null)
+                    designedPeriodView(et, null)
                     return@setOnTouchListener true
-                }
-
-                picker.addOnPositiveButtonClickListener {
-
-                    with(Pair(Date(it.first), Date(it.second))){
-                        designedPeriodView(et,this)
-                        periodUpdater(this)
-                    }
-
                 }
                 picker.show(fm, picker.toString())
             }

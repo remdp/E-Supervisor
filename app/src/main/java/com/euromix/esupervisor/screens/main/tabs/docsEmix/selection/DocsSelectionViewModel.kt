@@ -89,7 +89,7 @@ class DocsSelectionViewModel @Inject constructor(
     }
 
     fun clearSelection() {
-        _selection.value = DocsEmixSelection(period = _selection.value?.period)
+        _selection.value = null
     }
 
     fun getOperationTypesForChoose(context: Context): List<ServerPair> {

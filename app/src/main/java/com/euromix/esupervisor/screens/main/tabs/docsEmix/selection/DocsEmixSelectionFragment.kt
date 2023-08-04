@@ -2,11 +2,14 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.selection
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.Const
+import com.euromix.esupervisor.app.Const.SELECTION_KEY
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.*
@@ -33,11 +36,10 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
     private fun setupListeners() {
 
         binding.btnOk.setOnClickListener {
-            val direction =
-                DocsEmixSelectionFragmentDirections.actionDocsEmixSelectionFragmentToDocsEmixListFragment(
-                    selection = viewModel.selection.value
-                )
-            findNavController().navigate(direction)
+            setFragmentResult(
+                SELECTION_KEY,
+                Bundle().apply { putParcelable(SELECTION_KEY, viewModel.selection.value) })
+            findNavController().popBackStack()
         }
 
         binding.btnCancel.setOnClickListener { findNavController().popBackStack() }
@@ -134,7 +136,11 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
 
         viewModel.foundTradingAgents.observeResults(this, view, binding.vResult) {
             if (it.isNotEmpty())
-                popupWindowForSelections(requireContext(), it, viewModel::updateTradingAgentSelection)
+                popupWindowForSelections(
+                    requireContext(),
+                    it,
+                    viewModel::updateTradingAgentSelection
+                )
                     .showAsDropDown(binding.etTradingAgent)
         }
 
