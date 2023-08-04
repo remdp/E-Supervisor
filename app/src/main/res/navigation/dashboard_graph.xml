@@ -38,9 +38,6 @@
         android:id="@+id/docsEmixSelectionFragment"
         android:name="com.euromix.esupervisor.screens.main.tabs.docsEmix.selection.DocsEmixSelectionFragment"
         android:label="DocsEmixSelectionFragment" >
-        <action
-            android:id="@+id/action_docsEmixSelectionFragment_to_docsEmixListFragment"
-            app:destination="@id/docsEmixListFragment" />
         <argument
             android:name="selection"
             app:argType="com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection"
