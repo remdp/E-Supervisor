@@ -61,7 +61,7 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
             val selection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 bundle.getParcelable(requestKey, DocsEmixSelection::class.java)
             } else {
-                arguments?.getParcelable(requestKey)
+                bundle.getParcelable(requestKey)
             }
 
             if (selection is DocsEmixSelection) viewModel.updateSelection(selection)
