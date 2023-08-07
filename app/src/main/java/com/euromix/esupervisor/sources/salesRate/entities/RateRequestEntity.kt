@@ -11,8 +11,8 @@ data class RateRequestEntity(
     @field:Json(name = "trading_team_id") val ttId: String?,
     @field:Json(name = "route_id") val routeId: String?,
     @field:Json(name = "manufacturer_id") val manufacturerId: String?,
-    @field:Json(name = "start_date") val startDate: String,
-    @field:Json(name = "end_date") val endDate: String,
+    @field:Json(name = "start_date") val startDate: String?,
+    @field:Json(name = "end_date") val endDate: String?,
     @field:Json(name = "detail_level") val detailLevel: Int,
     val completed: Boolean = false
 ) : Parcelable
