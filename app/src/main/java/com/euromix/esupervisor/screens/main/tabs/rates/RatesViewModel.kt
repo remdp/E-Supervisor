@@ -107,6 +107,7 @@ class RatesViewModel @Inject constructor(
             fragment.designByResult(
                 stateValue.result, binding.root, binding.vResult, binding.srl
             )
+
         }
     }
 
@@ -148,7 +149,7 @@ class RatesViewModel @Inject constructor(
             endDate = state?.period?.let { formattedDate(it.second) },
             buId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.BalanceUnit }?.selectionObject?.id,
             ttId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.TradingTeam }?.selectionObject?.id,
-            taId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.Route }?.selectionObject?.id,
+            routeId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.Route }?.selectionObject?.id,
             manufacturerId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.Manufacturer }?.selectionObject?.id,
             completed = state?.rate == Rate.VisitsEfficiencyFact
         )
