@@ -6,49 +6,27 @@ enum class RatesDetailing {
 
     BalanceUnit {
         override fun nameStringRes() = R.string.balance_unit
-
-        override fun stringRepresentation(): String {
-            TODO("Not yet implemented")
-        }
     },
     TradingTeam {
         override fun nameStringRes() = R.string.trading_team
-
-        override fun stringRepresentation(): String {
-            TODO("Not yet implemented")
-        }
     },
-    TradingAgent {
-        override fun nameStringRes() = R.string.trading_agent
-
-        override fun stringRepresentation(): String {
-            TODO("Not yet implemented")
-        }
+    Route {
+        override fun nameStringRes() = R.string.route
     },
     Manufacturer {
         override fun nameStringRes() = R.string.manufacturer
-
-        override fun stringRepresentation(): String {
-            TODO("Not yet implemented")
-        }
     },
     Undefined {
         override fun nameStringRes() = R.string.undefined
-
-        override fun stringRepresentation(): String {
-            TODO("Not yet implemented")
-        }
-
     };
 
     abstract fun nameStringRes(): Int
-    abstract fun stringRepresentation(): String
 
     companion object {
 
         fun allLevels(rate: Rate? = null): List<RatesDetailing> {
 
-            val list = mutableListOf(BalanceUnit, TradingTeam, TradingAgent)
+            val list = mutableListOf(BalanceUnit, TradingTeam, Route)
 
             if (rate == Rate.SalesPlanFact || rate == null) list.add(Manufacturer)
             return list

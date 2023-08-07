@@ -3,18 +3,23 @@ package com.euromix.esupervisor.screens.main.tabs.rates
 import android.os.Parcelable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.euromix.esupervisor.App.Companion.beginCurrentMonth
-import com.euromix.esupervisor.App.Companion.endCurrentMonth
 import com.euromix.esupervisor.App.Companion.formattedDate
 import com.euromix.esupervisor.app.enums.Rate
 import com.euromix.esupervisor.app.enums.RatesDetailing
+import com.euromix.esupervisor.app.model.Empty
+import com.euromix.esupervisor.app.model.Error
+import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
+import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.account.AccountRepository
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.rates.RatesRepository
 import com.euromix.esupervisor.app.model.rates.entities.RateData
+import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
+import com.euromix.esupervisor.app.utils.designByResult
 import com.euromix.esupervisor.app.utils.share
+import com.euromix.esupervisor.databinding.RatesFragmentBinding
 import com.euromix.esupervisor.sources.salesRate.entities.RateRequestEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.parcelize.Parcelize
@@ -26,51 +31,29 @@ class RatesViewModel @Inject constructor(
     private val ratesRepository: RatesRepository, accountRepository: AccountRepository
 ) : BaseViewModel(accountRepository) {
 
-    private val _state = MutableLiveData<ViewState>()
-    val state = _state.share()
+    private val _viewState = MutableLiveData(ViewState(needLoading = true))
+    val viewState = _viewState.share()
 
-    private val _rate = MutableLiveData<Result<List<RateData>>>()
-    val rate = _rate.share()
-
-    fun updateState(ratePeriod: Pair<Date, Date>) {
-        _state.value = _state.value?.copy(ratePeriod = ratePeriod)
+    fun reload() {
+        getRate()
     }
 
-    fun updateState(rate: Rate) {
-
-        if (_state.value == null) {
-            _state.value = ViewState(ratePeriod = Pair(beginCurrentMonth(), endCurrentMonth()))
-        } else _state.value = _state.value?.copy(rate = rate)
-
+    fun updatePeriod(period: Pair<Date, Date>?) {
+        _viewState.value = _viewState.value?.copy(period = period, needLoading = true)
     }
 
-    fun updateStateBackStack() {
-
-        _state.value?.let {
-            var newDetailBackStack = it.detailLevelsBackStack?.toMutableList()
-            var newDetailLevel: RatesDetailing? = newDetailBackStack?.last()?.ratesDetail
-
-            if (newDetailBackStack?.size == 1) newDetailBackStack = null
-            else {
-                newDetailBackStack?.removeLast()
-            }
-
-            _state.value = it.copy(
-                detailLevel = newDetailLevel ?: RatesDetailing.BalanceUnit,
-                detailLevelsBackStack = newDetailBackStack
-            )
-        }
+    fun updateRate(rate: Rate) {
+        if (_viewState.value?.result !is Pending) _viewState.value =
+            _viewState.value?.copy(rate = rate, needLoading = true)
     }
 
-    fun updateState(
-        rateDetail: RatesDetailing,
-        selectionObject: ServerPair? = null
+    fun updateDetailLevel(
+        rateDetail: RatesDetailing, selectionObject: ServerPair? = null
     ) {
-        _state.value?.let { currentState ->
+        _viewState.value?.let { currentState ->
 
             val newDetailBackStack = if (selectionObject != null) {
-                val newBackStackItem =
-                    BackStackItem(currentState.detailLevel, selectionObject)
+                val newBackStackItem = BackStackItem(currentState.detailLevel, selectionObject)
 
                 if (currentState.detailLevelsBackStack == null) mutableListOf(newBackStackItem)
                 else {
@@ -78,53 +61,106 @@ class RatesViewModel @Inject constructor(
                     newBackStack.add(newBackStackItem)
                     newBackStack
                 }
-
             } else {
                 null
             }
 
-            _state.value = currentState.copy(
+            _viewState.value = currentState.copy(
                 detailLevel = rateDetail,
-                detailLevelsBackStack = newDetailBackStack
+                detailLevelsBackStack = newDetailBackStack,
+                needLoading = true
             )
         }
     }
 
-    private fun getRate(rateRequest: RateRequestEntity) {
+    fun updateStateBackStack() {
+
+        _viewState.value?.let {
+            var newDetailBackStack = it.detailLevelsBackStack?.toMutableList()
+            val newDetailLevel: RatesDetailing? = newDetailBackStack?.last()?.ratesDetail
+
+            if (newDetailBackStack?.size == 1) newDetailBackStack = null
+            else {
+                newDetailBackStack?.removeLast()
+            }
+
+            _viewState.value = it.copy(
+                detailLevel = newDetailLevel ?: RatesDetailing.BalanceUnit,
+                detailLevelsBackStack = newDetailBackStack,
+                needLoading = true
+            )
+        }
+    }
+
+    fun afterUpdateState(
+        adapter: RateAdapter, binding: RatesFragmentBinding, fragment: BaseFragment
+    ) {
+
+        viewState.value?.let { stateValue ->
+
+            if (stateValue.needLoading) {
+                getRate()
+            } else {
+                if (stateValue.result is Success) adapter.rates = stateValue.result.value
+            }
+
+            fragment.designByResult(
+                stateValue.result, binding.root, binding.vResult, binding.srl
+            )
+        }
+    }
+
+    private fun getRate() {
         viewModelScope.safeLaunch {
-            ratesRepository.getRate(rateRequest).collect { result ->
-                _rate.value = result
+            val request = requestForResult()
+            ratesRepository.getRate(request).collect { result ->
+                updateResult(result)
             }
         }
     }
 
-    fun fetchRate(reload: Boolean = false) {
+    private fun updateResult(result: Result<*>) {
 
-        state.value?.let { state ->
+        viewState.value?.let { stateValue ->
+            when (result) {
+                is Pending -> _viewState.value =
+                    stateValue.copy(needLoading = false, result = Pending())
 
-            val completed = state.rate == Rate.VisitsEfficiencyFact
+                is Success -> _viewState.value =
+                    stateValue.copy(result = Success(result.value as List<RateData>))
 
-            getRate(
-                RateRequestEntity(
-                    rate = Rate.allRates().indexOf(state.rate),
-                    detailLevel = RatesDetailing.allLevels().indexOf(state.detailLevel),
-                    startDate = formattedDate(state.ratePeriod.first),
-                    endDate = formattedDate(state.ratePeriod.second),
-                    buId = state.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.BalanceUnit }?.selectionObject?.id,
-                    ttId = state.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.TradingTeam }?.selectionObject?.id,
-                    taId = state.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.TradingAgent }?.selectionObject?.id,
-                    manufacturerId = state.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.Manufacturer }?.selectionObject?.id,
-                    completed = completed
+                is Error -> _viewState.value = stateValue.copy(
+                    needLoading = false, result = Error(result.error)
                 )
-            )
+
+                else -> _viewState.value = stateValue.copy(needLoading = false)
+            }
         }
+    }
+
+    private fun requestForResult(): RateRequestEntity {
+        val state = viewState.value
+
+        return RateRequestEntity(
+            rate = Rate.allRates().indexOf(state?.rate),
+            detailLevel = RatesDetailing.allLevels().indexOf(state?.detailLevel),
+            startDate = state?.period?.let { formattedDate(it.first) },
+            endDate = state?.period?.let { formattedDate(it.second) },
+            buId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.BalanceUnit }?.selectionObject?.id,
+            ttId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.TradingTeam }?.selectionObject?.id,
+            taId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.Route }?.selectionObject?.id,
+            manufacturerId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.Manufacturer }?.selectionObject?.id,
+            completed = state?.rate == Rate.VisitsEfficiencyFact
+        )
     }
 
     fun detailsList(): List<RatesDetailing> {
 
-        val backStackDetails = state.value?.detailLevelsBackStack?.map { it.ratesDetail }
-        val ratesDetailing = RatesDetailing.allLevels(state.value?.rate).toMutableList()
-        ratesDetailing.removeIf { it == state.value?.detailLevel || backStackDetails?.contains(it) == true }
+        val backStackDetails = viewState.value?.detailLevelsBackStack?.map { it.ratesDetail }
+        val ratesDetailing = RatesDetailing.allLevels(viewState.value?.rate).toMutableList()
+        ratesDetailing.removeIf {
+            it == viewState.value?.detailLevel || backStackDetails?.contains(it) == true
+        }
         return ratesDetailing
     }
 
@@ -132,7 +168,7 @@ class RatesViewModel @Inject constructor(
 
         var path = ""
 
-        state.value?.detailLevelsBackStack?.forEach {
+        viewState.value?.detailLevelsBackStack?.forEach {
             path = path + if (path.isBlank()) "" else {
                 " / "
             } + it.selectionObject.presentation
@@ -141,13 +177,14 @@ class RatesViewModel @Inject constructor(
         return path
     }
 
-    @Parcelize
     data class ViewState(
+        val period: Pair<Date, Date>? = null,
         val rate: Rate = Rate.SalesPlanFact,
         val detailLevel: RatesDetailing = RatesDetailing.BalanceUnit,
         val detailLevelsBackStack: List<BackStackItem>? = null,
-        val ratePeriod: Pair<Date, Date>
-    ) : Parcelable
+        val needLoading: Boolean = false,
+        val result: Result<List<RateData>> = Empty()
+    )
 
     @Parcelize
     data class BackStackItem(
