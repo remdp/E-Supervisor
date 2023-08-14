@@ -2,11 +2,9 @@ package com.euromix.esupervisor.app.enums
 
 import android.content.Context
 import android.widget.TextView
-import com.euromix.esupervisor.App.Companion.getDrawable
 import com.euromix.esupervisor.App.Companion.getString
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.utils.setIconStatus
-import com.euromix.esupervisor.app.utils.setNonStandardStatusText
 import com.euromix.esupervisor.app.utils.setTextColorStatus
 
 enum class Status {
@@ -15,6 +13,11 @@ enum class Status {
         override fun getColor(): Int = R.color.green
         override fun getIconId(): Int = R.drawable.ic_done
         override fun nameStringRes(): Int = R.string.done
+    },
+    PARTIALLY_DONE {
+        override fun getColor(): Int = R.color.green_light
+        override fun getIconId(): Int = R.drawable.partially_done
+        override fun nameStringRes(): Int = R.string.partially_done
     },
     IN_THE_PROCESS_OF_APPROVAL {
         override fun getColor(): Int = R.color.orange
@@ -54,12 +57,13 @@ enum class Status {
     companion object {
 
         fun designTV(tvStatus: TextView, status: Status) {
-            tvStatus.setNonStandardStatusText(
-                stringRepresentation(
-                    tvStatus.context,
-                    status
-                )
-            )
+            tvStatus.text = stringRepresentation(tvStatus.context, status)
+//            tvStatus.setNonStandardStatusText(
+//                stringRepresentation(
+//                    tvStatus.context,
+//                    status
+//                )
+//            )
             tvStatus.setTextColorStatus(status)
             tvStatus.setIconStatus(status)
         }
@@ -67,7 +71,7 @@ enum class Status {
         fun stringRepresentation(context: Context, status: Status): String =
             getString(context, status.nameStringRes())
 
-        fun statuses() = arrayOf(DONE, IN_THE_PROCESS_OF_APPROVAL, AGREED, ERROR, REJECTED, IN_WORK)
+        fun statuses() = arrayOf(DONE, PARTIALLY_DONE, IN_THE_PROCESS_OF_APPROVAL, AGREED, ERROR, REJECTED, IN_WORK)
 
         fun getByIndex(index: Int): Status {
 

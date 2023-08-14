@@ -161,7 +161,7 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                 when (docEmixDetail.operationType) {
 
 
-                    DocEmixOperationType.CHANGE_TC -> {
+                    DocEmixOperationType.ADD_TC -> {
                         //todo if necessary
                     }
                     DocEmixOperationType.NEW_PARTNER_FACT -> {

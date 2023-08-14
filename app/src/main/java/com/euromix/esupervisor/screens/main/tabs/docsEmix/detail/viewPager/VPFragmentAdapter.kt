@@ -19,7 +19,7 @@ class VPFragmentAdapter(fragment: Fragment, private val docEmixDetail: DocEmixDe
 
         return when (docEmixDetail.operationType) {
 
-            DocEmixOperationType.CHANGE_TC -> createFragmentChangeTC()
+            DocEmixOperationType.ADD_TC -> createFragmentChangeTC()
             DocEmixOperationType.NEW_PARTNER_FACT -> createFragmentNewPartnerFact(position)
             DocEmixOperationType.RETURN_REQUEST -> createFragmentReturnRequest(position)
             else -> Fragment(R.layout.empty_fragment)
@@ -56,7 +56,7 @@ class VPFragmentAdapter(fragment: Fragment, private val docEmixDetail: DocEmixDe
     private fun itemCount(): Int {
 
         return when (docEmixDetail.operationType) {
-            DocEmixOperationType.CHANGE_TC -> 1
+            DocEmixOperationType.ADD_TC -> 1
             DocEmixOperationType.NEW_PARTNER_FACT -> 3
             DocEmixOperationType.RETURN_REQUEST -> 2
             else -> 0

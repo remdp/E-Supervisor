@@ -15,7 +15,6 @@
         android:layout_marginStart="@dimen/DP_8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="@dimen/doc_emix_date_number_status_percent"
         tools:text="DP_B0000000328" />
 
     <TextView
@@ -26,22 +25,20 @@
         android:layout_marginStart="@dimen/DP_8"
         app:layout_constraintStart_toEndOf="@id/tvNumber"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintWidth_percent="@dimen/doc_emix_date_number_status_percent"
         tools:text="30.01.2023" />
 
     <TextView
         android:id="@+id/tvStatus"
         style="@style/Text.Label.12"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/DP_8"
         android:drawablePadding="@dimen/DP_8"
         android:textAllCaps="true"
-        app:drawableStartCompat="@drawable/ic_refresh"
+        app:drawableStartCompat="@drawable/partially_done"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="@dimen/doc_emix_date_number_status_percent"
+        app:layout_constraintWidth_percent="0.30"
         tools:text="У процесі узгодження"
         tools:textColor="@color/orange" />
 

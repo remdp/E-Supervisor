@@ -23,6 +23,7 @@
 
     <!-- Statuses -->
     <string name="done">Виконано</string>>
+    <string name="partially_done">Виконано частково</string>>
     <string name="in_the_process_of_approval">У процесі узгодження</string>>
     <string name="agreed">Узгоджений</string>>
     <string name="error">Помилка</string>>
@@ -61,7 +62,7 @@
     <string name="working_name">Робоче найменування</string>
     <string name="inner_distribution_channel">Канал збуту (внутр.)</string>
     <string name="edrpou">ЕГРПОУ:</string>
-    <string name="change_tc">Зміна ТУ</string>
+    <string name="add_tc">Додавання ТУ</string>
     <string name="new_partner_fact">Новий клієнт (факт)</string>
     <string name="picture_number">Мал %1$s</string>
     <string name="trade_condition">Торгові умови</string>

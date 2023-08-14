@@ -22,6 +22,7 @@
 
     <!-- Statuses -->
     <string name="done">Done</string>>
+    <string name="partially_done">Partially done</string>>
     <string name="in_the_process_of_approval">In the process of approval</string>>
     <string name="agreed">Agreed</string>>
     <string name="error">Error</string>>
@@ -66,7 +67,7 @@
     <string name="working_name">Working name</string>
     <string name="inner_distribution_channel">Inner distribution channel</string>
     <string name="edrpou">EDRPOU:</string>
-    <string name="change_tc">Change TC</string>
+    <string name="add_tc">Adding TC</string>
     <string name="new_partner_fact">New partner fact</string>
     <string name="picture_number">Pic %1$s</string>
     <string name="trade_condition">Trade condition</string>

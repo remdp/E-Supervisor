@@ -5,11 +5,10 @@ import android.widget.TextView
 import com.euromix.esupervisor.App
 import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 
 enum class DocEmixOperationType {
-    CHANGE_TC {
-        override fun nameStringRes(): Int = R.string.change_tc
+    ADD_TC {
+        override fun nameStringRes(): Int = R.string.add_tc
     },
     NEW_PARTNER_FACT {
         override fun nameStringRes(): Int = R.string.new_partner_fact
@@ -59,7 +58,7 @@ enum class DocEmixOperationType {
                 }
             )
 
-        fun operationTypes() = arrayOf(CHANGE_TC, NEW_PARTNER_FACT, RETURN_REQUEST)
+        fun operationTypes() = arrayOf(ADD_TC, NEW_PARTNER_FACT, RETURN_REQUEST)
 
         fun getByIndex(index: Int): DocEmixOperationType {
 
