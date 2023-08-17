@@ -1,6 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail
 
-
 import android.content.DialogInterface
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -11,15 +10,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
+import com.euromix.esupervisor.App
 import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.App.Companion.getDrawable
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
 import com.euromix.esupervisor.app.enums.Status
+import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.designByResult
 import com.euromix.esupervisor.app.utils.gone
-import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.DialogReasonRejectionBinding
@@ -38,56 +39,32 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
 
     @Inject
     lateinit var factory: DocEmixDetailViewModel.Factory
-
     override val viewModel by viewModelCreator { factory.create(args.extId) }
-
     private val binding by viewBinding<DocEmixDetailFragmentBinding>()
-    private lateinit var bindingTLHeader: TabHeaderBinding
     private val args by navArgs<DocEmixDetailFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
-        setupObservers(view)
-
+        setupObservers()
     }
 
-    private fun setupObservers(view: View) {
+    private fun setupObservers() {
+        viewModel.viewState.observe(viewLifecycleOwner) { state ->
+            viewModel.afterUpdateState()
 
-        viewModel.docEmixDetail.observeResults(
-            this,
-            view,
-            binding.vResult,
-            null,
-            listOf( binding.clAppbarBottom)
-        ) { docEmixDetail ->
-
-            with(binding) {
-
-                tvPartner.text = docEmixDetail.partner
-                Status.designTV(tvStatus, docEmixDetail.status)
-                DocEmixOperationType.designTV(
-                    tvOperationType,
-                    docEmixDetail.operationType,
-                    docEmixDetail.status,
-                    true
-                )
-                tvDescription.text = docEmixDetail.description
-
-                tvTradingAgent.text = docEmixDetail.tradingAgent
-                clAppbarBottom.isVisible = docEmixDetail.canBeAgreed
-
-                if (docEmixDetail.operationType == DocEmixOperationType.NEW_PARTNER_FACT) {
-                    tvDistribChannelLabel.visible()
-                    tvDistribChannel.visible()
-                    tvEDRPOULabel.visible()
-                    tvEDRPOU.visible()
-                    tvPartner.text = docEmixDetail.workingName
-                    tvDistribChannel.text = docEmixDetail.innerDistributionChannel
-                    tvEDRPOU.text = docEmixDetail.edrpou
-                }
+            if (state.result is Success && !state.needLoading) {
+                val docEmixDetail = state.result.value
+                renderState(docEmixDetail)
                 setupViewPager(docEmixDetail)
             }
+            designByResult(
+                state.result,
+                binding.root,
+                binding.vResult,
+                null,
+                binding.clAppbarBottom
+            )
         }
     }
 
@@ -97,8 +74,37 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
         binding.vResult.setTryAgainAction { viewModel.reload() }
     }
 
-    private fun setupViewPager(docEmixDetail: DocEmixDetail) {
+    private fun renderState(docEmixDetail: DocEmixDetail) {
 
+        with(binding) {
+
+            tvPartner.text = docEmixDetail.partner
+            Status.designTV(tvStatus, docEmixDetail.status)
+            DocEmixOperationType.designTV(
+                tvOperationType,
+                docEmixDetail.operationType,
+                docEmixDetail.status,
+                true
+            )
+            tvDescription.text = docEmixDetail.description
+
+            tvTradingAgent.text = docEmixDetail.tradingAgent
+            clAppbarBottom.isVisible = docEmixDetail.canBeAgreed
+
+            if (docEmixDetail.operationType == DocEmixOperationType.NEW_PARTNER_FACT) {
+                tvDistribChannelLabel.visible()
+                tvDistribChannel.visible()
+                tvEDRPOULabel.visible()
+                tvEDRPOU.visible()
+                tvPartner.text = docEmixDetail.workingName
+                tvDistribChannel.text = docEmixDetail.innerDistributionChannel
+                tvEDRPOU.text = docEmixDetail.edrpou
+            }
+        }
+    }
+    private fun setupViewPager(
+        docEmixDetail: DocEmixDetail
+    ) {
         with(binding) {
 
             vpTabs.adapter = VPFragmentAdapter(this@DocEmixDetailFragment, docEmixDetail)
@@ -143,7 +149,6 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                         getDrawable(it.context, R.drawable.bg_4dp_dark_5)
                 }
             }
-
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
     }
@@ -155,48 +160,56 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
     ) {
         TabLayoutMediator(tlTabs, vpTabs) { tab, position ->
 
-            bindingTLHeader = TabHeaderBinding.inflate(layoutInflater, null, false)
+            val bindingTLHeader = TabHeaderBinding.inflate(layoutInflater, null, false)
             with(bindingTLHeader) {
 
                 when (docEmixDetail.operationType) {
-
-
                     DocEmixOperationType.ADD_TC -> {
                         //todo if necessary
                     }
+
                     DocEmixOperationType.NEW_PARTNER_FACT -> {
                         when (position) {
                             0 -> {
-                                tvLeft.text = getString(R.string.outlet)
+                                tvLeft.text =
+                                    App.getString(requireContext(), R.string.outlet)
                                 tvRight.gone()
                             }
+
                             1 -> {
-                                tvLeft.text = getString(R.string.tc_data)
+                                tvLeft.text =
+                                    App.getString(requireContext(), R.string.tc_data)
                                 tvRight.text =
                                     (if (docEmixDetail.rowsTradeConditions == null) 0 else docEmixDetail.rowsTradeConditions.size).toString()
                             }
+
                             else -> {
-                                tvLeft.text = getString(R.string.photo)
+                                tvLeft.text =
+                                    App.getString(requireContext(), R.string.photo)
                                 tvRight.text =
                                     (if (docEmixDetail.imagesPaths == null) 0 else docEmixDetail.imagesPaths.size).toString()
                             }
                         }
                     }
-                    DocEmixOperationType.RETURN_REQUEST -> {
 
+                    DocEmixOperationType.RETURN_REQUEST -> {
                         when (position) {
                             0 -> {
-                                tvLeft.text = getString(R.string.goods)
+                                tvLeft.text =
+                                    App.getString(requireContext(), R.string.goods)
                                 tvRight.text =
                                     (if (docEmixDetail.rowsReturnRequest == null) 0 else docEmixDetail.rowsReturnRequest.size).toString()
                             }
+
                             else -> {
-                                tvLeft.text = getString(R.string.gallery)
+                                tvLeft.text =
+                                    App.getString(requireContext(), R.string.gallery)
                                 tvRight.text =
                                     (if (docEmixDetail.imagesPaths == null) 0 else docEmixDetail.imagesPaths.size).toString()
                             }
                         }
                     }
+
                     else -> {}
                 }
             }
@@ -243,5 +256,4 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
             dialog.show()
         }
     }
-
 }

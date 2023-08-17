@@ -2,12 +2,15 @@ package com.euromix.esupervisor.app.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.model.*
+import com.euromix.esupervisor.app.model.AuthException
+import com.euromix.esupervisor.app.model.ConnectionException
+import com.euromix.esupervisor.app.model.Error
+import com.euromix.esupervisor.app.model.Pending
+import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.databinding.ViewResultBinding
@@ -37,7 +40,6 @@ class ResultView @JvmOverloads constructor(
         binding.errorButton.isVisible = result is Error<*>
         binding.progressBar.isVisible = result is Pending<*> && showPB
         if (result is Error) {
-            Log.e(javaClass.simpleName, "Error", result.error)
             val message = when (result.error) {
                 is ConnectionException -> context.getString(R.string.connection_error)
                 is AuthException -> context.getString(R.string.auth_error)

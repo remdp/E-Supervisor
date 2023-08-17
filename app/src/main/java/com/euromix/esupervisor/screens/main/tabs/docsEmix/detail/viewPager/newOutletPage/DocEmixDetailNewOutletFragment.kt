@@ -4,105 +4,88 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.Const.VIEW_STATE
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.parcelable
+import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.DocEmixDetailNewOutletFragmentBinding
+import com.euromix.esupervisor.screens.main.tabs.TitleData
+import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.DocEmixDetailFragmentDirections
 
 class DocEmixDetailNewOutletFragment :
     BaseFragment(R.layout.doc_emix_detail_new_outlet_fragment) {
 
     override val viewModel by viewModels<DocEmixDetailNewOutletViewModel>()
-
-    private lateinit var binding: DocEmixDetailNewOutletFragmentBinding
+    private val binding by viewBinding<DocEmixDetailNewOutletFragmentBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = DocEmixDetailNewOutletFragmentBinding.bind(view)
+        binding.ivLocation.setOnClickListener {
 
-        viewModel.viewState.observe(viewLifecycleOwner) {
+            val viewState = viewModel.viewState.value
 
-            with(binding) {
-
-                tvOutletName.text = it.outletName
-                tvInstitutionType.text = it.institutionType
-                tvOutletFormat.text = it.outletFormat
-                designVisitsTextViews(it)
-                tvVisitsFrequency.text = it.visitsFrequency
-
+            viewState?.let {
+                val direction =
+                    DocEmixDetailFragmentDirections.actionDocEmixDetailFragmentToMapFragment(
+                        titleData = TitleData(
+                            getString(R.string.latitude, viewState.latitude) + "  " +
+                                    getString(R.string.longitude, viewState.longitude), null
+                        ),
+                        latitude = viewState.latitude.toFloat(),
+                        longitude = viewState.longitude.toFloat()
+                    )
+                findNavController().navigate(direction)
             }
         }
+
+        viewModel.viewState.observe(viewLifecycleOwner) { renderState(it) }
         arguments?.parcelable<ViewState>(VIEW_STATE)?.let { viewModel.setViewState(it) }
     }
 
-    private fun designVisitsTextViews(viewState: ViewState) {
+    private fun renderState(state: ViewState) {
+        with(binding) {
+            tvOutletName.text = state.outletName
+            tvInstitutionType.text = state.institutionType
+            tvOutletFormat.text = state.outletFormat
+            renderVisitsTextViews(state)
+            tvVisitsFrequency.text = state.visitsFrequency
+            tvLongitude.text = getString(R.string.longitude, state.longitude)
+            tvLatitude.text = getString(R.string.latitude, state.latitude)
+        }
+    }
+
+    private fun renderVisitsTextViews(viewState: ViewState) {
 
         with(binding) {
 
-            if (viewState.visitDay1) {
-                tvVisitDay1Label.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_check_blue, 0, 0, 0
+            viewState.visitDays?.let { days ->
+                val textViews = arrayOf(
+                    tvVisitDay1Label,
+                    tvVisitDay2Label,
+                    tvVisitDay3Label,
+                    tvVisitDay4Label,
+                    tvVisitDay5Label,
+                    tvVisitDay6Label,
+                    tvVisitDay7Label
                 )
-                tvVisitDay1Label.setTextColor(
-                    getColor(requireContext(), R.color.blue)
-                )
-            }
 
-            if (viewState.visitDay2) {
-                tvVisitDay2Label.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_check_blue, 0, 0, 0
-                )
-                tvVisitDay2Label.setTextColor(
-                    getColor(requireContext(), R.color.blue)
-                )
-            }
-
-            if (viewState.visitDay3) {
-                tvVisitDay3Label.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_check_blue, 0, 0, 0
-                )
-                tvVisitDay3Label.setTextColor(
-                    getColor(requireContext(), R.color.blue)
-                )
-            }
-
-            if (viewState.visitDay4) {
-                tvVisitDay4Label.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_check_blue, 0, 0, 0
-                )
-                tvVisitDay4Label.setTextColor(
-                    getColor(requireContext(), R.color.blue)
-                )
-            }
-
-            if (viewState.visitDay5) {
-                tvVisitDay5Label.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_check_blue, 0, 0, 0
-                )
-                tvVisitDay5Label.setTextColor(
-                    getColor(requireContext(), R.color.blue)
-                )
-            }
-
-            if (viewState.visitDay6) {
-                tvVisitDay6Label.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_check_blue, 0, 0, 0
-                )
-                tvVisitDay6Label.setTextColor(
-                    getColor(requireContext(), R.color.blue)
-                )
-            }
-
-            if (viewState.visitDay7) {
-                tvVisitDay7Label.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_check_blue, 0, 0, 0
-                )
-                tvVisitDay7Label.setTextColor(
-                    getColor(requireContext(), R.color.blue)
-                )
+                for (i in 0..6) {
+                    if (days.size > i && textViews.size > i) {
+                        if (days[i]) {
+                            textViews[i].setCompoundDrawablesWithIntrinsicBounds(
+                                R.drawable.ic_check_blue, 0, 0, 0
+                            )
+                            textViews[i].setTextColor(
+                                getColor(requireContext(), R.color.blue)
+                            )
+                        }
+                    }
+                }
             }
         }
     }
@@ -115,18 +98,12 @@ class DocEmixDetailNewOutletFragment :
                         outletName = docEmixDetail.outletName,
                         institutionType = docEmixDetail.institutionType,
                         outletFormat = docEmixDetail.outletFormat,
-                        visitDay1 = docEmixDetail.visitDay1,
-                        visitDay2 = docEmixDetail.visitDay2,
-                        visitDay3 = docEmixDetail.visitDay3,
-                        visitDay4 = docEmixDetail.visitDay4,
-                        visitDay5 = docEmixDetail.visitDay5,
-                        visitDay6 = docEmixDetail.visitDay6,
-                        visitDay7 = docEmixDetail.visitDay7,
-                        visitsFrequency = docEmixDetail.visitsFrequency
+                        visitDays = docEmixDetail.visitDays,
+                        visitsFrequency = docEmixDetail.visitsFrequency,
+                        latitude = docEmixDetail.latitude,
+                        longitude = docEmixDetail.longitude
                     )
                 )
             }
-
-        private const val VIEW_STATE = "VIEW_STATE"
     }
 }

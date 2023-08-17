@@ -7,19 +7,17 @@ import androidx.navigation.fragment.findNavController
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.docEmix.entities.ImagesPaths
 import com.euromix.esupervisor.app.utils.textDate
+import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.ImagesFragmentBinding
 import com.euromix.esupervisor.screens.main.tabs.TitleData
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.DocEmixDetailFragmentDirections
 import java.time.LocalDateTime
-
 class ImagesFragment : Fragment(R.layout.images_fragment) {
 
-    private lateinit var binding: ImagesFragmentBinding
+    private val binding by viewBinding<ImagesFragmentBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding = ImagesFragmentBinding.bind(view)
 
         arguments?.let { args ->
 

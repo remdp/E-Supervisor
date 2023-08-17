@@ -1,10 +1,13 @@
 package com.euromix.esupervisor.app.model.docEmix
 
+import com.euromix.esupervisor.app.model.Error
+import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
+import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
-import com.euromix.esupervisor.app.model.wrapBackendExceptions
-import com.euromix.esupervisor.app.utils.async.LazyFlowSubject
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,55 +15,53 @@ import javax.inject.Singleton
 class DocEmixDetailRepository @Inject constructor(
     private val docEmixDetailSource: DocEmixDetailSource
 ) {
-
-    private val docEmixChangeTCDetailLazyFlowSubject =
-        LazyFlowSubject<Map<String, Any>, DocEmixDetail> {
-            wrapBackendExceptions {
-                if (it.containsKey(APPROVE)) {
-
-                    if (it[APPROVE] as Boolean)
-                        return@LazyFlowSubject docEmixDetailSource.acceptDocEmixDetail(it[EXTID].toString())
-                    else
-                        return@LazyFlowSubject docEmixDetailSource.rejectDocEmixDetail(
-                            it[EXTID].toString(),
-                            it[BODY_AGREEMENT].toString()
-                        )
-                } else {
-                    return@LazyFlowSubject docEmixDetailSource.getDocEmixDetail(it[EXTID].toString())
-                }
-            }
-        }
-
     fun getDocEmixDetail(extId: String): Flow<Result<DocEmixDetail>> {
-        return docEmixChangeTCDetailLazyFlowSubject.listen(mapOf(EXTID to extId))
-    }
 
-    fun reload(extId: String) {
-        docEmixChangeTCDetailLazyFlowSubject.reloadArgument(mapOf(EXTID to extId))
+
+        return callbackFlow {
+
+            try {
+                trySend(Pending())
+                val res = docEmixDetailSource.getDocEmixDetail(extId)
+                trySend(Success(res))
+            } catch (e: Exception) {
+                trySend(Error(e))
+            }
+
+            awaitClose { }
+
+        }
     }
 
     fun acceptDocEmixDetail(extId: String): Flow<Result<DocEmixDetail>> {
-        return docEmixChangeTCDetailLazyFlowSubject.listen(mapOf(EXTID to extId, APPROVE to true))
+
+        return callbackFlow {
+
+            try {
+                trySend(Pending())
+                val res = docEmixDetailSource.acceptDocEmixDetail(extId)
+                trySend(Success(res))
+            } catch (e: Exception) {
+                trySend(Error(e))
+            }
+
+            awaitClose { }
+        }
     }
 
     fun rejectDocEmixDetail(extId: String, reason: String): Flow<Result<DocEmixDetail>> {
 
-        return docEmixChangeTCDetailLazyFlowSubject.listen(
-            mapOf(
-                EXTID to extId,
-                APPROVE to false,
-                BODY_AGREEMENT to reason
-            )
-        )
-    }
+        return callbackFlow {
+            try {
+                trySend(Pending())
+                val res = docEmixDetailSource.rejectDocEmixDetail(extId, reason)
+                trySend(Success(res))
+            } catch (e: Exception) {
+                trySend(Error(e))
+            }
 
-
-    companion object {
-        const val EXTID = "id"
-        const val APPROVE = "approve"
-        const val BODY_AGREEMENT = "bodyAgreement"
-
+            awaitClose { }
+        }
 
     }
-
 }

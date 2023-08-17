@@ -207,4 +207,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvVisitsFrequency" />
 
+    <TextView
+        android:id="@+id/tvCoordinates"
+        android:layout_marginTop="@dimen/DP_8"
+        style="@style/Text.Label.14.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:text="@string/gps_coordinates"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivBottomDivider" />
+
+    <TextView
+        android:id="@+id/tvLatitude"
+        android:layout_marginTop="@dimen/DP_8"
+        style="@style/Text.Label.16.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:text="@string/latitude"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCoordinates" />
+
+    <TextView
+        android:id="@+id/tvLongitude"
+        style="@style/Text.Label.16.Medium"
+        android:layout_marginTop="@dimen/DP_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:text="@string/longitude"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLatitude" />
+
+    <ImageView
+        android:id="@+id/ivLocation"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLongitude"
+        app:layout_constraintStart_toEndOf="@+id/tvLongitude"
+        app:layout_constraintTop_toTopOf="@+id/tvLatitude"
+        app:srcCompat="@drawable/ic_location_logo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

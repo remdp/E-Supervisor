@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_docEmixDetailFragment_to_imageFragment"
             app:destination="@id/imageFragment" />
+        <action
+            android:id="@+id/action_docEmixDetailFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/docsEmixSelectionFragment"
@@ -54,5 +57,19 @@
         <argument
             android:name="titleData"
             app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOutletPage.newOutletMap.MapFragment"
+        android:label="MapFragment" >
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+        <argument
+            android:name="longitude"
+            app:argType="float" />
+        <argument
+            android:name="latitude"
+            app:argType="float" />
     </fragment>
 </navigation>

@@ -16,6 +16,19 @@ dependencyResolutionManagement {
         maven {
             url "https://jitpack.io"
         }
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                // Do not change the username below.
+                // This should always be `mapbox` (not your username).
+                username = "mapbox"
+                // Use the secret token you stored in gradle.properties as the password
+                password = "sk.eyJ1IjoicmVtZHAiLCJhIjoiY2xsYXFzdHI3MDA0bTNqbDF6ZGNwZXc0MSJ9.gNXuHZI20kd3m_i2_cV4Lg"
+            }
+        }
     }
 }
 rootProject.name = "ESupervisor"

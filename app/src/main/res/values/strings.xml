@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">E-Supervisor</string>
+    <string name="mapbox_access_token" translatable="false">pk.eyJ1IjoicmVtZHAiLCJhIjoiY2xsMmxjNmVnMmQxZzNwbXpkb3dsZm0wcCJ9._2CoSYl2RXW3g02Cj8_S3g</string>
     <string name="invalid_username_or_password">Invalid supervisor or password</string>
     <string name="in_developing">In developing</string>
     <string name="undefined">Undefined</string>
@@ -103,6 +104,9 @@
     <string name="saturday">"Saturday"</string>
     <string name="visits_frequency">"Frequency of visits:"</string>
     <string name="photo">"Photo"</string>
+    <string name="gps_coordinates">GPS coordinates:</string>
+    <string name="longitude">Longitude: %1$f</string>
+    <string name="latitude">Latitude: %1$f</string>
 
 
     <!-- Rates screen-->
@@ -149,7 +153,7 @@
     <string name="director">Director</string>
 
     <!-- Selection screen -->
-    <string name="error_min_length">search string must be at least %1$s characters long</string>
+    <string name="error_min_length">search string must be at least %1$d characters long</string>
     <string name="clear">Clear</string>
     <string name="filter">Filter</string>
 
@@ -181,6 +185,7 @@
     <string name="outlets">Outlets</string>
     <string name="validation_errors">Validation errors</string>
     <string name="need_select_ta">You must select at least one trading agent</string>
+
 
 
 </resources>

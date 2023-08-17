@@ -30,6 +30,7 @@ fun Fragment.designByResult(
     root: View,
     resultView: ResultView,
     srl: SwipeRefreshLayout? = null,
+    specialView: View? = null
 ) {
 
     val rootView: View = if (root is ScrollView)
@@ -42,8 +43,12 @@ fun Fragment.designByResult(
             .filter { it != resultView }
             .forEach {
 
-                //if (result is Error) it.isVisible = false
-                it.isVisible = result !is Error<*>
+                if (result is Error) it.isVisible = false
+                else {
+                    if (it != specialView)
+                        it.isVisible = true
+                }
+                //it.isVisible = result !is Error<*>
             }
     }
 

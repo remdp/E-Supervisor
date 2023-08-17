@@ -98,6 +98,9 @@
     <string name="saturday">"Субота"</string>
     <string name="visits_frequency">"Періодичність відвідувань:"</string>
     <string name="photo">"Фото"</string>
+    <string name="gps_coordinates">GPS координати:</string>
+    <string name="longitude">Довгота: %1$f</string>
+    <string name="latitude">Широта: %1$f</string>
 
     <!-- Rates screen-->
     <string name="rates">Показники</string>
@@ -139,7 +142,7 @@
     <string name="director">Директор</string>
 
     <!-- Selection screen -->
-    <string name="error_min_length">рядок пошуку має бути не менше %1$s-х символів</string>
+    <string name="error_min_length">рядок пошуку має бути не менше %1$d-х символів</string>
     <string name="clear">Очистити</string>
     <string name="filter">Фільтр</string>
 
@@ -171,6 +174,7 @@
     <string name="outlets">Торгові точки</string>
     <string name="validation_errors">Помилки перевірки</string>
     <string name="need_select_ta">Необхідно вибрати хоча б одного торгового агента</string>
+
 
 
 </resources>

@@ -7,9 +7,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.Const.MIN_LENGTH_SEARCH_STRING
 import com.euromix.esupervisor.app.model.tasks.entities.TasksSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
-import com.euromix.esupervisor.app.utils.*
+import com.euromix.esupervisor.app.utils.observeResults
+import com.euromix.esupervisor.app.utils.popupWindowForSelections
+import com.euromix.esupervisor.app.utils.setEtOnEditorActionListener
+import com.euromix.esupervisor.app.utils.setOnClickListenerLocalSelection
+import com.euromix.esupervisor.app.utils.setOnClickListenerServerSelection
+import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.TasksSelectionFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -173,10 +179,10 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
 
         viewModel.errorsMinLength.observe(viewLifecycleOwner) {
             binding.tiPartner.error = if (it.minLengthPartnerError) getString(
-                R.string.error_min_length
+                R.string.error_min_length, MIN_LENGTH_SEARCH_STRING
             ) else null
             binding.tiExecutor.error = if (it.minLengthExecutorError) getString(
-                R.string.error_min_length
+                R.string.error_min_length, MIN_LENGTH_SEARCH_STRING
             ) else null
         }
     }
