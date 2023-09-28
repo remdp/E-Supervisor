@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/DP_24"
+    android:paddingTop="@dimen/DP_12"
+    android:paddingEnd="@dimen/DP_24"
+    android:paddingBottom="@dimen/DP_12">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/Text.Label.20.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dislike_reason"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etDislikeReason"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:background="@drawable/bg_underline_red"
+
+        android:lines="5"
+        android:minLines="3"
+        android:padding="@dimen/DP_4"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+
+    </EditText>
+
+<!--    android:inputType="textMultiLine"-->
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbCreateTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:padding="@dimen/DP_8"
+        android:text="@string/create_task_next_visit"
+        app:buttonIcon="@animator/checkbox_selector"
+        app:buttonTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etDislikeReason" />
+
+    <TextView
+        android:id="@+id/tvDeadline"
+        style="@style/Text.Label.16.Gray500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:background="@drawable/bg_8dp_white_border"
+        android:drawableStart="@drawable/ic_calendar"
+        android:drawablePadding="@dimen/DP_12"
+        android:focusable="false"
+        android:hint="@string/deadline"
+        android:padding="@dimen/DP_12"
+        app:layout_constraintTop_toBottomOf="@+id/cbCreateTask"
+        tools:text="Строк виконання" />
+
+    <Button
+        android:id="@+id/btnOk"
+        style="@style/Text.Label.14.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_26"
+        android:paddingTop="@dimen/DP_12"
+        android:paddingBottom="@dimen/DP_12"
+        android:text="@string/ok"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDeadline" />
+
+    <view
+        android:id="@+id/vResult"
+        class="com.euromix.esupervisor.app.views.ResultView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDeadline" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

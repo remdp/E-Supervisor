@@ -19,7 +19,8 @@
             android:layout_height="match_parent"
             android:background="@color/gray_100"
             android:paddingStart="@dimen/DP_8"
-            android:paddingEnd="@dimen/DP_8">
+            android:paddingEnd="@dimen/DP_8"
+            android:clipToPadding="false">
 
             <TextView
                 android:id="@+id/tvDeadline"
@@ -50,6 +51,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvDeadline" />
 
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cbAttachPhoto"
+                style="@style/Text.Label.16.Gray500"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_8"
+                android:padding="@dimen/DP_8"
+                android:text="@string/attach_photo"
+                app:buttonIcon="@drawable/ic_checkbox_white_off"
+                app:buttonTint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTaskType" />
+
             <EditText
                 android:id="@+id/tvDescription"
                 style="@style/Text.Label.16.Gray500"
@@ -64,7 +78,7 @@
                 android:paddingEnd="@dimen/DP_12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTaskType" />
+                app:layout_constraintTop_toBottomOf="@+id/cbAttachPhoto" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -75,28 +89,41 @@
                 app:layout_constraintEnd_toEndOf="@+id/tvDescription"
                 app:srcCompat="@drawable/ic_bottom_right_multiline" />
 
+            <TextView
+                android:id="@+id/tvOutlets"
+                style="@style/Text.Label.16.Gray500"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_8"
+                android:layout_marginStart="-8dp"
+                android:layout_marginEnd="-8dp"
+                android:background="@color/white"
+                android:hint="@string/outlets"
+                android:padding="@dimen/DP_12"
+                android:drawableRight="@drawable/ic_arrow_drop_up_gray_400"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/cbOutlets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/DP_16"
                 app:buttonIcon="@drawable/ic_checkbox_white_off"
                 app:buttonTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/ivFunnel"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescription">
-
-            </com.google.android.material.checkbox.MaterialCheckBox>
-
+                app:layout_constraintTop_toTopOf="@+id/ivFunnel" />
 
             <ImageView
                 android:id="@+id/ivFunnel"
                 android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/DP_8"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/DP_16"
                 android:background="@drawable/bg_8dp_white"
                 android:padding="@dimen/DP_12"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+                app:layout_constraintTop_toBottomOf="@+id/tvOutlets"
                 app:srcCompat="@drawable/ic_funnel" />
 
             <com.google.android.material.textfield.TextInputLayout

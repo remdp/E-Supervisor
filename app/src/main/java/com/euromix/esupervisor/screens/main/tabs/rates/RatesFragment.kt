@@ -11,6 +11,7 @@ import com.euromix.esupervisor.app.enums.RatesDetailing
 import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.rates.entities.RateData
+import com.euromix.esupervisor.app.model.rates.entities.RateDataRow
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.clear
 import com.euromix.esupervisor.app.utils.draw
@@ -31,7 +32,7 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
 
     private var adapter = RateAdapter(lifecycleScope) {
 
-        val rate = it?.tag as RateData
+        val rate = it?.tag as RateDataRow
         it.let {
 
             popupWindow(it, viewModel.detailsList()) { rateDetail ->
@@ -63,7 +64,7 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
         viewModel.viewState.observe(viewLifecycleOwner) {
             viewModel.afterUpdateState(adapter, binding, this as BaseFragment)
 
-            if (it.result is Success) issueTotalViews(it.result.value)
+            if (it.result is Success) renderTotalViews(it.result.value)
             visibilityViews()
             setDetailPath()
         }
@@ -75,28 +76,14 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
         binding.tvDetailPath.setOnClickListener { viewModel.updateStateBackStack() }
     }
 
-    private fun issueTotalViews(rateList: List<RateData>) {
-
-        var totalPlan = 0.0
-        var totalFact = 0.0
-
-        if (rateList.isNotEmpty()) {
-
-            rateList.forEach { listItem ->
-
-                totalPlan += listItem.plan
-                totalFact += listItem.fact
-            }
-
-            if (totalPlan != 0.0 && totalFact != 0.0) {
-                binding.piTotal.draw(totalPlan, totalFact)
-            } else {
-                binding.piTotal.clear()
-            }
+    private fun renderTotalViews(rate: RateData) {
+        if (rate.totalPlan != 0f && rate.totalFact != 0f) {
+            binding.piTotal.draw(rate.totalPlan.toDouble(), rate.totalFact.toDouble())
+        } else {
+            binding.piTotal.clear()
         }
-
-        binding.tvTotalFact.text = DecimalFormat("###,###.##").format(totalFact)
-        binding.tvTotalPlan.text = DecimalFormat("###,###.##").format(totalPlan)
+        binding.tvTotalFact.text = DecimalFormat("###,###.##").format(rate.totalFact)
+        binding.tvTotalPlan.text = DecimalFormat("###,###.##").format(rate.totalPlan)
     }
 
     private fun setupSpinner() {

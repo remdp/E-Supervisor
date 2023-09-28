@@ -7,5 +7,5 @@ import retrofit2.http.POST
 interface RateApi {
 
     @POST("rate")
-    suspend fun getRate(@Body body: RateRequestEntity): List<RateResponseEntity>
+    suspend fun getRate(@Body body: RateRequestEntity): RateResponseEntity
 }

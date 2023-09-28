@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.textfield.TextInputLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="@dimen/DP_24"
-    android:paddingEnd="@dimen/DP_24"
     android:paddingTop="@dimen/DP_12"
+    android:paddingEnd="@dimen/DP_24"
     android:paddingBottom="@dimen/DP_12">
+
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tfReasonText"
         style="@style/MediumTitle"
         android:layout_width="match_parent"
-        android:background="@android:color/white"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_8dp_white_border"
         android:imeOptions="actionDone"
         android:inputType="textMultiLine"
-        android:hint="@string/reason_for_rejection"
-        android:selectAllOnFocus="true"/>
+        android:selectAllOnFocus="true" />
 
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbAdditional"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_weight="1"
+        android:padding="@dimen/DP_8"
+        app:buttonIcon="@animator/checkbox_selector"
+        app:buttonTint="@color/white"
+        tools:text="additional CheckBox" />
+
+    <TextView
+        android:id="@+id/tvDeadline"
+        style="@style/Text.Label.16.Gray500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:background="@drawable/bg_8dp_white_border"
+        android:drawableStart="@drawable/ic_calendar"
+        android:drawablePadding="@dimen/DP_12"
+        android:focusable="false"
+        android:hint="@string/deadline"
+        android:padding="@dimen/DP_12"
+        tools:text="Строк виконання" />
 </com.google.android.material.textfield.TextInputLayout>

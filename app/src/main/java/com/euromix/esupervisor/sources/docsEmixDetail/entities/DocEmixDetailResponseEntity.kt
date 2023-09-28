@@ -3,7 +3,7 @@ package com.euromix.esupervisor.sources.docsEmixDetail.entities
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
 import com.euromix.esupervisor.app.enums.Status
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
-import com.euromix.esupervisor.app.model.docEmix.entities.ImagesPaths
+//import com.euromix.esupervisor.app.model.docEmix.entities.ImagesPaths
 import com.euromix.esupervisor.app.model.docEmix.entities.RowReturnRequest
 import com.euromix.esupervisor.app.model.docEmix.entities.RowTradeCondition
 import com.squareup.moshi.Json
@@ -37,10 +37,11 @@ data class DocEmixDetailResponseEntity(
     @field:Json(name = "visit_days") val visitDays: Array<Boolean>?,
     val longitude: Double,
     val latitude: Double,
+    val address: String?,
     @field:Json(name = "visits_frequency") val visitsFrequency: String?,
     @field:Json(name = "trade_conditions_list") val tradeConditionResponseEntities: List<RowTradeConditionResponseEntity>?,
     @field:Json(name = "return_request_list") val returnRequestResponseEntities: List<RowReturnRequestResponseEntity>?,
-    @field:Json(name = "pictures_paths") val imagesPaths: List<ImagesPaths>?
+    val images: Int
 
 ) {
     fun toDocEmixDetail(): DocEmixDetail = DocEmixDetail(
@@ -69,10 +70,11 @@ data class DocEmixDetailResponseEntity(
         visitDays = visitDays,
         longitude = longitude,
         latitude = latitude,
+        address = address ?: "",
         visitsFrequency = visitsFrequency ?: "",
         rowsTradeConditions = toRowTradeCondition(),
         rowsReturnRequest = toRowReturnRequest(),
-        imagesPaths = imagesPaths
+        images = images
     )
 
     private fun toRowTradeCondition(): List<RowTradeCondition> {

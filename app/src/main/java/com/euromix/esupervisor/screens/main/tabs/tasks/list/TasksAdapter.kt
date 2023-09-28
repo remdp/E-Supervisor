@@ -42,6 +42,12 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
             tvDeadline.text = textDate(task.deadline)
             tvPartner.text = task.partner
             tvOutlet.text = task.outlet
+            tvAttachPhoto.setCompoundDrawablesWithIntrinsicBounds(
+                if (task.attachPhoto) R.drawable.ic_checkbox_on else R.drawable.ic_checkbox_off,
+                0,
+                0,
+                0
+            )
 
             tvDeadline.setTextColor(
                 getColor(
@@ -55,12 +61,6 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
                 0,
                 0
             )
-//            tvAttachPhoto.setCompoundDrawablesWithIntrinsicBounds(
-//                if (task.attachPhoto) R.drawable.ic_checkbox_on else R.drawable.ic_checkbox_off,
-//                0,
-//                0,
-//                0
-//            )
         }
 
         holder.binding.root.setOnClickListener {

@@ -66,6 +66,7 @@
     <color name="gray_300">#A8B4BE</color>
     <color name="gray_400">#818C98</color>
     <color name="gray_500">#6A7781</color>
+    <color name="gray_600">#3E4449</color>
     <color name="blue">#167AFA</color>
     <color name="blue_10">#1A167AFA</color>
     <color name="orange">#FF830A</color>
@@ -78,5 +79,6 @@
     <color name="dark_alpha_5">#0D041329</color>
     <color name="gray_200_alpha_40">#66FFFFFF</color>
     <color name="dark_alpha_20">#33041329</color>
+    <color name="light_alpha_80">#CCFFFFFF</color>
 
 </resources>

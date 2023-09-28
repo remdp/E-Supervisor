@@ -7,7 +7,7 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.RecyclerView
 import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.model.rates.entities.RateData
+import com.euromix.esupervisor.app.model.rates.entities.RateDataRow
 import com.euromix.esupervisor.app.utils.clear
 import com.euromix.esupervisor.app.utils.customIndicator.CustomProgressIndicator
 import com.euromix.esupervisor.databinding.ItemRateFragmentBinding
@@ -21,7 +21,7 @@ class RateAdapter(
 ) :
     RecyclerView.Adapter<RateAdapter.ViewHolder>(), View.OnClickListener {
 
-    var rates: List<RateData> = emptyList()
+    var rates: List<RateDataRow> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -49,7 +49,7 @@ class RateAdapter(
             val plan = rate.plan
             val fact = rate.fact
 
-            if (plan != 0.0 && fact != 0.0) {
+            if (plan != 0f && fact != 0f) {
 
                 lifecycleScope.launch {
                     delay(200)

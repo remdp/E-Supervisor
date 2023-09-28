@@ -2,7 +2,7 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.euromix.esupervisor.App.Companion.formattedDate
+import com.euromix.esupervisor.App.Companion.dateToJsonString
 import com.euromix.esupervisor.app.model.Empty
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
@@ -77,8 +77,8 @@ class DocsEmixListViewModel @Inject constructor(
         val state = viewState.value
 
         return DocsEmixRequestEntity(
-            startDate = state?.period?.let { formattedDate(it.first) },
-            endDate = state?.period?.let { formattedDate(it.second) },
+            startDate = state?.period?.let { dateToJsonString(it.first) },
+            endDate = state?.period?.let { dateToJsonString(it.second) },
             tradingAgentId = state?.selection?.tradingAgent?.id,
             partnerId = state?.selection?.partner?.id,
             operationType = state?.selection?.operationType?.id,

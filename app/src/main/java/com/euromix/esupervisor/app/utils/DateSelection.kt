@@ -13,12 +13,14 @@ import java.util.*
 fun setDateSelection(
     tv: TextView,
     fm: FragmentManager,
+    showClearView: Boolean = true,
+    underlineIfNull: Boolean = false,
     dateUpdater: ((date: Date?) -> Unit)? = null
 ) {
     val datePicker = MaterialDatePicker.Builder.datePicker()
     val picker = datePicker.build()
 
-    designedDateView(tv, null)
+    designedDateView(tv, null, showClearView, underlineIfNull)
 
     tv.setOnTouchListener { v, event ->
 
@@ -29,13 +31,13 @@ fun setDateSelection(
 
                 if (event.rawX >= textLocation[0] + tv.width - tv.totalPaddingRight) {
                     // Right drawable was tapped
-                    designedDateView(tv, null)
+                    designedDateView(tv, null, showClearView, underlineIfNull)
                     dateUpdater?.invoke(null)
                     return@setOnTouchListener true
                 }
 
                 picker.addOnPositiveButtonClickListener { dateLong ->
-                    designedDateView(tv, Date(dateLong))
+                    designedDateView(tv, Date(dateLong), showClearView, underlineIfNull)
                     dateUpdater?.invoke(Date(dateLong))
 
                 }
@@ -46,19 +48,28 @@ fun setDateSelection(
     }
 }
 
-fun designedDateView(tv: TextView, date: Date?, showClearView: Boolean = true) {
+fun designedDateView(
+    tv: TextView,
+    date: Date?,
+    showClearView: Boolean = true,
+    underlineIfNull: Boolean = false
+) {
 
     if (date == null) {
-        tv.setText("")
+        tv.text = ""
         tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar, 0, 0, 0)
+        if (underlineIfNull) tv.setBackgroundResource(R.drawable.bg_underline_red)
+
     } else {
-        tv.setText(formatDateRange(date) ?: "")
+        tv.text = formatDateRange(date) ?: ""
         tv.setCompoundDrawablesWithIntrinsicBounds(
             R.drawable.ic_calendar,
             0,
             if (showClearView) R.drawable.ic_cross_gray_300 else 0,
             0
         )
+
+        tv.setBackgroundResource(R.drawable.bg_8dp_white_border)
     }
 }
 

@@ -5,6 +5,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class TaskDetail(
+    val id: String,
     val date: LocalDateTime,
     val number: String,
     val taskType: String,

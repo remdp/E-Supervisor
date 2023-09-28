@@ -23,6 +23,7 @@ class ViewState(
     val outletFormat: String?,
     val visitDays: Array<Boolean>?,
     val visitsFrequency: String,
+    val address: String,
     val longitude: Double,
     val latitude: Double
 ) : Parcelable

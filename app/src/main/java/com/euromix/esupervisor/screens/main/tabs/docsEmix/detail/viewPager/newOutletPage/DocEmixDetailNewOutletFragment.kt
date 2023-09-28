@@ -30,16 +30,17 @@ class DocEmixDetailNewOutletFragment :
             val viewState = viewModel.viewState.value
 
             viewState?.let {
-                val direction =
-                    DocEmixDetailFragmentDirections.actionDocEmixDetailFragmentToMapFragment(
-                        titleData = TitleData(
-                            getString(R.string.latitude, viewState.latitude) + "  " +
-                                    getString(R.string.longitude, viewState.longitude), null
-                        ),
-                        latitude = viewState.latitude.toFloat(),
-                        longitude = viewState.longitude.toFloat()
-                    )
-                findNavController().navigate(direction)
+
+                if (viewState.latitude != 0.0 && viewState.longitude != 0.0) {
+
+                    val direction =
+                        DocEmixDetailFragmentDirections.actionDocEmixDetailFragmentToMapFragment(
+                            titleData = TitleData(viewState.address, null),
+                            latitude = viewState.latitude.toFloat(),
+                            longitude = viewState.longitude.toFloat()
+                        )
+                    findNavController().navigate(direction)
+                }
             }
         }
 
@@ -54,8 +55,7 @@ class DocEmixDetailNewOutletFragment :
             tvOutletFormat.text = state.outletFormat
             renderVisitsTextViews(state)
             tvVisitsFrequency.text = state.visitsFrequency
-            tvLongitude.text = getString(R.string.longitude, state.longitude)
-            tvLatitude.text = getString(R.string.latitude, state.latitude)
+            tvAddress.text = state.address
         }
     }
 
@@ -100,6 +100,7 @@ class DocEmixDetailNewOutletFragment :
                         outletFormat = docEmixDetail.outletFormat,
                         visitDays = docEmixDetail.visitDays,
                         visitsFrequency = docEmixDetail.visitsFrequency,
+                        address = docEmixDetail.address,
                         latitude = docEmixDetail.latitude,
                         longitude = docEmixDetail.longitude
                     )

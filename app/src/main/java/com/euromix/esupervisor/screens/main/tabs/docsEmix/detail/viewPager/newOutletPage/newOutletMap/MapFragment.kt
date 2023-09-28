@@ -46,7 +46,7 @@ class MapFragment : Fragment(R.layout.map_fragment) {
     private fun addAnnotationToMap() {
 
         bitmapFromDrawableRes(
-            requireContext(), R.drawable.ic_location_logo
+            requireContext(), R.drawable.ic_coordinate_blue
         )?.let {
 
             val lng = args.longitude.toDouble()
