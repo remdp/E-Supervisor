@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/DP_24">
+
+    <TextView
+        android:id="@+id/tvUser"
+        style="@style/Text.Label.16.Gray500"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_like_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Корнич Юлия" />
+
+    <TextView
+        android:id="@+id/tvComment"
+        style="@style/Text.Label.16.Gray600"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvUser"
+        tools:text="Переставить товар на другую полку в соответствии с ассортиментом" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,11 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail
 
-import android.content.DialogInterface
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.widget.LinearLayout
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.euromix.esupervisor.App
@@ -20,10 +18,10 @@ import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.designByResult
+import com.euromix.esupervisor.app.utils.dialogPositiveButton
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.app.utils.visible
-import com.euromix.esupervisor.databinding.DialogReasonRejectionBinding
 import com.euromix.esupervisor.databinding.DocEmixDetailFragmentBinding
 import com.euromix.esupervisor.databinding.TabHeaderBinding
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.VPFragmentAdapter
@@ -59,18 +57,18 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                 setupViewPager(docEmixDetail)
             }
             designByResult(
-                state.result,
-                binding.root,
-                binding.vResult,
-                null,
-                binding.clAppbarBottom
+                state.result, binding.root, binding.vResult, null, listOf(binding.clAppbarBottom)
             )
         }
     }
 
     private fun setupListeners() {
         binding.btnApprove.setOnClickListener { viewModel.acceptDocEmixDetail() }
-        binding.btnReject.setOnClickListener { showInputReasonDialog() }
+        binding.btnReject.setOnClickListener {
+            dialogPositiveButton(requireContext(), R.string.reject_reason) { enteredText, _, _ ->
+                viewModel.rejectDocEmixDetail(enteredText)
+            }
+        }
         binding.vResult.setTryAgainAction { viewModel.reload() }
     }
 
@@ -81,10 +79,7 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
             tvPartner.text = docEmixDetail.partner
             Status.designTV(tvStatus, docEmixDetail.status)
             DocEmixOperationType.designTV(
-                tvOperationType,
-                docEmixDetail.operationType,
-                docEmixDetail.status,
-                true
+                tvOperationType, docEmixDetail.operationType, docEmixDetail.status, true
             )
             tvDescription.text = docEmixDetail.description
 
@@ -102,16 +97,24 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
             }
         }
     }
+
+
     private fun setupViewPager(
         docEmixDetail: DocEmixDetail
     ) {
         with(binding) {
 
-            vpTabs.adapter = VPFragmentAdapter(this@DocEmixDetailFragment, docEmixDetail)
+            vpTabs.adapter =
+                VPFragmentAdapter(this@DocEmixDetailFragment, docEmixDetail) { imageUri ->
+                    val direction =
+                        DocEmixDetailFragmentDirections.actionDocEmixDetailFragmentToImageFragment(
+                            imageUri = imageUri,
+                            titleData = args.titleData
+                        )
+                    findNavController().navigate(direction)
+                }
 
-            if (docEmixDetail.operationType == DocEmixOperationType.NEW_PARTNER_FACT || (docEmixDetail.imagesPaths?.size
-                    ?: 0) > 0
-            ) {
+            if (docEmixDetail.operationType == DocEmixOperationType.NEW_PARTNER_FACT || docEmixDetail.images > 0) {
                 addTabsListener(tlTabs)
                 addTabsMediator(tlTabs, vpTabs, docEmixDetail)
                 addDividerTabs(tlTabs)
@@ -149,14 +152,13 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                         getDrawable(it.context, R.drawable.bg_4dp_dark_5)
                 }
             }
+
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
     }
 
     private fun addTabsMediator(
-        tlTabs: TabLayout,
-        vpTabs: ViewPager2,
-        docEmixDetail: DocEmixDetail
+        tlTabs: TabLayout, vpTabs: ViewPager2, docEmixDetail: DocEmixDetail
     ) {
         TabLayoutMediator(tlTabs, vpTabs) { tab, position ->
 
@@ -171,23 +173,19 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                     DocEmixOperationType.NEW_PARTNER_FACT -> {
                         when (position) {
                             0 -> {
-                                tvLeft.text =
-                                    App.getString(requireContext(), R.string.outlet)
+                                tvLeft.text = App.getString(requireContext(), R.string.outlet)
                                 tvRight.gone()
                             }
 
                             1 -> {
-                                tvLeft.text =
-                                    App.getString(requireContext(), R.string.tc_data)
+                                tvLeft.text = App.getString(requireContext(), R.string.tc_data)
                                 tvRight.text =
                                     (if (docEmixDetail.rowsTradeConditions == null) 0 else docEmixDetail.rowsTradeConditions.size).toString()
                             }
 
                             else -> {
-                                tvLeft.text =
-                                    App.getString(requireContext(), R.string.photo)
-                                tvRight.text =
-                                    (if (docEmixDetail.imagesPaths == null) 0 else docEmixDetail.imagesPaths.size).toString()
+                                tvLeft.text = App.getString(requireContext(), R.string.photo)
+                                tvRight.text = docEmixDetail.images.toString()
                             }
                         }
                     }
@@ -195,17 +193,14 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                     DocEmixOperationType.RETURN_REQUEST -> {
                         when (position) {
                             0 -> {
-                                tvLeft.text =
-                                    App.getString(requireContext(), R.string.goods)
+                                tvLeft.text = App.getString(requireContext(), R.string.goods)
                                 tvRight.text =
                                     (if (docEmixDetail.rowsReturnRequest == null) 0 else docEmixDetail.rowsReturnRequest.size).toString()
                             }
 
                             else -> {
-                                tvLeft.text =
-                                    App.getString(requireContext(), R.string.gallery)
-                                tvRight.text =
-                                    (if (docEmixDetail.imagesPaths == null) 0 else docEmixDetail.imagesPaths.size).toString()
+                                tvLeft.text = App.getString(requireContext(), R.string.gallery)
+                                tvRight.text = docEmixDetail.images.toString()
                             }
                         }
                     }
@@ -230,30 +225,6 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                 drawable.setSize(3, 1)
                 it.dividerDrawable = drawable
             }
-        }
-    }
-
-    private fun showInputReasonDialog() {
-        val dialogBinding = DialogReasonRejectionBinding.inflate(layoutInflater)
-
-        context?.let {
-            val dialog = AlertDialog.Builder(it)
-                .setTitle(R.string.reason_input)
-                .setView(dialogBinding.root)
-                .setPositiveButton(R.string.ok, null)
-                .create()
-
-            dialog.setOnShowListener {
-                dialogBinding.tfReasonText.requestFocus()
-                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
-                    val enteredText = dialogBinding.tfReasonText.text.toString()
-
-                    viewModel.rejectDocEmixDetail(enteredText)
-                    dialog.dismiss()
-                }
-            }
-            dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
-            dialog.show()
         }
     }
 }

@@ -13,12 +13,10 @@ interface TasksApi {
     @GET("tasks")
     suspend fun getTasks(@Header("request") request: String): List<TasksResponseEntity>
 
-//    @GET("create_tasks_outlets")
-//    suspend fun getOutlets(@Header("id") id: String): List<OutletsResponseEntity>
-
     @POST("tasks_create")
     suspend fun createTasks(@Body body: TasksCreateRequestEntity): String
-//    @GET("task_types")
-//    suspend fun getTaskTypes(): List<ServerPair>
+
+    @GET("date_next_visit")
+    suspend fun getDateNextVisit(@Header("id") id: String): String
 
 }

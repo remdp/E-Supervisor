@@ -3,28 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/DP_4">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/ivLeft"
+    <include
+        android:id="@+id/incLeft"
+        layout="@layout/item_image"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/DP_1"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/incRight"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/ivRight"
-        android:layout_marginEnd="@dimen/DP_4"
-        tools:src="@drawable/ic_logo" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/ivRight"
+    <include
+        android:id="@+id/incRight"
+        layout="@layout/item_image"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/DP_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivLeft"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_logo" />
+        app:layout_constraintStart_toEndOf="@+id/incLeft"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

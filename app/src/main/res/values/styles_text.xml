@@ -75,6 +75,10 @@
         <item name="android:textColor">@color/gray_500</item>
     </style>
 
+    <style name="Text.Label.16.Gray600">
+        <item name="android:textColor">@color/gray_600</item>
+    </style>
+
     <style name="Text.Label.16.Bold">
         <item name="fontFamily">@font/roboto_bold</item>
     </style>
@@ -130,6 +134,10 @@
 
     <style name="Text.Label.12.Medium">
         <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Text.Label.12.Medium.White">
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Text.Label.10">

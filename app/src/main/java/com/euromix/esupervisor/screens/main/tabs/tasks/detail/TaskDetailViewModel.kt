@@ -2,7 +2,11 @@ package com.euromix.esupervisor.screens.main.tabs.tasks.detail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.euromix.esupervisor.app.model.Empty
+import com.euromix.esupervisor.app.model.Error
+import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
+import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.taskDetail.TaskDetailRepository
 import com.euromix.esupervisor.app.model.taskDetail.entities.TaskDetail
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
@@ -16,19 +20,46 @@ class TaskDetailViewModel @AssistedInject constructor(
     private val taskDetailRepository: TaskDetailRepository
 ) : BaseViewModel() {
 
-    private val _taskDetail = MutableLiveData<Result<TaskDetail>>()
-    val taskDetail = _taskDetail.share()
+    private val _viewState = MutableLiveData(ViewState(needLoading = true))
+    val viewState = _viewState.share()
+    private fun updateResult(result: Result<*>) {
+        viewState.value?.let { stateValue ->
+            when (result) {
+                is Pending -> _viewState.value =
+                    stateValue.copy(needLoading = false, result = Pending())
 
-    init {
-        getTaskDetail()
-    }
+                is Success -> _viewState.value =
+                    viewState.value?.copy(result = Success(result.value as TaskDetail))
 
-    fun getTaskDetail() {
-        viewModelScope.safeLaunch {
-            taskDetailRepository.getTask(id).collect { result ->
-                _taskDetail.value = result
+                is Error -> _viewState.value =
+                    stateValue.copy(
+                        needLoading = false,
+                        result = Error(result.error)
+                    )
+
+                else -> _viewState.value = stateValue.copy(needLoading = false)
             }
         }
+    }
+
+    private fun getTaskDetail() {
+        viewModelScope.safeLaunch {
+            taskDetailRepository.getTask(id).collect { result ->
+                updateResult(result)
+            }
+        }
+    }
+
+    fun afterUpdateState() {
+        viewState.value?.let { stateValue ->
+            if (stateValue.needLoading) {
+                getTaskDetail()
+            }
+        }
+    }
+
+    fun reload() {
+        getTaskDetail()
     }
 
     @AssistedFactory
@@ -36,4 +67,8 @@ class TaskDetailViewModel @AssistedInject constructor(
         fun create(id: String): TaskDetailViewModel
     }
 
+    data class ViewState(
+        val needLoading: Boolean = true,
+        val result: Result<TaskDetail> = Empty()
+    )
 }

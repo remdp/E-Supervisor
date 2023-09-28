@@ -13,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+//todo get rid of accountRepository in constructor
 open class BaseViewModel(val accountRepository: AccountRepository?) :
     ViewModel() {
 

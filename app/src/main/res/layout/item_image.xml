@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_border_red">
+
+    <ImageView
+        android:id="@+id/ivPic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/DP_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_logo" />
+
+    <TextView
+        android:id="@+id/tvDislikeReason"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_1"
+        android:layout_marginEnd="@dimen/DP_1"
+        android:background="@color/light_alpha_80"
+        android:maxLines="2"
+        android:text="Переставить товар на другую полку рядом с Сolgate в соответствии  ассортиментом"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivBgDislike"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/DP_4"
+        android:src="@drawable/bg_4dp_gray_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivBgLike"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivPic"
+        tools:src="@drawable/bg_4dp_gray_200" />
+
+    <ImageView
+        android:id="@+id/ivBgLike"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/DP_4"
+        android:src="@drawable/bg_4dp_gray_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivBgDislike"
+        app:layout_constraintTop_toBottomOf="@+id/ivPic"
+        tools:src="@drawable/bg_4dp_gray_200" />
+
+    <ImageView
+        android:id="@+id/ivDislike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_dislike_red"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBgDislike"
+        app:layout_constraintEnd_toEndOf="@+id/ivBgDislike"
+        app:layout_constraintStart_toStartOf="@+id/ivBgDislike"
+        app:layout_constraintTop_toTopOf="@+id/ivBgDislike"
+        tools:src="@drawable/ic_dislike_red" />
+
+    <ImageView
+        android:id="@+id/ivDislikeCounterBg"
+        android:layout_width="@dimen/DP_18"
+        android:layout_height="@dimen/DP_18"
+        app:layout_constraintBottom_toBottomOf="@+id/ivDislike"
+        app:layout_constraintEnd_toEndOf="@+id/ivBgDislike"
+        app:layout_constraintStart_toEndOf="@+id/ivDislike"
+        app:layout_constraintTop_toTopOf="@+id/ivDislike"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_circle_red" />
+
+    <TextView
+        android:id="@+id/tvCounterDislikes"
+        style="@style/Text.Label.12.Medium.White"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/ivDislikeCounterBg"
+        app:layout_constraintEnd_toEndOf="@+id/ivDislikeCounterBg"
+        app:layout_constraintStart_toStartOf="@+id/ivDislikeCounterBg"
+        app:layout_constraintTop_toTopOf="@+id/ivDislikeCounterBg"
+        tools:text="2" />
+
+    <ImageView
+        android:id="@+id/ivLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_like_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ivBgLike"
+        app:layout_constraintStart_toStartOf="@+id/ivBgLike"
+        app:layout_constraintTop_toTopOf="@+id/ivBgLike"
+        tools:src="@drawable/ic_like_blue" />
+
+    <ImageView
+        android:id="@+id/ivLikeCounterBg"
+        android:layout_width="@dimen/DP_18"
+        android:layout_height="@dimen/DP_18"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLike"
+        app:layout_constraintEnd_toEndOf="@+id/ivBgLike"
+        app:layout_constraintStart_toEndOf="@+id/ivLike"
+        app:layout_constraintTop_toTopOf="@+id/ivLike"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_circle_blue" />
+
+    <TextView
+        android:id="@+id/tvCounterLikes"
+        style="@style/Text.Label.12.Medium.White"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLikeCounterBg"
+        app:layout_constraintEnd_toEndOf="@+id/ivLikeCounterBg"
+        app:layout_constraintStart_toStartOf="@+id/ivLikeCounterBg"
+        app:layout_constraintTop_toTopOf="@+id/ivLikeCounterBg"
+        tools:text="3" />
+</androidx.constraintlayout.widget.ConstraintLayout>

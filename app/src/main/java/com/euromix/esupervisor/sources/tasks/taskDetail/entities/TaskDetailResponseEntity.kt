@@ -6,6 +6,7 @@ import com.squareup.moshi.Json
 import java.time.LocalDateTime
 
 data class TaskDetailResponseEntity(
+    val id: String,
     val date: String,
     val number: String,
     @field:Json(name = "task_type") val taskType: String,
@@ -18,6 +19,7 @@ data class TaskDetailResponseEntity(
     val outlet: String = ""
 ) {
     fun toTaskDetail() = TaskDetail(
+        id = id,
         date = LocalDateTime.parse(date),
         number = number,
         taskType = taskType,

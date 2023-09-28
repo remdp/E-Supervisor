@@ -29,7 +29,8 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
                 extId = docEmix.extId,
                 titleData = TitleData(
                     docEmix.number,
-                    with(docEmix.date) { textDate(this) })
+                    textDate(docEmix.date)
+                )
             )
         findNavController().navigate(direction)
     }

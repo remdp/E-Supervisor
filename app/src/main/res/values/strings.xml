@@ -20,6 +20,8 @@
     <string name="sum">Sum</string>
     <string name="base">Base</string>
     <string name="status">Status</string>
+    <string name="create_task_next_visit">Create a task for the next visit</string>
+    <string name="create_task_next_visit_result">The result of creating a task for the next visit</string>
 
     <!-- Statuses -->
     <string name="done">Done</string>>
@@ -57,7 +59,8 @@
     <string name="date_text">from ${docEmix.date.toLocalDate().toFormatString(context.getString(R.string.day_month_year_date_format)}</string>
 
     <!-- Docs emix detail screen-->
-    <string name="reason_input">Reason input</string>
+    <string name="reject_reason">Reject reason</string>
+    <string name="dislike_reason">Dislike reason</string>
     <string name="operation">Operation</string>
     <string name="manufacturer">Manufacturer</string>
     <string name="PriceIndex">Price index</string>
@@ -105,6 +108,7 @@
     <string name="visits_frequency">"Frequency of visits:"</string>
     <string name="photo">"Photo"</string>
     <string name="gps_coordinates">GPS coordinates:</string>
+    <string name="adress">Adress:</string>
     <string name="longitude">Longitude: %1$f</string>
     <string name="latitude">Latitude: %1$f</string>
 
@@ -185,7 +189,6 @@
     <string name="outlets">Outlets</string>
     <string name="validation_errors">Validation errors</string>
     <string name="need_select_ta">You must select at least one trading agent</string>
-
 
 
 </resources>

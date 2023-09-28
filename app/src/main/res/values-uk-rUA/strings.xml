@@ -20,6 +20,8 @@
     <string name="sum">Сума</string>
     <string name="base">Документ підстава</string>
     <string name="status">Статус</string>
+    <string name="create_task_next_visit">Створити завдання на наступний візит</string>
+    <string name="create_task_next_visit_result">Результат створення завдання на наступний візит</string>
 
     <!-- Statuses -->
     <string name="done">Виконано</string>>
@@ -51,7 +53,8 @@
     <string name="date_text">від ${docEmix.date.toLocalDate().toFormatString(context.getString(R.string.day_month_year_date_format)}</string>
 
     <!-- Docs emix detail -->
-    <string name="reason_input">Введення причини</string>
+    <string name="reject_reason">Причини відхилення</string>
+    <string name="dislike_reason">Причина дізлайку</string>
     <string name="operation">Операція</string>
     <string name="manufacturer">Виробник</string>
     <string name="PriceIndex">Індекс ціни</string>
@@ -99,6 +102,7 @@
     <string name="visits_frequency">"Періодичність відвідувань:"</string>
     <string name="photo">"Фото"</string>
     <string name="gps_coordinates">GPS координати:</string>
+    <string name="adress">Адреса:</string>
     <string name="longitude">Довгота: %1$f</string>
     <string name="latitude">Широта: %1$f</string>
 
@@ -153,7 +157,7 @@
     <string name="deadline">Строк виконання</string>
     <string name="description_colon">Опис:</string>
     <string name="description">Опис</string>
-    <string name="attach_photo">Докласти фото:</string>
+    <string name="attach_photo">Докласти фото</string>
     <string name="task_producer">Постановник завдання</string>
     <string name="task_type">Тип завдання</string>
     <string name="task_type_colon">Тип завдання:</string>
@@ -174,7 +178,6 @@
     <string name="outlets">Торгові точки</string>
     <string name="validation_errors">Помилки перевірки</string>
     <string name="need_select_ta">Необхідно вибрати хоча б одного торгового агента</string>
-
 
 
 </resources>

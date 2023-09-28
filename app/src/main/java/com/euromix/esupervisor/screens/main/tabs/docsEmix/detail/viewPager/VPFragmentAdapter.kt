@@ -10,7 +10,11 @@ import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOu
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.returnRequestPage.DocEmixDetailReturnRequestFragment
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.tradeConditionPage.DocEmixDetailTradeConditionFragment
 
-class VPFragmentAdapter(fragment: Fragment, private val docEmixDetail: DocEmixDetail) :
+class VPFragmentAdapter(
+    fragment: Fragment,
+    private val docEmixDetail: DocEmixDetail,
+    private val openerImageFragment: (imageUri: String) -> Unit
+) :
     FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = itemCount()
@@ -44,14 +48,19 @@ class VPFragmentAdapter(fragment: Fragment, private val docEmixDetail: DocEmixDe
             0 -> docEmixDetail.rowsReturnRequest?.let {
                 DocEmixDetailReturnRequestFragment.newInstance(it)
             } ?: Fragment(R.layout.empty_fragment)
+
             else -> createImagesFragment()
         }
     }
 
     private fun createImagesFragment(): Fragment =
-        docEmixDetail.imagesPaths?.let {
-            ImagesFragment.newInstance(it, docEmixDetail.number, docEmixDetail.date)
-        } ?: Fragment(R.layout.empty_fragment)
+        if (docEmixDetail.images > 0)
+            ImagesFragment.newInstance(
+                extId = docEmixDetail.extId,
+                abilityCreateTask = false,
+                openerImageFragment = openerImageFragment
+            )
+        else Fragment(R.layout.empty_fragment)
 
     private fun itemCount(): Int {
 

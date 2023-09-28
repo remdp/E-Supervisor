@@ -115,7 +115,7 @@ fun TextView.setOnClickListenerLocalSelection(
                 if (event.rawX <= textLocation[0] + totalPaddingLeft) {
                     // Left drawable was tapped
 
-                } else if (event.rawX >= textLocation[0] + getWidth() - getTotalPaddingRight()) {
+                } else if (event.rawX >= textLocation[0] + width - totalPaddingRight) {
                     // Right drawable was tapped
                     onClick(itemsList, updaterSelection, v, 1, emptyChecker)
                     //return@setOnTouchListener true
@@ -128,23 +128,30 @@ fun TextView.setOnClickListenerLocalSelection(
     }
 }
 
-fun TextView.setNonStandardStatusText(status: String) {
+@SuppressLint("ClickableViewAccessibility")
+fun TextView.setDrawableOnClickListener(onClick: () -> Unit) {
 
-    var statusText = ""
-    val wordsInLine = 2
-    var count = 1
+    setOnTouchListener { v, event ->
 
-    status.split(" ").forEach {
-        statusText += it
-        statusText += " "
-        if (count == wordsInLine) {
-            statusText += "\n"
-            count = 0
+        when (event.action) {
+            MotionEvent.ACTION_UP -> {
+                val textLocation = IntArray(2)
+                getLocationOnScreen(textLocation)
+                if (event.rawX <= textLocation[0] + totalPaddingLeft) {
+                    // Left drawable was tapped
+
+                } else if (event.rawX >= textLocation[0] + width - totalPaddingRight) {
+                    // Right drawable was tapped
+                    onClick()
+                   // return@setOnTouchListener false
+                } else {
+                    onClick()
+                }
+            }
         }
-        count++
+        return@setOnTouchListener true
     }
 
-    text = statusText
 }
 
 fun View.isPartiallyShow(): Boolean {

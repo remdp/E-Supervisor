@@ -3,6 +3,7 @@ package com.euromix.esupervisor.sources.tasks.list
 import com.euromix.esupervisor.app.model.tasks.TasksSource
 import com.euromix.esupervisor.sources.base.BaseRetrofitSource
 import com.euromix.esupervisor.sources.base.RetrofitConfig
+//import com.euromix.esupervisor.sources.tasks.createTask.entities.TaskCreateDislikeRequestEntity
 import com.euromix.esupervisor.sources.tasks.createTask.entities.TasksCreateRequestEntity
 import com.euromix.esupervisor.sources.tasks.list.entities.TasksRequestEntity
 import javax.inject.Inject
@@ -26,17 +27,9 @@ class RetrofitTasksSource @Inject constructor(
         }
 
     override suspend fun createTasks(body: TasksCreateRequestEntity) =
-        wrapRetrofitException {
-            tasksApi.createTasks(body)
-        }
+        wrapRetrofitException { tasksApi.createTasks(body) }
 
-
-//    override suspend fun getOutlets(idPartner: String)=
-//        wrapRetrofitException {
-//            tasksApi.getOutlets(idPartner).map { it.toOutlet() }
-//        }
-
-//    override suspend fun getTaskTypes(): List<ServerPair> =
-//        wrapRetrofitException { tasksApi.getTaskTypes() }
+    override suspend fun getDateNextVisit(id: String) =
+        wrapRetrofitException { tasksApi.getDateNextVisit(id) }
 
 }

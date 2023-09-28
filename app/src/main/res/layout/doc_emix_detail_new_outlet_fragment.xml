@@ -208,45 +208,36 @@
         app:layout_constraintTop_toBottomOf="@+id/tvVisitsFrequency" />
 
     <TextView
-        android:id="@+id/tvCoordinates"
-        android:layout_marginTop="@dimen/DP_8"
+        android:id="@+id/tvAddressTitle"
         style="@style/Text.Label.14.Gray500"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/DP_16"
-        android:text="@string/gps_coordinates"
+        android:layout_marginTop="@dimen/DP_8"
+        android:text="@string/adress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivBottomDivider" />
 
     <TextView
-        android:id="@+id/tvLatitude"
+        android:id="@+id/tvAddress"
+        style="@style/Text.Label.16.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
         android:layout_marginTop="@dimen/DP_8"
-        style="@style/Text.Label.16.Medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:text="@string/latitude"
+        tools:text="“Люкс”, вул. Карпинського, 17, с. Новопавлівка"
+        app:layout_constraintEnd_toStartOf="@+id/ivLocation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCoordinates" />
-
-    <TextView
-        android:id="@+id/tvLongitude"
-        style="@style/Text.Label.16.Medium"
-        android:layout_marginTop="@dimen/DP_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:text="@string/longitude"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLatitude" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAddressTitle" />
 
     <ImageView
         android:id="@+id/ivLocation"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvLongitude"
-        app:layout_constraintStart_toEndOf="@+id/tvLongitude"
-        app:layout_constraintTop_toTopOf="@+id/tvLatitude"
-        app:srcCompat="@drawable/ic_location_logo" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/DP_8"
+        app:layout_constraintTop_toTopOf="@+id/tvAddress"
+        app:srcCompat="@drawable/ic_coordinate_gray" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

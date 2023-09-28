@@ -16,7 +16,6 @@ import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
-import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.views.ResultView
 
 fun Fragment.findTopNavController(): NavController {
@@ -30,7 +29,7 @@ fun Fragment.designByResult(
     root: View,
     resultView: ResultView,
     srl: SwipeRefreshLayout? = null,
-    specialView: View? = null
+    specialViews: List<View>? = null
 ) {
 
     val rootView: View = if (root is ScrollView)
@@ -45,14 +44,17 @@ fun Fragment.designByResult(
 
                 if (result is Error) it.isVisible = false
                 else {
-                    if (it != specialView)
+                    if (specialViews == null) {
                         it.isVisible = true
+                    } else {
+                        if (!specialViews.contains(it)) it.isVisible = true
+                    }
                 }
                 //it.isVisible = result !is Error<*>
             }
     }
 
     srl?.let { it.isRefreshing = result is Pending }
-    resultView.setResult(this as BaseFragment, result, srl == null)
+    resultView.setResult(this, result, srl == null)
 
 }

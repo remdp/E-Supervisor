@@ -3,7 +3,7 @@ package com.euromix.esupervisor.screens.main.tabs.rates
 import android.os.Parcelable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.euromix.esupervisor.App.Companion.formattedDate
+import com.euromix.esupervisor.App.Companion.dateToJsonString
 import com.euromix.esupervisor.app.enums.Rate
 import com.euromix.esupervisor.app.enums.RatesDetailing
 import com.euromix.esupervisor.app.model.Empty
@@ -101,7 +101,7 @@ class RatesViewModel @Inject constructor(
             if (stateValue.needLoading) {
                 getRate()
             } else {
-                if (stateValue.result is Success) adapter.rates = stateValue.result.value
+                if (stateValue.result is Success) adapter.rates = stateValue.result.value.rows
             }
 
             fragment.designByResult(
@@ -128,7 +128,7 @@ class RatesViewModel @Inject constructor(
                     stateValue.copy(needLoading = false, result = Pending())
 
                 is Success -> _viewState.value =
-                    stateValue.copy(result = Success(result.value as List<RateData>))
+                    stateValue.copy(result = Success(result.value as RateData))
 
                 is Error -> _viewState.value = stateValue.copy(
                     needLoading = false, result = Error(result.error)
@@ -145,8 +145,8 @@ class RatesViewModel @Inject constructor(
         return RateRequestEntity(
             rate = Rate.allRates().indexOf(state?.rate),
             detailLevel = RatesDetailing.allLevels().indexOf(state?.detailLevel),
-            startDate = state?.period?.let { formattedDate(it.first) },
-            endDate = state?.period?.let { formattedDate(it.second) },
+            startDate = state?.period?.let { dateToJsonString(it.first) },
+            endDate = state?.period?.let { dateToJsonString(it.second) },
             buId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.BalanceUnit }?.selectionObject?.id,
             ttId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.TradingTeam }?.selectionObject?.id,
             routeId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.Route }?.selectionObject?.id,
@@ -184,7 +184,7 @@ class RatesViewModel @Inject constructor(
         val detailLevel: RatesDetailing = RatesDetailing.BalanceUnit,
         val detailLevelsBackStack: List<BackStackItem>? = null,
         val needLoading: Boolean = false,
-        val result: Result<List<RateData>> = Empty()
+        val result: Result<RateData> = Empty()
     )
 
     @Parcelize

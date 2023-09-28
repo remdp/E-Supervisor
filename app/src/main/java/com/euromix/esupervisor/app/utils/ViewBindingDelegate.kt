@@ -1,6 +1,7 @@
 package com.euromix.esupervisor.app.utils
 
 import android.view.View
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
@@ -11,6 +12,9 @@ import kotlin.reflect.KProperty
 
 inline fun <reified B : ViewBinding> Fragment.viewBinding(): ViewBindingDelegate<B> =
     ViewBindingDelegate(this, B::class.java)
+
+inline fun <reified B : ViewBinding> DialogFragment.viewBinding(): ViewBindingDelegate<B> =
+    ViewBindingDelegate(this as Fragment, B::class.java)
 
 class ViewBindingDelegate<B : ViewBinding>(
     private val fragment: Fragment,

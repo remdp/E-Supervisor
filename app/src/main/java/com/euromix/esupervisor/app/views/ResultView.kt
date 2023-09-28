@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.AuthException
 import com.euromix.esupervisor.app.model.ConnectionException
@@ -34,7 +35,7 @@ class ResultView @JvmOverloads constructor(
         this.tryAgainAction = action
     }
 
-    fun <T> setResult(fragment: BaseFragment, result: Result<T>, showPB: Boolean) {
+    fun <T> setResult(fragment: Fragment, result: Result<T>, showPB: Boolean) {
 
         binding.messageTextView.isVisible = result is Error<*>
         binding.errorButton.isVisible = result is Error<*>
@@ -47,7 +48,8 @@ class ResultView @JvmOverloads constructor(
             }
             binding.messageTextView.text = message
             if (result.error is AuthException) {
-                fragment.logout()
+                if (fragment is BaseFragment)
+                    fragment.logout()
             } else {
                 renderTryAgainButton()
             }

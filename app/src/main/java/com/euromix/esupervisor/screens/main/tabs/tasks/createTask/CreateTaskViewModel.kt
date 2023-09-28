@@ -4,7 +4,7 @@ import android.text.Editable
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.euromix.esupervisor.App
+import com.euromix.esupervisor.App.Companion.dateToJsonString
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
@@ -51,6 +51,8 @@ class CreateTaskViewModel @Inject constructor(
     private val _chosenTasksType = MutableLiveData<ServerPair?>()
     val chosenTasksType = _chosenTasksType.share()
 
+    var attachPhoto: Boolean = false
+
     init {
         updateChosenTaskType(null)
         findTasksType()
@@ -74,11 +76,12 @@ class CreateTaskViewModel @Inject constructor(
 
                 val cf = tasksRepository.createTasks(
                     TasksCreateRequestEntity(
-                        deadline = App.formattedDate(deadline ?: Calendar.getInstance().time),
+                        deadline = dateToJsonString(deadline ?: Calendar.getInstance().time),
                         taskTypeId = _chosenTasksType.value!!.id,
                         tradingAgentIds = chosenTA,
                         description = description,
-                        outletsIds = chosenOutlets
+                        outletsIds = chosenOutlets,
+                        attachPhoto = attachPhoto
                     )
                 )
                 cf.collect { _tasksCreationResult.publishEvent(it) }
@@ -130,14 +133,14 @@ class CreateTaskViewModel @Inject constructor(
     fun checkTaskTypeEmpty(): Boolean = _chosenTasksType.value == null
 
     fun changeMark(checked: Boolean, selectionItemOutlet: SelectionItemOutlet? = null) {
+        _outlets.value?.let { outletsResult ->
+            val items = (outletsResult as Success).value
 
-        val items = (_outlets.value as Success).value
-
-        if (selectionItemOutlet == null) {
-            items.forEach { it.marked = checked }
-        } else {
-            items.find { it.outlet == selectionItemOutlet.outlet }?.marked = checked
-            //  initialOutlets.find { it.outlet == selectionItemOutlet.outlet }?.marked = checked
+            if (selectionItemOutlet == null) {
+                items.forEach { item -> item.marked = checked }
+            } else {
+                items.find { item -> item.outlet == selectionItemOutlet.outlet }?.marked = checked
+            }
         }
     }
 
@@ -167,15 +170,19 @@ class CreateTaskViewModel @Inject constructor(
 
     fun drawableForParentCheckBox(): Int {
 
-        val items = (_outlets.value as Success).value
+        _outlets.value?.let { outletsResult ->
 
-        val isMarked = items.find { it.marked } != null
-        val isUnMarked = items.find { !it.marked } != null
+            val items = (outletsResult as Success).value
 
-        return if (isMarked && isUnMarked) R.drawable.ic_checkbox_white_indeterminate
-        else if (isMarked) R.drawable.ic_checkbox_white_on
-        else R.drawable.ic_checkbox_white_off
+            val isMarked = items.find { it.marked } != null
+            val isUnMarked = items.find { !it.marked } != null
 
+            return if (isMarked && isUnMarked) R.drawable.ic_checkbox_white_indeterminate
+            else if (isMarked) R.drawable.ic_checkbox_white_on
+            else R.drawable.ic_checkbox_white_off
+        }
+
+        return R.drawable.ic_checkbox_white_off
     }
 
     fun drawableForChildCheckBox(mark: Boolean) =
@@ -214,7 +221,7 @@ class CreateTaskViewModel @Inject constructor(
         if (!checkChosenTasksType) errors.add(R.string.task_type)
 
         val checkDescription = description.isNotBlank()
-        if(!checkDescription) errors.add(R.string.description)
+        if (!checkDescription) errors.add(R.string.description)
 
         val checkTradingAgents = chosenTA.isNotEmpty()
         if (!checkTradingAgents) errors.add(R.string.trading_agents)
@@ -225,6 +232,4 @@ class CreateTaskViewModel @Inject constructor(
 
         return errors
     }
-
-
 }

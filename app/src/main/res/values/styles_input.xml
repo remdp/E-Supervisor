@@ -4,7 +4,7 @@
     <style name="GlobalTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:minWidth">@dimen/DP_260</item>
         <item name="boxBackgroundColor">@color/white</item>
-        <item name="boxStrokeColor">@color/selector_input_layout_stroke_color</item>
+        <item name="boxStrokeColor">@animator/selector_input_layout_stroke_color</item>
         <item name="boxStrokeWidth">@dimen/DP_1</item>
         <item name="boxStrokeWidthFocused">@dimen/DP_1</item>
         <item name="hintTextAppearance">@style/InputHintLabel</item>

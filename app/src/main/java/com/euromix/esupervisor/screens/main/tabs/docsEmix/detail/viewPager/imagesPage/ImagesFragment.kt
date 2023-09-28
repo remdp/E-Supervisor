@@ -2,61 +2,133 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.imag
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.model.docEmix.entities.ImagesPaths
-import com.euromix.esupervisor.app.utils.textDate
+import com.euromix.esupervisor.app.model.Success
+import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.designByResult
+import com.euromix.esupervisor.app.utils.simplyMessageDialog
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.ImagesFragmentBinding
-import com.euromix.esupervisor.screens.main.tabs.TitleData
-import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.DocEmixDetailFragmentDirections
-import java.time.LocalDateTime
-class ImagesFragment : Fragment(R.layout.images_fragment) {
+import com.euromix.esupervisor.dialogs.dialogReactDislike.DialogReactDislikeFragment
+import com.euromix.esupervisor.screens.viewModelCreator
+import com.euromix.esupervisor.sources.docsEmixDetail.entities.ImageReactionRequestEntity
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
+class ImagesFragment : BaseFragment(R.layout.images_fragment) {
+
+    @Inject
+    lateinit var factory: ImagesViewModel.Factory
+    override val viewModel by viewModelCreator {
+        factory.create(extId)
+    }
     private val binding by viewBinding<ImagesFragmentBinding>()
+
+    private lateinit var openerImageFragment: (imageUri: String) -> Unit
+
+    private val adapter =
+        ImagesAdapter(::imageOnClickListener, ::dislikeOnClickListener, ::likeOnClickListener)
+
+    private lateinit var extId: String
+    private var abilityCreateTask: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.let { args ->
+        binding.rvImages.adapter = adapter
+        setupListeners()
+        setupObservers()
+    }
 
-            val adapter = ImagesAdapter { imageUri ->
-                val direction =
-                    DocEmixDetailFragmentDirections.actionDocEmixDetailFragmentToImageFragment(
-                        imageUri = imageUri,
-                        titleData = TitleData(args.getString(KEY_NUMBER), args.getString(KEY_DATE))
+    private fun setupObservers() {
+
+        viewModel.viewState.observe(viewLifecycleOwner) { state ->
+            viewModel.afterUpdateState()
+
+            if (state.imagesResult is Success && !state.needLoading) {
+
+                //todo move list comparison to adapter
+                // if (adapter.getImagesRvList() != state.imagesResult.value) adapter.setImages(state.imagesResult.value)
+                val imageReaction = state.imagesResult.value
+                adapter.setImages(imageReaction.rows)
+
+                if (imageReaction.creationDislikeTaskMessage.isNotBlank())
+                    simplyMessageDialog(
+                        requireContext(),
+                        imageReaction.creationDislikeTaskMessage,
+                        getString(R.string.create_task_next_visit_result)
                     )
-                findNavController().navigate(direction)
             }
 
-            adapter.setImages(args)
-            binding.rvImages.adapter = adapter
+            designByResult(
+                state.imagesResult, binding.root, binding.vResult
+            )
+        }
+    }
+
+    private fun setupListeners() {
+        binding.vResult.setTryAgainAction { viewModel.reload() }
+    }
+
+    private fun imageOnClickListener(imageUri: String) {
+        openerImageFragment(imageUri)
+    }
+
+    private fun dislikeOnClickListener(reaction: ImageReactionRequestEntity) {
+
+        val dialog = DialogReactDislikeFragment.newInstance(
+            abilityCreateTask,
+            extId
+        ) { reason, createDislikeTask, deadline ->
+
+            viewModel.react(
+                reaction.copy(
+                    comment = reason,
+                    createDislikeTask = createDislikeTask,
+                    deadline = deadline
+                )
+            )
 
         }
+        dialog.show(parentFragmentManager, null)
+        //dialog.show(parentFragmentManager, App.getString(requireContext(), R.string.dislike_reason))
+
+//        dialogReactDislike(
+//            requireContext(),
+//            R.string.dislike_reason,
+//            R.string.create_task_next_visit,
+//            parentFragmentManager,
+//            abilityCreateTask = abilityCreateTask
+//        ) { enteredText, additionalFlag, deadline ->
+//            viewModel.react(
+//                reaction.copy(
+//                    comment = enteredText,
+//                    createDislikeTask = additionalFlag,
+//                    deadline = formattedDate(deadline),
+//                )
+//            )
+//        }
+
+
+    }
+
+    private fun likeOnClickListener(reaction: ImageReactionRequestEntity) {
+        viewModel.react(reaction)
     }
 
     companion object {
 
         fun newInstance(
-            paths: List<ImagesPaths>,
-            number: String,
-            date: LocalDateTime
+            extId: String,
+            abilityCreateTask: Boolean,
+            openerImageFragment: (imageUri: String) -> Unit
         ): ImagesFragment = ImagesFragment().apply {
 
-            if (paths.isNotEmpty()) {
-                val bundle = Bundle()
-                for (i in 1..paths.size) {
-                    bundle.putString(PATH + i, paths[i - 1].path)
-                }
-                bundle.putString(KEY_NUMBER, number)
-                bundle.putString(KEY_DATE, textDate(date))
-                arguments = bundle
-            }
-        }
+            this.extId = extId
+            this.abilityCreateTask = abilityCreateTask
+            this.openerImageFragment = openerImageFragment
 
-        private const val PATH = "PATH"
-        private const val KEY_NUMBER = "KEY_NUMBER"
-        private const val KEY_DATE = "KEY_DATE"
+        }
     }
 }
