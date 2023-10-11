@@ -7,6 +7,21 @@
     android:orientation="vertical"
     tools:context=".screens.main.MainActivity">
 
+    <TextView
+        android:id="@+id/tvNoInternet"
+        style="@style/Text.Label.14.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red_light"
+        android:gravity="center"
+        android:padding="@dimen/DP_8"
+        android:textColor="@color/white"
+        android:text="@string/no_internet_connection"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

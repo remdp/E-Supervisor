@@ -6,6 +6,7 @@
     <string name="undefined">Не визначене</string>
     <string name="period_selection">Вибір периоду</string>
     <string name="date_selection">Вибір дати</string>
+    <string name="no_internet_connection">немає зв\'язку з інтернет</string>
 
     <string name="partner">Контрагент</string>
     <string name="partner_colon">Контрагент:</string>
@@ -179,6 +180,7 @@
     <string name="outlets">Торгові точки</string>
     <string name="validation_errors">Помилки перевірки</string>
     <string name="need_select_ta">Необхідно вибрати хоча б одного торгового агента</string>
+
 
 
 </resources>

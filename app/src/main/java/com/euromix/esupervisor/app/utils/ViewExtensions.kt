@@ -209,6 +209,9 @@ fun Context.colorStateList(@ColorRes color: Int): ColorStateList {
     return ColorStateList.valueOf(ContextCompat.getColor(this, color))
 }
 
+fun View.visibility(visible: Boolean) {
+    visibility =  if (visible) View.VISIBLE else View.GONE
+}
 fun View.visible() {
     visibility = View.VISIBLE
 }

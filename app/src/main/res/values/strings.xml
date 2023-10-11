@@ -6,6 +6,7 @@
     <string name="undefined">Undefined</string>
     <string name="period_selection">Period selection</string>
     <string name="date_selection">Date selection</string>
+    <string name="no_internet_connection">no internet connection</string>
 
     <string name="partner">Partner</string>
     <string name="partner_colon">Partner:</string>
