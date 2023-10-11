@@ -1,10 +1,6 @@
 package com.euromix.esupervisor.screens.main
 
-import android.content.Context
 import android.graphics.drawable.ColorDrawable
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkRequest
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +11,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.common.NetworkStateMonitor
 import com.euromix.esupervisor.app.utils.parcelable
 import com.euromix.esupervisor.app.utils.visibility
 import com.euromix.esupervisor.databinding.ActivityMainBinding
@@ -43,17 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var connectivityManager: ConnectivityManager
-
-    private val networkCallback = object : ConnectivityManager.NetworkCallback() {
-        override fun onAvailable(network: Network) {
-            toggleNoInternetBar(false)
-        }
-
-        override fun onLost(network: Network) {
-            toggleNoInternetBar(true)
-        }
-    }
+    private lateinit var networkStateMonitor: NetworkStateMonitor
 
     private val destinationListener =
         NavController.OnDestinationChangedListener { _, destination, arguments ->
@@ -71,24 +58,18 @@ class MainActivity : AppCompatActivity() {
         onNavControllerActivated(navController)
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
-    }
 
-    override fun onStart() {
-        super.onStart()
-        connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val request = NetworkRequest.Builder().build()
-        connectivityManager.registerNetworkCallback(request, networkCallback)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        connectivityManager.unregisterNetworkCallback(networkCallback)
+        networkStateMonitor = NetworkStateMonitor(this) { display ->
+            runOnUiThread { binding.tvNoInternet.visibility(display) }
+        }
+        networkStateMonitor.registerNetworkCallback()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
         navController = null
+        networkStateMonitor.unregisterNetworkCallback()
     }
 
     override fun onBackPressed() {
@@ -163,10 +144,6 @@ class MainActivity : AppCompatActivity() {
     private fun getTabsDestination(): Int = R.id.tabsFragment
 
     private fun getSignInDestination(): Int = R.id.signInFragment
-
-    private fun toggleNoInternetBar(display: Boolean) {
-        runOnUiThread { binding.tvNoInternet.visibility(display) }
-    }
 
     companion object {
         const val KEY_TITLE_DATA = "titleData"
