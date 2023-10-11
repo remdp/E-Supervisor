@@ -29,7 +29,7 @@
         app:textSize="@dimen/SP_16" />
 
     <TextView
-        android:id="@+id/tvTradingAgent"
+        android:id="@+id/tvPresentation"
         style="@style/Text.Label.14.Bold"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/pi"
-        app:layout_constraintTop_toBottomOf="@+id/tvTradingAgent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPresentation" />
 
     <TextView
         android:id="@+id/tvPlanLabel"

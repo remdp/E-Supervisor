@@ -130,7 +130,9 @@
     <string name="balance_unit">Balance unit</string>
     <string name="trading_team">Trading team</string>
     <string name="number_orders">The numbers of orders</string>
+    <string name="decipher_to">Decipher to</string>
     <!--    <string name="total_plan">plan %1$s</string>-->
+
 
 
     <!-- Result view -->

@@ -29,4 +29,18 @@ class RatesRepository @Inject constructor(private val ratesSource: RatesSource) 
             awaitClose { }
         }
     }
+
+    fun getRates(): Flow<Result<List<RateStructure>>>{
+
+        return callbackFlow {
+            try {
+                trySend(Pending())
+                val res = ratesSource.getRates()
+                trySend(Success(res))
+            } catch (e: Exception) {
+                trySend(Error(e))
+            }
+            awaitClose { }
+        }
+    }
 }

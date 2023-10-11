@@ -12,15 +12,14 @@ import android.widget.PopupWindow
 import androidx.annotation.LayoutRes
 import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.enums.RatesDetailing
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.databinding.SelectionDropdownItemBinding
 import com.euromix.esupervisor.screens.main.tabs.rates.DetailsAdapter
 
 fun popupWindow(
     anchor: View,
-    list: List<RatesDetailing>,
-    onItemCLick: (rateDetail: RatesDetailing) -> Unit
+    list: List<String>,
+    onItemCLick: (dimension: String) -> Unit
 ): PopupWindow {
 
     val context = anchor.context

@@ -27,6 +27,11 @@ class RetrofitRatesSource @Inject constructor(config: RetrofitConfig) : RatesSou
             rateApi.getRate(rateRequestEntity).toRateData()
         }
 
+    override suspend fun getRates(): List<RateStructure> =
+        wrapRetrofitException {
+            rateApi.getRates().map { it.toRateStructure() }
+        }
+
     private suspend fun <T> wrapRetrofitException(block: suspend () -> T): T {
 
         return try {

@@ -121,6 +121,7 @@
     <string name="balance_unit">Балансова одиниця</string>
     <string name="trading_team">Торгова команда</string>
     <string name="number_orders">Кількість замовлень</string>
+    <string name="decipher_to">Розшифрувати до</string>
 
     <!-- Result view -->
     <string name="connection_error">Сервер не відповідає</string>

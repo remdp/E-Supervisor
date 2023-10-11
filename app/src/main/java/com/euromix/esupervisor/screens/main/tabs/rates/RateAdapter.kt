@@ -42,7 +42,7 @@ class RateAdapter(
         with(holder.binding) {
             holder.itemView.tag = rate
 
-            tvTradingAgent.text = rate.rateObject
+            tvPresentation.text = rate.serverObject.serverPair.presentation
             tvPlan.text = DecimalFormat("###,###.##").format(rate.plan)
             tvFact.text = DecimalFormat("###,###.##").format(rate.fact)
 

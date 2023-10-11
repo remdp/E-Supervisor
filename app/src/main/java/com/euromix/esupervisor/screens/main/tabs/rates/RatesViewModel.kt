@@ -3,24 +3,20 @@ package com.euromix.esupervisor.screens.main.tabs.rates
 import android.os.Parcelable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.euromix.esupervisor.App.Companion.beginCurrentMonth
 import com.euromix.esupervisor.App.Companion.dateToJsonString
-import com.euromix.esupervisor.app.enums.Rate
-import com.euromix.esupervisor.app.enums.RatesDetailing
-import com.euromix.esupervisor.app.model.Empty
-import com.euromix.esupervisor.app.model.Error
-import com.euromix.esupervisor.app.model.Pending
+import com.euromix.esupervisor.App.Companion.endCurrentMonth
 import com.euromix.esupervisor.app.model.Result
-import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.account.AccountRepository
-import com.euromix.esupervisor.app.model.common.entities.ServerPair
+import com.euromix.esupervisor.app.model.common.entities.ServerObject
 import com.euromix.esupervisor.app.model.rates.RatesRepository
 import com.euromix.esupervisor.app.model.rates.entities.RateData
-import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.model.rates.entities.RateStructure
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
-import com.euromix.esupervisor.app.utils.designByResult
 import com.euromix.esupervisor.app.utils.share
-import com.euromix.esupervisor.databinding.RatesFragmentBinding
 import com.euromix.esupervisor.sources.salesRate.entities.RateRequestEntity
+import com.euromix.esupervisor.sources.salesRate.entities.RateSelectionItem
+import com.squareup.moshi.Json
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.parcelize.Parcelize
 import java.util.Date
@@ -31,164 +27,113 @@ class RatesViewModel @Inject constructor(
     private val ratesRepository: RatesRepository, accountRepository: AccountRepository
 ) : BaseViewModel(accountRepository) {
 
-    private val _viewState = MutableLiveData(ViewState(needLoading = true))
-    val viewState = _viewState.share()
+    private var _rateId: String = ""
+    private var _dimensions: List<String> = listOf()
+    private var _detailLevel: Int = 0
+    private val rateSettings: MutableList<RateSetting> = mutableListOf()
 
-    fun reload() {
-        getRate()
+    private var _period: Pair<Date, Date> = Pair(beginCurrentMonth(), endCurrentMonth())
+    val period
+        get() = _period
+
+    private val _rates = MutableLiveData<Result<List<RateStructure>>>()
+    val rates = _rates.share()
+
+    private val _rate = MutableLiveData<Result<RateData>>()
+    val rate = _rate.share()
+
+    init {
+        getRates()
     }
 
-    fun updatePeriod(period: Pair<Date, Date>?) {
-        _viewState.value = _viewState.value?.copy(period = period, needLoading = true)
-    }
+    private fun requestForResult(): RateRequestEntity {
 
-    fun updateRate(rate: Rate) {
-        if (_viewState.value?.result !is Pending) _viewState.value =
-            _viewState.value?.copy(rate = rate, needLoading = true)
-    }
-
-    fun updateDetailLevel(
-        rateDetail: RatesDetailing, selectionObject: ServerPair? = null
-    ) {
-        _viewState.value?.let { currentState ->
-
-            val newDetailBackStack = if (selectionObject != null) {
-                val newBackStackItem = BackStackItem(currentState.detailLevel, selectionObject)
-
-                if (currentState.detailLevelsBackStack == null) mutableListOf(newBackStackItem)
-                else {
-                    val newBackStack = currentState.detailLevelsBackStack.toMutableList()
-                    newBackStack.add(newBackStackItem)
-                    newBackStack
-                }
-            } else {
-                null
+        return RateRequestEntity(
+            rateId = _rateId,
+            startDate = dateToJsonString(period.first),
+            endDate = dateToJsonString(period.second),
+            detailLevel = if (rateSettings.isEmpty()) _detailLevel else rateSettings.last().detailLevel,
+            selection = rateSettings.map {
+                RateSelectionItem(
+                    it.serverObject.serverPair.id,
+                    it.serverObject.serverType
+                )
             }
-
-            _viewState.value = currentState.copy(
-                detailLevel = rateDetail,
-                detailLevelsBackStack = newDetailBackStack,
-                needLoading = true
-            )
-        }
-    }
-
-    fun updateStateBackStack() {
-
-        _viewState.value?.let {
-            var newDetailBackStack = it.detailLevelsBackStack?.toMutableList()
-            val newDetailLevel: RatesDetailing? = newDetailBackStack?.last()?.ratesDetail
-
-            if (newDetailBackStack?.size == 1) newDetailBackStack = null
-            else {
-                newDetailBackStack?.removeLast()
-            }
-
-            _viewState.value = it.copy(
-                detailLevel = newDetailLevel ?: RatesDetailing.BalanceUnit,
-                detailLevelsBackStack = newDetailBackStack,
-                needLoading = true
-            )
-        }
-    }
-
-    fun afterUpdateState(
-        adapter: RateAdapter, binding: RatesFragmentBinding, fragment: BaseFragment
-    ) {
-
-        viewState.value?.let { stateValue ->
-
-            if (stateValue.needLoading) {
-                getRate()
-            } else {
-                if (stateValue.result is Success) adapter.rates = stateValue.result.value.rows
-            }
-
-            fragment.designByResult(
-                stateValue.result, binding.root, binding.vResult, binding.srl
-            )
-
-        }
+        )
     }
 
     private fun getRate() {
         viewModelScope.safeLaunch {
             val request = requestForResult()
             ratesRepository.getRate(request).collect { result ->
-                updateResult(result)
+                _rate.value = result
             }
         }
     }
 
-    private fun updateResult(result: Result<*>) {
-
-        viewState.value?.let { stateValue ->
-            when (result) {
-                is Pending -> _viewState.value =
-                    stateValue.copy(needLoading = false, result = Pending())
-
-                is Success -> _viewState.value =
-                    stateValue.copy(result = Success(result.value as RateData))
-
-                is Error -> _viewState.value = stateValue.copy(
-                    needLoading = false, result = Error(result.error)
-                )
-
-                else -> _viewState.value = stateValue.copy(needLoading = false)
+    private fun getRates() {
+        viewModelScope.safeLaunch {
+            ratesRepository.getRates().collect { result ->
+                _rates.value = result
             }
         }
     }
 
-    private fun requestForResult(): RateRequestEntity {
-        val state = viewState.value
-
-        return RateRequestEntity(
-            rate = Rate.allRates().indexOf(state?.rate),
-            detailLevel = RatesDetailing.allLevels().indexOf(state?.detailLevel),
-            startDate = state?.period?.let { dateToJsonString(it.first) },
-            endDate = state?.period?.let { dateToJsonString(it.second) },
-            buId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.BalanceUnit }?.selectionObject?.id,
-            ttId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.TradingTeam }?.selectionObject?.id,
-            routeId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.Route }?.selectionObject?.id,
-            manufacturerId = state?.detailLevelsBackStack?.find { it.ratesDetail == RatesDetailing.Manufacturer }?.selectionObject?.id,
-            completed = state?.rate == Rate.VisitsEfficiencyFact
-        )
+    fun updateRate(rateId: String, dimensions: List<String>) {
+        _rateId = rateId
+        _dimensions = dimensions
+        getRate()
     }
 
-    fun detailsList(): List<RatesDetailing> {
+    fun updateRate(period: Pair<Date, Date>?) {
+        _period = period ?: Pair(beginCurrentMonth(), endCurrentMonth())
+        getRate()
+    }
 
-        val backStackDetails = viewState.value?.detailLevelsBackStack?.map { it.ratesDetail }
-        val ratesDetailing = RatesDetailing.allLevels(viewState.value?.rate).toMutableList()
-        ratesDetailing.removeIf {
-            it == viewState.value?.detailLevel || backStackDetails?.contains(it) == true
+    fun updateRate(detailLevel: Int) {
+        _detailLevel = detailLevel
+        getRate()
+    }
+
+    fun updateRate(dimension: String? = null, serverObject: ServerObject? = null) {
+        if (serverObject == null) {
+            rateSettings.removeLast()
+        } else {
+            rateSettings.add(RateSetting(serverObject, _dimensions.indexOf(dimension)))
         }
-        return ratesDetailing
+        getRate()
     }
+
+    fun decipherDimensions(): Array<String> {
+        val excludedDimensions = mutableSetOf(_dimensions[_detailLevel])
+
+        rateSettings.forEach { excludedDimensions.add(_dimensions[it.detailLevel]) }
+
+        return _dimensions.filter { it !in excludedDimensions }.toTypedArray()
+    }
+
+    fun selectionEmpty() = rateSettings.isEmpty()
 
     fun backStackPath(): String {
 
         var path = ""
 
-        viewState.value?.detailLevelsBackStack?.forEach {
+        rateSettings.forEach {
             path = path + if (path.isBlank()) "" else {
                 " / "
-            } + it.selectionObject.presentation
+            } + it.serverObject.serverPair.presentation
         }
 
         return path
     }
 
-    data class ViewState(
-        val period: Pair<Date, Date>? = null,
-        val rate: Rate = Rate.SalesPlanFact,
-        val detailLevel: RatesDetailing = RatesDetailing.BalanceUnit,
-        val detailLevelsBackStack: List<BackStackItem>? = null,
-        val needLoading: Boolean = false,
-        val result: Result<RateData> = Empty()
-    )
+    fun reloadRates() = getRates()
+    fun reloadRate() = getRate()
 
     @Parcelize
-    data class BackStackItem(
-        val ratesDetail: RatesDetailing, val selectionObject: ServerPair
+    data class RateSetting(
+        @field:Json(name = "server_object") val serverObject: ServerObject,
+        @field:Json(name = "detail_level") val detailLevel: Int
     ) : Parcelable
+
 }

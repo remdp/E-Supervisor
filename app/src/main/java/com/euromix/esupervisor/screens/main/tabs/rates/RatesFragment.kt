@@ -3,20 +3,19 @@ package com.euromix.esupervisor.screens.main.tabs.rates
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.enums.Rate
-import com.euromix.esupervisor.app.enums.RatesDetailing
 import com.euromix.esupervisor.app.model.Success
-import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.rates.entities.RateData
 import com.euromix.esupervisor.app.model.rates.entities.RateDataRow
+import com.euromix.esupervisor.app.model.rates.entities.RateStructure
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.clear
+import com.euromix.esupervisor.app.utils.designByResult
 import com.euromix.esupervisor.app.utils.draw
 import com.euromix.esupervisor.app.utils.gone
-import com.euromix.esupervisor.app.utils.popupWindow
 import com.euromix.esupervisor.app.utils.setPeriodSelection
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.app.utils.visible
@@ -33,14 +32,17 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
     private var adapter = RateAdapter(lifecycleScope) {
 
         val rate = it?.tag as RateDataRow
-        it.let {
 
-            popupWindow(it, viewModel.detailsList()) { rateDetail ->
-                viewModel.updateDetailLevel(
-                    rateDetail, ServerPair(rate.rateObjectId, rate.rateObject)
-                )
-            }.showAsDropDown(it)
-        }
+        val dimensionsArray = viewModel.decipherDimensions()
+
+        if (dimensionsArray.isNotEmpty())
+            AlertDialog.Builder(requireContext()).setTitle(R.string.decipher_to)
+                .setSingleChoiceItems(dimensionsArray, 0) { dialog, index ->
+                    viewModel.updateRate(
+                        dimensionsArray[index], rate.serverObject
+                    )
+                    dialog.dismiss()
+                }.create().show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,29 +53,40 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
         setupObservers()
         setupListeners()
         setPeriodSelection(
-            binding.etPeriodSelection, viewModel.viewState.value?.period, parentFragmentManager
+            binding.etPeriodSelection, viewModel.period, parentFragmentManager
         ) {
-            viewModel.updatePeriod(it)
+            viewModel.updateRate(it)
         }
-
-        setupSpinner()
     }
 
     private fun setupObservers() {
 
-        viewModel.viewState.observe(viewLifecycleOwner) {
-            viewModel.afterUpdateState(adapter, binding, this as BaseFragment)
+        viewModel.rates.observe(viewLifecycleOwner) { result ->
 
-            if (it.result is Success) renderTotalViews(it.result.value)
+            if (result is Success) {
+                setupSpinner(result.value)
+                binding.vResult.setTryAgainAction { viewModel.reloadRate() }
+            }
+            designByResult(result, binding.root, binding.vResult, binding.srl)
+        }
+
+        viewModel.rate.observe(viewLifecycleOwner) { result ->
+
+            if (result is Success) {
+                adapter.rates = result.value.rows
+                renderTotalViews(result.value)
+            }
+
             visibilityViews()
             setDetailPath()
+            designByResult(result, binding.root, binding.vResult, binding.srl)
         }
     }
 
     private fun setupListeners() {
-        binding.srl.setOnRefreshListener { viewModel.reload() }
-        binding.vResult.setTryAgainAction { viewModel.reload() }
-        binding.tvDetailPath.setOnClickListener { viewModel.updateStateBackStack() }
+        binding.srl.setOnRefreshListener { viewModel.reloadRate() }
+        binding.vResult.setTryAgainAction { viewModel.reloadRates() }
+        binding.tvDetailPath.setOnClickListener { viewModel.updateRate() }
     }
 
     private fun renderTotalViews(rate: RateData) {
@@ -86,10 +99,10 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
         binding.tvTotalPlan.text = DecimalFormat("###,###.##").format(rate.totalPlan)
     }
 
-    private fun setupSpinner() {
+    private fun setupSpinner(rates: List<RateStructure>) {
 
         binding.spRates.adapter = SpinnerRatesAdapter(
-            requireContext(), R.layout.item_spinner, Rate.allRates()
+            requireContext(), R.layout.item_spinner, rates
         )
 
         binding.spRates.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -97,12 +110,12 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
                 parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
 
-                val currentRate = Rate.getByIndex(position)
+                val currentRate = parent?.getItemAtPosition(position) as RateStructure
 
                 binding.spDetailing.adapter = RatesDetailingAdapter(
-                    requireContext(), R.layout.item_spinner, RatesDetailing.allLevels(currentRate)
+                    requireContext(), R.layout.item_spinner, currentRate.dimensions
                 )
-                viewModel.updateRate(rate = currentRate)
+                viewModel.updateRate(currentRate.rate.id, currentRate.dimensions)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -112,21 +125,16 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
             override fun onItemSelected(
                 parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
-                viewModel.updateDetailLevel(RatesDetailing.getByIndex(position))
+                viewModel.updateRate(position)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
-    private fun setDetailPath() {
-        binding.tvDetailPath.text = viewModel.backStackPath()
-    }
-
     private fun visibilityViews() {
 
-        val stateValue = viewModel.viewState.value
-        if (stateValue?.detailLevelsBackStack == null) {
+        if (viewModel.selectionEmpty()) {
             binding.spRates.visible()
             binding.spDetailing.visible()
             binding.etPeriodSelection.visible()
@@ -137,5 +145,9 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
             binding.etPeriodSelection.gone()
             binding.tvDetailPath.visible()
         }
+    }
+
+    private fun setDetailPath() {
+        binding.tvDetailPath.text = viewModel.backStackPath()
     }
 }

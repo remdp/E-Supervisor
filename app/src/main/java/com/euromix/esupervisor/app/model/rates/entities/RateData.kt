@@ -1,6 +1,7 @@
 package com.euromix.esupervisor.app.model.rates.entities
 
 import android.os.Parcelable
+import com.euromix.esupervisor.app.model.common.entities.ServerObject
 import kotlinx.parcelize.Parcelize
 data class RateData(
     val totalFact: Float,
@@ -9,8 +10,7 @@ data class RateData(
 )
 @Parcelize
 data class RateDataRow(
-    val rateObject: String,
-    val rateObjectId: String,
+    val serverObject: ServerObject,
     val plan: Float,
     val fact: Float
 ):Parcelable
