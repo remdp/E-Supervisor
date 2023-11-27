@@ -23,6 +23,7 @@
     <string name="status">Статус</string>
     <string name="create_task_next_visit">Створити завдання на наступний візит</string>
     <string name="create_task_next_visit_result">Результат створення завдання на наступний візит</string>
+    <string name="day">День</string>
 
     <!-- Statuses -->
     <string name="done">Виконано</string>>
@@ -123,6 +124,8 @@
     <string name="trading_team">Торгова команда</string>
     <string name="number_orders">Кількість замовлень</string>
     <string name="decipher_to">Розшифрувати до</string>
+    <string name="month_plan">Місячний \n план</string>
+    <string name="daily_plan">Денний \n план</string>
 
     <!-- Result view -->
     <string name="connection_error">Сервер не відповідає</string>

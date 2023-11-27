@@ -7,7 +7,6 @@ import com.euromix.esupervisor.App.Companion.beginCurrentMonth
 import com.euromix.esupervisor.App.Companion.dateToJsonString
 import com.euromix.esupervisor.App.Companion.endCurrentMonth
 import com.euromix.esupervisor.app.model.Result
-import com.euromix.esupervisor.app.model.account.AccountRepository
 import com.euromix.esupervisor.app.model.common.entities.ServerObject
 import com.euromix.esupervisor.app.model.rates.RatesRepository
 import com.euromix.esupervisor.app.model.rates.entities.RateData
@@ -24,11 +23,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RatesViewModel @Inject constructor(
-    private val ratesRepository: RatesRepository, accountRepository: AccountRepository
-) : BaseViewModel(accountRepository) {
+    private val ratesRepository: RatesRepository
+) : BaseViewModel() {
 
-    private var _rateId: String = ""
-    private var _dimensions: List<String> = listOf()
+    private lateinit var currentRate: RateStructure
+    private var _currentDimensions: List<String> = listOf()
     private var _detailLevel: Int = 0
     private val rateSettings: MutableList<RateSetting> = mutableListOf()
 
@@ -42,6 +41,9 @@ class RatesViewModel @Inject constructor(
     private val _rate = MutableLiveData<Result<RateData>>()
     val rate = _rate.share()
 
+    private val _planType = MutableLiveData<Int>(0)
+    val planType = _planType.share()
+
     init {
         getRates()
     }
@@ -49,10 +51,11 @@ class RatesViewModel @Inject constructor(
     private fun requestForResult(): RateRequestEntity {
 
         return RateRequestEntity(
-            rateId = _rateId,
+            rateId = currentRate.rate.id,
             startDate = dateToJsonString(period.first),
             endDate = dateToJsonString(period.second),
             detailLevel = if (rateSettings.isEmpty()) _detailLevel else rateSettings.last().detailLevel,
+            planType = _planType.value ?: 0,
             selection = rateSettings.map {
                 RateSelectionItem(
                     it.serverObject.serverPair.id,
@@ -79,9 +82,13 @@ class RatesViewModel @Inject constructor(
         }
     }
 
-    fun updateRate(rateId: String, dimensions: List<String>) {
-        _rateId = rateId
-        _dimensions = dimensions
+    private fun setDimensions(planType: Int?, rate: RateStructure){
+        _currentDimensions =  if (planType == 1)  rate.dayDimensions else rate.dimensions
+    }
+
+    fun updateRate(rate: RateStructure) {
+        setDimensions(_planType.value, rate)
+        currentRate = rate
         getRate()
     }
 
@@ -99,17 +106,23 @@ class RatesViewModel @Inject constructor(
         if (serverObject == null) {
             rateSettings.removeLast()
         } else {
-            rateSettings.add(RateSetting(serverObject, _dimensions.indexOf(dimension)))
+            rateSettings.add(RateSetting(serverObject, _currentDimensions.indexOf(dimension)))
         }
         getRate()
     }
 
+    fun changePlanType(planType: Int) {
+        setDimensions(planType, currentRate)
+        _planType.value = planType
+        getRate()
+    }
+
     fun decipherDimensions(): Array<String> {
-        val excludedDimensions = mutableSetOf(_dimensions[_detailLevel])
+        val excludedDimensions = mutableSetOf(_currentDimensions[_detailLevel])
 
-        rateSettings.forEach { excludedDimensions.add(_dimensions[it.detailLevel]) }
+        rateSettings.forEach { excludedDimensions.add(_currentDimensions[it.detailLevel]) }
 
-        return _dimensions.filter { it !in excludedDimensions }.toTypedArray()
+        return _currentDimensions.filter { it !in excludedDimensions }.toTypedArray()
     }
 
     fun selectionEmpty() = rateSettings.isEmpty()
@@ -126,6 +139,10 @@ class RatesViewModel @Inject constructor(
 
         return path
     }
+
+    fun getDimensions() = _currentDimensions
+
+
 
     fun reloadRates() = getRates()
     fun reloadRate() = getRate()

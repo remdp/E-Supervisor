@@ -29,26 +29,32 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
     override val viewModel by viewModels<RatesViewModel>()
     private val binding by viewBinding<RatesFragmentBinding>()
 
+    private lateinit var ratesDetailingAdapter: RatesDetailingAdapter
+
     private var adapter = RateAdapter(lifecycleScope) {
 
         val rate = it?.tag as RateDataRow
 
         val dimensionsArray = viewModel.decipherDimensions()
 
-        if (dimensionsArray.isNotEmpty())
-            AlertDialog.Builder(requireContext()).setTitle(R.string.decipher_to)
-                .setSingleChoiceItems(dimensionsArray, 0) { dialog, index ->
-                    viewModel.updateRate(
-                        dimensionsArray[index], rate.serverObject
-                    )
-                    dialog.dismiss()
-                }.create().show()
+        if (dimensionsArray.isNotEmpty()) AlertDialog.Builder(requireContext())
+            .setTitle(R.string.decipher_to)
+            .setSingleChoiceItems(dimensionsArray, 0) { dialog, index ->
+                viewModel.updateRate(
+                    dimensionsArray[index], rate.serverObject
+                )
+                dialog.dismiss()
+            }.create().show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.rvList.adapter = adapter
+
+        ratesDetailingAdapter =
+            RatesDetailingAdapter(requireContext(), R.layout.item_spinner, mutableListOf())
+        binding.spDetailing.adapter = ratesDetailingAdapter
 
         setupObservers()
         setupListeners()
@@ -75,11 +81,20 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
             if (result is Success) {
                 adapter.rates = result.value.rows
                 renderTotalViews(result.value)
-            }
 
-            visibilityViews()
-            setDetailPath()
+                visibilityViews()
+                setDetailPath()
+
+            }
             designByResult(result, binding.root, binding.vResult, binding.srl)
+
+        }
+
+        viewModel.planType.observe(viewLifecycleOwner) {
+            binding.swPlanType.text =
+                getString(if (it == 0) R.string.month_plan else R.string.daily_plan)
+            ratesDetailingAdapter.setList(viewModel.getDimensions())
+            visibilityViews()
         }
     }
 
@@ -87,6 +102,7 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
         binding.srl.setOnRefreshListener { viewModel.reloadRate() }
         binding.vResult.setTryAgainAction { viewModel.reloadRates() }
         binding.tvDetailPath.setOnClickListener { viewModel.updateRate() }
+        binding.swPlanType.setOnCheckedChangeListener { _, isChecked -> viewModel.changePlanType(if (isChecked) 1 else 0) }
     }
 
     private fun renderTotalViews(rate: RateData) {
@@ -111,11 +127,9 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
             ) {
 
                 val currentRate = parent?.getItemAtPosition(position) as RateStructure
+                viewModel.updateRate(currentRate)
+                ratesDetailingAdapter.setList(viewModel.getDimensions())
 
-                binding.spDetailing.adapter = RatesDetailingAdapter(
-                    requireContext(), R.layout.item_spinner, currentRate.dimensions
-                )
-                viewModel.updateRate(currentRate.rate.id, currentRate.dimensions)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -134,16 +148,23 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
 
     private fun visibilityViews() {
 
-        if (viewModel.selectionEmpty()) {
-            binding.spRates.visible()
-            binding.spDetailing.visible()
-            binding.etPeriodSelection.visible()
-            binding.tvDetailPath.gone()
-        } else {
-            binding.spRates.gone()
-            binding.spDetailing.gone()
-            binding.etPeriodSelection.gone()
-            binding.tvDetailPath.visible()
+        with(binding) {
+            if (viewModel.selectionEmpty()) {
+                spRates.visible()
+              //  spDetailing.visible()
+                etPeriodSelection.visible()
+                tvDetailPath.gone()
+                swPlanType.visible()
+            } else {
+                spRates.gone()
+         //       spDetailing.gone()
+                etPeriodSelection.gone()
+                tvDetailPath.visible()
+                swPlanType.gone()
+            }
+            if ((viewModel.planType.value
+                    ?: 0) == 0 && viewModel.selectionEmpty()
+            ) spDetailing.visible() else spDetailing.gone()
         }
     }
 

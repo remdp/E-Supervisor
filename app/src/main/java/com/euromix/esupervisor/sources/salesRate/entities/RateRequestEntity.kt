@@ -9,6 +9,7 @@ data class RateRequestEntity(
     @field:Json(name = "start_date") val startDate: String?,
     @field:Json(name = "end_date") val endDate: String?,
     @field:Json(name = "detail_level") val detailLevel: Int,
+    @field:Json(name = "plan_type") val planType: Int,
     val selection: List<RateSelectionItem>,
 ) : Parcelable
 

@@ -60,6 +60,18 @@
                     app:layout_constraintStart_toStartOf="@+id/gdlnStart"
                     app:layout_constraintTop_toBottomOf="@+id/spRates" />
 
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/swPlanType"
+                    style="@style/Text.Label.16.Gray500"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:trackTint="@drawable/switch_track_selector"
+                    app:thumbTint="@drawable/switch_thumb_selector"
+                    android:text="@string/month_plan"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+                    app:layout_constraintTop_toBottomOf="@+id/spDetailing"                     />
+
                 <EditText
                     android:id="@+id/etPeriodSelection"
                     style="@style/Text.Label.16"
@@ -80,7 +92,7 @@
                     android:paddingBottom="@dimen/DP_10"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
-                    app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+                    app:layout_constraintStart_toEndOf="@+id/swPlanType"
                     app:layout_constraintTop_toBottomOf="@+id/spDetailing" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

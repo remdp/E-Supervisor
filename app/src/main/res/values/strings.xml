@@ -23,6 +23,7 @@
     <string name="status">Status</string>
     <string name="create_task_next_visit">Create a task for the next visit</string>
     <string name="create_task_next_visit_result">The result of creating a task for the next visit</string>
+    <string name="day">Day</string>
 
     <!-- Statuses -->
     <string name="done">Done</string>>
@@ -132,6 +133,8 @@
     <string name="trading_team">Trading team</string>
     <string name="number_orders">The numbers of orders</string>
     <string name="decipher_to">Decipher to</string>
+    <string name="month_plan">Month \n plan</string>
+    <string name="daily_plan">Daily \n plan</string>
     <!--    <string name="total_plan">plan %1$s</string>-->
 
 
@@ -192,6 +195,7 @@
     <string name="outlets">Outlets</string>
     <string name="validation_errors">Validation errors</string>
     <string name="need_select_ta">You must select at least one trading agent</string>
+
 
 
 </resources>
