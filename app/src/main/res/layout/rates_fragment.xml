@@ -139,100 +139,114 @@
                 tools:text="Сиенко Аким/Unilever"
                 tools:visibility="visible" />
 
-            <ImageView
-                android:id="@+id/ivTopWhite"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/DP_116"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@id/clTotal"
                 android:layout_marginTop="@dimen/DP_8"
-                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDetailPath" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailPath">
 
-            <ImageView
-                android:id="@+id/ivPlan"
-                android:layout_width="@dimen/DP_135"
-                android:layout_height="@dimen/DP_100"
-                android:background="@drawable/bg_8dp_gray_100_border"
-                app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
-                app:layout_constraintStart_toStartOf="@+id/gdlnStartNested"
-                app:layout_constraintTop_toTopOf="@+id/ivTopWhite" />
 
-            <TextView
-                android:id="@+id/tvPlanLabel"
-                style="@style/Text.Label.16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/DP_20"
-                android:text="@string/total_plan"
-                app:layout_constraintEnd_toEndOf="@+id/ivPlan"
-                app:layout_constraintStart_toStartOf="@+id/ivPlan"
-                app:layout_constraintTop_toTopOf="@+id/ivPlan" />
+                <ImageView
+                    android:id="@+id/ivTopWhite"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/DP_116"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvTotalPlan"
-                style="@style/Text.Label.18.Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/DP_8"
-                app:layout_constraintEnd_toEndOf="@+id/ivPlan"
-                app:layout_constraintStart_toStartOf="@+id/ivPlan"
-                app:layout_constraintTop_toBottomOf="@+id/tvPlanLabel"
-                tools:text="2 554 256" />
 
-            <com.euromix.esupervisor.app.utils.customIndicator.CustomProgressIndicator
-                android:id="@+id/piTotal"
-                style="@style/Text.Label.28.Bold"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:directionC="clockwise"
-                app:dotWidth="0dp"
-                app:drawDot="true"
-                app:enableProgressAnimation="true"
-                app:fillBackground="false"
-                app:gradientEndColor="@color/blue"
-                app:gradientTypeC="sweep"
-                app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/ivTopWhite"
-                app:progressBackgroundColor="@color/white"
-                app:progressBackgroundStrokeWidth="0dp"
-                app:progressCapC="round"
-                app:progressColor="@color/white"
-                app:progressStrokeWidth="10dp"
-                app:textColor="@color/white" />
+                <ImageView
+                    android:id="@+id/ivPlan"
+                    android:layout_width="@dimen/DP_135"
+                    android:layout_height="@dimen/DP_100"
+                    android:background="@drawable/bg_8dp_gray_100_border"
+                    android:layout_marginStart="@dimen/DP_8"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ivTopWhite" />
 
-            <ImageView
-                android:id="@+id/ivFact"
-                android:layout_width="@dimen/DP_135"
-                android:layout_height="@dimen/DP_100"
-                android:background="@drawable/bg_8dp_blue_10_border"
-                app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
-                app:layout_constraintEnd_toStartOf="@+id/gdlnEndNested"
-                app:layout_constraintTop_toTopOf="@+id/ivTopWhite" />
+                <TextView
+                    android:id="@+id/tvPlanLabel"
+                    style="@style/Text.Label.16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/DP_20"
+                    android:text="@string/total_plan"
+                    app:layout_constraintEnd_toEndOf="@+id/ivPlan"
+                    app:layout_constraintStart_toStartOf="@+id/ivPlan"
+                    app:layout_constraintTop_toTopOf="@+id/ivPlan" />
 
-            <TextView
-                android:id="@+id/tvFactLabel"
-                style="@style/Text.Label.16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/DP_20"
-                android:text="@string/total_fact"
-                app:layout_constraintEnd_toEndOf="@+id/ivFact"
-                app:layout_constraintStart_toStartOf="@+id/ivFact"
-                app:layout_constraintTop_toTopOf="@+id/ivFact" />
+                <TextView
+                    android:id="@+id/tvTotalPlan"
+                    style="@style/Text.Label.18.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/DP_8"
+                    app:layout_constraintEnd_toEndOf="@+id/ivPlan"
+                    app:layout_constraintStart_toStartOf="@+id/ivPlan"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPlanLabel"
+                    tools:text="2 554 256" />
 
-            <TextView
-                android:id="@+id/tvTotalFact"
-                style="@style/Text.Label.18.Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/DP_8"
-                app:layout_constraintEnd_toEndOf="@+id/ivFact"
-                app:layout_constraintStart_toStartOf="@+id/ivFact"
-                app:layout_constraintTop_toBottomOf="@+id/tvFactLabel"
-                tools:text="1 256 432" />
+                <com.euromix.esupervisor.app.utils.customIndicator.CustomProgressIndicator
+                    android:id="@+id/piTotal"
+                    style="@style/Text.Label.28.Bold"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:directionC="clockwise"
+                    app:dotWidth="0dp"
+                    app:drawDot="true"
+                    app:enableProgressAnimation="true"
+                    app:fillBackground="false"
+                    app:gradientEndColor="@color/blue"
+                    app:gradientTypeC="sweep"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ivTopWhite"
+                    app:progressBackgroundColor="@color/white"
+                    app:progressBackgroundStrokeWidth="0dp"
+                    app:progressCapC="round"
+                    app:progressColor="@color/white"
+                    app:progressStrokeWidth="10dp"
+                    app:textColor="@color/white" />
+
+                <ImageView
+                    android:id="@+id/ivFact"
+                    android:layout_width="@dimen/DP_135"
+                    android:layout_height="@dimen/DP_100"
+                    android:background="@drawable/bg_8dp_blue_10_border"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
+                    android:layout_marginEnd="@dimen/DP_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ivTopWhite" />
+
+                <TextView
+                    android:id="@+id/tvFactLabel"
+                    style="@style/Text.Label.16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/DP_20"
+                    android:text="@string/total_fact"
+                    app:layout_constraintEnd_toEndOf="@+id/ivFact"
+                    app:layout_constraintStart_toStartOf="@+id/ivFact"
+                    app:layout_constraintTop_toTopOf="@+id/ivFact" />
+
+                <TextView
+                    android:id="@+id/tvTotalFact"
+                    style="@style/Text.Label.18.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/DP_8"
+                    app:layout_constraintEnd_toEndOf="@+id/ivFact"
+                    app:layout_constraintStart_toStartOf="@+id/ivFact"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFactLabel"
+                    tools:text="1 256 432" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/srl"
@@ -242,7 +256,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivTopWhite">
+                app:layout_constraintTop_toBottomOf="@+id/clTotal">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvList"

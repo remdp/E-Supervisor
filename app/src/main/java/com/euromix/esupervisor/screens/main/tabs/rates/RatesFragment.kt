@@ -151,20 +151,27 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
         with(binding) {
             if (viewModel.selectionEmpty()) {
                 spRates.visible()
-              //  spDetailing.visible()
+
                 etPeriodSelection.visible()
                 tvDetailPath.gone()
                 swPlanType.visible()
+
+                if ((viewModel.planType.value ?: 0) == 0) {
+                    spDetailing.visible()
+                    clTotal.visible()
+                } else {
+                    spDetailing.gone()
+                    clTotal.gone()
+                }
             } else {
                 spRates.gone()
-         //       spDetailing.gone()
+
                 etPeriodSelection.gone()
                 tvDetailPath.visible()
                 swPlanType.gone()
+                spDetailing.gone()
+                clTotal.visible()
             }
-            if ((viewModel.planType.value
-                    ?: 0) == 0 && viewModel.selectionEmpty()
-            ) spDetailing.visible() else spDetailing.gone()
         }
     }
 
