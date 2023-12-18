@@ -12,7 +12,7 @@ import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.sources.tasks.list.entities.TasksRequestEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,17 +26,13 @@ class TasksViewModel @Inject constructor(
     private val _selection = MutableLiveData<TasksSelection?>()
     val selection = _selection.share()
 
-//    init {
-//        getTasks()
-//    }
-
-    fun getTasks() {
-
+    fun reload() {
+        getTasks()
+    }
+    private fun getTasks() {
         viewModelScope.launch {
-            val cf = tasksRepository.getTasks(requestFromSelection())
-
-            cf.collect { result ->
-                _tasks.value = result
+            tasksRepository.getTasks(requestFromSelection()).collect {
+                _tasks.value = it
             }
         }
     }
@@ -45,7 +41,6 @@ class TasksViewModel @Inject constructor(
         TasksRequestEntity(
             startDate = _selection.value?.period?.let { dateToJsonString(it.first) },
             endDate = _selection.value?.period?.let { dateToJsonString(it.second) },
-         //   taskProducerId = _selection.value?.taskProducer?.id,
             partnerId = _selection.value?.partner?.id,
             taskTypeId = _selection.value?.taskType?.id,
             taskStateId = _selection.value?.taskState?.id,

@@ -18,7 +18,6 @@ import com.euromix.esupervisor.app.model.tasks.entities.TasksCreateOutletsSelect
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.ActivitySubscription
 import com.euromix.esupervisor.app.utils.addSoftKeyboardVisibilityListener
-import com.euromix.esupervisor.app.utils.designedDateView
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.observeResults
@@ -165,7 +164,6 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
         }
 
         binding.tvDescription.addTextChangedListener { designViews() }
-
         binding.tvOutlets.setDrawableOnClickListener { collapseOutlets() }
 
     }
@@ -259,18 +257,6 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
     }
 
     private fun designViews() {
-
-//        designedDateView(
-//            binding.tvDeadline, viewModel.deadline,
-//            showClearView = true,
-//            underlineIfNull = true
-//        )
-//        if (viewModel.deadline == null)
-//            binding.tvDeadline.setBackgroundResource(R.drawable.bg_underline_red)
-//        else binding.tvDeadline.setBackgroundResource(
-//            R.drawable.bg_8dp_white_border
-//        )
-
         if (viewModel.chosenTasksType.value == null)
             binding.tvTaskType.setBackgroundResource(R.drawable.bg_underline_red)
         else binding.tvTaskType.setBackgroundResource(

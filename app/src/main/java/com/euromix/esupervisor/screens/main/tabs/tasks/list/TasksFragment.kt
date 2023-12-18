@@ -1,6 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.tasks.list
 
-//import com.euromix.esupervisor.app.utils.designedPeriodView
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -8,11 +7,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.screens.base.BaseFragment
-import com.euromix.esupervisor.app.utils.*
+import com.euromix.esupervisor.app.utils.observeResults
+import com.euromix.esupervisor.app.utils.setPeriodSelection
+import com.euromix.esupervisor.app.utils.viewBinding
+import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.TasksFragmentBinding
 import com.euromix.esupervisor.screens.main.tabs.TitleData
-import com.euromix.esupervisor.screens.main.tabs.docsEmix.list.DocsEmixListFragmentDirections
-import com.euromix.esupervisor.screens.main.tabs.tasks.selection.TasksSelectionFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,13 +52,13 @@ class TasksFragment : BaseFragment(R.layout.tasks_fragment) {
         }
 
         viewModel.selection.observe(viewLifecycleOwner) {
-            viewModel.getTasks()
+            viewModel.reload()
         }
     }
 
     private fun setupListeners() {
-        binding.srl.setOnRefreshListener { viewModel.getTasks() }
-        binding.vResult.setTryAgainAction { viewModel.getTasks() }
+        binding.srl.setOnRefreshListener { viewModel.reload() }
+        binding.vResult.setTryAgainAction { viewModel.reload() }
 
         binding.iSelection.ivFunnel.setOnClickListener {
 

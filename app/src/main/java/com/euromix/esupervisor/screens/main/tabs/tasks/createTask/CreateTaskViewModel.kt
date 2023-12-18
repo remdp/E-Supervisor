@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.App.Companion.dateToJsonString
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
@@ -111,9 +112,8 @@ class CreateTaskViewModel @Inject constructor(
                             }
                     } else if (result is Pending) {
                         _outlets.value = Pending()
-                    } else {
-                        //todo fix it
-                        //_outlets.value = Error(result as Throwable)
+                    } else if (result is Error){
+                        _outlets.value = Error(result.error)
                     }
                 }
             }

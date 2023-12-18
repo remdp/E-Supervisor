@@ -1,11 +1,7 @@
 package com.euromix.esupervisor.app.model.common
 
-import com.euromix.esupervisor.app.model.Result
-import com.euromix.esupervisor.app.model.common.entities.ServerPair
-import com.euromix.esupervisor.app.utils.async.LazyFlowSubject
+import com.euromix.esupervisor.app.utils.async.serverCallbackFlowFetcher
 import com.euromix.esupervisor.sources.tasks.createTask.entities.OutletsForCreateTaskRequestEntity
-import com.euromix.esupervisor.sources.tasks.createTask.entities.OutletsForCreateTaskResponseEntity
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,54 +9,20 @@ import javax.inject.Singleton
 class SearchRepository @Inject constructor(
     private val searchSource: SearchSource
 ) {
+    fun findTradingAgents(stringSearch: String) =
+        serverCallbackFlowFetcher { searchSource.findTradingAgents(stringSearch) }
 
-    private val tradingAgentsFlowSubject = LazyFlowSubject<String, List<ServerPair>> {
-        searchSource.findTradingAgents(it)
-    }
+    fun findPartners(stringSearch: String) =
+        serverCallbackFlowFetcher { searchSource.findPartners(stringSearch) }
 
-    private val partnersFlowSubject = LazyFlowSubject<String, List<ServerPair>> {
-        searchSource.findPartners(it)
-    }
+    fun findTasksType() = serverCallbackFlowFetcher { searchSource.findTasksType() }
 
-    private val tasksTypeFlowSubject = LazyFlowSubject<String, List<ServerPair>> {
-        searchSource.findTasksType()
-    }
+    fun findExecutors(stringSearch: String) =
+        serverCallbackFlowFetcher { searchSource.findExecutors(stringSearch) }
 
-    private val executorsFlowSubject = LazyFlowSubject<String, List<ServerPair>> {
-        searchSource.findExecutors(it)
-    }
+    fun searchSelectionsForCreateTasks() =
+        serverCallbackFlowFetcher { searchSource.searchSelectionsForCreateTasks() }
 
-    private val searchSelectionsForCreateTasksFlowSubject = LazyFlowSubject<String, List<List<ServerPair>>> {
-        searchSource.searchSelectionsForCreateTasks()
-    }
-
-    private val outletsForCreateTasksFlowSubject =
-        LazyFlowSubject<OutletsForCreateTaskRequestEntity, List<OutletsForCreateTaskResponseEntity>> {
-            searchSource.findOutletsForCreateTask(it)
-        }
-
-    fun findTradingAgents(stringSearch: String): Flow<Result<List<ServerPair>>> {
-        return tradingAgentsFlowSubject.listen(stringSearch)
-    }
-
-    fun findPartners(stringSearch: String): Flow<Result<List<ServerPair>>> {
-        return partnersFlowSubject.listen(stringSearch)
-    }
-
-    fun findTasksType(): Flow<Result<List<ServerPair>>> {
-        return tasksTypeFlowSubject.listen("")
-    }
-
-    fun findExecutors(stringSearch: String): Flow<Result<List<ServerPair>>> {
-        return executorsFlowSubject.listen(stringSearch)
-    }
-
-    fun searchSelectionsForCreateTasks(): Flow<Result<List<List<ServerPair>>>> {
-        return searchSelectionsForCreateTasksFlowSubject.listen("")
-    }
-
-    fun findOutletsForCreateTask(request: OutletsForCreateTaskRequestEntity): Flow<Result<List<OutletsForCreateTaskResponseEntity>>> {
-        return outletsForCreateTasksFlowSubject.listen(request)
-    }
-
+    fun findOutletsForCreateTask(request: OutletsForCreateTaskRequestEntity) =
+        serverCallbackFlowFetcher { searchSource.findOutletsForCreateTask(request) }
 }

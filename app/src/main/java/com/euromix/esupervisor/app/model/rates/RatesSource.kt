@@ -5,6 +5,5 @@ import com.euromix.esupervisor.sources.salesRate.entities.RateRequestEntity
 
 interface RatesSource {
     suspend fun getRate(rateRequestEntity: RateRequestEntity): RateData
-
     suspend fun getRates(): List<RateStructure>
 }
