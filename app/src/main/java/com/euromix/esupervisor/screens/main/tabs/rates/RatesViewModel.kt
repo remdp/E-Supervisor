@@ -129,7 +129,7 @@ class RatesViewModel @Inject constructor(
 
     fun backStackPath(): String {
 
-        var path = ""
+        var path = currentRate.rate.presentation
 
         rateSettings.forEach {
             path = path + if (path.isBlank()) "" else {
