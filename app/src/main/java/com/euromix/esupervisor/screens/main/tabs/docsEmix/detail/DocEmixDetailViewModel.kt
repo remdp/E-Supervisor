@@ -1,16 +1,6 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail
 
-import android.graphics.drawable.GradientDrawable
-import android.widget.LinearLayout
-import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import androidx.viewpager2.widget.ViewPager2
-import com.euromix.esupervisor.App
-import com.euromix.esupervisor.App.Companion.getString
-import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.enums.DocEmixOperationType
-import com.euromix.esupervisor.app.enums.Status
 import com.euromix.esupervisor.app.model.Empty
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
@@ -20,14 +10,6 @@ import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
-import com.euromix.esupervisor.app.utils.designByResult
-import com.euromix.esupervisor.app.utils.gone
-import com.euromix.esupervisor.app.utils.visible
-import com.euromix.esupervisor.databinding.DocEmixDetailFragmentBinding
-import com.euromix.esupervisor.databinding.TabHeaderBinding
-import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.VPFragmentAdapter
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -41,7 +23,7 @@ class DocEmixDetailViewModel @AssistedInject constructor(
     val viewState = _viewState.share()
 
     fun reload() {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             getDocEmixDetail()
         }
     }
@@ -72,21 +54,21 @@ class DocEmixDetailViewModel @AssistedInject constructor(
         }
     }
     private fun getDocEmixDetail() {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             docEmixDetailRepository.getDocEmixDetail(extId).collect { result ->
                 updateResult(result)
             }
         }
     }
     fun acceptDocEmixDetail() {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             docEmixDetailRepository.acceptDocEmixDetail(extId).collect { result ->
                 updateResult(result)
             }
         }
     }
     fun rejectDocEmixDetail(reason: String) {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             docEmixDetailRepository.rejectDocEmixDetail(extId, reason).collect { result ->
                 updateResult(result)
             }

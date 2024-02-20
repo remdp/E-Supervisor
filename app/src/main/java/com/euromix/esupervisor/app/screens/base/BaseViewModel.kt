@@ -8,10 +8,8 @@ import com.euromix.esupervisor.app.model.account.AccountRepository
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 //todo get rid of accountRepository in constructor
 open class BaseViewModel(val accountRepository: AccountRepository?) :
@@ -25,8 +23,8 @@ open class BaseViewModel(val accountRepository: AccountRepository?) :
     private val _showErrorMessageEvent = MutableLiveEvent<String>()
     val showErrorMessageEvent = _showErrorMessageEvent.share()
 
-    fun CoroutineScope.safeLaunch(block: suspend () -> Unit) {
-        viewModelScope.launch {
+    fun safeLaunch(block: suspend () -> Unit): Job {
+        return viewModelScope.launch {
             block()
         }
     }

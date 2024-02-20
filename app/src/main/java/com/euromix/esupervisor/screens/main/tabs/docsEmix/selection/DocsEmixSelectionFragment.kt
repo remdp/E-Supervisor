@@ -34,7 +34,7 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
         viewModel.updateSelection(args.selection)
 
         setupListeners()
-        setupObservers(view)
+        setupObservers()
 
     }
 
@@ -85,7 +85,7 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
 
     }
 
-    private fun setupObservers(view: View) {
+    private fun setupObservers() {
 
         viewModel.selection.observe(viewLifecycleOwner) {
             binding.etTradingAgent.setText(it?.tradingAgent?.presentation)
@@ -139,7 +139,7 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
             }
         }
 
-        viewModel.foundTradingAgents.observeResults(this, view, binding.vResult) {
+        viewModel.foundTradingAgents.observeResults(this, binding.root, binding.vResult) {
             if (it.isNotEmpty())
                 popupWindowForSelections(
                     requireContext(),
@@ -149,7 +149,7 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
                     .showAsDropDown(binding.etTradingAgent)
         }
 
-        viewModel.foundPartners.observeResults(this, view, binding.vResult) {
+        viewModel.foundPartners.observeResults(this, binding.root, binding.vResult) {
             if (it.isNotEmpty())
                 popupWindowForSelections(requireContext(), it, viewModel::updatePartnerSelection)
                     .showAsDropDown(binding.etPartner)

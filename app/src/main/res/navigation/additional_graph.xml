@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/additional_graph"
+    app:startDestination="@id/routeMapFragment">
+
+    <fragment
+        android:id="@+id/routeMapFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.routeMap.RouteMapFragment"
+        android:label="RouteMapFragment" >
+        <action
+            android:id="@+id/action_routeMapFragment_to_routeMapSelectionFragment"
+            app:destination="@id/routeMapSelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/routeMapSelectionFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.routeMap.selection.RouteMapSelectionFragment"
+        android:label="RouteMapSelectionFragment" >
+        <argument
+            android:name="selection"
+            app:argType="com.euromix.esupervisor.app.model.routes.entities.RouteMapSelection" />
+    </fragment>
+</navigation>

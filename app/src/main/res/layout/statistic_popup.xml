@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/DP_8">
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_cross_grey" />
+
+    <ImageView
+        android:id="@+id/ivPerson"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_person_filled" />
+
+    <TextView
+        android:id="@+id/tvPartner"
+        android:layout_marginTop="@dimen/DP_8"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        app:layout_constraintStart_toEndOf="@+id/ivPerson"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Петренко А. О." />
+
+    <TextView
+        android:id="@+id/tvOutletName"
+        style="@style/Text.Label.12.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPartner"
+        tools:text="Аптека Рецептика" />
+
+    <TextView
+        android:id="@+id/tvOutletAddress"
+        style="@style/Text.Label.12.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutletName"
+        tools:text="м. Дніпро, просп. Дмитра Яворницького 101" />
+
+    <TextView
+        android:id="@+id/tvVisitTime"
+        style="@style/Text.Label.12.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_16"
+        app:drawableStartCompat="@drawable/ic_calendar_statistic"
+        android:drawablePadding="@dimen/DP_4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutletAddress"
+        tools:text="13.03.2023, 10.15" />
+
+    <TextView
+        android:id="@+id/tvVisitDuration"
+        android:layout_marginTop="@dimen/DP_2"
+        style="@style/Text.Label.12.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/DP_4"
+        app:drawableStartCompat="@drawable/ic_clock"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvVisitTime"
+        tools:text="Час у точці: 0:45" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/gray_300"
+        app:layout_constraintBottom_toBottomOf="@+id/tvVisitDuration"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toTopOf="@+id/tvVisitTime" />
+
+    <TextView
+        android:id="@+id/tvOrderSum"
+        style="@style/Text.Label.12.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:drawablePadding="@dimen/DP_4"
+        app:drawableStartCompat="@drawable/ic_order"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toTopOf="@+id/tvVisitTime"
+        tools:text="1 000 ₴" />
+
+    <TextView
+        android:id="@+id/tvCashReceiptOrderSum"
+        style="@style/Text.Label.12.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:drawablePadding="@dimen/DP_4"
+        app:drawableStartCompat="@drawable/ic_cash_receipt_order"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvOrderSum"
+        tools:text="2 500 ₴" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlnStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

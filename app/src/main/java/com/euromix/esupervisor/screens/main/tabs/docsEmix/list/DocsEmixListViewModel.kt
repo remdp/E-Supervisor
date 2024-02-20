@@ -1,24 +1,23 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.list
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.euromix.esupervisor.App.Companion.dateToJsonString
 import com.euromix.esupervisor.app.model.Empty
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
+import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.docsEmix.DocsEmixRepository
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
+import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
+import com.euromix.esupervisor.app.utils.dateToJsonString
+import com.euromix.esupervisor.app.utils.designByResult
 import com.euromix.esupervisor.app.utils.share
+import com.euromix.esupervisor.databinding.DocEmixListFragmentBinding
 import com.euromix.esupervisor.sources.docsEmix.entities.DocsEmixRequestEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.euromix.esupervisor.app.model.Result
-import com.euromix.esupervisor.app.screens.base.BaseFragment
-import com.euromix.esupervisor.app.utils.designByResult
-import com.euromix.esupervisor.databinding.DocEmixListFragmentBinding
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -64,7 +63,7 @@ class DocsEmixListViewModel @Inject constructor(
     }
 
     private fun getDocsEmix() {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             val cf = docsEmixRepository.getDocsEmix(requestFromSelection())
             cf.collect { result ->
                 updateResult(result)
@@ -77,8 +76,8 @@ class DocsEmixListViewModel @Inject constructor(
         val state = viewState.value
 
         return DocsEmixRequestEntity(
-            startDate = state?.period?.let { dateToJsonString(it.first) },
-            endDate = state?.period?.let { dateToJsonString(it.second) },
+            startDate = state?.period?.first?.dateToJsonString(),
+            endDate = state?.period?.second?.dateToJsonString(),
             tradingAgentId = state?.selection?.tradingAgent?.id,
             partnerId = state?.selection?.partner?.id,
             operationType = state?.selection?.operationType?.id,
@@ -108,7 +107,6 @@ class DocsEmixListViewModel @Inject constructor(
             }
         }
     }
-
 
     data class ViewState(
         val period: Pair<Date, Date>? = null,

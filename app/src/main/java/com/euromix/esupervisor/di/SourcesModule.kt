@@ -5,12 +5,14 @@ import com.euromix.esupervisor.app.model.common.SearchSource
 import com.euromix.esupervisor.app.model.docEmix.DocEmixDetailSource
 import com.euromix.esupervisor.app.model.docsEmix.DocsEmixSource
 import com.euromix.esupervisor.app.model.rates.RatesSource
+import com.euromix.esupervisor.app.model.routes.RoutesSource
 import com.euromix.esupervisor.app.model.taskDetail.TaskDetailSource
 import com.euromix.esupervisor.app.model.tasks.TasksSource
 import com.euromix.esupervisor.sources.account.RetrofitAccountSource
 import com.euromix.esupervisor.sources.common.RetrofitSearchSource
 import com.euromix.esupervisor.sources.docsEmix.RetrofitDocsEmixSource
 import com.euromix.esupervisor.sources.docsEmixDetail.RetrofitDocEmixDetailSource
+import com.euromix.esupervisor.sources.routes.RetrofitRoutesSource
 import com.euromix.esupervisor.sources.salesRate.RetrofitRatesSource
 import com.euromix.esupervisor.sources.tasks.taskDetail.RetrofitTaskDetailSource
 import com.euromix.esupervisor.sources.tasks.list.RetrofitTasksSource
@@ -44,4 +46,6 @@ abstract class SourcesModule {
     @Binds
     abstract fun bindSearchSource(retrofitSearchSource: RetrofitSearchSource): SearchSource
 
+    @Binds
+    abstract fun bindRoutesSource(retrofitRoutesSource: RetrofitRoutesSource): RoutesSource
 }

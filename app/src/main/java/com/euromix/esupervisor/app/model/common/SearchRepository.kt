@@ -25,4 +25,9 @@ class SearchRepository @Inject constructor(
 
     fun findOutletsForCreateTask(request: OutletsForCreateTaskRequestEntity) =
         serverCallbackFlowFetcher { searchSource.findOutletsForCreateTask(request) }
+
+    fun findTradingTeams() = serverCallbackFlowFetcher { searchSource.findTradingTeams() }
+
+    fun findTradingAgentsAndTeams(searchString: String) =
+        serverCallbackFlowFetcher { searchSource.findTradingAgentsAndTeams(searchString) }
 }

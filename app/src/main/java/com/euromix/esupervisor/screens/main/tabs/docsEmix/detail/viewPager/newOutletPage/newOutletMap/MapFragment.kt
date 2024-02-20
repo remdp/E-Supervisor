@@ -1,18 +1,12 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOutletPage.newOutletMap
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
-import androidx.annotation.DrawableRes
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.utils.bitmapFromDrawableRes
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.MapFragmentBinding
 import com.mapbox.geojson.Point
@@ -44,10 +38,7 @@ class MapFragment : Fragment(R.layout.map_fragment) {
     }
 
     private fun addAnnotationToMap() {
-
-        bitmapFromDrawableRes(
-            requireContext(), R.drawable.ic_coordinate_blue
-        )?.let {
+        requireContext().bitmapFromDrawableRes(R.drawable.ic_coordinate_blue)?.let {
 
             val lng = args.longitude.toDouble()
             val lat = args.latitude.toDouble()
@@ -60,28 +51,6 @@ class MapFragment : Fragment(R.layout.map_fragment) {
                 .withIconImage(it)
 
             pointAnnotationManager.create(pointAnnotationOptions)
-        }
-    }
-
-    private fun bitmapFromDrawableRes(context: Context, @DrawableRes resourceId: Int) =
-        convertDrawableToBitmap(AppCompatResources.getDrawable(context, resourceId))
-
-    private fun convertDrawableToBitmap(sourceDrawable: Drawable?): Bitmap? {
-        if (sourceDrawable == null) {
-            return null
-        }
-        return if (sourceDrawable is BitmapDrawable) {
-            sourceDrawable.bitmap
-        } else {
-            val constantState = sourceDrawable.constantState ?: return null
-            val drawable = constantState.newDrawable().mutate()
-            val bitmap: Bitmap = Bitmap.createBitmap(
-                drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
-            )
-            val canvas = Canvas(bitmap)
-            drawable.setBounds(0, 0, canvas.width, canvas.height)
-            drawable.draw(canvas)
-            bitmap
         }
     }
 

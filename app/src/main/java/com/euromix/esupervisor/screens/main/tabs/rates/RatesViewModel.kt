@@ -2,9 +2,7 @@ package com.euromix.esupervisor.screens.main.tabs.rates
 
 import android.os.Parcelable
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.App.Companion.beginCurrentMonth
-import com.euromix.esupervisor.App.Companion.dateToJsonString
 import com.euromix.esupervisor.App.Companion.endCurrentMonth
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.common.entities.ServerObject
@@ -12,6 +10,7 @@ import com.euromix.esupervisor.app.model.rates.RatesRepository
 import com.euromix.esupervisor.app.model.rates.entities.RateData
 import com.euromix.esupervisor.app.model.rates.entities.RateStructure
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
+import com.euromix.esupervisor.app.utils.dateToJsonString
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.sources.salesRate.entities.RateRequestEntity
 import com.euromix.esupervisor.sources.salesRate.entities.RateSelectionItem
@@ -41,7 +40,7 @@ class RatesViewModel @Inject constructor(
     private val _rate = MutableLiveData<Result<RateData>>()
     val rate = _rate.share()
 
-    private val _planType = MutableLiveData<Int>(0)
+    private val _planType = MutableLiveData(0)
     val planType = _planType.share()
 
     init {
@@ -52,8 +51,8 @@ class RatesViewModel @Inject constructor(
 
         return RateRequestEntity(
             rateId = currentRate.rate.id,
-            startDate = dateToJsonString(period.first),
-            endDate = dateToJsonString(period.second),
+            startDate = period.first.dateToJsonString(),
+            endDate = period.second.dateToJsonString(),
             detailLevel = if (rateSettings.isEmpty()) _detailLevel else rateSettings.last().detailLevel,
             planType = _planType.value ?: 0,
             selection = rateSettings.map {
@@ -66,7 +65,7 @@ class RatesViewModel @Inject constructor(
     }
 
     private fun getRate() {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             val request = requestForResult()
             ratesRepository.getRate(request).collect { result ->
                 _rate.value = result
@@ -75,7 +74,7 @@ class RatesViewModel @Inject constructor(
     }
 
     private fun getRates() {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             ratesRepository.getRates().collect { result ->
                 _rates.value = result
             }
@@ -141,8 +140,6 @@ class RatesViewModel @Inject constructor(
     }
 
     fun getDimensions() = _currentDimensions
-
-
 
     fun reloadRates() = getRates()
     fun reloadRate() = getRate()

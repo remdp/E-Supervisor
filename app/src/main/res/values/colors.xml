@@ -80,5 +80,6 @@
     <color name="gray_200_alpha_40">#66FFFFFF</color>
     <color name="dark_alpha_20">#33041329</color>
     <color name="light_alpha_80">#CCFFFFFF</color>
+    <color name="green_alpha_80">#CC5B9F3A</color>
 
 </resources>

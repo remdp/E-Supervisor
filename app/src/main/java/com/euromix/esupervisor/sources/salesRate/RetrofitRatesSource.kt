@@ -16,7 +16,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RetrofitRatesSource @Inject constructor(config: RetrofitConfig) : RatesSource {
+class RetrofitRatesSource @Inject constructor(
+    config: RetrofitConfig
+) : RatesSource {
 
     private val moshi = config.moshi
     private val errorAdapter = moshi.adapter(BaseRetrofitSource.ErrorResponseBody::class.java)

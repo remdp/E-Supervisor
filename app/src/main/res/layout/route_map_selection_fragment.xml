@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_100"
+    android:paddingStart="@dimen/DP_8"
+    android:paddingEnd="@dimen/DP_8">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivArrowBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_arrow_back" />
+
+            <TextView
+                android:id="@+id/tvFilter"
+                style="@style/Text.Label.16.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/DP_18"
+                android:text="@string/filter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivArrowBack"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvClear"
+                style="@style/Text.Label.14.Medium.Gray500"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/DP_16"
+                android:drawablePadding="@dimen/DP_8"
+                android:text="@string/clear"
+                app:drawableStartCompat="@drawable/ic_gray_basket"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiTradingAgent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tb">
+
+        <EditText
+            android:id="@+id/etTradingAgent"
+            style="@style/Text.Label.16.Gray500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_8dp_white_border"
+            android:drawableEnd="@drawable/ic_cross_gray_300"
+            android:hint="@string/trading_agent"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:padding="@dimen/DP_12" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvTradingTeam"
+        style="@style/Text.Label.16.Gray500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:background="@drawable/bg_8dp_white_border"
+        android:hint="@string/trading_team"
+        android:padding="@dimen/DP_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiTradingAgent" />
+
+    <TextView
+        android:id="@+id/tvOutletsInRouteTA"
+        style="@style/Text.Label.16.Gray500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:drawablePadding="@dimen/DP_8"
+        android:hint="@string/outlets_in_route_TA"
+        android:padding="@dimen/DP_12"
+        app:drawableStartCompat="@drawable/ic_checkbox_white_off"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTradingTeam" />
+
+    <TextView
+        android:id="@+id/tvOutletsTANotRoute"
+        style="@style/Text.Label.16.Gray500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:drawablePadding="@dimen/DP_8"
+        android:hint="@string/outlets_TA_not_in_route"
+        android:padding="@dimen/DP_12"
+        app:drawableStartCompat="@drawable/ic_checkbox_white_off"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutletsInRouteTA" />
+
+    <TextView
+        android:id="@+id/tvOutletsTTNotTA"
+        style="@style/Text.Label.16.Gray500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:drawablePadding="@dimen/DP_8"
+        android:hint="@string/outlets_TT_not_TA"
+        android:padding="@dimen/DP_12"
+        app:drawableStartCompat="@drawable/ic_checkbox_white_off"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutletsTANotRoute" />
+
+    <TextView
+        android:id="@+id/tvOutletsNotRouteTTButInOtherTT"
+        style="@style/Text.Label.16.Gray500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:drawablePadding="@dimen/DP_8"
+        android:hint="@string/outlets_not_TA_in_other_TT"
+        android:padding="@dimen/DP_12"
+        app:drawableStartCompat="@drawable/ic_checkbox_white_off"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutletsTTNotTA" />
+
+    <TextView
+        android:id="@+id/tvPromisingOutlets"
+        style="@style/Text.Label.16.Gray500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:drawablePadding="@dimen/DP_8"
+        android:hint="@string/promising_outlets"
+        android:padding="@dimen/DP_12"
+        app:drawableStartCompat="@drawable/ic_checkbox_white_off"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutletsNotRouteTTButInOtherTT" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        style="@style/Text.Label.14.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:backgroundTint="@color/white"
+        android:paddingTop="@dimen/DP_12"
+        android:paddingBottom="@dimen/DP_12"
+        android:text="@string/cancel"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnOk"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/blue"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/btnOk"
+        style="@style/Text.Label.14.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/DP_12"
+        android:paddingBottom="@dimen/DP_12"
+        android:text="@string/ok"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCancel" />
+
+    <com.euromix.esupervisor.app.views.ResultView
+        android:id="@+id/vResult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

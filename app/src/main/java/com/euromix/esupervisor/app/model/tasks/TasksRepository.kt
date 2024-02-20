@@ -1,7 +1,7 @@
 package com.euromix.esupervisor.app.model.tasks
 
-import com.euromix.esupervisor.App
 import com.euromix.esupervisor.app.utils.async.serverCallbackFlowFetcher
+import com.euromix.esupervisor.app.utils.toDate
 import com.euromix.esupervisor.sources.tasks.createTask.entities.TasksCreateRequestEntity
 import com.euromix.esupervisor.sources.tasks.list.entities.TasksRequestEntity
 import javax.inject.Inject
@@ -18,5 +18,5 @@ class TasksRepository @Inject constructor(
         serverCallbackFlowFetcher { tasksSource.getTasks(request) }
 
     fun getNextVisitDate(id: String) =
-        serverCallbackFlowFetcher { App.stringToDate(tasksSource.getDateNextVisit(id)) }
+        serverCallbackFlowFetcher { tasksSource.getDateNextVisit(id).toDate() }
 }

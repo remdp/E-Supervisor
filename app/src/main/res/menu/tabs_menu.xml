@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/dashboard"
+        android:id="@+id/dashboard_graph"
         android:icon="@drawable/ic_agreement"
         android:title="@string/agreement" />
     <item
@@ -11,9 +11,14 @@
     <item
         android:id="@+id/rates_graph"
         android:icon="@drawable/ic_rates"
-        android:title="@string/rates"/>
+        android:title="@string/rates" />
     <item
-        android:id="@+id/profile"
+        android:id="@+id/additional_menu_item"
+        android:icon="@drawable/ic_additional"
+        android:title="@string/additional">
+    </item>
+    <item
+        android:id="@+id/profile_graph"
         android:icon="@drawable/ic_account"
-        android:title="@string/profile"/>
+        android:title="@string/profile" />
 </menu>

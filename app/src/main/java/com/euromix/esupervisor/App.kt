@@ -6,12 +6,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.yariksoffice.lingver.Lingver
 import dagger.hilt.android.HiltAndroidApp
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.time.YearMonth
 import java.time.ZoneId
-import java.time.ZoneOffset
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 
 @HiltAndroidApp
@@ -33,16 +31,6 @@ class App : Application() {
             Date.from(
                 YearMonth.now().atEndOfMonth().atStartOfDay(ZoneId.systemDefault()).toInstant()
             )
-
-        fun dateToJsonString(date: Date): String =
-            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(date)
-
-        fun dateToString(date: Date): String =
-            SimpleDateFormat("dd.MM.yyyy").format(date)
-
-        fun stringToDate(stringDate: String) =
-            Date.from(LocalDateTime.parse(stringDate).toInstant(ZoneOffset.UTC))
-
 
         fun getColor(context: Context, id: Int) = ContextCompat.getColor(context, id)
 

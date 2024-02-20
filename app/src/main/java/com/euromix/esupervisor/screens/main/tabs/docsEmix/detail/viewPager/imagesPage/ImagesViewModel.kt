@@ -1,7 +1,6 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.imagesPage
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.app.model.Empty
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
@@ -9,7 +8,6 @@ import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.docEmix.DocEmixDetailRepository
 import com.euromix.esupervisor.app.model.docEmix.entities.ImagesReactions
-import com.euromix.esupervisor.app.model.tasks.TasksRepository
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.sources.docsEmixDetail.entities.ImageReactionRequestEntity
@@ -51,7 +49,7 @@ class ImagesViewModel @AssistedInject constructor(
     }
 
     private fun getImagesLikes() {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             docEmixDetailRepository.getDocLikes(extId).collect { result ->
                 updateResult(result)
             }
@@ -59,7 +57,7 @@ class ImagesViewModel @AssistedInject constructor(
     }
 
     fun react(reaction: ImageReactionRequestEntity) {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             docEmixDetailRepository.react(extId, reaction).collect { result ->
                 updateResult(result)
             }

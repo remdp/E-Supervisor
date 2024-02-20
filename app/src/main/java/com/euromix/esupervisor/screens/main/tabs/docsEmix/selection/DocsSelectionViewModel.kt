@@ -3,7 +3,6 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.selection
 import android.content.Context
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.app.Const.MIN_LENGTH_SEARCH_STRING
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
 import com.euromix.esupervisor.app.enums.Status
@@ -40,7 +39,7 @@ class DocsSelectionViewModel @Inject constructor(
 
     fun findTradingAgents(searchString: String) {
         if (verifyMinLength(searchString, 0)) {
-            viewModelScope.safeLaunch {
+            safeLaunch {
                 searchRepository.findTradingAgents(searchString).collect {
                     _foundTradingAgents.value = it
                 }
@@ -50,7 +49,7 @@ class DocsSelectionViewModel @Inject constructor(
 
     fun findPartners(searchString: String) {
         if (verifyMinLength(searchString, 1)) {
-            viewModelScope.safeLaunch {
+            safeLaunch {
                 searchRepository.findPartners(searchString).collect {
                     _foundPartners.value = it
                 }

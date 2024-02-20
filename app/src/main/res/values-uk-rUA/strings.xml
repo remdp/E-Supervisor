@@ -184,6 +184,16 @@
     <string name="validation_errors">Помилки перевірки</string>
     <string name="need_select_ta">Необхідно вибрати хоча б одного торгового агента</string>
 
+    <!-- Routes screen -->
+    <string name="outlets_in_route_TA">ТТ в маршруті торгового агента</string>
+    <string name="outlets_TA_not_in_route">ТТ агента, але не в маршруті обраного дня</string>
+    <string name="order_by_phone">Замовлення за телефоном</string>
+    <string name="outlets_TT_not_TA">ТТ в маршруті торгової команди, але не торгового агента</string>
+    <string name="outlets_not_TA_in_other_TT">ТТ немає в маршрутах торгової команди, але є в інших торгових командах</string>
+    <string name="promising_outlets">Перспективні ТТ</string>
+    <string name="time_at_the_outlet">Час у точці: %1$s</string>
+    <string name="additional">Додатково</string>
+    <string name="outlets_map">Мапа точок</string>
 
 
 </resources>

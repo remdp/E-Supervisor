@@ -3,7 +3,6 @@ package com.euromix.esupervisor.screens.main.tabs.tasks.selection
 import android.content.Context
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.enums.TaskState
 import com.euromix.esupervisor.app.model.Result
@@ -43,7 +42,7 @@ class TasksSelectionViewModel @Inject constructor(
 
     fun findPartners(searchString: String) {
         if (verifyMinLength(searchString, 1)) {
-            viewModelScope.safeLaunch {
+            safeLaunch {
                 searchRepository.findPartners(searchString).collect {
                     _foundPartners.value = it
                 }
@@ -52,7 +51,7 @@ class TasksSelectionViewModel @Inject constructor(
     }
 
     private fun findTasksType() {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             searchRepository.findTasksType().collect {
                  _foundTasksType.value = it
             }
@@ -61,7 +60,7 @@ class TasksSelectionViewModel @Inject constructor(
 
     fun findExecutors(searchString: String) {
         if (verifyMinLength(searchString, 2)) {
-            viewModelScope.safeLaunch {
+            safeLaunch {
                 searchRepository.findExecutors(searchString).collect {
                     _foundExecutors.value = it
                 }

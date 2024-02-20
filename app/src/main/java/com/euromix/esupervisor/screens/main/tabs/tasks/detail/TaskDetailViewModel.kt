@@ -1,7 +1,6 @@
 package com.euromix.esupervisor.screens.main.tabs.tasks.detail
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.app.model.Empty
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
@@ -43,7 +42,7 @@ class TaskDetailViewModel @AssistedInject constructor(
     }
 
     private fun getTaskDetail() {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             taskDetailRepository.getTask(id).collect { result ->
                 updateResult(result)
             }

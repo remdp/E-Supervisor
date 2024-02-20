@@ -3,8 +3,6 @@ package com.euromix.esupervisor.screens.main.tabs.tasks.createTask
 import android.text.Editable
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.euromix.esupervisor.App.Companion.dateToJsonString
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
@@ -16,6 +14,7 @@ import com.euromix.esupervisor.app.model.tasks.TasksRepository
 import com.euromix.esupervisor.app.model.tasks.entities.TasksCreateOutletsSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
+import com.euromix.esupervisor.app.utils.dateToJsonString
 import com.euromix.esupervisor.app.utils.popupWindowForSelections
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
@@ -60,7 +59,7 @@ class CreateTaskViewModel @Inject constructor(
     }
 
     private fun findTasksType() {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             searchRepository.findTasksType().collect {
                 _foundTasksType.value = it
             }
@@ -68,7 +67,7 @@ class CreateTaskViewModel @Inject constructor(
     }
 
     fun createTasks(description: String) {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             val chosenOutlets = (outlets.value as Success).value
                 .filter { it.marked }
                 .map { it.outlet.serverPair.id }
@@ -77,7 +76,7 @@ class CreateTaskViewModel @Inject constructor(
 
                 val cf = tasksRepository.createTasks(
                     TasksCreateRequestEntity(
-                        deadline = dateToJsonString(deadline ?: Calendar.getInstance().time),
+                        deadline = (deadline ?: Calendar.getInstance().time).dateToJsonString(),
                         taskTypeId = _chosenTasksType.value!!.id,
                         tradingAgentIds = chosenTA,
                         description = description,
@@ -91,7 +90,7 @@ class CreateTaskViewModel @Inject constructor(
     }
 
     fun findOutletsForCreateTask(selection: TasksCreateOutletsSelection?) {
-        viewModelScope.safeLaunch {
+        safeLaunch {
 
             val request = OutletsForCreateTaskRequestEntity(
                 tradingAgents = selection?.tradingAgents?.map { it.id },

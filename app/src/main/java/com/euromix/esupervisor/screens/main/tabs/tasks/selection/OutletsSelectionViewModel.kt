@@ -2,7 +2,6 @@ package com.euromix.esupervisor.screens.main.tabs.tasks.selection
 
 import android.text.Editable
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.Empty
 import com.euromix.esupervisor.app.model.Error
@@ -10,7 +9,6 @@ import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.common.SearchRepository
-import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.tasks.entities.TasksCreateOutletsSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
@@ -41,7 +39,7 @@ class OutletsSelectionViewModel @Inject constructor(
     }
 
     fun searchSelectionsForCreateTasks() {
-        viewModelScope.safeLaunch {
+        safeLaunch {
             searchRepository.searchSelectionsForCreateTasks().collect { result ->
 
                 var selectionItems = mutableListOf<List<SelectionItem>>()

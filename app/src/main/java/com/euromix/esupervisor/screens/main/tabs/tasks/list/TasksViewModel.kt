@@ -2,12 +2,12 @@ package com.euromix.esupervisor.screens.main.tabs.tasks.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.euromix.esupervisor.App.Companion.dateToJsonString
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.tasks.TasksRepository
 import com.euromix.esupervisor.app.model.tasks.entities.Task
 import com.euromix.esupervisor.app.model.tasks.entities.TasksSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
+import com.euromix.esupervisor.app.utils.dateToJsonString
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.sources.tasks.list.entities.TasksRequestEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,8 +39,8 @@ class TasksViewModel @Inject constructor(
 
     private fun requestFromSelection() =
         TasksRequestEntity(
-            startDate = _selection.value?.period?.let { dateToJsonString(it.first) },
-            endDate = _selection.value?.period?.let { dateToJsonString(it.second) },
+            startDate = _selection.value?.period?.first?.dateToJsonString() ,
+            endDate = _selection.value?.period?.second?.dateToJsonString(),
             partnerId = _selection.value?.partner?.id,
             taskTypeId = _selection.value?.taskType?.id,
             taskStateId = _selection.value?.taskState?.id,

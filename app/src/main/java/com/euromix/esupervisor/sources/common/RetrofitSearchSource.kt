@@ -4,6 +4,7 @@ import com.euromix.esupervisor.app.model.common.SearchSource
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.sources.base.BaseRetrofitSource
 import com.euromix.esupervisor.sources.base.RetrofitConfig
+import com.euromix.esupervisor.sources.routes.entities.TradingAgentsAndTeams
 import com.euromix.esupervisor.sources.tasks.createTask.entities.OutletsForCreateTaskRequestEntity
 import com.euromix.esupervisor.sources.tasks.createTask.entities.OutletsForCreateTaskResponseEntity
 import javax.inject.Inject
@@ -51,6 +52,18 @@ class RetrofitSearchSource @Inject constructor(
         return wrapRetrofitException {
             val jsonAdapter = config.moshi.adapter(OutletsForCreateTaskRequestEntity::class.java)
             searchApi.findOutletsForCreateTask(jsonAdapter.toJson(request))
+        }
+    }
+
+    override suspend fun findTradingTeams(): List<ServerPair> {
+        return wrapRetrofitException {
+            searchApi.findTradingTeams()
+        }
+    }
+
+    override suspend fun findTradingAgentsAndTeams(searchString: String): List<TradingAgentsAndTeams> {
+        return wrapRetrofitException {
+            searchApi.findTradingAgentsAndTeams(searchString).map { it.toTradingAgentsAndTeams() }
         }
     }
 }

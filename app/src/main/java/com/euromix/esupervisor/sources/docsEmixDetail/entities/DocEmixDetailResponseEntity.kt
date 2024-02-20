@@ -123,7 +123,7 @@ data class DocEmixDetailResponseEntity(
 data class RowTradeConditionResponseEntity(
     val row: Int,
     val manufacturer: String,
-    @field:Json(name = "price_index") val priceIndex: Int,
+    @field:Json(name = "price_index") val priceIndex: Float,
     @field:Json(name = "payment_deferment") val paymentDeferment: Int,
     @field:Json(name = "distribution_channel") val distributionChannel: String,
     @field:Json(name = "image_uri") val imageURI: String

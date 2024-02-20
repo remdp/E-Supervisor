@@ -44,7 +44,7 @@ data class DocEmixDetail(
 data class RowTradeCondition(
     val row: Int,
     val manufacturer: String,
-    val priceIndex: Int,
+    val priceIndex: Float,
     val paymentDeferment: Int,
     val distributionChannel: String,
     val imageURI: String

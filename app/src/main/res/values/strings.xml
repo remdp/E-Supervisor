@@ -138,7 +138,6 @@
     <!--    <string name="total_plan">plan %1$s</string>-->
 
 
-
     <!-- Result view -->
     <string name="connection_error">Connection timeout</string>
     <string name="auth_error">User session expired</string>
@@ -196,6 +195,16 @@
     <string name="validation_errors">Validation errors</string>
     <string name="need_select_ta">You must select at least one trading agent</string>
 
-
+    <!-- Routes screen -->
+    <string name="outlets_in_route_TA">Outlets in the route of a trading agent</string>
+    <string name="outlets_TA_not_in_route">Outlets of the agent, but not in the route of the selected day</string>
+    <string name="order_by_phone">Order by phone</string>
+    <string name="outlets_TT_not_TA">Outlets in the route of the TT, but not the trading agent</string>
+    <string name="outlets_not_TA_in_other_TT">Outlet is not in TT routes, but is in other TT</string>
+    <string name="promising_outlets">Promising outlets</string>
+    <string name="time_at_the_outlet">Time at the outlet: %1$s</string>
+    <string name="sum_hryvnia" translatable="false">%1$s ₴</string>
+    <string name="additional">Additional</string>
+    <string name="outlets_map">Map of outlets</string>
 
 </resources>
