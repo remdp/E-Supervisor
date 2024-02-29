@@ -1,10 +1,14 @@
 package com.euromix.esupervisor.sources.base
 
-import com.euromix.esupervisor.app.model.*
+import com.euromix.esupervisor.app.model.AppException
+import com.euromix.esupervisor.app.model.AuthException
+import com.euromix.esupervisor.app.model.BackendException
+import com.euromix.esupervisor.app.model.ConnectionException
+import com.euromix.esupervisor.app.model.ParseBackendResponseException
 import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.JsonEncodingException
 import retrofit2.HttpException
-import java.io.IOException
+import java.net.SocketTimeoutException
 
 open class BaseRetrofitSource(retrofitConfig: RetrofitConfig) {
 
@@ -31,10 +35,10 @@ open class BaseRetrofitSource(retrofitConfig: RetrofitConfig) {
 
             throw createBackendException(e)
         }
-        //mostly retrofit
-        catch (e: IOException) {
+        catch (e: SocketTimeoutException){
             throw ConnectionException(e)
-        } catch (e: AppException) {
+        }
+        catch (e: AppException) {
             throw e
         }
     }

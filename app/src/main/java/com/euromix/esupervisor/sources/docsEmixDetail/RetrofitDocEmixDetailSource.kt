@@ -1,6 +1,7 @@
 package com.euromix.esupervisor.sources.docsEmixDetail
 
 import com.euromix.esupervisor.app.model.docEmix.DocEmixDetailSource
+import com.euromix.esupervisor.app.model.docEmix.entities.ChangeCoordinates
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.model.docEmix.entities.ImageReaction
 import com.euromix.esupervisor.app.model.docEmix.entities.ImagesReactions
@@ -69,6 +70,26 @@ class RetrofitDocEmixDetailSource @Inject constructor(config: RetrofitConfig) :
                 counter++
                 it.toImageReaction(counter)
             }
+        }
+    }
+
+    override suspend fun getChangeCoordinates(id: String): ChangeCoordinates {
+        return wrapRetrofitException {
+            docEmixDetailApi.getChangeCoordinates(id).toChangeCoordinates()
+        }
+    }
+
+    override suspend fun acceptChangeCoordinates(
+        id: String,
+        approve: Boolean,
+        reason: String
+    ) {
+
+        return wrapRetrofitException {
+            docEmixDetailApi.acceptChangeCoordinates(
+                id,
+                DocEmixDetailRequestAgreementEntity(approve, reason)
+            )
         }
     }
 }

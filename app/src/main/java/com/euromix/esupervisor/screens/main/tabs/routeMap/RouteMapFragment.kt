@@ -112,7 +112,7 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
 
         pointAnnotationManager.addClickListener(
             OnPointAnnotationClickListener {
-                it.getData()?.asJsonObject?.getAsJsonPrimitive("outletId")?.asString?.let { outletId ->
+                it.getData()?.asJsonObject?.getAsJsonPrimitive(OUTLET_ID)?.asString?.let { outletId ->
                     viewModel.getOutletData(outletId)
                 }
                 true
@@ -199,10 +199,7 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
         clusterAnnotationManager.deleteAll()
         pointAnnotationManager.deleteAll()
         if (pointsList.isNotEmpty()) {
-
-            val po = createPointAnnotationOptions(pointsList)
-
-            pointAnnotationManager.create(po)
+            pointAnnotationManager.create(createPointAnnotationOptions(pointsList))
         }
     }
 
@@ -215,7 +212,7 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
                 PointAnnotationOptions()
                     .withPoint(Point.fromLngLat(it.longitude, it.latitude))
                     .withIconImage(bitmap)
-                    .withData(JsonObject().apply { addProperty("outletId", it.outletId) })
+                    .withData(JsonObject().apply { addProperty(OUTLET_ID, it.outletId) })
             }
         }
     }
@@ -268,5 +265,9 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
             )
         )
         popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, -300)
+    }
+
+    companion object{
+        private const val OUTLET_ID = "OUTLET_ID"
     }
 }

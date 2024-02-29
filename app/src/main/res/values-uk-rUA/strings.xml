@@ -107,6 +107,8 @@
     <string name="adress">Адреса:</string>
     <string name="longitude">Довгота: %1$f</string>
     <string name="latitude">Широта: %1$f</string>
+    <string name="change_coordinates">Зміна координат</string>
+    <string name="distance_meters">%1$s м</string>
 
     <!-- Rates screen-->
     <string name="rates">Показники</string>
@@ -194,6 +196,7 @@
     <string name="time_at_the_outlet">Час у точці: %1$s</string>
     <string name="additional">Додатково</string>
     <string name="outlets_map">Мапа точок</string>
+    <string name="distance_between_coordinates">Відстань між координатами:</string>
 
 
 </resources>

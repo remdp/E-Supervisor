@@ -113,6 +113,9 @@
     <string name="adress">Adress:</string>
     <string name="longitude">Longitude: %1$f</string>
     <string name="latitude">Latitude: %1$f</string>
+    <string name="change_coordinates">Change of coordinates</string>
+    <string name="distance_meters">%1$s m</string>
+
 
 
     <!-- Rates screen-->
@@ -206,5 +209,6 @@
     <string name="sum_hryvnia" translatable="false">%1$s ₴</string>
     <string name="additional">Additional</string>
     <string name="outlets_map">Map of outlets</string>
+    <string name="distance_between_coordinates">Distance between coordinates:</string>
 
 </resources>

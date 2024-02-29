@@ -1,5 +1,6 @@
 package com.euromix.esupervisor.sources.docsEmixDetail
 
+import com.euromix.esupervisor.sources.docsEmixDetail.entities.ChangeCoordinatesResponseEntity
 import com.euromix.esupervisor.sources.docsEmixDetail.entities.DocEmixDetailRequestAgreementEntity
 import com.euromix.esupervisor.sources.docsEmixDetail.entities.DocEmixDetailResponseEntity
 import com.euromix.esupervisor.sources.docsEmixDetail.entities.ImageReactionRequestEntity
@@ -32,8 +33,17 @@ interface DocEmixDetailApi {
     suspend fun react(
         @Header("id") id: String,
         @Body bodyReact: ImageReactionRequestEntity
-    ):ImagesReactionsResponseEntity
+    ): ImagesReactionsResponseEntity
 
     @GET("image_reactions")
     suspend fun getImageReactions(@Header("id") id: String): List<ImageReactionResponseEntity>
+
+    @GET("change_coordinates")
+    suspend fun getChangeCoordinates(@Header("id") id: String): ChangeCoordinatesResponseEntity
+
+    @POST("change_coordinates")
+    suspend fun acceptChangeCoordinates(
+        @Header("id") id: String,
+        @Body bodyAgreement: DocEmixDetailRequestAgreementEntity
+    )
 }

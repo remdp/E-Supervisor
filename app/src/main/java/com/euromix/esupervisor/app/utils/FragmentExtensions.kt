@@ -17,6 +17,7 @@ import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.views.ResultView
+import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.changeCoordinates.ViewState
 
 fun Fragment.findTopNavController(): NavController {
     val topLevelHost =
@@ -57,4 +58,37 @@ fun Fragment.designByResult(
     srl?.let { it.isRefreshing = result is Pending }
     resultView.setResult(this, result, srl == null)
 
+}
+
+fun Fragment.designByViewState(
+    state: ViewState,
+    root: View,
+    resultView: ResultView,
+    srl: SwipeRefreshLayout? = null,
+    specialViews: List<View>? = null
+) {
+
+    val rootView: View = if (root is ScrollView)
+        root.getChildAt(0)
+    else
+        root
+
+    if (rootView is ViewGroup && rootView !is RecyclerView && root !is AbsListView) {
+        rootView.children
+            .filter { it != resultView }
+            .forEach {
+
+                if (state.error != null) it.isVisible = false
+                else {
+                    if (specialViews == null) {
+                        it.isVisible = true
+                    } else {
+                        if (!specialViews.contains(it)) it.isVisible = true
+                    }
+                }
+            }
+    }
+
+    srl?.let { it.isRefreshing = state.isLoading }
+    resultView.setResult(this, state, srl == null)
 }

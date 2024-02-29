@@ -8,6 +8,9 @@ import com.euromix.esupervisor.app.model.account.AccountRepository
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
+import com.mapbox.geojson.Point
+import com.mapbox.maps.CameraOptions
+import com.mapbox.maps.MapboxMap
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -47,6 +50,21 @@ open class BaseViewModel(val accountRepository: AccountRepository?) :
         else if (e != null) {
             e.message?.let { publishBaseErrorString(it) }
         }
+    }
+
+    //todo move to a more suitable place
+    fun setCamera(
+        mapboxMap: MapboxMap,
+        zoom: Double = 6.0,
+        longitude: Double = 31.41933250,
+        latitude: Double= 49.02459717
+    ) {
+        mapboxMap.setCamera(
+            CameraOptions.Builder()
+                .center(Point.fromLngLat(longitude, latitude))
+                .zoom(zoom)
+                .build()
+        )
     }
 
     fun logout() {

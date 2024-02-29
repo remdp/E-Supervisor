@@ -19,6 +19,9 @@
             app:argType="com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_docsEmixListFragment_to_changeOutletCoordinatesFragment"
+            app:destination="@id/changeOutletCoordinatesFragment" />
     </fragment>
     <fragment
         android:id="@+id/docEmixDetailFragment"
@@ -71,5 +74,16 @@
         <argument
             android:name="latitude"
             app:argType="float" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeOutletCoordinatesFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.changeCoordinates.ChangeOutletCoordinatesFragment"
+        android:label="ChangeOutletCoordinatesFragment" >
+        <argument
+            android:name="extId"
+            app:argType="string" />
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
     </fragment>
 </navigation>

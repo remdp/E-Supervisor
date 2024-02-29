@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/DP_8">
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_cross_grey" />
+
+
+    <TextView
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_marginStart="@dimen/DP_8"
+        android:id="@+id/tvNewOld"
+        android:padding="@dimen/DP_4"
+        android:paddingStart="@dimen/DP_8"
+        android:paddingEnd="@dimen/DP_8"
+        android:background="@drawable/bg_4dp_green_light"
+        style="@style/Text.Label.10.Medium.White"
+        android:textAllCaps="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="NEW"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvAddress"
+        style="@style/Text.Label.12"
+        android:layout_marginTop="@dimen/DP_8"
+        android:textColor="@color/gray_500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="м. Дніпро, просп. Дмитра Яворницького 101,  Аптека Рецептика"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNewOld" />
+
+    <TextView
+        android:id="@+id/tvCoordinates"
+        style="@style/Text.Label.12"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        app:drawableStartCompat="@drawable/ic_location_blue"
+        android:drawablePadding="@dimen/DP_8"
+        android:padding="@dimen/DP_8"
+        android:textColor="@color/blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddress"
+        tools:text="65.463119, 35.053243" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

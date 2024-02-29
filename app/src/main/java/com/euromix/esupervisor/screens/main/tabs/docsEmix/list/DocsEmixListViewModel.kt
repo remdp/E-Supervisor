@@ -25,7 +25,7 @@ class DocsEmixListViewModel @Inject constructor(
     private val docsEmixRepository: DocsEmixRepository
 ) : BaseViewModel() {
 
-    private val _viewState = MutableLiveData(ViewState(needLoading = true))
+    private val _viewState = MutableLiveData(ViewState())
     val viewState = _viewState.share()
 
     fun reload() {
@@ -36,8 +36,16 @@ class DocsEmixListViewModel @Inject constructor(
         _viewState.value = viewState.value?.copy(period = period, needLoading = true)
     }
 
-    fun updateSelection(selection: DocsEmixSelection?) {
+    fun updateSelection(selection: DocsEmixSelection) {
         _viewState.value = viewState.value?.copy(selection = selection, needLoading = true)
+    }
+
+    fun updateSelection() {
+
+        _viewState.value =
+            if (_viewState.value == null) ViewState(needLoading = true) else _viewState.value?.copy(
+                needLoading = true
+            )
     }
 
     fun afterUpdateState(

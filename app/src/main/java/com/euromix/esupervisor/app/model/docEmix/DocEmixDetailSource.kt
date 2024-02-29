@@ -1,5 +1,6 @@
 package com.euromix.esupervisor.app.model.docEmix
 
+import com.euromix.esupervisor.app.model.docEmix.entities.ChangeCoordinates
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.model.docEmix.entities.ImageReaction
 import com.euromix.esupervisor.app.model.docEmix.entities.ImagesReactions
@@ -18,5 +19,9 @@ interface DocEmixDetailSource {
     suspend fun react(id: String, reaction: ImageReactionRequestEntity): ImagesReactions
 
     suspend fun getImageReactions(id: String): List<ImageReaction>
+
+    suspend fun getChangeCoordinates(id: String): ChangeCoordinates
+
+    suspend fun acceptChangeCoordinates(id: String, approve: Boolean, reason: String)
 
 }

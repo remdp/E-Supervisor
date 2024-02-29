@@ -8,23 +8,29 @@ import com.euromix.esupervisor.R
 
 enum class DocEmixOperationType {
     ADD_TC {
-        override fun nameStringRes(): Int = R.string.add_tc
+        override fun nameStringRes() = R.string.add_tc
     },
     NEW_PARTNER_FACT {
-        override fun nameStringRes(): Int = R.string.new_partner_fact
+        override fun nameStringRes() = R.string.new_partner_fact
     },
     RETURN_REQUEST {
-        override fun nameStringRes(): Int = R.string.return_request
+        override fun nameStringRes() = R.string.return_request
+    },
+    CHANGE_COORDINATES {
+        override fun nameStringRes() = R.string.change_coordinates
     },
     UNDEFINED {
-        override fun nameStringRes(): Int = R.string.undefined
+        override fun nameStringRes() = R.string.undefined
     };
 
     abstract fun nameStringRes(): Int
 
     companion object {
 
-        fun stringRepresentation(context: Context, docEmixOperationType: DocEmixOperationType): String =
+        fun stringRepresentation(
+            context: Context,
+            docEmixOperationType: DocEmixOperationType
+        ): String =
             App.getString(context, docEmixOperationType.nameStringRes())
 
         fun designTV(
@@ -35,7 +41,8 @@ enum class DocEmixOperationType {
         ) {
 
             tvOperationType.text = stringRepresentation(tvOperationType.context, operationType)
-            tvOperationType.background = getOperationTypeDrawable(tvOperationType.context, status, detail)
+            tvOperationType.background =
+                getOperationTypeDrawable(tvOperationType.context, status, detail)
             tvOperationType.setTextColor(
                 getColor(
                     tvOperationType.context,
@@ -50,7 +57,11 @@ enum class DocEmixOperationType {
                 else -> R.color.gray_400
             }
 
-        private fun getOperationTypeDrawable(context: Context, status: Status, detail: Boolean = false) =
+        private fun getOperationTypeDrawable(
+            context: Context,
+            status: Status,
+            detail: Boolean = false
+        ) =
             App.getDrawable(
                 context, when (status) {
                     Status.IN_THE_PROCESS_OF_APPROVAL -> R.drawable.bg_operation_type_blue
@@ -58,7 +69,7 @@ enum class DocEmixOperationType {
                 }
             )
 
-        fun operationTypes() = arrayOf(ADD_TC, NEW_PARTNER_FACT, RETURN_REQUEST)
+        fun operationTypes() = arrayOf(ADD_TC, NEW_PARTNER_FACT, RETURN_REQUEST, CHANGE_COORDINATES)
 
         fun getByIndex(index: Int): DocEmixOperationType {
 

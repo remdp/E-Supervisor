@@ -15,5 +15,6 @@ data class DocEmix(
     val operationType: DocEmixOperationType,
     val partner: String,
     val status: Status,
-    val sum: Float?
+    val sum: Float?,
+    val partners: String
 )

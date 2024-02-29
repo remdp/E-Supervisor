@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvOutlet"
+        style="@style/Text.Label.12.Gray500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/DP_4"
+        android:background="@color/gray_100"
+        android:paddingStart="@dimen/DP_16"
+        android:paddingEnd="@dimen/DP_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="м. Дніпро, просп. Дмитра Яворницького 101,  Аптека Рецептика" />
+
+    <TextView
+        android:id="@+id/tvDistanceLabel"
+        style="@style/Text.Label.12.Gray500"
+        android:paddingTop="@dimen/DP_4"
+        android:paddingBottom="@dimen/DP_4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_100"
+        android:paddingStart="@dimen/DP_16"
+        android:paddingEnd="@dimen/DP_16"
+        android:text="@string/distance_between_coordinates"
+        app:layout_constraintEnd_toStartOf="@+id/tvDistance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutlet" />
+
+    <TextView
+        android:id="@+id/tvDistance"
+        style="@style/Text.Label.12.Medium"
+        android:paddingBottom="@dimen/DP_4"
+        android:paddingTop="@dimen/DP_4"
+        android:paddingEnd="@dimen/DP_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_100"
+        android:textColor="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutlet"
+        tools:text="435 м" />
+
+    <View
+        android:id="@+id/vSplitter"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_1"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:background="@color/dark_alpha_10"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOutlet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutlet"/>
+
+
+    <com.mapbox.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDistanceLabel">
+
+    </com.mapbox.maps.MapView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clAppbarBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:paddingStart="@dimen/DP_8"
+        android:paddingTop="@dimen/DP_8"
+        android:paddingEnd="@dimen/DP_8"
+        android:paddingBottom="@dimen/DP_8"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/mapView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
+
+        <Button
+            android:id="@+id/btnReject"
+            style="@style/Text.Label.14.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/DP_8"
+            android:backgroundTint="@color/white"
+            android:paddingTop="@dimen/DP_12"
+            android:paddingBottom="@dimen/DP_12"
+            android:text="@string/reject"
+            android:textColor="@color/blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnApprove"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="2dp" />
+
+        <Button
+            android:id="@+id/btnApprove"
+            style="@style/Text.Label.14.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/DP_12"
+            android:paddingBottom="@dimen/DP_12"
+            android:text="@string/approve"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnReject"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.euromix.esupervisor.app.views.ResultView
+        android:id="@+id/vResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

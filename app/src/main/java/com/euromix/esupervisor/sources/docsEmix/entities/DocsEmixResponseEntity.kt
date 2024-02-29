@@ -5,7 +5,6 @@ import com.euromix.esupervisor.app.enums.Status
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.squareup.moshi.Json
 import java.time.LocalDateTime
-
 data class DocsEmixResponseEntity(
     val extId: String,
     val deletionMark: Boolean,
@@ -17,7 +16,8 @@ data class DocsEmixResponseEntity(
     @field:Json(name = "operation_type") val operationType: Int,
     val partner: String,
     val status: Int,
-    val sum: Float?
+    val sum: Float?,
+    val partners: String
 ) {
 
     fun toDocEmix(): DocEmix = DocEmix(
@@ -31,6 +31,7 @@ data class DocsEmixResponseEntity(
         operationType = DocEmixOperationType.getByIndex(operationType),
         partner = partner,
         status = Status.getByIndex(status),
-        sum = sum
+        sum = sum,
+        partners = partners
     )
 }

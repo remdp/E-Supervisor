@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.Const.MIN_LENGTH_SEARCH_STRING
 import com.euromix.esupervisor.app.Const.SELECTION_KEY
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
@@ -24,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_fragment) {
 
+    private val navController: NavController by lazy { findNavController() }
     override val viewModel by viewModels<DocsSelectionViewModel>()
 
     private val binding by viewBinding<DocsEmixSelectionFragmentBinding>()
@@ -44,7 +47,12 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
             setFragmentResult(
                 SELECTION_KEY,
                 Bundle().apply { putParcelable(SELECTION_KEY, viewModel.selection.value) })
-            findNavController().popBackStack()
+
+            navController.previousBackStackEntry?.savedStateHandle?.set(
+                Const.START_LOAD,
+                false
+            )
+            navController.popBackStack()
         }
 
         binding.btnCancel.setOnClickListener { findNavController().popBackStack() }

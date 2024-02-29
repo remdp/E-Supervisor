@@ -28,4 +28,15 @@ class DocEmixDetailRepository @Inject constructor(
     fun getImageReactions(id: String) =
         serverCallbackFlowFetcher { docEmixDetailSource.getImageReactions(id) }
 
+    fun getChangeCoordinates(id: String) =
+        serverCallbackFlowFetcher { docEmixDetailSource.getChangeCoordinates(id) }
+
+    fun acceptChangeCoordinates(id: String, approve: Boolean, reason: String) =
+        serverCallbackFlowFetcher {
+            docEmixDetailSource.acceptChangeCoordinates(
+                id,
+                approve,
+                reason
+            )
+        }
 }

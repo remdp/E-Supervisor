@@ -5,34 +5,27 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const.SELECTION_KEY
+import com.euromix.esupervisor.app.Const.START_LOAD
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.setPeriodSelection
-import com.euromix.esupervisor.app.utils.textDate
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.DocEmixListFragmentBinding
-import com.euromix.esupervisor.screens.main.tabs.TitleData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
 
+    private val navController: NavController by lazy { findNavController() }
     override val viewModel by viewModels<DocsEmixListViewModel>()
     private val binding by viewBinding<DocEmixListFragmentBinding>()
 
-    private val adapter = DocsEmixAdapter { docEmix ->
-        val direction =
-            DocsEmixListFragmentDirections.actionDocsEmixListFragmentToDocEmixDetailFragment(
-                extId = docEmix.extId,
-                titleData = TitleData(
-                    docEmix.number,
-                    textDate(docEmix.date)
-                )
-            )
-        findNavController().navigate(direction)
+    private val adapter = DocsEmixAdapter { direction ->
+        navController.navigate(direction)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,6 +43,13 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
         ) {
             viewModel.updatePeriod(it)
         }
+
+        (navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(START_LOAD)
+            ?: true).also { startLoad ->
+            if (startLoad) {
+                viewModel.updateSelection()
+            }
+        }
     }
 
     private fun setupObservers() {
@@ -59,14 +59,20 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
 
         setFragmentResultListener(SELECTION_KEY) { requestKey, bundle ->
 
-            val selection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                bundle.getParcelable(requestKey, DocsEmixSelection::class.java)
-            } else {
-                bundle.getParcelable(requestKey)
+            val selection: DocsEmixSelection? =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    bundle.getParcelable(requestKey, DocsEmixSelection::class.java)
+                } else {
+                    bundle.getParcelable(requestKey)
+                }
+            if (selection != null) {
+                viewModel.updateSelection(selection)
             }
 
-            if (selection is DocsEmixSelection) viewModel.updateSelection(selection)
-
+            navController.currentBackStackEntry?.savedStateHandle?.set(
+                START_LOAD,
+                true
+            )
         }
     }
 
@@ -79,7 +85,7 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
                 DocsEmixListFragmentDirections.actionDocsEmixListFragmentToDocsEmixSelectionFragment(
                     selection = viewModel.viewState.value?.selection
                 )
-            findNavController().navigate(direction)
+            navController.navigate(direction)
         }
     }
 }
