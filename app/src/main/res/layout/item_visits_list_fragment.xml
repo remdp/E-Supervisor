@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/DP_8"
+    android:paddingBottom="@dimen/DP_8"
+    android:background="@drawable/layout_background">
+
+    <TextView
+        android:id="@+id/tvPartner"
+        style="@style/Text.Label.14.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        app:drawableStartCompat="@drawable/ic_person_blue1"
+        android:drawablePadding="@dimen/DP_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Вишняковский К. В." />
+
+    <ImageView
+        android:id="@+id/ivUnscheduled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_calendar_cross_red"
+        android:contentDescription="" />
+
+    <TextView
+        android:id="@+id/tvAddress"
+        style="@style/Text.Label.14.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPartner"
+        tools:text="м. Дніпро, вул. Глінки 2-б, ТРК Мост-Сіті, другий поверх" />
+
+    <include
+        android:id="@+id/iVisitStatistic"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginEnd="@dimen/DP_8"
+        layout="@layout/visit_statistic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
