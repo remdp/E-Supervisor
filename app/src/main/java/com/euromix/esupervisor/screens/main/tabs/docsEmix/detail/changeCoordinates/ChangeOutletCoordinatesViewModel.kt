@@ -185,17 +185,28 @@ class ChangeOutletCoordinatesViewModel @AssistedInject constructor(
     ) = Pair((longitudeOld + longitudeNew) / 2, (latitudeOld + latitudeNew) / 2)
 
     fun calculateZoom(distance: Int) = when {
-        distance > 17000 -> 9.0
-        distance > 8500 -> 10.0
-        distance > 2550 -> 11.0
-        distance > 1700 -> 12.0
-        distance > 850 -> 13.0
-        distance > 510 -> 14.0
-        distance > 255 -> 15.0
-        distance > 130 -> 16.0
-        distance > 60 -> 17.0
-        distance > 30 -> 18.0
-        else -> 19.0
+        distance <= 3 -> 22.0
+        distance <= 6 -> 21.0
+        distance <= 12 -> 20.0
+        distance <= 30 -> 19.0
+        distance <= 60 -> 18.0
+        distance <= 120 -> 17.0
+        distance <= 250 -> 16.0
+        distance <= 550 -> 15.0
+        distance <= 1100 -> 14.0
+        distance <= 2000 -> 13.0
+        distance <= 4000 -> 12.0
+        distance <= 8000 -> 11.0
+        distance <= 16000 -> 10.0
+        distance <= 32000 -> 9.0
+        distance <= 64000 -> 8.0
+        distance <= 128000 -> 7.0
+        distance <= 256000 -> 6.0
+        distance <= 512000 -> 5.0
+        distance <= 1024000 -> 4.0
+        distance <= 2048000 -> 3.0
+        distance <= 4096000 -> 2.0
+        else -> 1.0
     }
 
     @AssistedFactory
