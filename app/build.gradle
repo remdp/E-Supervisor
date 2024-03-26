@@ -29,8 +29,8 @@ android {
         applicationId "com.euromix.esupervisor"
         minSdk 26
         targetSdk 33
-        versionCode 12
-        versionName "1.4.2"
+        versionCode 13
+        versionName "1.4.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -132,5 +132,7 @@ dependencies {
 
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.10"
+
+    implementation "com.daimajia.swipelayout:library:1.2.0"
 
 }

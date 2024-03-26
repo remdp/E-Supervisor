@@ -24,6 +24,9 @@
     <string name="create_task_next_visit">Create a task for the next visit</string>
     <string name="create_task_next_visit_result">The result of creating a task for the next visit</string>
     <string name="day">Day</string>
+    <string name="visits">Visits</string>
+    <string name="more">More</string>
+    <string name="map">Map</string>
 
     <!-- Statuses -->
     <string name="done">Done</string>>
@@ -210,5 +213,17 @@
     <string name="additional">Additional</string>
     <string name="outlets_map">Map of outlets</string>
     <string name="distance_between_coordinates">Distance between coordinates:</string>
+
+
+    <!-- Visits screen -->
+    <string name="visits_count">%1$s visit(s)</string>
+    <string name="regular">Regular</string>
+    <string name="remote">Remote</string>
+    <string name="change_visit_type">Changing the type of visit</string>
+    <string name="result_changing_visits_title">The result of changing visits</string>
+    <string name="result_changing_visits">The visit type has been changed for %1$s visit(s).</string>
+    <string name="visits_counts" translatable="false">%1$d/%2$d</string>
+
+
 
 </resources>

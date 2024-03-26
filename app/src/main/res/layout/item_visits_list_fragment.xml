@@ -1,54 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/DP_8"
-    android:paddingBottom="@dimen/DP_8"
-    android:background="@drawable/layout_background">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvPartner"
-        style="@style/Text.Label.14.Bold"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/llIv"
         android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivChangeVisitType"
+            android:layout_marginBottom="@dimen/DP_8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/DP_32"
+            android:layout_marginEnd="@dimen/DP_32"
+            android:src="@drawable/ic_visit_regular" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/DP_8"
+            android:background="@color/gray_100"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        </View>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/DP_8"
-        app:drawableStartCompat="@drawable/ic_person_blue1"
-        android:drawablePadding="@dimen/DP_8"
+        android:background="@color/white">
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbMark"
+        android:layout_width="32dp"
+        android:layout_height="0dp"
+        android:background="@color/gray_100"
+        app:buttonIcon="@drawable/ic_checkbox_white_off"
+        app:buttonTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Вишняковский К. В." />
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvNumber"
+            style="@style/Text.Label.14.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/DP_8"
+            app:layout_constraintStart_toEndOf="@+id/cbMark"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="DP_B0000000328" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            style="@style/Text.Label.14.Gray400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/DP_8"
+            app:layout_constraintStart_toEndOf="@id/tvNumber"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="30.01.2023" />
+
+        <TextView
+            android:id="@+id/tvPartner"
+            style="@style/Text.Label.14.Bold"
+            android:layout_marginTop="@dimen/DP_8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/DP_8"
+            android:layout_marginEnd="@dimen/DP_8"
+            android:drawablePadding="@dimen/DP_8"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toStartOf="@+id/ivUnscheduled"
+            app:layout_constraintStart_toEndOf="@+id/cbMark"
+            app:layout_constraintTop_toBottomOf="@+id/tvNumber"
+            tools:drawableStartCompat="@drawable/ic_person_blue1"
+            tools:text="Вишняковский К. В." />
 
     <ImageView
         android:id="@+id/ivUnscheduled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/DP_8"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPartner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_calendar_cross_red"
-        android:contentDescription="" />
+        app:layout_constraintTop_toTopOf="@+id/tvPartner"
+        app:srcCompat="@drawable/ic_calendar_cross_red" />
 
     <TextView
         android:id="@+id/tvAddress"
         style="@style/Text.Label.14.Gray400"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/DP_8"
         android:layout_marginTop="@dimen/DP_8"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/DP_8"
+        app:layout_constraintBottom_toTopOf="@+id/iVisitStatistic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cbMark"
         app:layout_constraintTop_toBottomOf="@+id/tvPartner"
         tools:text="м. Дніпро, вул. Глінки 2-б, ТРК Мост-Сіті, другий поверх" />
 
     <include
         android:id="@+id/iVisitStatistic"
-        android:layout_marginTop="@dimen/DP_8"
-        android:layout_marginStart="@dimen/DP_8"
-        android:layout_marginEnd="@dimen/DP_8"
         layout="@layout/visit_statistic"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginBottom="@dimen/DP_8"
+        app:layout_constraintBottom_toTopOf="@+id/vBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cbMark"
         app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/vBottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DP_8"
+        android:background="@color/gray_100"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </View>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.daimajia.swipe.SwipeLayout>
+
+
+
+

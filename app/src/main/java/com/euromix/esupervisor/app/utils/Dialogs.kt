@@ -152,3 +152,34 @@ fun dialogReactDislike(
     dialog.show()
 
 }
+
+fun showErrors(context: Context, errors: List<Int>) {
+    val message = buildErrorMessage(context, errors)
+    showDialog(context, message)
+}
+
+private fun buildErrorMessage(context: Context, errors: List<*>) : String {
+    var message = context.getString(R.string.need_fill_colon)
+    errors.forEach {
+        if(it is Int)
+            message = message + "\n" + context.getString(it)
+        else if (it is String)
+            message = message + "\n" + it
+    }
+    return message
+}
+
+private fun showDialog(context: Context, message: String) {
+    val builder = android.app.AlertDialog.Builder(context)
+    val dialog = with(builder) {
+        setTitle(R.string.validation_errors)
+        setMessage(message)
+        setPositiveButton("OK", null)
+        create()
+    }
+    dialog.setOnShowListener {
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE)
+            .setOnClickListener { dialog.dismiss() }
+    }
+    dialog.show()
+}

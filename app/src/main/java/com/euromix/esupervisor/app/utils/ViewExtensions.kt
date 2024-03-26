@@ -8,7 +8,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
@@ -20,6 +19,7 @@ import com.euromix.esupervisor.app.enums.Status
 import com.euromix.esupervisor.app.enums.TaskState
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.utils.customIndicator.CustomProgressIndicator
+import com.google.android.material.checkbox.MaterialCheckBox
 
 fun View.showKeyboard() {
     requestFocus()
@@ -32,6 +32,16 @@ fun View.showKeyboard() {
 fun View.hideKeyboard() {
     context?.getSystemService(Context.INPUT_METHOD_SERVICE)?.safeAs<InputMethodManager>()
         ?.hideSoftInputFromWindow(windowToken, 0)
+}
+
+fun MaterialCheckBox.setIcon(mark: Boolean?) {
+    setButtonIconDrawableResource(
+        when (mark) {
+            true -> R.drawable.ic_checkbox_white_on
+            false -> R.drawable.ic_checkbox_white_off
+            else -> R.drawable.ic_checkbox_white_indeterminate
+        }
+    )
 }
 
 fun TextView.setTextColorStatus(status: Status) {
@@ -118,7 +128,6 @@ fun TextView.setOnClickListenerLocalSelection(
                 } else if (event.rawX >= textLocation[0] + width - totalPaddingRight) {
                     // Right drawable was tapped
                     onClick(itemsList, updaterSelection, v, 1, emptyChecker)
-                    //return@setOnTouchListener true
                 } else {
                     onClick(itemsList, updaterSelection, v, 0, emptyChecker)
                 }
@@ -143,7 +152,6 @@ fun TextView.setDrawableOnClickListener(onClick: () -> Unit) {
                 } else if (event.rawX >= textLocation[0] + width - totalPaddingRight) {
                     // Right drawable was tapped
                     onClick()
-                   // return@setOnTouchListener false
                 } else {
                     onClick()
                 }
@@ -210,8 +218,9 @@ fun Context.colorStateList(@ColorRes color: Int): ColorStateList {
 }
 
 fun View.visibility(visible: Boolean) {
-    visibility =  if (visible) View.VISIBLE else View.GONE
+    visibility = if (visible) View.VISIBLE else View.GONE
 }
+
 fun View.visible() {
     visibility = View.VISIBLE
 }

@@ -4,7 +4,7 @@
     <string name="invalid_username_or_password">Неправильний супервайзер або пароль</string>
     <string name="in_developing">В розробці</string>
     <string name="undefined">Не визначене</string>
-    <string name="period_selection">Вибір периоду</string>
+    <string name="period_selection">Вибір періоду</string>
     <string name="date_selection">Вибір дати</string>
     <string name="no_internet_connection">немає зв\'язку з інтернет</string>
 
@@ -24,6 +24,9 @@
     <string name="create_task_next_visit">Створити завдання на наступний візит</string>
     <string name="create_task_next_visit_result">Результат створення завдання на наступний візит</string>
     <string name="day">День</string>
+    <string name="visits">Візити</string>
+    <string name="more">Ще</string>
+    <string name="map">Мапа</string>
 
     <!-- Statuses -->
     <string name="done">Виконано</string>>
@@ -198,5 +201,12 @@
     <string name="outlets_map">Мапа точок</string>
     <string name="distance_between_coordinates">Відстань між координатами:</string>
 
+    <!-- Visits screen -->
+    <string name="visits_count">%1$s візит(ів)</string>
+    <string name="regular">Регулярний</string>
+    <string name="remote">Дистанційний</string>
+    <string name="change_visit_type">Зміна типу відвідування</string>
+    <string name="result_changing_visits_title">Результат зміни візитів</string>
+    <string name="result_changing_visits">Для %1$s візита(ів) змінено тип відвідування</string>
 
 </resources>

@@ -49,10 +49,10 @@ class TabsFragment : BaseFragment(R.layout.fragment_tabs) {
 
             when (menuItem.itemId) {
 
-                R.id.additional_menu_item -> {
+                R.id.more_graph -> {
                     val popupMenu =
                         PopupMenu(requireContext(), binding.bottomNavigationView, Gravity.END)
-                    popupMenu.menuInflater.inflate(R.menu.additional_menu, popupMenu.menu)
+                    popupMenu.menuInflater.inflate(R.menu.more_menu, popupMenu.menu)
                     popupMenu.show()
 
                     popupMenu.setOnMenuItemClickListener {

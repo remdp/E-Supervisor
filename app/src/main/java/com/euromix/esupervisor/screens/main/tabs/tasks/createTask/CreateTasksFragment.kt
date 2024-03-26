@@ -24,6 +24,7 @@ import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.app.utils.setDateSelection
 import com.euromix.esupervisor.app.utils.setDrawableOnClickListener
 import com.euromix.esupervisor.app.utils.setOnClickListenerLocalSelection
+import com.euromix.esupervisor.app.utils.showErrors
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.CreateTasksFragmentBinding
@@ -108,7 +109,7 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
 
             val errors = viewModel.verifyPossibilityCreation(description)
             if (errors.isNotEmpty()) {
-                showErrors(errors)
+                showErrors(requireContext(), errors)
             } else {
                 viewModel.createTasks(description)
             }
@@ -220,30 +221,6 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
 
         val dialog = with(builder) {
             setTitle(R.string.tasks_creation_result_title)
-            setMessage(message)
-            setPositiveButton("OK", null)
-            create()
-        }
-
-        dialog.setOnShowListener {
-            dialog.getButton(DialogInterface.BUTTON_POSITIVE)
-                .setOnClickListener { dialog.dismiss() }
-        }
-        dialog.show()
-    }
-
-    private fun showErrors(errors: List<Int>) {
-
-        var message = getString(R.string.need_fill_colon)
-
-        errors.forEach {
-            message = message + "\n" + getString(it)
-        }
-
-        val builder = AlertDialog.Builder(requireContext())
-
-        val dialog = with(builder) {
-            setTitle(R.string.validation_errors)
             setMessage(message)
             setPositiveButton("OK", null)
             create()

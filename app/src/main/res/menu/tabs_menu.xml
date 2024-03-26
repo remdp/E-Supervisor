@@ -5,20 +5,20 @@
         android:icon="@drawable/ic_agreement"
         android:title="@string/agreement" />
     <item
-        android:id="@+id/tasks_graph"
-        android:icon="@drawable/ic_tasks"
-        android:title="@string/tasks" />
+        android:id="@+id/visits_graph"
+        android:icon="@drawable/ic_visits"
+        android:title="@string/visits" />
     <item
         android:id="@+id/rates_graph"
         android:icon="@drawable/ic_rates"
         android:title="@string/rates" />
     <item
-        android:id="@+id/additional_menu_item"
-        android:icon="@drawable/ic_additional"
-        android:title="@string/additional">
+        android:id="@+id/map_graph"
+        android:icon="@drawable/ic_map"
+        android:title="@string/map">
     </item>
     <item
-        android:id="@+id/profile_graph"
-        android:icon="@drawable/ic_account"
-        android:title="@string/profile" />
+        android:id="@+id/more_graph"
+        android:icon="@drawable/ic_additional"
+        android:title="@string/more" />
 </menu>
