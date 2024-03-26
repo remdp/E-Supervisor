@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.ESupervisor" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!--        <item name="colorPrimary">@color/colorVeniceBlue</item>-->
@@ -10,7 +10,6 @@
         <item name="textInputStyle">@style/GlobalTextInputStyle</item>
         <!--        <item name="android:windowBackground">@color/colorLayout</item>-->
         <item name="materialButtonStyle">@style/GlobalButtonStyle</item>
-
     </style>
 
 

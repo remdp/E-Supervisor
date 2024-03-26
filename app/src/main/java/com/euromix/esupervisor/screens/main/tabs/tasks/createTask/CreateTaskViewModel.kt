@@ -103,16 +103,19 @@ class CreateTaskViewModel @Inject constructor(
                 _outlets.value = Success(mutableListOf())
             } else {
                 searchRepository.findOutletsForCreateTask(request).collect { result ->
-                    if (result is Success) {
-                        result.value.map { it.toSelectionItemOutlet() }
-                            .also { selectionItemOutlets ->
-                                _outlets.value = Success(selectionItemOutlets.toMutableList())
-                                initialOutlets.addAll(selectionItemOutlets.map { it.copy() })
-                            }
-                    } else if (result is Pending) {
-                        _outlets.value = Pending()
-                    } else if (result is Error){
-                        _outlets.value = Error(result.error)
+
+                    when (result) {
+                        is Success -> {
+                            result.value.map { it.toSelectionItemOutlet() }
+                                .also { selectionItemOutlets ->
+                                    _outlets.value = Success(selectionItemOutlets.toMutableList())
+                                    initialOutlets.addAll(selectionItemOutlets.map { it.copy() })
+                                }
+                        }
+
+                        is Pending -> _outlets.value = Pending()
+                        is Error -> _outlets.value = Error(result.error)
+                        else -> {}
                     }
                 }
             }
@@ -157,14 +160,16 @@ class CreateTaskViewModel @Inject constructor(
         }.toMutableList()
 
         _outlets.value?.let { result ->
-            val currentList = (result as Success).value
-            newList.forEach { itemNewList ->
-                val foundItem = currentList.find { it.outlet == itemNewList.outlet }
-                itemNewList.marked = foundItem?.marked ?: false
+
+            if (result is Success) {
+                val currentList = result.value
+                newList.forEach { itemNewList ->
+                    val foundItem = currentList.find { it.outlet == itemNewList.outlet }
+                    itemNewList.marked = foundItem?.marked ?: false
+                }
+                _outlets.value = Success(newList)
             }
         }
-
-        _outlets.value = Success(newList)
     }
 
     fun drawableForParentCheckBox(): Int {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+  <item
+      android:drawable="@drawable/ic_person_blue"
+      android:width="@dimen/DP_20"
+      android:height="@dimen/DP_20"
+      />
+
+</layer-list >

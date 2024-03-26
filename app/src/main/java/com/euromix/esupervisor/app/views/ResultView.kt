@@ -15,6 +15,7 @@ import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.databinding.ViewResultBinding
+import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.changeCoordinates.ViewState
 
 class ResultView @JvmOverloads constructor(
@@ -58,6 +59,29 @@ class ResultView @JvmOverloads constructor(
     }
 
     fun setResult(fragment: Fragment, state: ViewState, showPB: Boolean) {
+
+        val isError = state.error != null
+
+        binding.messageTextView.isVisible = isError
+        binding.errorButton.isVisible = isError
+        binding.progressBar.isVisible = state.isLoading && showPB
+        if (isError) {
+            val message = when (state.error) {
+                is ConnectionException -> context.getString(R.string.connection_error)
+                is AuthException -> context.getString(R.string.auth_error)
+                else -> state.error?.toString()
+            }
+            binding.messageTextView.text = message
+            if (state.error is AuthException) {
+                if (fragment is BaseFragment)
+                    fragment.logout()
+            } else {
+                renderTryAgainButton()
+            }
+        }
+    }
+
+    fun setResult(fragment: Fragment, state: BaseViewState, showPB: Boolean) {
 
         val isError = state.error != null
 

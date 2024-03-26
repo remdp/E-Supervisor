@@ -220,7 +220,7 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
     private fun showPopup(outletData: OutletData) {
 
         val backgroundView = View(context)
-        backgroundView.setBackgroundColor(Color.parseColor("#80000000")) // Устанавливаем цвет и прозрачность фона
+        backgroundView.setBackgroundColor(Color.parseColor("#80000000"))
         backgroundView.isClickable = true
 
         binding.root.addView(
@@ -229,7 +229,6 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
             ViewGroup.LayoutParams.MATCH_PARENT
         )
 
-        // Создаем объект View Binding
         val popupBinding = StatisticPopupBinding.inflate(LayoutInflater.from(requireContext()))
 
         with(popupBinding) {
@@ -238,13 +237,11 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
             tvOutletName.text = outletData.name
             tvOutletAddress.text = outletData.address
 
-            tvVisitTime.text = outletData.checkIn
-            tvVisitDuration.text = getString(R.string.time_at_the_outlet, outletData.outletTime)
-            tvOrderSum.text = getString(R.string.sum_hryvnia, outletData.orderSum)
-            tvCashReceiptOrderSum.text =
+            iVisitStatistic.tvVisitTime.text = outletData.checkIn
+            iVisitStatistic.tvVisitDuration.text = getString(R.string.time_at_the_outlet, outletData.outletTime)
+            iVisitStatistic.tvOrderSum.text = getString(R.string.sum_hryvnia, outletData.orderSum)
+            iVisitStatistic.tvCashReceiptOrderSum.text =
                 getString(R.string.sum_hryvnia, outletData.cashReceiptOrderSum)
-
-
         }
 
         val popupWindow = PopupWindow(

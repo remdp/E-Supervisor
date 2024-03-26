@@ -68,8 +68,10 @@
     <color name="gray_500">#6A7781</color>
     <color name="gray_600">#3E4449</color>
     <color name="blue">#167AFA</color>
+    <color name="blue_80">#CC167AFA</color>
     <color name="blue_10">#1A167AFA</color>
     <color name="orange">#FF830A</color>
+    <color name="orange_80">#CCFF830A</color>
     <color name="orange_light">#FCAF56</color>
     <color name="green">#5B9F3A</color>
     <color name="green_light">#95BD82</color>
@@ -82,6 +84,6 @@
     <color name="light_alpha_80">#CCFFFFFF</color>
     <color name="green_alpha_80">#CC5B9F3A</color>
     <color name="dark_alpha_10">#1A041329</color>
-
+    <color name="light_alpha_60">#99FFFFFF</color>
 
 </resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/visits_graph"
+    app:startDestination="@id/visitsListFragment">
+
+    <fragment
+        android:id="@+id/visitsListFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.visits.list.VisitsListFragment"
+        android:label="VisitsListFragment" >
+        <action
+            android:id="@+id/action_visitsListFragment_to_visitsListSelectionFragment"
+            app:destination="@id/visitsListSelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/visitsListSelectionFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.visits.list.selection.VisitsListSelectionFragment"
+        android:label="VisitsListSelectionFragment" >
+        <argument
+            android:name="selection"
+            app:argType="com.euromix.esupervisor.app.model.visits.entities.VisitsListSelection" />
+    </fragment>
+</navigation>
