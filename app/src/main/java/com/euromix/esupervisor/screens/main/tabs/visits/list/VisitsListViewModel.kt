@@ -30,7 +30,7 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
     private val _viewStateEvent = MutableLiveEvent<ViewState>()
     val viewStateEvent = _viewStateEvent.share()
 
-    private var _selection: VisitsListSelection = VisitsListSelection()
+    private var _selection: VisitsListSelection = VisitsListSelection(period = Pair(Date(), Date()))
     val selection: VisitsListSelection
         get() = _selection
     private val _selectionEvent = MutableLiveEvent<VisitsListSelection>()

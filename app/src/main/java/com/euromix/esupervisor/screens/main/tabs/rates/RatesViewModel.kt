@@ -25,7 +25,7 @@ class RatesViewModel @Inject constructor(
     private val ratesRepository: RatesRepository
 ) : BaseViewModel() {
 
-    private lateinit var currentRate: RateStructure
+    private var currentRate: RateStructure? = null
     private var _currentDimensions: List<String> = listOf()
     private var _detailLevel: Int = 0
     private val rateSettings: MutableList<RateSetting> = mutableListOf()
@@ -47,28 +47,30 @@ class RatesViewModel @Inject constructor(
         getRates()
     }
 
-    private fun requestForResult(): RateRequestEntity {
+    private fun requestForResult(): RateRequestEntity? {
 
-        return RateRequestEntity(
-            rateId = currentRate.rate.id,
-            startDate = period.first.dateToJsonString(),
-            endDate = period.second.dateToJsonString(),
-            detailLevel = if (rateSettings.isEmpty()) _detailLevel else rateSettings.last().detailLevel,
-            planType = _planType.value ?: 0,
-            selection = rateSettings.map {
-                RateSelectionItem(
-                    it.serverObject.serverPair.id,
-                    it.serverObject.serverType
-                )
-            }
-        )
+        return currentRate?.let { rate ->
+            RateRequestEntity(
+                rateId = rate.rate.id,
+                startDate = period.first.dateToJsonString(),
+                endDate = period.second.dateToJsonString(),
+                detailLevel = rateSettings.lastOrNull()?.detailLevel ?: _detailLevel,
+                planType = _planType.value ?: 0,
+                selection = rateSettings.map {
+                    it.serverObject.let { serverObj ->
+                        RateSelectionItem(serverObj.serverPair.id, serverObj.serverType)
+                    }
+                }
+            )
+        }
     }
 
     private fun getRate() {
         safeLaunch {
-            val request = requestForResult()
-            ratesRepository.getRate(request).collect { result ->
-                _rate.value = result
+            requestForResult()?.let {
+                ratesRepository.getRate(it).collect { result ->
+                    _rate.value = result
+                }
             }
         }
     }
@@ -81,8 +83,8 @@ class RatesViewModel @Inject constructor(
         }
     }
 
-    private fun setDimensions(planType: Int?, rate: RateStructure){
-        _currentDimensions =  if (planType == 1)  rate.dayDimensions else rate.dimensions
+    private fun setDimensions(planType: Int?, rate: RateStructure) {
+        _currentDimensions = if (planType == 1) rate.dayDimensions else rate.dimensions
     }
 
     fun updateRate(rate: RateStructure) {
@@ -111,9 +113,11 @@ class RatesViewModel @Inject constructor(
     }
 
     fun changePlanType(planType: Int) {
-        setDimensions(planType, currentRate)
-        _planType.value = planType
-        getRate()
+        currentRate?.let {
+            setDimensions(planType, it)
+            _planType.value = planType
+            getRate()
+        }
     }
 
     fun decipherDimensions(): Array<String> {
@@ -127,15 +131,17 @@ class RatesViewModel @Inject constructor(
     fun selectionEmpty() = rateSettings.isEmpty()
 
     fun backStackPath(): String {
+        var path = ""
 
-        var path = currentRate.rate.presentation
+        currentRate?.let { rateStructure ->
+            path = rateStructure.rate.presentation
 
-        rateSettings.forEach {
-            path = path + if (path.isBlank()) "" else {
-                " / "
-            } + it.serverObject.serverPair.presentation
+            rateSettings.forEach { rateSetting ->
+                path = path + if (path.isBlank()) "" else {
+                    " / "
+                } + rateSetting.serverObject.serverPair.presentation
+            }
         }
-
         return path
     }
 
