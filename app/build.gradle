@@ -136,7 +136,7 @@ dependencies {
     implementation 'com.mapbox.maps:android:10.16.2'
 
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.20"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.9.20"
 
     implementation "com.daimajia.swipelayout:library:1.2.0"
 
