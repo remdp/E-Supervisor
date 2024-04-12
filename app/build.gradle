@@ -76,6 +76,7 @@ android {
     viewBinding {
         enabled true
     }
+    namespace 'com.euromix.esupervisor'
 }
 
 dependencies {
