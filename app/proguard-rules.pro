@@ -47,3 +47,20 @@
 -dontwarn org.openjsse.javax.net.ssl.SSLParameters
 -dontwarn org.openjsse.javax.net.ssl.SSLSocket
 -dontwarn org.openjsse.net.ssl.OpenJSSE
+
+-keep,allowobfuscation,allowshrinking interface retrofit2.Call
+-keep,allowobfuscation,allowshrinking class retrofit2.Response
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+
+# view binding
+-keepclassmembers class com.euromix.esupervisor.databinding.** {*;}
+
+# data classes
+-keepclassmembers class com.euromix.esupervisor.sources.account.entities.SignInResponseEntity{*;}
+-keepclassmembers class com.euromix.esupervisor.sources.account.entities.TokenEntity{*;}
+
+#-keeppackagenames res.layout.rates_fragment.xml
+#-keep class com.euromix.esupervisor.screens.main.auth.SignInViewModel{
+#    *;
+#}
+#-keep class com.euromix.esupervisor.app.utils.ViewBindingDelegateKt{*;}

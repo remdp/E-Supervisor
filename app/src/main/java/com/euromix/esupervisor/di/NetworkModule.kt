@@ -1,6 +1,6 @@
 package com.euromix.esupervisor.di
 
-import com.euromix.esupervisor.app.Const
+import com.euromix.esupervisor.BuildConfig
 import com.euromix.esupervisor.app.model.settings.AppSettings
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -11,7 +11,6 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.time.Duration
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -53,7 +52,7 @@ class NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
 
         return Retrofit.Builder()
-            .baseUrl(Const.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()
