@@ -4,24 +4,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavDirections
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
 import com.euromix.esupervisor.app.enums.Status
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
+import com.euromix.esupervisor.app.model.visits.entities.Visit
 import com.euromix.esupervisor.app.utils.textDate
 import com.euromix.esupervisor.databinding.ItemDocEmixListFragmentBinding
 import com.euromix.esupervisor.screens.main.tabs.TitleData
+import com.euromix.esupervisor.screens.main.tabs.visits.list.VisitsAdapter
 
 class DocsEmixAdapter(
     private val docEmixActionListener: (direction: NavDirections) -> Unit
 ) :
-    RecyclerView.Adapter<DocsEmixAdapter.DocsEmixViewHolder>(), View.OnClickListener {
-
-    var docsEmix: List<DocEmix> = emptyList()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+    ListAdapter<DocEmix, DocsEmixAdapter.DocsEmixViewHolder>(DiffCallback()), View.OnClickListener {
 
     override fun onClick(p0: View?) {
         val docEmix = p0?.tag as DocEmix
@@ -44,10 +42,6 @@ class DocsEmixAdapter(
         docEmixActionListener.invoke(direction)
     }
 
-    override fun getItemCount(): Int {
-        return docsEmix.size
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocsEmixViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemDocEmixListFragmentBinding.inflate(inflater, parent, false)
@@ -58,7 +52,7 @@ class DocsEmixAdapter(
 
     override fun onBindViewHolder(holder: DocsEmixViewHolder, position: Int) {
 
-        val docEmix = docsEmix[position]
+        val docEmix = getItem(position)
         with(holder.binding) {
             holder.itemView.tag = docEmix
             Status.designTV(tvStatus, docEmix.status)
@@ -76,4 +70,10 @@ class DocsEmixAdapter(
         val binding: ItemDocEmixListFragmentBinding
     ) : RecyclerView.ViewHolder(binding.root)
 
+    class DiffCallback : DiffUtil.ItemCallback<DocEmix>() {
+        override fun areItemsTheSame(oldItem: DocEmix, newItem: DocEmix) =
+            oldItem.extId == newItem.extId
+
+        override fun areContentsTheSame(oldItem: DocEmix, newItem: DocEmix) = oldItem == newItem
+    }
 }

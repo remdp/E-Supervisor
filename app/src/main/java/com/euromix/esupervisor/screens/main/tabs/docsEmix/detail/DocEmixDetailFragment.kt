@@ -14,16 +14,17 @@ import com.euromix.esupervisor.App.Companion.getDrawable
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
 import com.euromix.esupervisor.app.enums.Status
-import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
-import com.euromix.esupervisor.app.utils.designByResult
+import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.dialogPositiveButton
 import com.euromix.esupervisor.app.utils.gone
+import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.DocEmixDetailFragmentBinding
 import com.euromix.esupervisor.databinding.TabHeaderBinding
+import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.VPFragmentAdapter
 import com.euromix.esupervisor.screens.viewModelCreator
 import com.google.android.material.tabs.TabLayout
@@ -47,21 +48,6 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
         setupObservers()
     }
 
-    private fun setupObservers() {
-        viewModel.viewState.observe(viewLifecycleOwner) { state ->
-            viewModel.afterUpdateState()
-
-            if (state.result is Success && !state.needLoading) {
-                val docEmixDetail = state.result.value
-                renderState(docEmixDetail)
-                setupViewPager(docEmixDetail)
-            }
-            designByResult(
-                state.result, binding.root, binding.vResult, null, listOf(binding.clAppbarBottom)
-            )
-        }
-    }
-
     private fun setupListeners() {
         binding.btnApprove.setOnClickListener { viewModel.acceptDocEmixDetail() }
         binding.btnReject.setOnClickListener {
@@ -72,32 +58,65 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
         binding.vResult.setTryAgainAction { viewModel.reload() }
     }
 
-    private fun renderState(docEmixDetail: DocEmixDetail) {
+    private fun setupObservers() {
 
-        with(binding) {
+        viewModel.viewStateEvent.observeEvent(viewLifecycleOwner) {
+            renderState(it)
 
-            tvPartner.text = docEmixDetail.partner
-            Status.designTV(tvStatus, docEmixDetail.status)
-            DocEmixOperationType.designTV(
-                tvOperationType, docEmixDetail.operationType, docEmixDetail.status, true
-            )
-            tvDescription.text = docEmixDetail.description
+            if (it.docEmixDetail != null)
+                setupViewPager(it.docEmixDetail)
 
-            tvTradingAgent.text = docEmixDetail.tradingAgent
-            clAppbarBottom.isVisible = docEmixDetail.canBeAgreed
-
-            if (docEmixDetail.operationType == DocEmixOperationType.NEW_PARTNER_FACT) {
-                tvDistribChannelLabel.visible()
-                tvDistribChannel.visible()
-                tvEDRPOULabel.visible()
-                tvEDRPOU.visible()
-                tvPartner.text = docEmixDetail.workingName
-                tvDistribChannel.text = docEmixDetail.innerDistributionChannel
-                tvEDRPOU.text = docEmixDetail.edrpou
-            }
         }
+
+
+//        viewModel.viewState.observe(viewLifecycleOwner) { state ->
+//            viewModel.afterUpdateState()
+//
+//            if (state.result is Success && !state.needLoading) {
+//                val docEmixDetail = state.result.value
+//                renderState(docEmixDetail)
+//                setupViewPager(docEmixDetail)
+//            }
+//            designByResult(
+//                state.result, binding.root, binding.vResult, null, listOf(binding.clAppbarBottom)
+//            )
+//        }
+
+
     }
 
+
+    private fun renderState(viewState: DocEmixDetailViewModel.ViewState) {
+
+        designByViewState(
+            viewState as BaseViewState, binding.root, binding.vResult
+        )
+
+        if (viewState.docEmixDetail != null)
+            with(binding) {
+                with(viewState.docEmixDetail) {
+                    tvPartner.text = partner
+                    Status.designTV(tvStatus, status)
+                    DocEmixOperationType.designTV(
+                        tvOperationType, operationType, status, true
+                    )
+                    tvDescription.text = description
+
+                    tvTradingAgent.text = tradingAgent
+                    clAppbarBottom.isVisible = canBeAgreed
+
+                    if (operationType == DocEmixOperationType.NEW_PARTNER_FACT) {
+                        tvDistribChannelLabel.visible()
+                        tvDistribChannel.visible()
+                        tvEDRPOULabel.visible()
+                        tvEDRPOU.visible()
+                        tvPartner.text = workingName
+                        tvDistribChannel.text = innerDistributionChannel
+                        tvEDRPOU.text = edrpou
+                    }
+                }
+            }
+    }
 
     private fun setupViewPager(
         docEmixDetail: DocEmixDetail

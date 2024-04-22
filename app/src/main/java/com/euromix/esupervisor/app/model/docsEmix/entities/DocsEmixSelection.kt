@@ -7,6 +7,7 @@ import java.util.*
 
 @Parcelize
 data class DocsEmixSelection(
+    val period: Pair<Date, Date>? = null,
     val tradingAgent: ServerPair? = null,
     val partner: ServerPair? = null,
     val operationType: ServerPair? = null,

@@ -9,14 +9,21 @@ import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.docsEmix.DocsEmixRepository
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
+import com.euromix.esupervisor.app.model.visits.entities.Visit
+import com.euromix.esupervisor.app.model.visits.entities.VisitsListSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
+import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.dateToJsonString
 import com.euromix.esupervisor.app.utils.designByResult
+import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.databinding.DocEmixListFragmentBinding
+import com.euromix.esupervisor.screens.main.BaseViewState
+import com.euromix.esupervisor.screens.main.tabs.visits.list.VisitsListViewModel
 import com.euromix.esupervisor.sources.docsEmix.entities.DocsEmixRequestEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import java.util.Date
 import javax.inject.Inject
 
@@ -25,102 +32,90 @@ class DocsEmixListViewModel @Inject constructor(
     private val docsEmixRepository: DocsEmixRepository
 ) : BaseViewModel() {
 
-    private val _viewState = MutableLiveData(ViewState())
-    val viewState = _viewState.share()
+    private var _viewState = ViewState()
+    val viewState: ViewState
+        get() = _viewState
+
+    private val _viewStateEvent = MutableLiveEvent<ViewState>()
+    val viewStateEvent = _viewStateEvent.share()
+
+    private var _selection = DocsEmixSelection()
+    val selection
+        get() = _selection
+    private val _selectionEvent = MutableLiveEvent<DocsEmixSelection>()
+    val selectionEvent = _selectionEvent.share()
+
+    private var currentJob: Job? = null
+
+    init {
+        reload()
+    }
+
+    private fun <T> updateViewState(result: Result<T>) {
+
+        if (result !is Pending) currentJob = null
+
+        when (result) {
+            is Pending -> handlePendingState()
+            is Success -> handleSuccess(result.value as List<DocEmix>)
+            is Error -> handleError(result.error)
+            else -> {}
+        }
+
+        _viewStateEvent.publishEvent(_viewState)
+    }
+
+    private fun handlePendingState() {
+        _viewState = _viewState.copy(isLoading = true, error = null)
+    }
+
+    private fun handleSuccess(value: List<DocEmix>) {
+        _viewState = _viewState.copy(isLoading = false, error = null, docsEmix = value)
+    }
+
+    private fun handleError(error: Throwable) {
+        _viewState = _viewState.copy(isLoading = false, error = error)
+    }
+
+    private fun getDocsEmix() {
+
+        currentJob?.cancel()
+
+        currentJob = safeLaunch {
+            docsEmixRepository.getDocsEmix(requestFromSelection()).collect { result ->
+                updateViewState(result)
+            }
+        }
+    }
+
+    private fun requestFromSelection() = DocsEmixRequestEntity(
+        startDate = _selection.period?.first?.dateToJsonString(),
+        endDate = _selection.period?.second?.dateToJsonString(),
+        tradingAgentId = _selection.tradingAgent?.id,
+        partnerId = _selection.partner?.id,
+        operationType = selection.operationType?.id,
+        status = selection.status?.id
+    )
 
     fun reload() {
         getDocsEmix()
     }
 
-    fun updatePeriod(period: Pair<Date, Date>?) {
-        _viewState.value = viewState.value?.copy(period = period, needLoading = true)
+    fun changePeriod(period: Pair<Date, Date>?) {
+        _selection = _selection.copy(period = period)
+        _selectionEvent.publishEvent(_selection)
     }
 
-    fun updateSelection(selection: DocsEmixSelection) {
-        _viewState.value = viewState.value?.copy(selection = selection, needLoading = true)
-    }
-
-    fun updateSelection() {
-
-        _viewState.value =
-            if (_viewState.value == null) ViewState(needLoading = true) else _viewState.value?.copy(
-                needLoading = true
-            )
-    }
-
-    fun afterUpdateState(
-        adapter: DocsEmixAdapter,
-        binding: DocEmixListFragmentBinding,
-        fragment: BaseFragment
-    ) {
-
-        viewState.value?.let { stateValue ->
-            if (stateValue.needLoading) {
-                getDocsEmix()
-            } else {
-                adapter.docsEmix = stateValue.items
-            }
-
-            fragment.designByResult(
-                stateValue.result,
-                binding.root,
-                binding.vResult,
-                binding.srl
-            )
-        }
-    }
-
-    private fun getDocsEmix() {
-        safeLaunch {
-            val cf = docsEmixRepository.getDocsEmix(requestFromSelection())
-            cf.collect { result ->
-                updateResult(result)
-            }
-        }
-    }
-
-    private fun requestFromSelection(): DocsEmixRequestEntity {
-
-        val state = viewState.value
-
-        return DocsEmixRequestEntity(
-            startDate = state?.period?.first?.dateToJsonString(),
-            endDate = state?.period?.second?.dateToJsonString(),
-            tradingAgentId = state?.selection?.tradingAgent?.id,
-            partnerId = state?.selection?.partner?.id,
-            operationType = state?.selection?.operationType?.id,
-            status = state?.selection?.status?.id
-        )
-    }
-
-    private fun updateItems(items: List<DocEmix>) {
-        _viewState.value = viewState.value?.copy(items = items, result = Success(items))
-    }
-
-    private fun updateResult(result: Result<*>) {
-
-        viewState.value?.let { stateValue ->
-            when (result) {
-                is Pending -> _viewState.value =
-                    stateValue.copy(needLoading = false, result = Pending())
-
-                is Success -> updateItems(result.value as List<DocEmix>)
-                is Error -> _viewState.value =
-                    stateValue.copy(
-                        needLoading = false,
-                        result = Error(result.error)
-                    )
-
-                else -> _viewState.value = stateValue.copy(needLoading = false)
-            }
-        }
+    fun updateSelection(selection: DocsEmixSelection? = null) {
+        _selection = selection ?: _selection
+        _selectionEvent.publishEvent(_selection)
     }
 
     data class ViewState(
+        override val isLoading: Boolean = false,
+        override val error: Throwable? = null,
         val period: Pair<Date, Date>? = null,
         val selection: DocsEmixSelection? = null,
-        val items: List<DocEmix> = listOf(),
-        val needLoading: Boolean = false,
-        val result: Result<List<DocEmix>> = Empty()
-    )
+        val docsEmix: List<DocEmix> = listOf()
+    ) : BaseViewState()
 }

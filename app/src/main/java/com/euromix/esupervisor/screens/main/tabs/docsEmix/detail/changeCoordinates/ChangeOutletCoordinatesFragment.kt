@@ -19,6 +19,7 @@ import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.ChangeCoordinatesPopupBinding
 import com.euromix.esupervisor.databinding.ChangeOutletCoordinatesFragmentBinding
+import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.screens.viewModelCreator
 import com.mapbox.maps.MapboxMap
 import com.mapbox.maps.plugin.annotation.annotations
@@ -139,7 +140,7 @@ class ChangeOutletCoordinatesFragment : BaseFragment(R.layout.change_outlet_coor
             binding.vResult.setTryAgainAction(null)
 
         designByViewState(
-            state,
+            state as BaseViewState,
             binding.root,
             binding.vResult,
             null,
