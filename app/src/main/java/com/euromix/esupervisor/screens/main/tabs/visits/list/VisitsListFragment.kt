@@ -2,14 +2,9 @@ package com.euromix.esupervisor.screens.main.tabs.visits.list
 
 import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.TextView
-import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController

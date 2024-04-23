@@ -67,22 +67,6 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                 setupViewPager(it.docEmixDetail)
 
         }
-
-
-//        viewModel.viewState.observe(viewLifecycleOwner) { state ->
-//            viewModel.afterUpdateState()
-//
-//            if (state.result is Success && !state.needLoading) {
-//                val docEmixDetail = state.result.value
-//                renderState(docEmixDetail)
-//                setupViewPager(docEmixDetail)
-//            }
-//            designByResult(
-//                state.result, binding.root, binding.vResult, null, listOf(binding.clAppbarBottom)
-//            )
-//        }
-
-
     }
 
 

@@ -2,7 +2,6 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.list
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
