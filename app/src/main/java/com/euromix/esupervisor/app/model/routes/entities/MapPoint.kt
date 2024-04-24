@@ -197,15 +197,15 @@ data class MapPointSigns(
 
                 outletTA && isVisit && !checkInBounds && !isVisitDone && !isOrders && isDistanceVisitOutlet && !isOutletTT && !isOutletAllTT && !isPromisingOutlet -> R.drawable.ic_phone_blue
 
-                outletTA && isVisit && !checkInBounds && !isVisitDone && !isOrders && !isDistanceVisitOutlet && !isOutletTT && !isOutletAllTT && !isPromisingOutlet -> R.drawable.ic_phone_orange
+                outletTA && isVisit && !checkInBounds && !isVisitDone && !isOrders && !isDistanceVisitOutlet && !isOutletTT && !isOutletAllTT && !isPromisingOutlet -> R.drawable.ic_person_orange
 
-                outletTA && isVisit && !checkInBounds && isVisitDone && !isOrders && !isDistanceVisitOutlet && !isOutletTT && !isOutletAllTT && !isPromisingOutlet -> R.drawable.ic_phone_orange
+                outletTA && isVisit && !checkInBounds && isVisitDone && !isOrders && !isDistanceVisitOutlet && !isOutletTT && !isOutletAllTT && !isPromisingOutlet -> R.drawable.ic_person_orange
 
                 outletTA && isVisit && !checkInBounds && isVisitDone && !isOrders && isDistanceVisitOutlet && !isOutletTT && !isOutletAllTT && !isPromisingOutlet -> R.drawable.ic_phone_green
 
-                outletTA && isVisit && !checkInBounds && !isVisitDone && isOrders && !isDistanceVisitOutlet && !isOutletTT && !isOutletAllTT && !isPromisingOutlet -> R.drawable.ic_phone_flag_orange
+                outletTA && isVisit && !checkInBounds && !isVisitDone && isOrders && !isDistanceVisitOutlet && !isOutletTT && !isOutletAllTT && !isPromisingOutlet -> R.drawable.ic_person_flag_orange
 
-                outletTA && isVisit && !checkInBounds && isVisitDone && isOrders && !isDistanceVisitOutlet && !isOutletTT && !isOutletAllTT && !isPromisingOutlet -> R.drawable.ic_phone_flag_orange
+                outletTA && isVisit && !checkInBounds && isVisitDone && isOrders && !isDistanceVisitOutlet && !isOutletTT && !isOutletAllTT && !isPromisingOutlet -> R.drawable.ic_person_flag_orange
 
                 outletTA && isVisit && !checkInBounds && isVisitDone && isOrders && isDistanceVisitOutlet && !isOutletTT && !isOutletAllTT && !isPromisingOutlet -> R.drawable.ic_phone_flag_green
 

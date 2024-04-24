@@ -228,7 +228,10 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
 
         dialog.setOnShowListener {
             dialog.getButton(DialogInterface.BUTTON_POSITIVE)
-                .setOnClickListener { dialog.dismiss() }
+                .setOnClickListener {
+                    dialog.dismiss()
+                    navController.popBackStack()
+                }
         }
         dialog.show()
     }
