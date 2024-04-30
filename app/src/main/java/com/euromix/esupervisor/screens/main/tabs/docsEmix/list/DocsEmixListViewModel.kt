@@ -1,7 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.list
 
-import androidx.lifecycle.MutableLiveData
-import com.euromix.esupervisor.app.model.Empty
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
@@ -9,18 +7,12 @@ import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.docsEmix.DocsEmixRepository
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
-import com.euromix.esupervisor.app.model.visits.entities.Visit
-import com.euromix.esupervisor.app.model.visits.entities.VisitsListSelection
-import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.dateToJsonString
-import com.euromix.esupervisor.app.utils.designByResult
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
-import com.euromix.esupervisor.databinding.DocEmixListFragmentBinding
 import com.euromix.esupervisor.screens.main.BaseViewState
-import com.euromix.esupervisor.screens.main.tabs.visits.list.VisitsListViewModel
 import com.euromix.esupervisor.sources.docsEmix.entities.DocsEmixRequestEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -45,15 +37,11 @@ class DocsEmixListViewModel @Inject constructor(
     private val _selectionEvent = MutableLiveEvent<DocsEmixSelection>()
     val selectionEvent = _selectionEvent.share()
 
-    private var currentJob: Job? = null
-
     init {
         reload()
     }
 
     private fun <T> updateViewState(result: Result<T>) {
-
-        if (result !is Pending) currentJob = null
 
         when (result) {
             is Pending -> handlePendingState()
@@ -79,9 +67,7 @@ class DocsEmixListViewModel @Inject constructor(
 
     private fun getDocsEmix() {
 
-        currentJob?.cancel()
-
-        currentJob = safeLaunch {
+        safeLaunch {
             docsEmixRepository.getDocsEmix(requestFromSelection()).collect { result ->
                 updateViewState(result)
             }

@@ -37,15 +37,11 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
     private val _selectionEvent = MutableLiveEvent<VisitsListSelection>()
     val selectionEvent = _selectionEvent.share()
 
-    private var currentJob: Job? = null
-
     init {
         reload()
     }
 
     private fun <T> updateViewState(result: Result<T>) {
-
-        if (result !is Pending) currentJob = null
 
         when (result) {
             is Pending -> handlePendingState()
@@ -75,10 +71,7 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
     }
 
     private fun getVisits() {
-
-        currentJob?.cancel()
-
-        currentJob = safeLaunch {
+       safeLaunch {
             visitsRepository.getVisits(requestFromSelection()).collect {
                 updateViewState(it)
             }

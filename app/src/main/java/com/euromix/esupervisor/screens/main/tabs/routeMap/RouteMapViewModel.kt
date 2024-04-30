@@ -63,8 +63,6 @@ class RouteMapViewModel @Inject constructor(
     private val _outletData = MutableLiveEvent<Result<OutletData>>()
     val outletData = _outletData.share()
 
-    private var currentJob: Job? = null
-
     private var bitmapCache: Map<MapPointSigns?, Bitmap?>? = null
 
     init {
@@ -77,15 +75,9 @@ class RouteMapViewModel @Inject constructor(
         _mapPoints.clear()
         _options.clear()
 
-        currentJob?.cancel()
-
-        currentJob = safeLaunch {
+        safeLaunch {
 
             routesRepository.getMapPoints(mapPointsRequestEntity(_selection)).collect { result ->
-
-                if (result !is Pending)
-                    currentJob = null
-
                 if (result is Success) {
 
                     _mapPoints.addAll(result.value)
@@ -139,15 +131,12 @@ class RouteMapViewModel @Inject constructor(
         mapboxMap: MapboxMap,
         force: Boolean = false
     ) {
+        val visibleMarkers = visibleMarkers(mapboxMap)
 
-        if (currentJob == null) {
-            val visibleMarkers = visibleMarkers(mapboxMap)
-
-            if ((_currentVisibleMarkers != visibleMarkers && _mapPoints.isNotEmpty()) || force) {
-                _currentVisibleMarkers.clear()
-                _currentVisibleMarkers.addAll(visibleMarkers)
-                _currentVisibleMarkersEvent.publishEvent(_currentVisibleMarkers)
-            }
+        if ((_currentVisibleMarkers != visibleMarkers && _mapPoints.isNotEmpty()) || force) {
+            _currentVisibleMarkers.clear()
+            _currentVisibleMarkers.addAll(visibleMarkers)
+            _currentVisibleMarkersEvent.publishEvent(_currentVisibleMarkers)
         }
     }
 
@@ -157,15 +146,12 @@ class RouteMapViewModel @Inject constructor(
 
     fun getOutletData(outletId: String) {
 
-        currentJob?.cancel()
-        currentJob = safeLaunch {
+        safeLaunch {
 
             routesRepository.getOutletData(_selection.day.dateToJsonString().let { day ->
                 OutletDataRequestEntity(day, day, outletId)
             }).collect {
 
-                if (it !is Pending)
-                    currentJob = null
 
                 _outletData.publishEvent(it)
             }
@@ -206,6 +192,7 @@ class RouteMapViewModel @Inject constructor(
                 .build()
         )
     }
+
     companion object {
         private const val MAX_COUNT_POINTS = 100
     }

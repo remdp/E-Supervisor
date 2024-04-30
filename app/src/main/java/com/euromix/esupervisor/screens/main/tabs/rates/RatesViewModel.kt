@@ -37,14 +37,11 @@ class RatesViewModel @Inject constructor(
     private val _viewStateEvent = MutableLiveEvent<ViewState>()
     val viewStateEvent = _viewStateEvent.share()
 
-    private var currentJob: Job? = null
-
     init {
         getRates()
     }
-    private fun <T> updateViewState(result: Result<T>) {
 
-        if (result !is Pending) currentJob = null
+    private fun <T> updateViewState(result: Result<T>) {
 
         when (result) {
             is Pending -> handlePendingState()
