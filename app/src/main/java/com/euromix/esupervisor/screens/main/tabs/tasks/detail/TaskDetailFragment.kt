@@ -6,13 +6,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.TaskState
-import com.euromix.esupervisor.app.model.Success
-import com.euromix.esupervisor.app.model.taskDetail.entities.TaskDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
-import com.euromix.esupervisor.app.utils.designByResult
+import com.euromix.esupervisor.app.utils.designByViewState
+import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.textDate
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.TaskDetailFragmentBinding
+import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.screens.main.tabs.TitleData
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.imagesPage.ImagesFragment
 import com.euromix.esupervisor.screens.viewModelCreator
@@ -40,38 +40,34 @@ class TaskDetailFragment : BaseFragment(R.layout.task_detail_fragment) {
 
     private fun setupObservers() {
 
-        viewModel.viewState.observe(viewLifecycleOwner) { state ->
-            viewModel.afterUpdateState()
-
-            if (state.result is Success && !state.needLoading) {
-                renderState(state.result.value)
-            }
-
-            designByResult(
-                state.result,
-                binding.root,
-                binding.vResult
-            )
+        viewModel.viewStateEvent.observeEvent(viewLifecycleOwner) {
+            renderState()
         }
     }
 
-    private fun renderState(stateData: TaskDetail) {
+    private fun renderState() {
 
-        with(binding) {
+        designByViewState(
+            viewModel.viewState as BaseViewState, binding.root, binding.vResult
+        )
+        viewModel.viewState.taskDetail?.let { taskDetail ->
 
-            tvTaskType.text = stateData.taskType
-            TaskState.designTV(tvTaskState, stateData.taskState)
-            tvDeadline.text = textDate(stateData.deadline)
-            tvExecutor.text = stateData.executor
-            tvDescription.text = stateData.description
-            tvPartner.text = stateData.partner
-            tvOutlet.text = stateData.outlet
-            tvAttachPhoto.setCompoundDrawablesWithIntrinsicBounds(
-                if (stateData.attachPhoto) R.drawable.ic_checkbox_on else R.drawable.ic_checkbox_off,
-                0,
-                0,
-                0
-            )
+            with(binding) {
+
+                tvTaskType.text = taskDetail.taskType
+                TaskState.designTV(tvTaskState, taskDetail.taskState)
+                tvDeadline.text = textDate(taskDetail.deadline)
+                tvExecutor.text = taskDetail.executor
+                tvDescription.text = taskDetail.description
+                tvPartner.text = taskDetail.partner
+                tvOutlet.text = taskDetail.outlet
+                tvAttachPhoto.setCompoundDrawablesWithIntrinsicBounds(
+                    if (taskDetail.attachPhoto) R.drawable.ic_checkbox_on else R.drawable.ic_checkbox_off,
+                    0,
+                    0,
+                    0
+                )
+            }
         }
     }
 
