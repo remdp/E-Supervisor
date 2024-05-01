@@ -1,7 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.imagesPage
 
-import androidx.lifecycle.MutableLiveData
-import com.euromix.esupervisor.app.model.Empty
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
@@ -9,7 +7,10 @@ import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.docEmix.DocEmixDetailRepository
 import com.euromix.esupervisor.app.model.docEmix.entities.ImagesReactions
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
+import com.euromix.esupervisor.app.utils.MutableLiveEvent
+import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
+import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.sources.docsEmixDetail.entities.ImageReactionRequestEntity
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -20,54 +21,44 @@ class ImagesViewModel @AssistedInject constructor(
     private val docEmixDetailRepository: DocEmixDetailRepository
 ) : BaseViewModel() {
 
-    private val _viewState = MutableLiveData(ViewState(needLoading = true))
-    val viewState = _viewState.share()
+    private var _viewState = ViewState()
+    val viewState: ViewState
+        get() = _viewState
 
-    private fun updateResult(result: Result<*>) {
-        viewState.value?.let { stateValue ->
-            when (result) {
-                is Pending -> _viewState.value = stateValue.copy(
-                    needLoading = false, imagesResult = Pending()
-                )
+    private val _viewStateEvent = MutableLiveEvent<Unit>()
+    val viewStateEvent = _viewStateEvent.share()
 
-                is Success -> {
+    init {
+        reload()
+    }
 
-                    (result.value as? ImagesReactions)?.let {
-                        _viewState.value = viewState.value?.copy(imagesResult = Success(it))
-                    }
-                }
+    private fun <T> updateViewState(result: Result<T>) {
 
-                is Error -> _viewState.value = stateValue.copy(
-                    needLoading = false,
-                    imagesResult = Error(result.error)
-                )
-
-                else -> _viewState.value =
-                    stateValue.copy(needLoading = false)
-            }
+        when (result) {
+            is Pending -> handlePendingState()
+            is Success -> handleSuccess(result.value as ImagesReactions)
+            is Error -> handleError(result.error)
+            else -> {}
         }
+        _viewStateEvent.publishEvent()
+    }
+
+    private fun handlePendingState() {
+        _viewState = _viewState.copy(isLoading = true, error = null)
+    }
+
+    private fun handleSuccess(value: ImagesReactions) {
+        _viewState = _viewState.copy(isLoading = false, error = null, imagesReactions = value)
+    }
+
+    private fun handleError(error: Throwable) {
+        _viewState = _viewState.copy(isLoading = false, error = error)
     }
 
     private fun getImagesLikes() {
         safeLaunch {
             docEmixDetailRepository.getDocLikes(extId).collect { result ->
-                updateResult(result)
-            }
-        }
-    }
-
-    fun react(reaction: ImageReactionRequestEntity) {
-        safeLaunch {
-            docEmixDetailRepository.react(extId, reaction).collect { result ->
-                updateResult(result)
-            }
-        }
-    }
-
-    fun afterUpdateState() {
-        viewState.value?.let { stateValue ->
-            if (stateValue.needLoading) {
-                getImagesLikes()
+                updateViewState(result)
             }
         }
     }
@@ -76,14 +67,26 @@ class ImagesViewModel @AssistedInject constructor(
         getImagesLikes()
     }
 
+    fun react(reaction: ImageReactionRequestEntity) {
+        safeLaunch {
+            docEmixDetailRepository.react(extId, reaction).collect { result ->
+                updateViewState(result)
+            }
+        }
+    }
+
+    fun clearCreationDislikeTaskMessage(){
+        _viewState = _viewState.copy()
+    }
+
     @AssistedFactory
     interface Factory {
         fun create(extId: String): ImagesViewModel
     }
 
     data class ViewState(
-        val needLoading: Boolean = true,
-        val imagesResult: Result<ImagesReactions> = Empty(),
-        val creationDislikeTaskMessage: String = ""
-    )
+        override val isLoading: Boolean = false,
+        override val error: Throwable? = null,
+        val imagesReactions: ImagesReactions? = null
+    ): BaseViewState()
 }
