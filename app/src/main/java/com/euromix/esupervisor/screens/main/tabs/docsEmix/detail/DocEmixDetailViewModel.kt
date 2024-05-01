@@ -28,7 +28,7 @@ class DocEmixDetailViewModel @AssistedInject constructor(
     val viewState: ViewState
         get() = _viewState
 
-    private val _viewStateEvent = MutableLiveEvent<ViewState>()
+    private val _viewStateEvent = MutableLiveEvent<Unit>()
     val viewStateEvent = _viewStateEvent.share()
 
     init {
@@ -44,7 +44,7 @@ class DocEmixDetailViewModel @AssistedInject constructor(
             else -> {}
         }
 
-        _viewStateEvent.publishEvent(_viewState)
+        _viewStateEvent.publishEvent()
     }
 
     private fun handlePendingState() {
@@ -69,6 +69,10 @@ class DocEmixDetailViewModel @AssistedInject constructor(
 
     fun reload() {
         getDocEmixDetail()
+    }
+
+    fun publishViewState(){
+        _viewStateEvent.publishEvent()
     }
 
     fun acceptDocEmixDetail() {

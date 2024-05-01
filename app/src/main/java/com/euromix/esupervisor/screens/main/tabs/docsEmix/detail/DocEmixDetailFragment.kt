@@ -46,6 +46,8 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
+
+        viewModel.publishViewState()
     }
 
     private fun setupListeners() {
@@ -61,17 +63,19 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
     private fun setupObservers() {
 
         viewModel.viewStateEvent.observeEvent(viewLifecycleOwner) {
-            renderState(it)
+            renderState()
 
-            if (it.docEmixDetail != null)
-                setupViewPager(it.docEmixDetail)
-
+            with(viewModel.viewState) {
+                if (docEmixDetail != null)
+                    setupViewPager(docEmixDetail)
+            }
         }
     }
 
 
-    private fun renderState(viewState: DocEmixDetailViewModel.ViewState) {
+    private fun renderState() {
 
+        val viewState = viewModel.viewState
         designByViewState(
             viewState as BaseViewState, binding.root, binding.vResult
         )
