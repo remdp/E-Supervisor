@@ -10,6 +10,11 @@ import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
+import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
+import com.euromix.esupervisor.app.utils.MutableLiveEvent
+import com.euromix.esupervisor.app.utils.publishEvent
+import com.euromix.esupervisor.screens.main.BaseViewState
+import com.euromix.esupervisor.screens.main.tabs.docsEmix.list.DocsEmixListViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -19,67 +24,81 @@ class DocEmixDetailViewModel @AssistedInject constructor(
     private val docEmixDetailRepository: DocEmixDetailRepository
 ) : BaseViewModel() {
 
-    private val _viewState = MutableLiveData(ViewState(needLoading = true))
-    val viewState = _viewState.share()
+    private var _viewState = ViewState()
+    val viewState: ViewState
+        get() = _viewState
 
-    fun reload() {
-        safeLaunch {
-            getDocEmixDetail()
-        }
+    private val _viewStateEvent = MutableLiveEvent<Unit>()
+    val viewStateEvent = _viewStateEvent.share()
+
+    init {
+        reload()
     }
 
-    private fun updateResult(result: Result<*>) {
-        viewState.value?.let { stateValue ->
-            when (result) {
-                is Pending -> _viewState.value =
-                    stateValue.copy(needLoading = false, result = Pending())
+    private fun <T> updateViewState(result: Result<T>) {
 
-                is Success -> _viewState.value =
-                    viewState.value?.copy(result = Success(result.value as DocEmixDetail))
+        when (result) {
+            is Pending -> handlePendingState()
+            is Success -> handleSuccess(result.value as DocEmixDetail)
+            is Error -> handleError(result.error)
+            else -> {}
+        }
 
-                is Error -> _viewState.value =
-                    stateValue.copy(
-                        needLoading = false,
-                        result = Error(result.error)
-                    )
-                else -> _viewState.value = stateValue.copy(needLoading = false)
-            }
-        }
+        _viewStateEvent.publishEvent()
     }
-    fun afterUpdateState() {
-        viewState.value?.let { stateValue ->
-            if (stateValue.needLoading) {
-                getDocEmixDetail()
-            }
-        }
+
+    private fun handlePendingState() {
+        _viewState = _viewState.copy(isLoading = true, error = null)
     }
+
+    private fun handleSuccess(value: DocEmixDetail) {
+        _viewState = _viewState.copy(isLoading = false, error = null, docEmixDetail = value)
+    }
+
+    private fun handleError(error: Throwable) {
+        _viewState = _viewState.copy(isLoading = false, error = error)
+    }
+
     private fun getDocEmixDetail() {
         safeLaunch {
             docEmixDetailRepository.getDocEmixDetail(extId).collect { result ->
-                updateResult(result)
+                updateViewState(result)
             }
         }
     }
+
+    fun reload() {
+        getDocEmixDetail()
+    }
+
+    fun publishViewState(){
+        _viewStateEvent.publishEvent()
+    }
+
     fun acceptDocEmixDetail() {
         safeLaunch {
             docEmixDetailRepository.acceptDocEmixDetail(extId).collect { result ->
-                updateResult(result)
+                updateViewState(result)
             }
         }
     }
+
     fun rejectDocEmixDetail(reason: String) {
         safeLaunch {
             docEmixDetailRepository.rejectDocEmixDetail(extId, reason).collect { result ->
-                updateResult(result)
+                updateViewState(result)
             }
         }
     }
+
     @AssistedFactory
     interface Factory {
         fun create(extId: String): DocEmixDetailViewModel
     }
+
     data class ViewState(
-        val needLoading: Boolean = false,
-        val result: Result<DocEmixDetail> = Empty()
-    )
+        override val isLoading: Boolean = false,
+        override val error: Throwable? = null,
+        val docEmixDetail: DocEmixDetail? = null
+    ) : BaseViewState()
 }

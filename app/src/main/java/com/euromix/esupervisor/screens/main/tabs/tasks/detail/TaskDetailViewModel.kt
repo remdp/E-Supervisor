@@ -1,7 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.tasks.detail
 
-import androidx.lifecycle.MutableLiveData
-import com.euromix.esupervisor.app.model.Empty
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
@@ -9,7 +7,10 @@ import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.taskDetail.TaskDetailRepository
 import com.euromix.esupervisor.app.model.taskDetail.entities.TaskDetail
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
+import com.euromix.esupervisor.app.utils.MutableLiveEvent
+import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
+import com.euromix.esupervisor.screens.main.BaseViewState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -19,40 +20,44 @@ class TaskDetailViewModel @AssistedInject constructor(
     private val taskDetailRepository: TaskDetailRepository
 ) : BaseViewModel() {
 
-    private val _viewState = MutableLiveData(ViewState(needLoading = true))
-    val viewState = _viewState.share()
-    private fun updateResult(result: Result<*>) {
-        viewState.value?.let { stateValue ->
-            when (result) {
-                is Pending -> _viewState.value =
-                    stateValue.copy(needLoading = false, result = Pending())
+    private var _viewState = ViewState()
+    val viewState: ViewState
+        get() = _viewState
 
-                is Success -> _viewState.value =
-                    viewState.value?.copy(result = Success(result.value as TaskDetail))
+    private val _viewStateEvent = MutableLiveEvent<Unit>()
+    val viewStateEvent = _viewStateEvent.share()
 
-                is Error -> _viewState.value =
-                    stateValue.copy(
-                        needLoading = false,
-                        result = Error(result.error)
-                    )
+    init {
+        reload()
+    }
 
-                else -> _viewState.value = stateValue.copy(needLoading = false)
-            }
+    private fun <T> updateViewState(result: Result<T>) {
+
+        when (result) {
+            is Pending -> handlePendingState()
+            is Success -> handleSuccess(result.value as TaskDetail)
+            is Error -> handleError(result.error)
+            else -> {}
         }
+        _viewStateEvent.publishEvent()
+    }
+
+    private fun handlePendingState() {
+        _viewState = _viewState.copy(isLoading = true, error = null)
+    }
+
+    private fun handleSuccess(value: TaskDetail) {
+        _viewState = _viewState.copy(isLoading = false, error = null, taskDetail = value)
+    }
+
+    private fun handleError(error: Throwable) {
+        _viewState = _viewState.copy(isLoading = false, error = error)
     }
 
     private fun getTaskDetail() {
         safeLaunch {
             taskDetailRepository.getTask(id).collect { result ->
-                updateResult(result)
-            }
-        }
-    }
-
-    fun afterUpdateState() {
-        viewState.value?.let { stateValue ->
-            if (stateValue.needLoading) {
-                getTaskDetail()
+                updateViewState(result)
             }
         }
     }
@@ -67,7 +72,8 @@ class TaskDetailViewModel @AssistedInject constructor(
     }
 
     data class ViewState(
-        val needLoading: Boolean = true,
-        val result: Result<TaskDetail> = Empty()
-    )
+        override val isLoading: Boolean = false,
+        override val error: Throwable? = null,
+        val taskDetail: TaskDetail? = null
+    ) : BaseViewState()
 }

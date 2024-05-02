@@ -1,12 +1,10 @@
 package com.euromix.esupervisor.screens.main.tabs.visits.list
 
 import com.euromix.esupervisor.app.enums.VisitType
-import com.euromix.esupervisor.app.model.Empty
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
-import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.app.model.visits.VisitsRepository
 import com.euromix.esupervisor.app.model.visits.entities.Visit
 import com.euromix.esupervisor.app.model.visits.entities.VisitsListSelection
@@ -27,6 +25,9 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
     BaseViewModel() {
 
     private var _viewState: ViewState = ViewState()
+    val viewState: ViewState
+        get() = _viewState
+
     private val _viewStateEvent = MutableLiveEvent<ViewState>()
     val viewStateEvent = _viewStateEvent.share()
 
@@ -36,15 +37,11 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
     private val _selectionEvent = MutableLiveEvent<VisitsListSelection>()
     val selectionEvent = _selectionEvent.share()
 
-    private var currentJob: Job? = null
-
     init {
         reload()
     }
 
     private fun <T> updateViewState(result: Result<T>) {
-
-        if (result !is Pending) currentJob = null
 
         when (result) {
             is Pending -> handlePendingState()
@@ -62,11 +59,8 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
     }
 
     private fun handleSuccess(value: List<Visit>) {
-        _viewState = _viewState.copy(isLoading = false, error = null)
-        _viewState.visits.clear()
-        _viewState.visits.addAll(value)
-        _viewState.filteredIds.clear()
-        _viewState.filteredIdsCanBeChanged.clear()
+        _viewState = _viewState.copy(isLoading = false, error = null, visits = value)
+
         _viewState.markedIds.clear()
         setFilteredItems()
     }
@@ -77,10 +71,7 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
     }
 
     private fun getVisits() {
-
-        currentJob?.cancel()
-
-        currentJob = safeLaunch {
+       safeLaunch {
             visitsRepository.getVisits(requestFromSelection()).collect {
                 updateViewState(it)
             }
@@ -107,12 +98,11 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
             else true
         }
 
-        _viewState.filteredIds.clear()
-        _viewState.filteredIdsCanBeChanged.clear()
+        _viewState = _viewState.copy(filteredIdsCanBeChanged = filteredVisits
+            .filter { it.canBeChanged }
+            .map { it.extId },
+            filteredIds = filteredVisits.map { it.extId })
 
-        _viewState.filteredIds.addAll(filteredVisits.map { it.extId })
-        _viewState.filteredIdsCanBeChanged.addAll(filteredVisits.filter { it.canBeChanged }
-            .map { it.extId })
     }
 
     private fun setMarkedItemsTotalCLick() {
@@ -173,6 +163,7 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
         val newTotalMark = !(_viewState.totalMark ?: true)
         _viewState = _viewState.copy(totalMark = newTotalMark)
         setMarkedItemsTotalCLick()
+
         _viewStateEvent.publishEvent(_viewState)
     }
 
@@ -189,6 +180,7 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
         setFilteredItems()
         setMarkedItemsFilterChange()
         setTotalMark()
+
         _viewStateEvent.publishEvent(_viewState)
     }
 
@@ -202,13 +194,13 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
         val oneTimeVisitsDone = oneTimeVisits.filter { it.done }
 
         return mapOf(
-            Pair(totalVisits, _viewState.visits.size),
-            Pair(VisitsListViewModel.regularVisits, regularVisits.size),
-            Pair(VisitsListViewModel.regularVisitsDone, regularVisitsDone.size),
-            Pair(VisitsListViewModel.remoteVisits, remoteVisits.size),
-            Pair(VisitsListViewModel.remoteVisitsDone, remoteVisitsDone.size),
-            Pair(VisitsListViewModel.oneTimeVisits, oneTimeVisits.size),
-            Pair(VisitsListViewModel.oneTimeVisitsDone, oneTimeVisitsDone.size)
+            Pair(TOTAL_VISITS, _viewState.visits.size),
+            Pair(REGULAR_VISITS, regularVisits.size),
+            Pair(REGULAR_VISITS_DONE, regularVisitsDone.size),
+            Pair(REMOTE_VISITS, remoteVisits.size),
+            Pair(REMOTE_VISITS_DONE, remoteVisitsDone.size),
+            Pair(ONE_TIME_VISITS, oneTimeVisits.size),
+            Pair(ONE_TIME_VISITS_DONE, oneTimeVisitsDone.size)
         )
     }
 
@@ -217,6 +209,7 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
         setFilteredItems()
         setMarkedItemsFilterChange()
         setTotalMark()
+
         _viewStateEvent.publishEvent(_viewState)
     }
 
@@ -239,32 +232,25 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
     }
 
     fun markedVisits() = _viewState.markedIds
-    fun quickFilter() = _viewState.quickFilter
-    fun totalMark() = _viewState.totalMark
-    fun showMarks() = _viewState.showMarks
-    fun searchString() = _viewState.searchString
-    fun isLoading() = _viewState.isLoading
-    fun error() = _viewState.error
 
     companion object {
-        const val totalVisits = "TOTAL_VISITS"
-        const val regularVisits = "REGULAR_VISITS"
-        const val regularVisitsDone = "REGULAR_VISITS_DONE"
-        const val remoteVisits = "REMOTE_VISITS"
-        const val remoteVisitsDone = "REMOTE_VISITS_DONE"
-        const val oneTimeVisits = "ONE_TIME_VISITS"
-        const val oneTimeVisitsDone = "ONE_TIME_VISITS_DONE"
+        const val TOTAL_VISITS = "TOTAL_VISITS"
+        const val REGULAR_VISITS = "REGULAR_VISITS"
+        const val REGULAR_VISITS_DONE = "REGULAR_VISITS_DONE"
+        const val REMOTE_VISITS = "REMOTE_VISITS"
+        const val REMOTE_VISITS_DONE = "REMOTE_VISITS_DONE"
+        const val ONE_TIME_VISITS = "ONE_TIME_VISITS"
+        const val ONE_TIME_VISITS_DONE = "ONE_TIME_VISITS_DONE"
     }
 
     data class ViewState(
-        val period: Pair<Date, Date>? = null,
-        val visits: MutableList<Visit> = mutableListOf(),
-        val filteredIds: MutableList<String> = mutableListOf(),
-        val filteredIdsCanBeChanged: MutableList<String> = mutableListOf(),
-        val markedIds: MutableList<String> = mutableListOf(),
         override val isLoading: Boolean = false,
-        val result: Result<List<DocEmix>> = Empty(),
         override val error: Throwable? = null,
+        val period: Pair<Date, Date>? = null,
+        val visits: List<Visit> = listOf(),
+        val filteredIds: List<String> = listOf(),
+        val filteredIdsCanBeChanged: List<String> = listOf(),
+        val markedIds: MutableList<String> = mutableListOf(),
         val quickFilter: VisitType? = null,
         val showMarks: Boolean = false,
         val totalMark: Boolean? = false,

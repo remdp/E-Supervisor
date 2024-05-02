@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.utils.dateToJsonString
 import com.euromix.esupervisor.app.utils.dateToString
-import com.euromix.esupervisor.app.utils.designByResult
+import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.designedDateView
 import com.euromix.esupervisor.app.utils.dialogErrors
 import com.euromix.esupervisor.app.utils.gone
+import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.setDateSelection
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.DialogReasonRejectionCustomBinding
+import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.screens.viewModelCreator
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
@@ -33,14 +34,8 @@ class DialogReactDislikeFragment(
     lateinit var factory: DialogReactDislikeViewModel.Factory
 
     //todo try replace by viewBinding
-    //private val binding by viewBinding<DialogReasonRejectionCustomBinding>()
+   // private val binding by viewBinding<DialogReasonRejectionCustomBinding>()
     private lateinit var binding: DialogReasonRejectionCustomBinding
-
-    //  private val viewModel by viewModels<DialogReactDislikeViewModel>()
-
-//    val viewModel: DialogReactDislikeViewModel by viewModels {
-//        DialogReactDislikeViewModelFactory(abilityCreateTask)
-//    }
 
     val viewModel by viewModelCreator { factory.create(abilityCreateTask, id) }
 
@@ -57,20 +52,12 @@ class DialogReactDislikeFragment(
 
         setupObservers()
         setupListeners()
-
     }
 
     private fun setupObservers() {
 
-        viewModel.viewState.observe(viewLifecycleOwner) {
-            renderState(it)
-
-            designByResult(
-                it.deadline,
-                binding.root,
-                binding.vResult,
-                specialViews = listOf(binding.tvDeadline, binding.cbCreateTask)
-            )
+        viewModel.viewStateEvent.observeEvent(viewLifecycleOwner) {
+            renderState()
         }
     }
 
@@ -99,19 +86,16 @@ class DialogReactDislikeFragment(
         binding.btnOk.setOnClickListener {
 
             val errors = errors()
-            val stateData = viewModel.viewState.value
+            val viewState = viewModel.viewState
 
             if (errors.isNotEmpty()) dialogErrors(requireContext(), errors)
             else {
 
-                stateData?.let { stateData ->
-
-                    taskCreator(
-                        binding.etDislikeReason.text.toString(),
-                        stateData.createTask,
-                        if (stateData.deadline is Success) stateData.deadline.value.dateToJsonString() else Calendar.getInstance().time.dateToJsonString()
-                    )
-                }
+                taskCreator(
+                    binding.etDislikeReason.text.toString(),
+                    viewState.createTask,
+                    if (viewState.deadline !=null) viewState.deadline.dateToJsonString() else Calendar.getInstance().time.dateToJsonString()
+                )
                 dismiss()
             }
         }
@@ -125,30 +109,33 @@ class DialogReactDislikeFragment(
         val errorsList = mutableListOf<Int>()
 
         if (binding.etDislikeReason.text.isBlank()) errorsList.add(R.string.dislike_reason)
-        if (binding.tvDeadline.text.isBlank() && viewModel.viewState.value?.createTask == true) errorsList.add(
+        if (binding.tvDeadline.text.isBlank() && viewModel.viewState.createTask) errorsList.add(
             R.string.deadline
         )
 
         return errorsList
     }
 
-    private fun renderState(viewState: DialogReactDislikeViewModel.ViewState) {
+    private fun renderState() {
+
+        val viewState = viewModel.viewState
 
         with(binding) {
+            designByViewState(
+                viewState as BaseViewState, binding.root, binding.vResult
+            )
 
+            designedDateView(
+                tvDeadline,
+                viewState.deadline,
+                showClearView = false,
+                underlineIfNull = true
+            )
+
+            tvDeadline.text = viewState.deadline?.dateToString()
             cbCreateTask.isChecked = viewState.createTask
             if (viewState.createTask) tvDeadline.visible() else tvDeadline.gone()
             if (viewState.abilityCreateTask) cbCreateTask.visible() else cbCreateTask.gone()
-
-            if (viewState.deadline is Success) {
-                tvDeadline.text = viewState.deadline.value.dateToString()
-                designedDateView(
-                    tvDeadline,
-                    viewState.deadline.value,
-                    showClearView = false,
-                    underlineIfNull = true
-                )
-            }
         }
     }
 
@@ -161,5 +148,4 @@ class DialogReactDislikeFragment(
         ) = DialogReactDislikeFragment(abilityCreateTask, id, taskCreator)
 
     }
-
 }

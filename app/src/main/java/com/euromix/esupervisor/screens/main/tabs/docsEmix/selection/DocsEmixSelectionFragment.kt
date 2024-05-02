@@ -26,7 +26,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_fragment) {
 
-    private val navController: NavController by lazy { findNavController() }
     override val viewModel by viewModels<DocsSelectionViewModel>()
 
     private val binding by viewBinding<DocsEmixSelectionFragmentBinding>()
@@ -43,17 +42,7 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
 
     private fun setupListeners() {
 
-        binding.btnOk.setOnClickListener {
-            setFragmentResult(
-                SELECTION_KEY,
-                Bundle().apply { putParcelable(SELECTION_KEY, viewModel.selection.value) })
-
-            navController.previousBackStackEntry?.savedStateHandle?.set(
-                Const.START_LOAD,
-                false
-            )
-            navController.popBackStack()
-        }
+        binding.btnOk.setOnClickListener { setFragmentResult() }
 
         binding.btnCancel.setOnClickListener { findNavController().popBackStack() }
 
@@ -83,9 +72,7 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
             viewModel::checkStatusEmpty
         )
 
-        binding.ivArrowBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
+        binding.ivArrowBack.setOnClickListener { setFragmentResult(true) }
 
         binding.tvClear.setOnClickListener {
             viewModel.clearSelection()
@@ -173,5 +160,16 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
                 R.string.error_min_length, MIN_LENGTH_SEARCH_STRING
             ) else null
         }
+    }
+
+    private fun setFragmentResult(cancel: Boolean = false) {
+        setFragmentResult(
+            SELECTION_KEY,
+            Bundle().apply {
+                putParcelable(SELECTION_KEY, viewModel.selection.value)
+                if (cancel)
+                    putBoolean(Const.CANCEL, true)
+            })
+        findNavController().popBackStack()
     }
 }

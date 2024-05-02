@@ -15,6 +15,7 @@ import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.bitmapFromDrawableRes
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
+import com.euromix.esupervisor.screens.main.BaseViewState
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -36,9 +37,13 @@ class ChangeOutletCoordinatesViewModel @AssistedInject constructor(
     init {
         reload()
     }
+
     private fun <T> updateViewState(result: Result<T>) {
         when (result) {
-            is Pending -> {handlePendingState()}
+            is Pending -> {
+                handlePendingState()
+            }
+
             is Success -> handleSuccess(result.value)
             is Error -> handleError(result.error)
             else -> {}
@@ -67,6 +72,7 @@ class ChangeOutletCoordinatesViewModel @AssistedInject constructor(
                     )
                 }
             }
+
             is Unit -> _viewState = _viewState.copy(isLoading = false, canBeAgreed = false)
         }
     }
@@ -220,6 +226,8 @@ class ChangeOutletCoordinatesViewModel @AssistedInject constructor(
 }
 
 data class ViewState(
+    override val isLoading: Boolean = false,
+    override val error: Throwable? = null,
     val date: String = "",
     val distance: Int = 0,
     val outletPresentation: String = "",
@@ -227,13 +235,11 @@ data class ViewState(
     val longitudeOld: Double = 0.0,
     val latitudeNew: Double = 0.0,
     val longitudeNew: Double = 0.0,
-    val isLoading: Boolean = false,
     val canBeAgreed: Boolean = false,
-    val error: Throwable? = null,
     val oldGeoAddress: String = "",
     val newGeoAddress: String = "",
     val showPoints: Boolean = false
-)
+) : BaseViewState()
 
 data class PAOptionsData(
     val new: Boolean = false,

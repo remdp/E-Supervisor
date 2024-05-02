@@ -14,18 +14,18 @@ import androidx.navigation.fragment.findNavController
 import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
-import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.routes.entities.MapPoint
 import com.euromix.esupervisor.app.model.routes.entities.OutletData
 import com.euromix.esupervisor.app.model.routes.entities.RouteMapSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.dateToString
-import com.euromix.esupervisor.app.utils.designByResult
+import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.toLong
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.RouteMapFragmentBinding
 import com.euromix.esupervisor.databinding.StatisticPopupBinding
+import com.euromix.esupervisor.screens.main.BaseViewState
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.gson.JsonObject
 import com.mapbox.geojson.Point
@@ -83,12 +83,8 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
         setupObservers()
 
         viewModel.setBitmapCache(requireContext())
-        if (viewModel.isInitialized) {
-            //todo need refactor
-            binding.tvDay.text = viewModel.selection.day.dateToString()
-            viewModel.setCamera(mapboxMap, false)
-            viewModel.publishCurrentVisibleMarkers()
-        }
+        binding.tvDay.text = viewModel.selection.day.dateToString()
+        viewModel.publishViewStateEvent()
     }
 
     private fun setupListeners() {
@@ -139,33 +135,13 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
 
     private fun setupObservers() {
 
-        viewModel.mapPointsEvent.observeEvent(viewLifecycleOwner) { result ->
-
-            if (result is Success) {
-                viewModel.setCamera(mapboxMap, false)
-                viewModel.changeCurrentVisibleMarkers(mapboxMap, force = true)
-            }
-            designByResult(result, binding.root, binding.vResult)
+        viewModel.viewStateEvent.observeEvent(viewLifecycleOwner) {
+            renderState()
         }
+
         viewModel.selectionEvent.observeEvent(viewLifecycleOwner) {
             binding.tvDay.text = it.day.dateToString()
             viewModel.reload()
-        }
-
-        viewModel.currentVisibleMarkersEvent.observeEvent(viewLifecycleOwner) {
-            if (it.isNotEmpty())
-                showPoints(it)
-            else
-                showClusters()
-        }
-
-        viewModel.outletData.observeEvent(viewLifecycleOwner) { result ->
-
-            if (result is Success) {
-                showPopup(result.value)
-
-            }
-            designByResult(result, binding.root, binding.vResult, null, listOf(binding.mapView))
         }
 
         setFragmentResultListener(Const.SELECTION_KEY) { requestKey, bundle ->
@@ -188,9 +164,33 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
         }
     }
 
+    private fun renderState() {
+
+        val viewState = viewModel.viewState
+
+        designByViewState(
+            viewState as BaseViewState, binding.root, binding.vResult
+        )
+
+        if (viewState.posCamera)
+            viewModel.setCamera(mapboxMap, false)
+
+        viewState.outletData?.let {
+            showPopup(it)
+            viewModel.clearOutletData()
+        } ?: run {
+            if (viewState.currentVisibleMarkers.isNotEmpty())
+                showPoints(viewState.currentVisibleMarkers)
+            else
+                showClusters()
+
+            viewModel.clearPosCamera()
+        }
+    }
+
     private fun showClusters() {
         pointAnnotationManager.deleteAll()
-        viewModel.options.let { options ->
+        viewModel.viewState.options.let { options ->
             clusterAnnotationManager.create(options)
         }
     }
@@ -238,7 +238,8 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
             tvOutletAddress.text = outletData.address
 
             iVisitStatistic.tvVisitTime.text = outletData.checkIn
-            iVisitStatistic.tvVisitDuration.text = getString(R.string.time_at_the_outlet, outletData.outletTime)
+            iVisitStatistic.tvVisitDuration.text =
+                getString(R.string.time_at_the_outlet, outletData.outletTime)
             iVisitStatistic.tvOrderSum.text = getString(R.string.sum_hryvnia, outletData.orderSum)
             iVisitStatistic.tvCashReceiptOrderSum.text =
                 getString(R.string.sum_hryvnia, outletData.cashReceiptOrderSum)
@@ -264,7 +265,7 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
         popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, -300)
     }
 
-    companion object{
+    companion object {
         private const val OUTLET_ID = "OUTLET_ID"
     }
 }

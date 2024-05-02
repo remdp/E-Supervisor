@@ -3,13 +3,14 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.imag
 import android.os.Bundle
 import android.view.View
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.screens.base.BaseFragment
-import com.euromix.esupervisor.app.utils.designByResult
+import com.euromix.esupervisor.app.utils.designByViewState
+import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.simplyMessageDialog
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.ImagesFragmentBinding
 import com.euromix.esupervisor.dialogs.dialogReactDislike.DialogReactDislikeFragment
+import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.screens.viewModelCreator
 import com.euromix.esupervisor.sources.docsEmixDetail.entities.ImageReactionRequestEntity
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,32 +44,34 @@ class ImagesFragment : BaseFragment(R.layout.images_fragment) {
 
     private fun setupObservers() {
 
-        viewModel.viewState.observe(viewLifecycleOwner) { state ->
-            viewModel.afterUpdateState()
-
-            if (state.imagesResult is Success && !state.needLoading) {
-
-                //todo move list comparison to adapter
-                // if (adapter.getImagesRvList() != state.imagesResult.value) adapter.setImages(state.imagesResult.value)
-                val imageReaction = state.imagesResult.value
-                adapter.setImages(imageReaction.rows)
-
-                if (imageReaction.creationDislikeTaskMessage.isNotBlank())
-                    simplyMessageDialog(
-                        requireContext(),
-                        imageReaction.creationDislikeTaskMessage,
-                        getString(R.string.create_task_next_visit_result)
-                    )
-            }
-
-            designByResult(
-                state.imagesResult, binding.root, binding.vResult
-            )
+        viewModel.viewStateEvent.observeEvent(viewLifecycleOwner) {
+            renderState()
         }
     }
 
     private fun setupListeners() {
         binding.vResult.setTryAgainAction { viewModel.reload() }
+    }
+
+    private fun renderState() {
+        val viewState = viewModel.viewState
+        designByViewState(
+            viewState as BaseViewState, binding.root, binding.vResult
+        )
+
+        viewState.imagesReactions?.let {imagesReactions->
+
+            adapter.setImages(imagesReactions.rows)
+
+            if (imagesReactions.creationDislikeTaskMessage.isNotBlank()) {
+                simplyMessageDialog(
+                    requireContext(),
+                    imagesReactions.creationDislikeTaskMessage,
+                    getString(R.string.create_task_next_visit_result)
+                )
+                viewModel.clearCreationDislikeTaskMessage()
+            }
+        }
     }
 
     private fun imageOnClickListener(imageUri: String) {
@@ -92,25 +95,6 @@ class ImagesFragment : BaseFragment(R.layout.images_fragment) {
 
         }
         dialog.show(parentFragmentManager, null)
-        //dialog.show(parentFragmentManager, App.getString(requireContext(), R.string.dislike_reason))
-
-//        dialogReactDislike(
-//            requireContext(),
-//            R.string.dislike_reason,
-//            R.string.create_task_next_visit,
-//            parentFragmentManager,
-//            abilityCreateTask = abilityCreateTask
-//        ) { enteredText, additionalFlag, deadline ->
-//            viewModel.react(
-//                reaction.copy(
-//                    comment = enteredText,
-//                    createDislikeTask = additionalFlag,
-//                    deadline = formattedDate(deadline),
-//                )
-//            )
-//        }
-
-
     }
 
     private fun likeOnClickListener(reaction: ImageReactionRequestEntity) {

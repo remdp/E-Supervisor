@@ -94,11 +94,7 @@ class VisitsListFragment : BaseFragment(R.layout.visits_list_fragment) {
     private fun setupObservers() {
 
         viewModel.viewStateEvent.observeEvent(viewLifecycleOwner) {
-
-            designByViewState(
-                it as BaseViewState, binding.root, binding.vResult, binding.srl
-            )
-            renderState()
+            renderState(it)
         }
 
         viewModel.selectionEvent.observeEvent(viewLifecycleOwner) {
@@ -117,7 +113,8 @@ class VisitsListFragment : BaseFragment(R.layout.visits_list_fragment) {
                 cancelSelection = bundle.getBoolean(Const.CANCEL)
             }
 
-            viewModel.updateSelection(if (!cancelSelection) selection else null)
+            if (!cancelSelection)
+                viewModel.updateSelection(selection)
         }
 
         setFragmentResultListener(NEED_UPDATE) { _, _ ->
@@ -126,41 +123,44 @@ class VisitsListFragment : BaseFragment(R.layout.visits_list_fragment) {
     }
 
 
-    private fun renderState() {
+    private fun renderState(viewState: VisitsListViewModel.ViewState) {
+        designByViewState(
+            viewState as BaseViewState, binding.root, binding.vResult, binding.srl
+        )
 
-        if (!viewModel.isLoading() && viewModel.error() == null) adapter.submitList(viewModel.getListForSubmit())
+        if (!viewState.isLoading && viewState.error == null) adapter.submitList(viewModel.getListForSubmit())
 
         val visitsData = viewModel.visitsData()
 
         with(binding) {
 
-            val currentTotalMark = viewModel.totalMark()
+            val currentTotalMark = viewState.totalMark
             cbMarks.setIcon(currentTotalMark)
-            if (viewModel.showMarks()) cbMarks.visible()
+            if (viewState.showMarks) cbMarks.visible()
             else cbMarks.gone()
 
             tvAllVisits.text = getString(
-                R.string.visits_count, visitsData[VisitsListViewModel.totalVisits].toString()
+                R.string.visits_count, visitsData[VisitsListViewModel.TOTAL_VISITS].toString()
             )
             tvRegularVisits.text = getString(
                 R.string.visits_counts,
-                visitsData[VisitsListViewModel.regularVisitsDone],
-                visitsData[VisitsListViewModel.regularVisits]
+                visitsData[VisitsListViewModel.REGULAR_VISITS_DONE],
+                visitsData[VisitsListViewModel.REGULAR_VISITS]
             )
 
             tvRemoteVisits.text = getString(
                 R.string.visits_counts,
-                visitsData[VisitsListViewModel.remoteVisitsDone],
-                visitsData[VisitsListViewModel.remoteVisits]
+                visitsData[VisitsListViewModel.REMOTE_VISITS_DONE],
+                visitsData[VisitsListViewModel.REMOTE_VISITS]
             )
 
             tvOneTimeVisits.text = getString(
                 R.string.visits_counts,
-                visitsData[VisitsListViewModel.oneTimeVisitsDone],
-                visitsData[VisitsListViewModel.oneTimeVisits]
+                visitsData[VisitsListViewModel.ONE_TIME_VISITS_DONE],
+                visitsData[VisitsListViewModel.ONE_TIME_VISITS]
             )
 
-            when (viewModel.quickFilter()) {
+            when (viewState.quickFilter) {
                 VisitType.REGULAR -> setTextColorAndBackground(binding.tvRegularVisits)
                 VisitType.REMOTE -> setTextColorAndBackground(binding.tvRemoteVisits)
                 VisitType.ONETIME -> setTextColorAndBackground(binding.tvOneTimeVisits)
@@ -169,7 +169,7 @@ class VisitsListFragment : BaseFragment(R.layout.visits_list_fragment) {
 
             if (viewModel.scrollToTop()) rvList.post { rvList.scrollToPosition(0) }
 
-            if (viewModel.totalMark() != false) clAppbarBottom.visible()
+            if (viewState.totalMark != false) clAppbarBottom.visible()
             else clAppbarBottom.gone()
         }
     }
@@ -199,3 +199,4 @@ class VisitsListFragment : BaseFragment(R.layout.visits_list_fragment) {
         const val NEED_UPDATE = "NEED_UPDATE"
     }
 }
+
