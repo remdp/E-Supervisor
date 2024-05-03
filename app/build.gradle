@@ -65,6 +65,16 @@ android {
             buildConfigField "String", "BASE_URL", "\"https://mobile.euromix.in.ua/unisales/hs/es/\""
         }
 
+        _test_da {
+            debuggable = true
+            shrinkResources = false
+            minifyEnabled = false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"https://mobile.euromix.in.ua/test_da/hs/es/\""
+            versionNameSuffix "-test_da"
+        }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
