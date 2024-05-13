@@ -1,5 +1,6 @@
 package com.euromix.esupervisor.screens.main.tabs.rates
 
+import android.util.Log
 import com.euromix.esupervisor.App.Companion.beginCurrentMonth
 import com.euromix.esupervisor.App.Companion.endCurrentMonth
 import com.euromix.esupervisor.app.model.Error
@@ -20,7 +21,6 @@ import com.euromix.esupervisor.sources.salesRate.entities.RateRequestEntity
 import com.euromix.esupervisor.sources.salesRate.entities.RateSelectionItem
 import com.squareup.moshi.Json
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import java.util.Date
 import javax.inject.Inject
 
@@ -34,7 +34,7 @@ class RatesViewModel @Inject constructor(
     val viewState: ViewState
         get() = _viewState
 
-    private val _viewStateEvent = MutableLiveEvent<ViewState>()
+    private val _viewStateEvent = MutableLiveEvent<Unit>()
     val viewStateEvent = _viewStateEvent.share()
 
     init {
@@ -57,38 +57,43 @@ class RatesViewModel @Inject constructor(
             is Error -> handleError(result.error)
             else -> {}
         }
-        _viewStateEvent.publishEvent(_viewState)
+        _viewStateEvent.publishEvent()
     }
 
     private fun handlePendingState() {
-        _viewState = _viewState.copy(isLoading = true, error = null, initialLoad = false)
+        _viewState = _viewState.copy(isLoading = true, error = null)
     }
 
     private fun handleSuccessRates(value: List<RateStructure>) {
-        _viewState =
-            _viewState.copy(isLoading = false, error = null, rates = value, initialLoad = true)
+        _viewState = _viewState.copy(
+            isLoading = false,
+            error = null,
+            rates = value,
+            currentRate = if (value.isNotEmpty()) value[0] else null
+        )
     }
 
     private fun handleSuccessRate(value: RateData) {
         _viewState = _viewState.copy(
             isLoading = false,
             error = null,
-            rateData = value,
-            initialLoad = false
+            rateData = value
         )
     }
 
     private fun handleError(error: Throwable) {
-        _viewState = _viewState.copy(isLoading = false, error = error, initialLoad = false)
+        _viewState = _viewState.copy(isLoading = false, error = error)
     }
 
     private fun getRates() {
+        Log.d("log", "go to server rates")
         safeLaunch {
             ratesRepository.getRates().collect { result -> updateViewState(result) }
         }
     }
 
     private fun getRate() {
+        Log.d("log", "go to server rate")
         safeLaunch {
             requestForResult()?.let { request ->
                 ratesRepository.getRate(request).collect { result -> updateViewState(result) }
@@ -118,6 +123,10 @@ class RatesViewModel @Inject constructor(
     private fun getCurrentDimensions(planType: Int, rate: RateStructure) =
         if (planType == 1) rate.dayDimensions else rate.dimensions
 
+    fun restoreViewState() {
+        _viewStateEvent.publishEvent()
+    }
+
     fun reloadRates() {
         getRates()
     }
@@ -129,6 +138,7 @@ class RatesViewModel @Inject constructor(
     fun changeRate(rate: RateStructure) {
         _viewState = _viewState.copy(
             currentRate = rate,
+            detailLevel = 0,
             currentDimensions = getCurrentDimensions(_viewState.planType, rate)
         )
         getRate()
@@ -204,8 +214,7 @@ class RatesViewModel @Inject constructor(
         var currentDimensions: List<String> = listOf(),
         val planType: Int = 0,
         val rateSelection: MutableList<RateSelection> = mutableListOf(),
-        val detailLevel: Int = 0,
-        val initialLoad: Boolean = false
+        val detailLevel: Int = 0
 
     ) : BaseViewState()
 
