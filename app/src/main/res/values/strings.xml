@@ -7,6 +7,10 @@
     <string name="period_selection">Period selection</string>
     <string name="date_selection">Date selection</string>
     <string name="no_internet_connection">no internet connection</string>
+    <string name="number_to_string" translatable="false">%1$s</string>
+    <string name="percent" translatable="false">%1$s %%</string>
+    <string name="empty_time" translatable="false">00:00:00</string>
+
 
     <string name="partner">Partner</string>
     <string name="partner_colon">Partner:</string>
@@ -27,6 +31,8 @@
     <string name="visits">Visits</string>
     <string name="more">More</string>
     <string name="map">Map</string>
+    <string name="sales">Sales</string>
+    <string name="portfolio">Portfolio</string>
 
     <!-- Statuses -->
     <string name="done">Done</string>>
@@ -214,6 +220,40 @@
     <string name="outlets_map">Map of outlets</string>
     <string name="distance_between_coordinates">Distance between coordinates:</string>
 
+    <!-- Statistics screen -->
+    <string name="statistics">Statistics</string>
+    <string name="analysis_of_visits">Analysis of visits</string>
+    <string name="visits_in_the_route">Visits in the route</string>
+    <string name="all_visits">All visits</string>
+    <string name="regular_visits">Regular</string>
+    <string name="distance_constants">Distance constants</string>
+    <string name="constant">Constant</string>
+    <string name="distance_situational">Distance situational</string>
+    <string name="effective_visits">Effective visits</string>
+    <string name="number_of_visits">Number of visits</string>
+    <string name="number_of_orders_colon">Number of orders:</string>
+    <string name="team">Team</string>
+    <string name="average_number_of_orders_20_colon">The average number of orders in the previous 20 days:</string>
+    <string name="average_number_of_orders_colon">The average number of orders for the selected period:</string>
+    <string name="average_amount_of_orders_colon">The average amount of orders for the selected period:</string>
+    <string name="amount_of_OR_colon">Amount of OR for the current day:</string>
+    <string name="amount_of_OR_route_colon">Amount of OR for the current day along the route:</string>
+    <string name="amount_of_payments_colon">Amount of payments for the current day:</string>
+    <string name="avg_time_in_outlets_colon">The average time in outlets:</string>
+    <string name="avg_travel_time_colon">The average travel time:</string>
+    <string name="sales_by_manufacturers">Sales by manufacturers</string>
+    <string name="the_number_of_manufacturers_in_the_portfolio">The number of manufacturers in the portfolio: %1$d</string>
+    <string name="watch_all">Watch all</string>
+    <string name="plan_fact" translatable="false">%1$d/%2$d</string>
+    <string name="more_details">More details</string>
+    <string name="collapse">Collapse</string>
+    <string name="visits_at_the_time_of_creation">Visits at the time of creation</string>
+    <string name="visits_by_type_of_visit">Visits by type of visit</string>
+    <string name="planned">Planned</string>
+    <string name="unscheduled">Unscheduled</string>
+    <string name="scheduled_visits">Scheduled visits</string>
+    <string name="unscheduled_visits">Unscheduled visits</string>
+    <string name="no_data">NO DATA</string>
 
     <!-- Visits screen -->
     <string name="visits_count">%1$s visit(s)</string>
@@ -223,7 +263,5 @@
     <string name="result_changing_visits_title">The result of changing visits</string>
     <string name="result_changing_visits">The visit type has been changed for %1$s visit(s).</string>
     <string name="visits_counts" translatable="false">%1$d/%2$d</string>
-
-
 
 </resources>

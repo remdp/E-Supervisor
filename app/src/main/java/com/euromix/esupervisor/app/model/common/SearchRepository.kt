@@ -30,4 +30,7 @@ class SearchRepository @Inject constructor(
 
     fun findTradingAgentsAndTeams(searchString: String) =
         serverCallbackFlowFetcher { searchSource.findTradingAgentsAndTeams(searchString) }
+
+    fun findBUAndTradingTeams() =
+        serverCallbackFlowFetcher { searchSource.findBUAndTradingTeams() }
 }

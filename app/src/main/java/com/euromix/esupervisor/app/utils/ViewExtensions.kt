@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Rect
+import android.graphics.drawable.GradientDrawable
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
@@ -20,6 +22,7 @@ import com.euromix.esupervisor.app.enums.TaskState
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.utils.customIndicator.CustomProgressIndicator
 import com.google.android.material.checkbox.MaterialCheckBox
+import com.google.android.material.tabs.TabLayout
 
 fun View.showKeyboard() {
     requestFocus()
@@ -231,6 +234,19 @@ fun View.invisible() {
 
 fun View.gone() {
     visibility = View.GONE
+}
+
+fun TabLayout.addDivider() {
+    getChildAt(0).let {
+
+        if (it is LinearLayout) {
+            it.showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
+            val drawable = GradientDrawable()
+            drawable.setColor(getColor(it.context, R.color.dark_alpha_20))
+            drawable.setSize(3, 1)
+            it.dividerDrawable = drawable
+        }
+    }
 }
 
 

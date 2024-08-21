@@ -2,6 +2,8 @@ package com.euromix.esupervisor.sources.routes
 
 import com.euromix.esupervisor.sources.routes.entities.MapPointsResponseEntity
 import com.euromix.esupervisor.sources.routes.entities.OutletDataResponseEntity
+import com.euromix.esupervisor.sources.routes.entities.VisitsStatisticDetailResponseEntity
+import com.euromix.esupervisor.sources.routes.entities.VisitsStatisticsResponseEntity
 import retrofit2.http.GET
 import retrofit2.http.Header
 
@@ -12,4 +14,10 @@ interface RoutesApi {
 
     @GET("outlet_data")
     suspend fun getOutletData(@Header("request") request: String): OutletDataResponseEntity
+
+    @GET("visits_statistic")
+    suspend fun getVisitsStatistic(@Header("request") request: String): List<VisitsStatisticsResponseEntity>
+
+    @GET("visits_statistic_detail")
+    suspend fun getVisitsStatisticDetail(@Header("request") request: String): VisitsStatisticDetailResponseEntity
 }

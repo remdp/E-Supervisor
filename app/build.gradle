@@ -30,8 +30,8 @@ android {
         applicationId "com.euromix.esupervisor"
         minSdk 26
         targetSdk 33
-        versionCode 14
-        versionName "1.4.3.1"
+        versionCode 17
+        versionName "1.5.1-beta"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -150,6 +150,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.9.20"
 
     implementation "com.daimajia.swipelayout:library:1.2.0"
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 }
 

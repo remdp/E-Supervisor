@@ -29,4 +29,7 @@ interface SearchApi {
 
     @GET("trading_agents_and_teams_find")
     suspend fun findTradingAgentsAndTeams(@Query("search_string") searchString: String): List<TAWithTTResponseEntity>
+
+    @GET("balance_units_and_trading_teams")
+    suspend fun findBUAndTradingTeams(): List<List<ServerPair>>
 }

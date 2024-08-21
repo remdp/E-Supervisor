@@ -5,28 +5,22 @@ import android.view.MotionEvent
 import android.widget.EditText
 import androidx.fragment.app.FragmentManager
 import com.euromix.esupervisor.R
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 @SuppressLint("ClickableViewAccessibility")
 fun setPeriodSelection(
     et: EditText,
-    period: Pair<Date, Date>?,
+    inputPeriod: Pair<Date, Date>?,
     fm: FragmentManager,
     periodUpdater: (period: Pair<Date, Date>?) -> Unit
 ) {
-    val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
-    val picker = dateRangePicker.build()
-    designedPeriodView(et, period)
 
-    picker.addOnPositiveButtonClickListener {
-
-        with(Pair(Date(it.first), Date(it.second))) {
-            periodUpdater(this)
-            designedPeriodView(et, this)
-        }
-    }
+    var period = inputPeriod
+    designedPeriodView(et, inputPeriod)
 
     et.setOnTouchListener { v, event ->
 
@@ -41,12 +35,37 @@ fun setPeriodSelection(
                     designedPeriodView(et, null)
                     return@setOnTouchListener true
                 }
+
+                val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
+
+                period?.let {
+                    dateRangePicker.setCalendarConstraints(
+                        CalendarConstraints.Builder().setOpenAt(it.first.time).build()
+                    ).setSelection(
+                        androidx.core.util.Pair(
+                            it.first.time,
+                            it.second.time
+                        )
+                    )
+                }
+                val picker = dateRangePicker.build()
+
+                picker.addOnPositiveButtonClickListener {
+
+                    with(Pair(Date(it.first), Date(it.second))) {
+                        periodUpdater(this)
+                        designedPeriodView(et, this)
+                        period = this
+                    }
+                }
+
                 picker.show(fm, picker.toString())
             }
         }
         return@setOnTouchListener true
     }
 }
+
 
 fun designedPeriodView(et: EditText, period: Pair<Date, Date>?) {
 

@@ -53,4 +53,5 @@ abstract class SourcesModule {
 
     @Binds
     abstract fun bindVisitsSource(retrofitVisitsSource: RetrofitVisitsSource): VisitsSource
+
 }

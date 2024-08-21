@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlnStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/DP_8" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlnEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="8dp" />
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_1"
+        android:layout_marginTop="@dimen/DP_8"
+        android:background="@color/dark_alpha_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvVisitsTimeCreation"
+        android:layout_marginTop="@dimen/DP_16"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/visits_at_the_time_of_creation"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Візити по часу створення" />
+
+    <include
+        android:id="@+id/iPlanVisits"
+        layout="@layout/item_statistic_visits"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvVisitsTimeCreation" />
+
+    <View
+        android:id="@+id/vDivider1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_1"
+        android:background="@color/dark_alpha_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iPlanVisits" />
+
+    <include
+        android:id="@+id/iUnscheduledVisits"
+        layout="@layout/item_statistic_visits"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/vDivider1"
+         />
+
+    <View
+        android:id="@+id/vDivider2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_8"
+        android:background="@color/gray_100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iUnscheduledVisits" />
+
+    <TextView
+        android:id="@+id/tvVisitsByTypeVisit"
+        style="@style/Text.Label.14.Medium"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/visits_by_type_of_visit"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/vDivider2"
+        tools:text="Візити по типу відвідування" />
+
+    <include
+        android:id="@+id/iRegularVisits"
+        layout="@layout/item_statistic_visits"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvVisitsByTypeVisit"
+        tools:visibility="visible" />
+
+    <View
+        android:id="@+id/vDivider3"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_1"
+        android:background="@color/dark_alpha_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iRegularVisits" />
+
+    <include
+        android:id="@+id/iDistanceVisits"
+        layout="@layout/item_statistic_visits"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/vDivider3"
+        tools:visibility="visible" />
+
+    <View
+        android:id="@+id/vDivider4"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_1"
+        android:background="@color/dark_alpha_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iDistanceVisits" />
+
+    <include
+        android:id="@+id/iOneTimeVisits"
+        layout="@layout/item_statistic_visits"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/vDivider4"
+        tools:visibility="visible" />
+
+    <View
+        android:id="@+id/vDivider5"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_1"
+        android:background="@color/dark_alpha_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iOneTimeVisits" />
+
+    <include
+        android:id="@+id/iEffectiveVisits"
+        layout="@layout/item_statistic_visits"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/vDivider5" />
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="-16dp"
+        android:layout_marginBottom="-16dp"
+        android:background="@drawable/bg_4dp_gray_100"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAmountPaymentsLabel"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toTopOf="@+id/tvAvgNumberOfOrdersLabel" />
+
+    <TextView
+        android:id="@+id/tvAvgNumberOfOrdersLabel"
+        style="@style/Text.Label.12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_32"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:text="@string/average_number_of_orders_20_colon"
+        app:layout_constraintEnd_toStartOf="@+id/tvAvgNumberOfOrders20"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/iEffectiveVisits"
+        tools:text="Середня кількість замовлень за попередні 20 днів:" />
+
+    <TextView
+        android:id="@+id/tvAvgNumberOfOrders20"
+        style="@style/Text.Label.12.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:text="@string/number_of_visits"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAvgNumberOfOrdersLabel"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintTop_toTopOf="@+id/tvAvgNumberOfOrdersLabel"
+        tools:text="12" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_1"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:background="@color/dark_alpha_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAvgNumberOfOrdersLabel" />
+
+    <TextView
+        android:id="@+id/tvCurrentOrdersCountLabel"
+        style="@style/Text.Label.12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:text="@string/average_number_of_orders_colon"
+        app:layout_constraintEnd_toStartOf="@+id/tvAvgNumberOrders"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvAvgNumberOfOrdersLabel"
+        tools:text="Середня кількість замовлень за обраний період:" />
+
+    <TextView
+        android:id="@+id/tvAvgNumberOrders"
+        style="@style/Text.Label.12.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:text="@string/number_of_visits"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCurrentOrdersCountLabel"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintTop_toTopOf="@+id/tvCurrentOrdersCountLabel"
+        tools:text="14" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_1"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:background="@color/dark_alpha_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCurrentOrdersCountLabel" />
+
+    <TextView
+        android:id="@+id/tvAmountOrdersLabel"
+        style="@style/Text.Label.12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:text="@string/average_amount_of_orders_colon"
+        app:layout_constraintEnd_toStartOf="@+id/tvAvgAmountOrders"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvCurrentOrdersCountLabel"
+        tools:text="Середня сума замовлень за обраний період:" />
+
+    <TextView
+        android:id="@+id/tvAvgAmountOrders"
+        style="@style/Text.Label.12.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:text="@string/number_of_visits"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAmountOrdersLabel"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintTop_toTopOf="@+id/tvAmountOrdersLabel"
+        tools:text="9145.00" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_1"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:background="@color/dark_alpha_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAmountOrdersLabel" />
+
+    <TextView
+        android:id="@+id/tvOverdueReceivablesLabel"
+        style="@style/Text.Label.12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_16"
+        android:text="@string/amount_of_OR_colon"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvAmountOrdersLabel"
+        tools:text="Сума ПДЗ на поточний день:" />
+
+    <TextView
+        android:id="@+id/tvOverdueReceivables"
+        style="@style/Text.Label.12.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:text="@string/number_of_visits"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOverdueReceivablesLabel"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintTop_toTopOf="@+id/tvOverdueReceivablesLabel"
+        tools:text="541.00" />
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_1"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:background="@color/dark_alpha_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOverdueReceivablesLabel" />
+
+    <TextView
+        android:id="@+id/tvOverdueReceivablesRouteLabel"
+        style="@style/Text.Label.12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_16"
+        android:text="@string/amount_of_OR_route_colon"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvOverdueReceivablesLabel"
+        tools:text="Сума ПДЗ на поточний день по маршруту:" />
+
+    <TextView
+        android:id="@+id/tvOverdueReceivablesRoute"
+        style="@style/Text.Label.12.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:text="@string/number_of_visits"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOverdueReceivablesRouteLabel"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintTop_toTopOf="@+id/tvOverdueReceivablesRouteLabel"
+        tools:text="287.00" />
+
+    <View
+        android:id="@+id/view8"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_1"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:background="@color/dark_alpha_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOverdueReceivablesRouteLabel" />
+
+    <TextView
+        android:id="@+id/tvAmountPaymentsLabel"
+        style="@style/Text.Label.12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_16"
+        android:text="@string/amount_of_payments_colon"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvOverdueReceivablesRouteLabel"
+        tools:text="Сума оплат за поточний день:" />
+
+    <TextView
+        android:id="@+id/tvAmountPayments"
+        style="@style/Text.Label.12.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:text="@string/number_of_visits"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAmountPaymentsLabel"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintTop_toTopOf="@+id/tvAmountPaymentsLabel"
+        tools:text="1263.00" />
+
+    <View
+        android:id="@+id/vSeparator1"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="@dimen/DP_16"
+        android:background="@color/gray_100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+    <TextView
+        android:id="@+id/tvOutletsTimeLabel"
+        style="@style/Text.Label.14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_16"
+        android:drawablePadding="@dimen/DP_8"
+        android:text="@string/avg_time_in_outlets_colon"
+        app:drawableStartCompat="@drawable/ic_time_in_outlets"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/vSeparator1"
+        tools:text="Час у точках:" />
+
+    <TextView
+        android:id="@+id/tvOutletsTime"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:text="@string/number_of_visits"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOutletsTimeLabel"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintTop_toTopOf="@+id/tvOutletsTimeLabel"
+        tools:text="3:45:35" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/DP_1"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:background="@color/dark_alpha_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutletsTimeLabel" />
+
+    <TextView
+        android:id="@+id/tvTravelTimeLabel"
+        style="@style/Text.Label.14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_16"
+        android:drawablePadding="@dimen/DP_8"
+        android:text="@string/avg_travel_time_colon"
+        app:drawableStartCompat="@drawable/ic_travel_time"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutletsTimeLabel"
+        tools:text="Час на переїзди:" />
+
+    <TextView
+        android:id="@+id/tvTravelTime"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:text="@string/number_of_visits"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTravelTimeLabel"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintTop_toTopOf="@+id/tvTravelTimeLabel"
+        tools:text="4:14:25" />
+
+    <View
+        android:id="@+id/vSeparator2"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="@dimen/DP_16"
+        android:background="@color/gray_100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTravelTimeLabel" />
+
+    <TextView
+        android:id="@+id/tvSalesByManufacturers"
+        style="@style/Text.Label.16.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_16"
+        android:text="@string/sales_by_manufacturers"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/vSeparator2"
+        tools:text="Продажі по виробникам" />
+
+    <com.github.mikephil.charting.charts.HorizontalBarChart
+        android:id="@+id/chManufacturers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_16"
+        android:layout_marginEnd="-16dp"
+        app:layout_constraintEnd_toStartOf="@+id/tvMnfChartRouteLabel"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvSalesByManufacturers" />
+
+
+    <TextView
+        android:id="@+id/tvMnfChartSaleLabel"
+        style="@style/Text.Label.8.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_8"
+        android:paddingEnd="@dimen/DP_8"
+        android:text="@string/sales"
+        android:textAllCaps="true"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toTopOf="@+id/tvMnfChartPortfolioLabel"
+        app:layout_constraintEnd_toEndOf="@+id/tvMnfChartPortfolioLabel"
+        app:layout_constraintTop_toTopOf="@+id/chManufacturers"
+        tools:text="Продажі" />
+
+    <TextView
+        android:id="@+id/tvMnfChartPortfolioLabel"
+        style="@style/Text.Label.8.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_8"
+        android:paddingEnd="@dimen/DP_8"
+        android:text="@string/portfolio"
+        android:textAllCaps="true"
+        android:textColor="@color/blue_80"
+        app:layout_constraintBottom_toTopOf="@+id/tvMnfChartRouteLabel"
+        app:layout_constraintEnd_toStartOf="@+id/tvMnfChartPortfolio"
+        app:layout_constraintTop_toBottomOf="@+id/tvMnfChartSaleLabel"
+        tools:text="Портфель" />
+
+    <TextView
+        android:id="@+id/tvMnfChartRouteLabel"
+        style="@style/Text.Label.8.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_8"
+        android:paddingEnd="@dimen/DP_8"
+        android:text="@string/route"
+        android:textAllCaps="true"
+        android:textColor="@color/blue_60"
+        app:layout_constraintBottom_toBottomOf="@+id/chManufacturers"
+        app:layout_constraintEnd_toStartOf="@+id/tvMnfChartPortfolio"
+        app:layout_constraintTop_toBottomOf="@+id/tvMnfChartPortfolioLabel"
+        tools:text="Маршрут" />
+
+    <TextView
+        android:id="@+id/tvMnfChartSale"
+        style="@style/Text.Label.8.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_2dp_blue_10"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_4"
+        android:paddingEnd="@dimen/DP_4"
+        android:textAllCaps="true"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toTopOf="@+id/tvMnfChartPortfolio"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintTop_toTopOf="@+id/chManufacturers"
+        app:layout_constraintVertical_chainStyle="spread"
+        tools:text="22" />
+
+    <TextView
+        android:id="@+id/tvMnfChartPortfolio"
+        style="@style/Text.Label.8.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_2dp_blue_10"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_4"
+        android:paddingEnd="@dimen/DP_4"
+        android:textAllCaps="true"
+        android:textColor="@color/blue_80"
+        app:layout_constraintBottom_toTopOf="@+id/tvMnfChartRoute"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintTop_toBottomOf="@+id/tvMnfChartSale"
+        tools:text="70" />
+
+    <TextView
+        android:id="@+id/tvMnfChartRoute"
+        style="@style/Text.Label.8.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_2dp_blue_10"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_4"
+        android:paddingEnd="@dimen/DP_4"
+        android:textAllCaps="true"
+        android:textColor="@color/blue_60"
+        app:layout_constraintBottom_toBottomOf="@+id/chManufacturers"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintTop_toBottomOf="@+id/tvMnfChartPortfolio"
+        tools:text="45" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="-16dp"
+        android:layout_marginBottom="-16dp"
+        android:background="@drawable/bg_4dp_gray_100"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWatchAll"
+        app:layout_constraintEnd_toEndOf="@+id/gdlnEnd"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toTopOf="@+id/tvManufacturersInPortfolioLabel" />
+
+    <TextView
+        android:id="@+id/tvManufacturersInPortfolioLabel"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="@dimen/DP_32"
+        android:text="@string/the_number_of_manufacturers_in_the_portfolio"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/chManufacturers"
+        tools:text="Кількість виробників в портфелі: 70" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvManufacturersLogo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_16"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvManufacturersInPortfolioLabel"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_statistic_manufacturers" />
+
+    <TextView
+        android:id="@+id/tvWatchAll"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_16"
+        android:drawablePadding="@dimen/DP_8"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_8"
+        android:paddingEnd="@dimen/DP_8"
+        android:text="@string/watch_all"
+        android:textColor="@color/blue"
+        app:drawableRightCompat="@drawable/ic_arrow_drop_down_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvManufacturersLogo"
+        tools:text="Дивитись усі" />
+
+    <com.euromix.esupervisor.app.views.ResultView
+        android:id="@+id/vResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1"
+        tools:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

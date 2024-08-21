@@ -69,7 +69,9 @@
     <color name="gray_600">#3E4449</color>
     <color name="blue">#167AFA</color>
     <color name="blue_80">#CC167AFA</color>
+    <color name="blue_60">#99167AFA</color>
     <color name="blue_10">#1A167AFA</color>
+    <color name="blue_20">#33167AFA</color>
     <color name="orange">#FF830A</color>
     <color name="orange_80">#CCFF830A</color>
     <color name="orange_light">#FCAF56</color>

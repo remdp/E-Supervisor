@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/DP_4"
-        app:drawableStartCompat="@drawable/ic_calendar_statistic"
+        app:drawableStartCompat="@drawable/ic_calendar_statistic_small"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="13.03.2023, 10.15" />

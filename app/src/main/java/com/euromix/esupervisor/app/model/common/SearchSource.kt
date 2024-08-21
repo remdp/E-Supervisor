@@ -21,4 +21,6 @@ interface SearchSource {
     suspend fun findTradingTeams(): List<ServerPair>
 
     suspend fun findTradingAgentsAndTeams(searchString: String): List<TradingAgentsAndTeams>
+
+    suspend fun findBUAndTradingTeams(): List<List<ServerPair>>
 }

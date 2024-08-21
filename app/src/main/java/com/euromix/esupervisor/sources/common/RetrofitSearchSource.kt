@@ -66,4 +66,10 @@ class RetrofitSearchSource @Inject constructor(
             searchApi.findTradingAgentsAndTeams(searchString).map { it.toTradingAgentsAndTeams() }
         }
     }
+
+    override suspend fun findBUAndTradingTeams(): List<List<ServerPair>> {
+        return wrapRetrofitException {
+            searchApi.findBUAndTradingTeams()
+        }
+    }
 }

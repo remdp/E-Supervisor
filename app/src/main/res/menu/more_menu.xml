@@ -6,4 +6,7 @@
     <item
         android:id="@+id/tasks_graph"
         android:title="@string/tasks" />
+    <item
+        android:id="@+id/statistics_graph"
+        android:title="@string/analysis_of_visits" />
 </menu>

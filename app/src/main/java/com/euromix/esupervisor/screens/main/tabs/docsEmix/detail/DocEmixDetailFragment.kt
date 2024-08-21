@@ -1,9 +1,7 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,6 +14,7 @@ import com.euromix.esupervisor.app.enums.DocEmixOperationType
 import com.euromix.esupervisor.app.enums.Status
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.addDivider
 import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.dialogPositiveButton
 import com.euromix.esupervisor.app.utils.gone
@@ -124,7 +123,7 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
             if (docEmixDetail.operationType == DocEmixOperationType.NEW_PARTNER_FACT || docEmixDetail.images > 0) {
                 addTabsListener(tlTabs)
                 addTabsMediator(tlTabs, vpTabs, docEmixDetail)
-                addDividerTabs(tlTabs)
+                tlTabs.addDivider()
                 tlTabs.visible()
             } else {
                 tlTabs.gone()
@@ -219,19 +218,5 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
             tab.customView = bindingTLHeader.root
 
         }.attach()
-    }
-
-    private fun addDividerTabs(tlTabs: TabLayout) {
-
-        tlTabs.getChildAt(0).let {
-
-            if (it is LinearLayout) {
-                it.showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
-                val drawable = GradientDrawable()
-                drawable.setColor(getColor(it.context, R.color.dark_alpha_20))
-                drawable.setSize(3, 1)
-                it.dividerDrawable = drawable
-            }
-        }
     }
 }

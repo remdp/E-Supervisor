@@ -27,6 +27,8 @@
     <string name="visits">Візити</string>
     <string name="more">Ще</string>
     <string name="map">Мапа</string>
+    <string name="sales">Продажі</string>
+    <string name="portfolio">Портфель</string>
 
     <!-- Statuses -->
     <string name="done">Виконано</string>>
@@ -201,6 +203,41 @@
     <string name="outlets_map">Мапа точок</string>
     <string name="distance_between_coordinates">Відстань між координатами:</string>
 
+    <!-- Statistics screen -->
+    <string name="statistics">Статистика</string>
+    <string name="analysis_of_visits">Аналіз візитів</string>
+    <string name="visits_in_the_route">Візити в маршруті</string>
+    <string name="all_visits">Всі візити</string>
+    <string name="regular_visits">Регулярні</string>
+    <string name="distance_constants">Дистанційні постійні</string>
+    <string name="constant">Постійні</string>
+    <string name="distance_situational">Дистанційні ситуаційні</string>
+    <string name="effective_visits">Ефективні візити</string>
+    <string name="number_of_visits">Кількість візитів</string>
+    <string name="number_of_orders_colon">Кількість замовлень:</string>
+    <string name="team">Команда</string>
+    <string name="average_number_of_orders_20_colon">Середня кількість замовлень за попередні 20 днів:</string>
+    <string name="average_number_of_orders_colon">Середня кількість замовлень за обраний період:</string>
+    <string name="average_amount_of_orders_colon">Середня сума замовлень за обраний період:</string>
+    <string name="amount_of_OR_colon">Сума ПДЗ на поточний день:</string>
+    <string name="amount_of_OR_route_colon">Сума ПДЗ на поточний день по маршруту:</string>
+    <string name="amount_of_payments_colon">Сума оплат за поточний день:</string>
+    <string name="avg_time_in_outlets_colon">Середній час у точках:</string>
+    <string name="avg_travel_time_colon">Середній час на переїзди:</string>
+    <string name="sales_by_manufacturers">Продажі по виробникам</string>
+    <string name="the_number_of_manufacturers_in_the_portfolio">Кількість виробників в портфелі: %1$d</string>
+    <string name="watch_all">Дивитись усі</string>
+    <string name="more_details">Детальніше</string>
+    <string name="collapse">Згорнути</string>
+    <string name="visits_at_the_time_of_creation">Візити по часу створення</string>
+    <string name="visits_by_type_of_visit">Візити по типу відвідування</string>
+    <string name="planned">Планові</string>
+    <string name="unscheduled">Позапланові</string>
+    <string name="scheduled_visits">Планові візити</string>
+    <string name="unscheduled_visits">Позапланові візити</string>
+    <string name="no_data">НЕМАЄ ДАНИХ</string>
+
+
     <!-- Visits screen -->
     <string name="visits_count">%1$s візит(ів)</string>
     <string name="regular">Регулярний</string>
@@ -208,5 +245,6 @@
     <string name="change_visit_type">Зміна типу відвідування</string>
     <string name="result_changing_visits_title">Результат зміни візитів</string>
     <string name="result_changing_visits">Для %1$s візита(ів) змінено тип відвідування</string>
+
 
 </resources>

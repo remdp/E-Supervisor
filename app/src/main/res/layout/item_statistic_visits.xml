@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/DP_8">
+
+    <TextView
+        android:id="@+id/tvVisits"
+        style="@style/Text.Label.14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/DP_8"
+        android:text="@string/visits_in_the_route"
+        app:drawableStartCompat="@drawable/ic_order"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Регулярні візити" />
+
+    <TextView
+        android:id="@+id/tvPercent"
+        style="@style/Text.Label.10.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_2"
+        android:background="@color/blue"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_8"
+        android:paddingEnd="@dimen/DP_8"
+        android:text="@string/percent"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvVisits"
+        tools:text="23 %" />
+
+    <com.github.mikephil.charting.charts.HorizontalBarChart
+        android:id="@+id/chart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-32dp"
+        android:layout_marginTop="@dimen/DP_2"
+        app:layout_constraintEnd_toStartOf="@+id/tvPlanLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPercent" />
+
+    <TextView
+        android:id="@+id/tvFactLabel"
+        style="@style/Text.Label.8.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_8"
+        android:paddingEnd="@dimen/DP_8"
+        android:text="@string/fact"
+        android:textAllCaps="true"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toTopOf="@+id/tvPlanLabel"
+        app:layout_constraintEnd_toStartOf="@+id/tvFact"
+        app:layout_constraintTop_toTopOf="@+id/chart"
+        tools:text="Факт" />
+
+    <TextView
+        android:id="@+id/tvFact"
+        style="@style/Text.Label.8.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_2dp_blue_10"
+        android:textAllCaps="true"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_4"
+        android:paddingEnd="@dimen/DP_4"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="@+id/tvFactLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvFactLabel"
+        app:layout_constraintVertical_chainStyle="spread"
+        tools:text="56" />
+
+    <TextView
+        android:id="@+id/tvPlanLabel"
+        style="@style/Text.Label.8.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_8"
+        android:paddingEnd="@dimen/DP_8"
+        android:text="@string/plan"
+        android:textAllCaps="true"
+        android:textColor="@color/blue_60"
+        app:layout_constraintBottom_toBottomOf="@+id/chart"
+        app:layout_constraintEnd_toStartOf="@+id/tvFact"
+        app:layout_constraintTop_toBottomOf="@+id/tvFactLabel"
+        tools:text="План" />
+
+    <TextView
+        android:id="@+id/tvPlan"
+        style="@style/Text.Label.8.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_2dp_blue_10"
+        android:paddingStart="@dimen/DP_4"
+        android:paddingEnd="@dimen/DP_4"
+        android:padding="@dimen/DP_2"
+        android:textAllCaps="true"
+        android:textColor="@color/blue_60"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPlanLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvPlanLabel"
+        tools:text="81" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

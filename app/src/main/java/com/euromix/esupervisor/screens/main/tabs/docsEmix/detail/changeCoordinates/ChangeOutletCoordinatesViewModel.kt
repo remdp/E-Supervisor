@@ -20,6 +20,8 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.mapbox.geojson.Point
+import com.mapbox.maps.CameraOptions
+import com.mapbox.maps.MapboxMap
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -175,6 +177,20 @@ class ChangeOutletCoordinatesViewModel @AssistedInject constructor(
         )
 
         return listOf(oldOptions, newOptions)
+    }
+
+    fun setCamera(
+        mapboxMap: MapboxMap,
+        zoom: Double = 6.0,
+        longitude: Double = 31.41933250,
+        latitude: Double= 49.02459717
+    ) {
+        mapboxMap.setCamera(
+            CameraOptions.Builder()
+                .center(Point.fromLngLat(longitude, latitude))
+                .zoom(zoom)
+                .build()
+        )
     }
 
     fun acceptChangeCoordinates(approve: Boolean, reason: String) {

@@ -3,6 +3,8 @@ package com.euromix.esupervisor.app.model.routes
 import com.euromix.esupervisor.app.utils.async.serverCallbackFlowFetcher
 import com.euromix.esupervisor.sources.routes.entities.MapPointsRequestEntity
 import com.euromix.esupervisor.sources.routes.entities.OutletDataRequestEntity
+import com.euromix.esupervisor.sources.routes.entities.RoutesStatisticDetailRequestEntity
+import com.euromix.esupervisor.sources.routes.entities.RoutesStatisticRequestEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,4 +15,10 @@ class RoutesRepository @Inject constructor(private val routesSource: RoutesSourc
 
     fun getOutletData(request: OutletDataRequestEntity) =
         serverCallbackFlowFetcher { routesSource.getOutletData(request) }
+
+    fun getVisitsStatistic(request: RoutesStatisticRequestEntity) =
+    serverCallbackFlowFetcher { routesSource.getVisitsStatisticData(request) }
+
+    fun getVisitsStatisticDetail(request: RoutesStatisticDetailRequestEntity) =
+        serverCallbackFlowFetcher { routesSource.getVisitsStatisticDetailData(request) }
 }

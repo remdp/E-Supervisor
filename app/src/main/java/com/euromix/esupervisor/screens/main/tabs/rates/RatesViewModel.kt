@@ -1,6 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.rates
 
-import android.util.Log
 import com.euromix.esupervisor.App.Companion.beginCurrentMonth
 import com.euromix.esupervisor.App.Companion.endCurrentMonth
 import com.euromix.esupervisor.app.model.Error
@@ -8,6 +7,7 @@ import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.common.entities.ServerObject
+import com.euromix.esupervisor.app.model.common.entities.ServerSelectionItem
 import com.euromix.esupervisor.app.model.rates.RatesRepository
 import com.euromix.esupervisor.app.model.rates.entities.RateData
 import com.euromix.esupervisor.app.model.rates.entities.RateStructure
@@ -18,7 +18,6 @@ import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.sources.salesRate.entities.RateRequestEntity
-import com.euromix.esupervisor.sources.salesRate.entities.RateSelectionItem
 import com.squareup.moshi.Json
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Date
@@ -69,7 +68,8 @@ class RatesViewModel @Inject constructor(
             isLoading = false,
             error = null,
             rates = value,
-            currentRate = if (value.isNotEmpty()) value[0] else null
+            currentRate = if (value.isNotEmpty()) value[0] else null,
+            currentDimensions = if (value.isNotEmpty()) getCurrentDimensions(value[0]) else listOf()
         )
     }
 
@@ -86,14 +86,12 @@ class RatesViewModel @Inject constructor(
     }
 
     private fun getRates() {
-        Log.d("log", "go to server rates")
         safeLaunch {
             ratesRepository.getRates().collect { result -> updateViewState(result) }
         }
     }
 
     private fun getRate() {
-        Log.d("log", "go to server rate")
         safeLaunch {
             requestForResult()?.let { request ->
                 ratesRepository.getRate(request).collect { result -> updateViewState(result) }
@@ -113,15 +111,15 @@ class RatesViewModel @Inject constructor(
                 planType = _viewState.planType,
                 selection = _viewState.rateSelection.map {
                     it.serverObject.let { serverObj ->
-                        RateSelectionItem(serverObj.serverPair.id, serverObj.serverType)
+                        ServerSelectionItem(serverObj.serverPair.id, serverObj.serverType)
                     }
                 }
             )
         }
     }
 
-    private fun getCurrentDimensions(planType: Int, rate: RateStructure) =
-        if (planType == 1) rate.dayDimensions else rate.dimensions
+    private fun getCurrentDimensions(rate: RateStructure) =
+        if (_viewState.planType == 1) rate.dayDimensions else rate.dimensions
 
     fun restoreViewState() {
         _viewStateEvent.publishEvent()
@@ -139,7 +137,7 @@ class RatesViewModel @Inject constructor(
         _viewState = _viewState.copy(
             currentRate = rate,
             detailLevel = 0,
-            currentDimensions = getCurrentDimensions(_viewState.planType, rate)
+            currentDimensions = getCurrentDimensions(rate)
         )
         getRate()
     }
@@ -175,18 +173,18 @@ class RatesViewModel @Inject constructor(
         _viewState = _viewState.copy(
             planType = planType,
             detailLevel = 0,
-            currentDimensions = if (currentRate != null) getCurrentDimensions(
-                planType,
-                currentRate
-            ) else listOf()
+            currentDimensions = if (currentRate != null) getCurrentDimensions(currentRate) else listOf()
         )
         getRate()
     }
 
     fun decipherDimensions() = with(_viewState) {
-        val excludedDimensions = mutableSetOf(currentDimensions[detailLevel])
-        rateSelection.forEach { excludedDimensions.add(currentDimensions[it.detailLevel]) }
-        currentDimensions.filter { it !in excludedDimensions }.toTypedArray()
+        if (currentDimensions.isNotEmpty()) {
+
+            val excludedDimensions = mutableSetOf(currentDimensions[detailLevel])
+            rateSelection.forEach { excludedDimensions.add(currentDimensions[it.detailLevel]) }
+            currentDimensions.filter { it !in excludedDimensions }.toTypedArray()
+        } else arrayOf()
     }
 
     fun backStackPath(): String {

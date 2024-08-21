@@ -1,6 +1,7 @@
 package com.euromix.esupervisor.sources.salesRate.entities
 
 import android.os.Parcelable
+import com.euromix.esupervisor.app.model.common.entities.ServerSelectionItem
 import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 @Parcelize
@@ -10,7 +11,7 @@ data class RateRequestEntity(
     @field:Json(name = "end_date") val endDate: String?,
     @field:Json(name = "detail_level") val detailLevel: Int,
     @field:Json(name = "plan_type") val planType: Int,
-    val selection: List<RateSelectionItem>,
+    val selection: List<ServerSelectionItem>,
 ) : Parcelable
 
 @Parcelize

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/statistics_graph"
+    app:startDestination="@id/statisticsFragment">
+
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.statistics.StatisticsFragment"
+        android:label="StatisticsFragment" >
+        <action
+            android:id="@+id/action_statisticsFragment_to_statisticsSelectionFragment"
+            app:destination="@id/statisticsSelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/statisticsSelectionFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.statistics.selection.StatisticsSelectionFragment"
+        android:label="StatisticsSelectionFragment" >
+        <argument
+            android:name="selection"
+            app:argType="com.euromix.esupervisor.app.model.routes.entities.StatisticsSelection" />
+        <argument
+            android:name="jumpCount"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+</navigation>

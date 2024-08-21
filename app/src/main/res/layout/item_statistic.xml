@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/DP_8"
+    android:background="@color/white"
+    android:padding="@dimen/DP_16">
+
+    <TextView
+        android:id="@+id/tvStatDetail"
+        style="@style/Text.Label.16.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        android:maxWidth="330dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="РП Дніпро" />
+
+    <TextView
+        android:id="@+id/tvStatDetailChildrenCount"
+        style="@style/Text.Label.14.Medium.Gray500"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_2dp_gray_100"
+        android:paddingStart="@dimen/DP_4"
+        android:paddingEnd="@dimen/DP_4"
+        app:layout_constraintBottom_toBottomOf="@+id/tvStatDetail"
+        app:layout_constraintStart_toEndOf="@+id/tvStatDetail"
+        app:layout_constraintTop_toTopOf="@+id/tvStatDetail"
+        tools:text="8" />
+
+    <ImageView
+        android:id="@+id/ivDecipher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_right_gray" />
+
+    <ImageView
+        android:id="@+id/ivPlanVisits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:background="@drawable/bg_8dp_gray_100"
+        android:padding="@dimen/DP_16"
+        app:layout_constraintEnd_toStartOf="@+id/ivUnscheduledVisits"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:tooltipText="@string/scheduled_visits"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvStatDetail"
+        app:srcCompat="@drawable/ic_calendar_statistic" />
+
+    <ImageView
+        android:id="@+id/ivUnscheduledVisits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:background="@drawable/bg_8dp_gray_100"
+        android:padding="@dimen/DP_16"
+        android:tooltipText="@string/unscheduled_visits"
+        app:layout_constraintEnd_toStartOf="@+id/ivRegularVisits"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivPlanVisits"
+        app:layout_constraintTop_toBottomOf="@+id/tvStatDetail"
+        app:srcCompat="@drawable/ic_calendar_statistic_cross" />
+
+    <ImageView
+        android:id="@+id/ivRegularVisits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:background="@drawable/bg_8dp_gray_100"
+        android:padding="@dimen/DP_16"
+        android:tooltipText="@string/regular_visits"
+        app:layout_constraintEnd_toStartOf="@+id/ivDistanceVisits"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivUnscheduledVisits"
+        app:layout_constraintTop_toBottomOf="@+id/tvStatDetail"
+        app:srcCompat="@drawable/ic_run_man_statistic" />
+
+    <ImageView
+        android:id="@+id/ivDistanceVisits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:background="@drawable/bg_8dp_gray_100"
+        android:padding="@dimen/DP_16"
+        android:tooltipText="@string/distance_constants"
+        app:layout_constraintEnd_toStartOf="@+id/ivEffectiveVisits"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivRegularVisits"
+        app:layout_constraintTop_toBottomOf="@+id/tvStatDetail"
+        app:srcCompat="@drawable/ic_phone_statistic" />
+
+    <ImageView
+        android:id="@+id/ivEffectiveVisits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:background="@drawable/bg_8dp_gray_100"
+        android:padding="@dimen/DP_16"
+        android:tooltipText="@string/effective_visits"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivDistanceVisits"
+        app:layout_constraintTop_toBottomOf="@+id/tvStatDetail"
+        app:srcCompat="@drawable/ic_stars_statistic" />
+
+    <TextView
+        android:id="@+id/tvPlanVisits"
+        style="@style/Text.Label.12.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_2"
+        app:layout_constraintEnd_toEndOf="@+id/ivPlanVisits"
+        app:layout_constraintStart_toStartOf="@+id/ivPlanVisits"
+        app:layout_constraintTop_toBottomOf="@+id/ivPlanVisits"
+        tools:text="70/78" />
+
+    <TextView
+        android:id="@+id/tvUnscheduledVisits"
+        style="@style/Text.Label.12.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_2"
+        app:layout_constraintEnd_toEndOf="@+id/ivUnscheduledVisits"
+        app:layout_constraintStart_toStartOf="@+id/ivUnscheduledVisits"
+        app:layout_constraintTop_toBottomOf="@+id/ivUnscheduledVisits"
+        tools:text="10/78" />
+
+    <TextView
+        android:id="@+id/tvRegularVisits"
+        style="@style/Text.Label.12.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_2"
+        app:layout_constraintEnd_toEndOf="@+id/ivRegularVisits"
+        app:layout_constraintStart_toStartOf="@+id/ivRegularVisits"
+        app:layout_constraintTop_toBottomOf="@+id/ivRegularVisits"
+        tools:text="19/19" />
+
+    <TextView
+        android:id="@+id/tvDistanceVisits"
+        style="@style/Text.Label.12.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_2"
+        app:layout_constraintEnd_toEndOf="@+id/ivDistanceVisits"
+        app:layout_constraintStart_toStartOf="@+id/ivDistanceVisits"
+        app:layout_constraintTop_toBottomOf="@+id/ivDistanceVisits"
+        tools:text="4/12" />
+
+    <TextView
+        android:id="@+id/tvEffectiveVisits"
+        style="@style/Text.Label.12.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_2"
+        app:layout_constraintEnd_toEndOf="@+id/ivEffectiveVisits"
+        app:layout_constraintStart_toStartOf="@+id/ivEffectiveVisits"
+        app:layout_constraintTop_toBottomOf="@+id/ivEffectiveVisits"
+        tools:text="14/21" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grpTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="ivPlanVisits,ivUnscheduledVisits, ivRegularVisits, ivDistanceVisits, ivEffectiveVisits, tvPlanVisits, tvUnscheduledVisits, tvRegularVisits, tvDistanceVisits, tvEffectiveVisits" />
+
+    <include
+        android:id="@+id/incDetail"
+        layout="@layout/item_statistic_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlanVisits"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvCollapse"
+        style="@style/Text.Label.14.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:drawablePadding="@dimen/DP_8"
+        android:padding="@dimen/DP_2"
+        android:paddingStart="@dimen/DP_8"
+        android:paddingEnd="@dimen/DP_8"
+        android:text="@string/more_details"
+        android:textColor="@color/blue"
+        app:drawableRightCompat="@drawable/ic_arrow_drop_down_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/incDetail"
+        tools:text="Детальніше" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
