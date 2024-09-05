@@ -119,7 +119,7 @@ fun dialogReactDislike(
     }
 
     binding.tfReasonText.doOnTextChanged { text, start, before, count ->
-        binding.tfReasonText.setBackgroundResource(if (text.isNullOrBlank()) R.drawable.bg_underline_red else R.drawable.bg_8dp_white_border)
+        binding.tfReasonText.setBackgroundResource(if (text.isNullOrBlank()) R.drawable.bg_underline_red else R.drawable.bg_8dp_white_border_gray_200)
     }
 
     val dialog = AlertDialog.Builder(context).setTitle(titleId).setView(binding.root)

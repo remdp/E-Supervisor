@@ -61,7 +61,7 @@ class ImagesAdapter(
                 if (reaction.dislikes == 0 && reaction.likes == 0) R.drawable.bg_border_gray_200
                 else if (reaction.dislikes > 0 && reaction.likes > 0) R.drawable.bg_border_gradient
                 else if (reaction.likes > 0) R.drawable.bg_border_blue
-                else R.drawable.bg_border_red
+                else R.drawable.bg_border_red_light
             )
 
             ivDislike.setImageResource(if (reaction.dislikes > 0) R.drawable.ic_dislike_red else R.drawable.ic_dislike_gray_400)

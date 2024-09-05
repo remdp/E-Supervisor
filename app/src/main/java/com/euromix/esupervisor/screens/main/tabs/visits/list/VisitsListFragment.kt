@@ -184,11 +184,11 @@ class VisitsListFragment : BaseFragment(R.layout.visits_list_fragment) {
                 if (it == pressedTV) {
                     it.setTextColor(App.getColor(context, R.color.blue))
                     it.background =
-                        App.getDrawable(context, R.drawable.bg_4dp_light_alpha_60_border_blue)
+                        App.getDrawable(context, R.drawable.bg_4dp_border_blue)
                 } else {
                     it.setTextColor(App.getColor(context, R.color.gray_400))
                     it.background = App.getDrawable(
-                        context, R.drawable.bg_4dp_light_alpha_60_border_dark_alpha_10
+                        context, R.drawable.bg_4dp_border_dark_alpha_10
                     )
                 }
             }

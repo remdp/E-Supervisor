@@ -43,7 +43,7 @@
         android:layout_marginTop="@dimen/DP_24"
         android:layout_marginEnd="@dimen/DP_8"
         android:autofillHints=""
-        android:background="@drawable/bg_8dp_white_border"
+        android:background="@drawable/bg_8dp_white_border_gray_200"
         android:drawableEnd="@drawable/ic_calendar"
         android:drawablePadding="@dimen/DP_12"
         android:focusable="false"

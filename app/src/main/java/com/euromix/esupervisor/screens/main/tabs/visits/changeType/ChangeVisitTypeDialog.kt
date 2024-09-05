@@ -124,7 +124,7 @@ class ChangeVisitTypeDialog(private val ids: List<String>, private val visitType
         if (viewModel.viewState.comment.isEmpty())
             binding.etReason.setBackgroundResource(R.drawable.bg_underline_red)
         else binding.etReason.setBackgroundResource(
-            R.drawable.bg_8dp_white_border
+            R.drawable.bg_8dp_white_border_gray_200
         )
     }
 

@@ -11,5 +11,6 @@
     <include app:graph="@navigation/profile_graph" />
     <include app:graph="@navigation/tasks_graph" />
     <include app:graph="@navigation/statistics_graph" />
+    <include app:graph="@navigation/odometers_graph" />
 
 </navigation>

@@ -7,6 +7,9 @@
     <string name="period_selection">Вибір періоду</string>
     <string name="date_selection">Вибір дати</string>
     <string name="no_internet_connection">немає зв\'язку з інтернет</string>
+    <string name="media_store_error">Помилка при зверненні до файлової системи</string>
+    <string name="send">Відправити</string>
+    <string name="close">Закрити</string>
 
     <string name="partner">Контрагент</string>
     <string name="partner_colon">Контрагент:</string>
@@ -237,7 +240,6 @@
     <string name="unscheduled_visits">Позапланові візити</string>
     <string name="no_data">НЕМАЄ ДАНИХ</string>
 
-
     <!-- Visits screen -->
     <string name="visits_count">%1$s візит(ів)</string>
     <string name="regular">Регулярний</string>
@@ -245,6 +247,18 @@
     <string name="change_visit_type">Зміна типу відвідування</string>
     <string name="result_changing_visits_title">Результат зміни візитів</string>
     <string name="result_changing_visits">Для %1$s візита(ів) змінено тип відвідування</string>
+
+    <!-- Odometers screen -->
+    <string name="odometer_reading">Показання одометра</string>
+    <string name="at_beginning_of_day">На початок дня</string>
+    <string name="at_ending_of_day">Після завершення дня</string>
+    <string name="difference_colon">Різниця:</string>
+    <string name="add_a_photo_of_the_odometer">Додайте фото одометра</string>
+    <string name="add_from_gallery">Додати з галереї</string>
+    <string name="open_camera">Відкрити камеру</string>
+    <string name="created_colon">Створено:</string>
+    <string name="mileage_colon">Кілометраж:</string>
+    <string name="km">км</string>
 
 
 </resources>

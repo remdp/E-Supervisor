@@ -38,7 +38,7 @@ fun popupWindow(
     popupWindow.setBackgroundDrawable(
         App.getDrawable(
             context,
-            R.drawable.bg_8dp_white_border
+            R.drawable.bg_8dp_white_border_gray_200
         )
     )
 

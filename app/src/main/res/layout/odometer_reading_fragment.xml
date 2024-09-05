@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/DP_8"
+    android:layout_marginEnd="@dimen/DP_8"
+    android:background="@drawable/bg_16dp_gray_100"
+    android:paddingHorizontal="@dimen/DP_16"
+    android:paddingTop="@dimen/DP_32">
+
+    <TextView
+        android:id="@+id/tvOdometerLabel"
+        style="@style/Text.Label.20.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/odometer_reading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glMiddle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".5" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiStartOdometer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_16"
+        android:hint="@string/at_beginning_of_day"
+        android:paddingTop="@dimen/DP_4"
+        app:boxBackgroundMode="none"
+        app:layout_constraintEnd_toStartOf="@id/glMiddle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvOdometerLabel">
+
+        <EditText
+            android:id="@+id/etStartOdometer"
+            style="@style/Text.Label.16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:imeOptions="actionDone"
+            android:inputType="numberDecimal"
+            android:paddingTop="@dimen/DP_2"
+            android:paddingBottom="@dimen/DP_8"
+            tools:ignore="Autofill,LabelFor,TextFields"
+            tools:text="345346" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiStopOdometer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:hint="@string/at_ending_of_day"
+        android:paddingTop="@dimen/DP_4"
+        app:boxBackgroundColor="@android:color/transparent"
+        app:boxBackgroundMode="none"
+        app:layout_constraintBottom_toBottomOf="@id/tiStartOdometer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/glMiddle"
+        app:layout_constraintTop_toTopOf="@id/tiStartOdometer">
+
+        <EditText
+            android:id="@+id/etStopOdometer"
+            style="@style/Text.Label.16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:imeOptions="actionDone"
+            android:inputType="numberDecimal"
+            android:paddingTop="@dimen/DP_2"
+            android:paddingBottom="@dimen/DP_8"
+            tools:ignore="Autofill,LabelFor,TextFields" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/ivDifferenceBorder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="-16dp"
+        android:layout_marginBottom="-16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOdometerDifference"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvOdometerDifferenceLabel"
+        app:srcCompat="@drawable/bg_8dp_border_dark_alpha_10" />
+
+    <TextView
+        android:id="@+id/tvOdometerDifferenceLabel"
+        style="@style/Text.Label.14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_32"
+        android:text="@string/difference_colon"
+        app:layout_constraintBottom_toTopOf="@+id/tvOdometerDifference"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiStartOdometer"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="@string/difference_colon" />
+
+    <TextView
+        android:id="@+id/tvOdometerDifference"
+        style="@style/Text.Label.24.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/difference_colon"
+        app:layout_constraintEnd_toStartOf="@+id/tvKm"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOdometerDifferenceLabel"
+        tools:text="28" />
+
+    <TextView
+        android:id="@+id/tvKm"
+        style="@style/Text.Label.24.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:text="@string/km"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOdometerDifference"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvOdometerDifference"
+        app:layout_constraintTop_toTopOf="@+id/tvOdometerDifference"
+        tools:text="km" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grDifference"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="ivDifferenceBorder,tvOdometerDifferenceLabel, tvOdometerDifference, tvKm" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clStartOdometerPhoto"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/DP_32"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:background="@drawable/bg_12dp_border_gray_300"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintEnd_toStartOf="@id/glMiddle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvOdometerDifference">
+
+        <ImageView
+            android:id="@+id/ivStartNoPhoto"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/DP_8"
+            android:src="@drawable/photo_add"
+            app:layout_constraintBottom_toTopOf="@+id/tvStartNoPhotoLabel"
+            app:layout_constraintDimensionRatio="H, 1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvStartNoPhotoLabel"
+            style="@style/Text.Label.10.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_a_photo_of_the_odometer"
+            android:textAllCaps="true"
+            android:textColor="@color/gray_300"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivStartNoPhoto"
+            tools:text="Додайте фото одометра" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivOdometerPhotoStart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded.12"
+            tools:ignore="ContentDescription"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/ivStartPhotoStatus"
+            android:layout_width="@dimen/DP_24"
+            android:layout_height="@dimen/DP_24"
+            android:layout_margin="@dimen/DP_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_check_green_round" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clStopOdometerPhoto"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_32"
+        android:background="@drawable/bg_12dp_border_gray_300"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/glMiddle"
+        app:layout_constraintTop_toBottomOf="@id/tvOdometerDifference">
+
+        <ImageView
+            android:id="@+id/ivStopNoPhoto"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/DP_8"
+            android:src="@drawable/photo_add"
+            app:layout_constraintBottom_toTopOf="@+id/tvStopNoPhotoLabel"
+            app:layout_constraintDimensionRatio="H, 1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvStopNoPhotoLabel"
+            style="@style/Text.Label.10.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_a_photo_of_the_odometer"
+            android:textAllCaps="true"
+            android:textColor="@color/gray_300"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivStopNoPhoto"
+            tools:text="Додайте фото одометра" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivOdometerPhotoStop"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded.12"
+            tools:ignore="ContentDescription"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/ivStopPhotoStatus"
+            android:layout_width="@dimen/DP_24"
+            android:layout_height="@dimen/DP_24"
+            android:layout_margin="@dimen/DP_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_check_green_round" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvStartTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:text="@string/created_colon"
+        app:layout_constraintStart_toStartOf="@+id/clStartOdometerPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/clStartOdometerPhoto"
+        tools:text="Створено:" />
+
+    <TextView
+        android:id="@+id/tvStartTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        app:layout_constraintEnd_toEndOf="@+id/clStartOdometerPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/clStartOdometerPhoto"
+        tools:text="09:21:36" />
+
+    <TextView
+        android:id="@+id/tvStopTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:text="@string/created_colon"
+        app:layout_constraintStart_toStartOf="@+id/clStopOdometerPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/clStopOdometerPhoto"
+        tools:text="Створено:" />
+
+    <TextView
+        android:id="@+id/tvStopTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        app:layout_constraintEnd_toEndOf="@+id/clStopOdometerPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/clStopOdometerPhoto"
+        tools:text="18:15:41" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clAppbarBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="@dimen/DP_32"
+        android:paddingStart="@dimen/DP_8"
+        android:paddingTop="@dimen/DP_8"
+        android:paddingEnd="@dimen/DP_8"
+        android:paddingBottom="@dimen/DP_8"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clStartOdometerPhoto"
+        tools:visibility="visible">
+
+        <Button
+            android:id="@+id/btnCancel"
+            style="@style/Text.Label.14.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/DP_8"
+            android:backgroundTint="@color/white"
+            android:paddingTop="@dimen/DP_12"
+            android:paddingBottom="@dimen/DP_12"
+            android:text="@string/cancel"
+            android:textColor="@color/blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnSend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="2dp" />
+
+        <Button
+            android:id="@+id/btnSend"
+            style="@style/Text.Label.14.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/DP_12"
+            android:paddingBottom="@dimen/DP_12"
+            android:text="@string/send"
+            android:textColor="@color/button_send_text_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnCancel"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.euromix.esupervisor.app.views.ResultView
+        android:id="@+id/vResult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

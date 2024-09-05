@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/DP_8"
+    android:background="@drawable/layout_background">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        style="@style/Text.Label.14.Gray400"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:drawablePadding="@dimen/DP_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="27.08.2024" />
+
+    <TextView
+        android:id="@+id/tvDriver"
+        style="@style/Text.Label.14.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:drawablePadding="@dimen/DP_8"
+        app:layout_constraintStart_toEndOf="@+id/tvDate"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:drawableStartCompat="@drawable/ic_person_blue1"
+        tools:text="Вишняковский К. В." />
+
+    <View
+        android:id="@+id/vBottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/DP_1"
+        android:layout_marginTop="@dimen/DP_8"
+        android:background="@color/gray_200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDriver" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivStartPhoto"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_8"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/tvStartTime"
+        app:layout_constraintEnd_toStartOf="@+id/ivStopPhoto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vBottom"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded.8"
+        tools:ignore="ContentDescription"
+        tools:src="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/ivStartPhotoStatus"
+        android:layout_width="@dimen/DP_16"
+        android:layout_height="@dimen/DP_16"
+        android:layout_margin="@dimen/DP_8"
+        android:src="@drawable/ic_check_green_round"
+        app:layout_constraintBottom_toBottomOf="@+id/ivStartPhoto"
+        app:layout_constraintStart_toStartOf="@+id/ivStartPhoto"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tvStartTime"
+        style="@style/Text.Label.12.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginBottom="@dimen/DP_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ivStartPhoto"
+        tools:text="09:06:04" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivStopPhoto"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_8"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/tvStopTime"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivStartPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/vBottom"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Rounded.8"
+        tools:ignore="ContentDescription"
+        tools:src="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/ivStopPhotoStatus"
+        android:layout_width="@dimen/DP_16"
+        android:layout_height="@dimen/DP_16"
+        android:layout_margin="@dimen/DP_8"
+        android:src="@drawable/ic_check_green_round"
+        app:layout_constraintBottom_toBottomOf="@+id/ivStopPhoto"
+        app:layout_constraintStart_toStartOf="@+id/ivStopPhoto"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tvStopTime"
+        style="@style/Text.Label.12.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginBottom="@dimen/DP_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ivStopPhoto"
+        tools:text="18:12:34" />
+
+    <TextView
+        android:id="@+id/tvMileageLabel"
+        style="@style/Text.Label.12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_32"
+        android:text="@string/mileage_colon"
+        android:textColor="@color/gray_400"
+        app:layout_constraintBottom_toTopOf="@+id/tvMileage"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/vBottom"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Кілометраж:" />
+
+    <TextView
+        android:id="@+id/tvMileage"
+        style="@style/Text.Label.24.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_32"
+        android:text="@string/mileage_colon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/tvMileageLabel"
+        tools:text="23" />
+
+    <TextView
+        android:id="@+id/tvKmLabel"
+        style="@style/Text.Label.24.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:text="@string/km"
+        app:layout_constraintBottom_toBottomOf="@+id/tvMileage"
+        app:layout_constraintStart_toEndOf="@+id/tvMileage"
+        app:layout_constraintTop_toTopOf="@+id/tvMileage"
+        tools:text="км" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+

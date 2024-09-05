@@ -8,6 +8,7 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Date
+import java.util.Locale
 
 private fun LocalDate.toFormatString(format: String): String =
     format(DateTimeFormatter.ofPattern(format))
@@ -28,6 +29,10 @@ fun LocalDate.dateToJsonString(): String =
 
 fun LocalDate.dateToString(): String = format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
 
-fun Date.dateToJsonString(): String = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(this)
+fun LocalDateTime.toTimeString(): String = format(DateTimeFormatter.ofPattern("HH:mm:ss"))
 
-fun Date.dateToString(): String = SimpleDateFormat("dd.MM.yyyy").format(this)
+fun LocalDateTime.isTimeZero() = hour == 0 && minute == 0 && second == 0
+
+fun Date.dateToJsonString(): String = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.UK).format(this)
+
+fun Date.dateToString(): String = SimpleDateFormat("dd.MM.yyyy", Locale.UK).format(this)

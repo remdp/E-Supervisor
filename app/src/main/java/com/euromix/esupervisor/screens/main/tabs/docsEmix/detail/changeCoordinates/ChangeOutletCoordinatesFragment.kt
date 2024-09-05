@@ -207,7 +207,7 @@ class ChangeOutletCoordinatesFragment : BaseFragment(R.layout.change_outlet_coor
         popupWindow.setBackgroundDrawable(
             App.getDrawable(
                 requireContext(),
-                R.drawable.bg_8dp_white_border
+                R.drawable.bg_8dp_white_border_gray_200
             )
         )
         popupWindow.showAtLocation(

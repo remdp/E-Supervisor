@@ -259,7 +259,7 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
         popupWindow.setBackgroundDrawable(
             App.getDrawable(
                 requireContext(),
-                R.drawable.bg_8dp_white_border
+                R.drawable.bg_8dp_white_border_gray_200
             )
         )
         popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, -300)

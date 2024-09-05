@@ -10,7 +10,9 @@
     <string name="number_to_string" translatable="false">%1$s</string>
     <string name="percent" translatable="false">%1$s %%</string>
     <string name="empty_time" translatable="false">00:00:00</string>
-
+    <string name="media_store_error">Error while accessing the file system</string>
+    <string name="send">Send</string>
+    <string name="close">Close</string>
 
     <string name="partner">Partner</string>
     <string name="partner_colon">Partner:</string>
@@ -263,5 +265,18 @@
     <string name="result_changing_visits_title">The result of changing visits</string>
     <string name="result_changing_visits">The visit type has been changed for %1$s visit(s).</string>
     <string name="visits_counts" translatable="false">%1$d/%2$d</string>
+
+    <!-- Odometers screen -->
+    <string name="odometer_reading">Odometer reading</string>
+    <string name="at_beginning_of_day">At beginning of day</string>
+    <string name="at_ending_of_day">At ending of day</string>
+    <string name="difference_colon">Difference:</string>
+    <string name="add_a_photo_of_the_odometer">Add a photo of the odometer</string>
+    <string name="add_from_gallery">Add from gallery</string>
+    <string name="open_camera">Open camera</string>
+    <string name="created_colon">Created:</string>
+    <string name="mileage_colon">Mileage:</string>
+    <string name="km">km</string>
+
 
 </resources>

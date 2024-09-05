@@ -48,7 +48,7 @@
     <TextView
         android:id="@+id/tvPriceIndex"
         style="@style/Text.Label.12"
-        android:background ="@drawable/bg_price_index_tv"
+        android:background ="@drawable/bg_4dp_red_light"
         android:layout_marginTop="@dimen/DP_1"
         android:layout_marginEnd="@dimen/DP_8"
         android:paddingTop="@dimen/DP_1"

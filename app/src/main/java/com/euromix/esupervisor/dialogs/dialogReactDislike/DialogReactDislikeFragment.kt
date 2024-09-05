@@ -34,7 +34,6 @@ class DialogReactDislikeFragment(
     lateinit var factory: DialogReactDislikeViewModel.Factory
 
     //todo try replace by viewBinding
-   // private val binding by viewBinding<DialogReasonRejectionCustomBinding>()
     private lateinit var binding: DialogReasonRejectionCustomBinding
 
     val viewModel by viewModelCreator { factory.create(abilityCreateTask, id) }
@@ -79,7 +78,7 @@ class DialogReactDislikeFragment(
             binding.etDislikeReason.setBackgroundResource(
                 if (it.toString()
                         .isBlank()
-                ) R.drawable.bg_underline_red else R.drawable.bg_8dp_white_border
+                ) R.drawable.bg_underline_red else R.drawable.bg_8dp_white_border_gray_200
             )
         }
 

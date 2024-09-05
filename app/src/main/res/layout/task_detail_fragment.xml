@@ -161,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/DP_10"
                     android:layout_marginBottom="@dimen/DP_8"
-                    android:background="@drawable/bg_comment_tv"
+                    android:background="@drawable/bg_4dp_gray_200_alpha_40_border_gray_200"
                     android:hint="@string/description"
                     android:lines="3"
                     android:paddingStart="@dimen/DP_12"

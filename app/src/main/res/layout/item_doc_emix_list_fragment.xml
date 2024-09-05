@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/DP_8"
-        android:background="@drawable/bg_operation_type_blue"
+        android:background="@drawable/bg_4dp_blue_40_border_gray_200"
         android:padding="@dimen/DP_2"
         android:paddingStart="@dimen/DP_6"
         android:paddingEnd="@dimen/DP_6"

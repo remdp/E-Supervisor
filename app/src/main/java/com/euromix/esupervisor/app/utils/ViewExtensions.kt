@@ -3,14 +3,17 @@ package com.euromix.esupervisor.app.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.graphics.drawable.GradientDrawable
+import android.util.Base64
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorRes
@@ -220,8 +223,8 @@ fun Context.colorStateList(@ColorRes color: Int): ColorStateList {
     return ColorStateList.valueOf(ContextCompat.getColor(this, color))
 }
 
-fun View.visibility(visible: Boolean) {
-    visibility = if (visible) View.VISIBLE else View.GONE
+fun View.visibility(visible: Boolean, gone: Boolean = true) {
+    visibility = if (visible) View.VISIBLE else if (gone) View.GONE else View.INVISIBLE
 }
 
 fun View.visible() {
@@ -247,6 +250,16 @@ fun TabLayout.addDivider() {
             it.dividerDrawable = drawable
         }
     }
+}
+
+fun ImageView.setBitmapFromBase64String(base64String: String?) {
+
+    base64String?.let {
+        val imageBytes = Base64.decode(base64String, Base64.DEFAULT)
+        val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        setImageBitmap(bitmap)
+    }
+
 }
 
 

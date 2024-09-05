@@ -240,13 +240,13 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
         if (viewModel.chosenTasksType.value == null)
             binding.tvTaskType.setBackgroundResource(R.drawable.bg_underline_red)
         else binding.tvTaskType.setBackgroundResource(
-            R.drawable.bg_8dp_white_border
+            R.drawable.bg_8dp_white_border_gray_200
         )
 
         if (binding.tvDescription.text.toString().isBlank())
             binding.tvDescription.setBackgroundResource(R.drawable.bg_underline_red)
         else binding.tvDescription.setBackgroundResource(
-            R.drawable.bg_8dp_white_border
+            R.drawable.bg_8dp_white_border_gray_200
         )
     }
 

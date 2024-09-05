@@ -69,7 +69,7 @@ fun designedDateView(
             0
         )
 
-        tv.setBackgroundResource(R.drawable.bg_8dp_white_border)
+        tv.setBackgroundResource(R.drawable.bg_8dp_white_border_gray_200)
     }
 }
 

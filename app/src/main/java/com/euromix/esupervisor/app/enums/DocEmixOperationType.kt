@@ -64,8 +64,8 @@ enum class DocEmixOperationType {
         ) =
             App.getDrawable(
                 context, when (status) {
-                    Status.IN_THE_PROCESS_OF_APPROVAL -> R.drawable.bg_operation_type_blue
-                    else -> if (detail) R.drawable.bg_operation_type_white else R.drawable.bg_operation_type_gray
+                    Status.IN_THE_PROCESS_OF_APPROVAL -> R.drawable.bg_4dp_blue_40_border_gray_200
+                    else -> if (detail) R.drawable.bg_4dp_white_border_gray_200 else R.drawable.bg_4dp_gray_100_border_gray_200
                 }
             )
 

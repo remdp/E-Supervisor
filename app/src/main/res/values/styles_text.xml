@@ -168,4 +168,21 @@
         <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
+
+    <style name="ShapeAppearanceOverlay.App.Rounded.12" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/DP_12</item>
+        <item name="cornerSizeTopRight">@dimen/DP_12</item>
+        <item name="cornerSizeBottomRight">@dimen/DP_12</item>
+        <item name="cornerSizeBottomLeft">@dimen/DP_12</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.Rounded.8" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/DP_8</item>
+        <item name="cornerSizeTopRight">@dimen/DP_8</item>
+        <item name="cornerSizeBottomRight">@dimen/DP_8</item>
+        <item name="cornerSizeBottomLeft">@dimen/DP_8</item>
+    </style>
+
 </resources>

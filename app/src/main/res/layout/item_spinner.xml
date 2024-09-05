@@ -5,7 +5,7 @@
     style="@style/Text.Label.16.Gray500"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_8dp_white_border"
+    android:background="@drawable/bg_8dp_white_border_gray_200"
     android:drawableEnd="@drawable/ic_arrow_drop_down_big"
     android:padding="@dimen/DP_12"
     tools:text="План факту продажу">

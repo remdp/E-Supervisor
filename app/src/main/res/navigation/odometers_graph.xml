@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/odometers_graph"
+    app:startDestination="@id/odometersListFragment">
+
+    <fragment
+        android:id="@+id/odometersListFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.odometers.list.OdometersListFragment"
+        android:label="OdometersListFragment" />
+</navigation>

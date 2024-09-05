@@ -9,4 +9,7 @@
     <item
         android:id="@+id/statistics_graph"
         android:title="@string/analysis_of_visits" />
+    <item
+        android:id="@+id/odometers_graph"
+        android:title="Одометри" />
 </menu>
