@@ -1,7 +1,6 @@
 package com.euromix.esupervisor.screens.main.tabs.tasks.createTask
 
 import android.text.Editable
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.Error
@@ -15,7 +14,6 @@ import com.euromix.esupervisor.app.model.tasks.entities.TasksCreateOutletsSelect
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.dateToJsonString
-import com.euromix.esupervisor.app.utils.popupWindowForSelections
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.screens.main.tabs.tasks.selection.SelectionItemOutlet
@@ -192,27 +190,6 @@ class CreateTaskViewModel @Inject constructor(
     fun drawableForChildCheckBox(mark: Boolean) =
         if (mark) R.drawable.ic_checkbox_white_on else R.drawable.ic_checkbox_white_off
 
-
-    //click
-    // 0-common click
-    //1-right drawable click
-    fun handleViewClick(
-        itemsList: List<ServerPair>,
-        updaterSelection: (ServerPair?) -> Unit,
-        anchor: View,
-        click: Int,
-        emptyChecker: () -> Boolean
-    ) {
-
-        if (click == 0 || emptyChecker())
-            popupWindowForSelections(
-                anchor.context,
-                itemsList,
-                updaterSelection
-            ).showAsDropDown(anchor)
-        else updaterSelection(null)
-
-    }
 
     fun verifyPossibilityCreation(description: String): List<Int> {
 

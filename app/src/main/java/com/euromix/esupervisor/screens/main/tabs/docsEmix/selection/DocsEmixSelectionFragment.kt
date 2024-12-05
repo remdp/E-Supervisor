@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.Const.MIN_LENGTH_SEARCH_STRING
 import com.euromix.esupervisor.app.Const.SELECTION_KEY
+import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.app.utils.popupWindowForSelections
 import com.euromix.esupervisor.app.utils.setEtOnEditorActionListener
@@ -22,6 +22,7 @@ import com.euromix.esupervisor.app.utils.setOnClickListenerServerSelection
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.DocsEmixSelectionFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_fragment) {
@@ -30,6 +31,9 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
 
     private val binding by viewBinding<DocsEmixSelectionFragmentBinding>()
     private val args by navArgs<DocsEmixSelectionFragmentArgs>()
+
+    @Inject
+    lateinit var resManager: ResourceManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,16 +63,16 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
         binding.etPartner.setOnClickListenerServerSelection(viewModel::updatePartnerSelection)
 
         binding.tvOperationType.setOnClickListenerLocalSelection(
-            viewModel.getOperationTypesForChoose(requireContext()),
+            viewModel.getOperationTypesForChoose(),
             viewModel::updateOperationTypeSelection,
-            viewModel::handleViewClick,
+            ::handleViewClick,
             viewModel::checkOperationTypeEmpty
         )
 
         binding.tvStatus.setOnClickListenerLocalSelection(
-            viewModel.getStatusesForChoose(requireContext()),
+            viewModel.getStatusesForChoose(),
             viewModel::updateStatusSelection,
-            viewModel::handleViewClick,
+            ::handleViewClick,
             viewModel::checkStatusEmpty
         )
 
@@ -116,7 +120,7 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
             )
 
             if (DocsEmixSelection.isEmpty(it)) {
-                binding.tvClear.setTextColor(getColor(requireContext(), R.color.gray_500))
+                binding.tvClear.setTextColor(resManager.getColor(R.color.gray_500))
                 binding.tvClear.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_gray_basket,
                     0,
@@ -124,7 +128,7 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
                     0
                 )
             } else {
-                binding.tvClear.setTextColor(getColor(requireContext(), R.color.blue))
+                binding.tvClear.setTextColor(resManager.getColor(R.color.blue))
                 binding.tvClear.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_blue_basket,
                     0,
@@ -171,5 +175,26 @@ class DocsEmixSelectionFragment : BaseFragment(R.layout.docs_emix_selection_frag
                     putBoolean(Const.CANCEL, true)
             })
         findNavController().popBackStack()
+    }
+
+    //click
+    // 0-common click
+    //1-right drawable click
+    fun handleViewClick(
+        itemsList: List<ServerPair>,
+        updaterSelection: (ServerPair?) -> Unit,
+        anchor: View,
+        click: Int,
+        emptyChecker: () -> Boolean
+    ) {
+
+        if (click == 0 || emptyChecker())
+            popupWindowForSelections(
+                anchor.context,
+                itemsList,
+                updaterSelection
+            ).showAsDropDown(anchor)
+        else updaterSelection(null)
+
     }
 }

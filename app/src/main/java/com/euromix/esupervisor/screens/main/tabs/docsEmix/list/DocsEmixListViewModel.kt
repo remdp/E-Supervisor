@@ -15,7 +15,6 @@ import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.sources.docsEmix.entities.DocsEmixRequestEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import java.util.Date
 import javax.inject.Inject
 

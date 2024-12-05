@@ -1,9 +1,8 @@
 package com.euromix.esupervisor.app.model.routes.entities
 
-import android.content.Context
 import android.graphics.Bitmap
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.utils.bitmapFromDrawableRes
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.mapbox.geojson.Point
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
 
@@ -28,14 +27,14 @@ data class MapPointSigns(
 ) {
 
     companion object {
-        fun bitmapCache(context: Context) = mutableMapOf<MapPointSigns?, Bitmap?>().apply {
+        fun bitmapCache(resManager: ResourceManager) = mutableMapOf<MapPointSigns?, Bitmap?>().apply {
             put(
                 MapPointSigns(outletTA = true),
-                context.bitmapFromDrawableRes(drawableResForSigns(outletTA = true))
+                resManager.getBitmapFromDrawableRes(drawableResForSigns(outletTA = true))
             )
             put(
                 MapPointSigns(outletTA = true, isVisit = true, checkInBounds = true),
-                context.bitmapFromDrawableRes(
+                resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         outletTA = true, isVisit = true, checkInBounds = true
                     )
@@ -44,7 +43,7 @@ data class MapPointSigns(
             put(
                 MapPointSigns(
                     outletTA = true, isVisit = true, checkInBounds = true, isOrders = true
-                ), context.bitmapFromDrawableRes(
+                ), resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         outletTA = true, isVisit = true, checkInBounds = true, isOrders = true
                     )
@@ -53,7 +52,7 @@ data class MapPointSigns(
             put(
                 MapPointSigns(
                     outletTA = true, isVisit = true, isVisitDone = true, checkInBounds = true
-                ), context.bitmapFromDrawableRes(
+                ), resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         outletTA = true, isVisit = true, isVisitDone = true, checkInBounds = true
                     )
@@ -66,7 +65,7 @@ data class MapPointSigns(
                     isVisitDone = true,
                     checkInBounds = true,
                     isOrders = true
-                ), context.bitmapFromDrawableRes(
+                ), resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         outletTA = true,
                         isVisit = true,
@@ -78,14 +77,14 @@ data class MapPointSigns(
             )
             put(
                 MapPointSigns(outletTA = true, isVisit = true, isDistanceVisitOutlet = true),
-                context.bitmapFromDrawableRes(
+                resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         outletTA = true, isVisit = true, isDistanceVisitOutlet = true
                     )
                 )
             )
             put(
-                MapPointSigns(outletTA = true, isVisit = true), context.bitmapFromDrawableRes(
+                MapPointSigns(outletTA = true, isVisit = true), resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         outletTA = true, isVisit = true
                     )
@@ -93,7 +92,7 @@ data class MapPointSigns(
             )
             put(
                 MapPointSigns(outletTA = true, isVisit = true, isVisitDone = true),
-                context.bitmapFromDrawableRes(
+                resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         outletTA = true, isVisit = true, isVisitDone = true
                     )
@@ -105,7 +104,7 @@ data class MapPointSigns(
                     isVisit = true,
                     isDistanceVisitOutlet = true,
                     isVisitDone = true
-                ), context.bitmapFromDrawableRes(
+                ), resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         outletTA = true,
                         isVisit = true,
@@ -116,7 +115,7 @@ data class MapPointSigns(
             )
             put(
                 MapPointSigns(outletTA = true, isVisit = true, isOrders = true),
-                context.bitmapFromDrawableRes(
+                resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         outletTA = true, isVisit = true, isOrders = true
                     )
@@ -124,7 +123,7 @@ data class MapPointSigns(
             )
             put(
                 MapPointSigns(outletTA = true, isVisit = true, isVisitDone = true, isOrders = true),
-                context.bitmapFromDrawableRes(
+                resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         outletTA = true, isVisit = true, isVisitDone = true, isOrders = true
                     )
@@ -137,7 +136,7 @@ data class MapPointSigns(
                     isDistanceVisitOutlet = true,
                     isVisitDone = true,
                     isOrders = true
-                ), context.bitmapFromDrawableRes(
+                ), resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         outletTA = true,
                         isVisit = true,
@@ -148,28 +147,28 @@ data class MapPointSigns(
                 )
             )
             put(
-                MapPointSigns(isOutletTT = true), context.bitmapFromDrawableRes(
+                MapPointSigns(isOutletTT = true), resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         isOutletTT = true
                     )
                 )
             )
             put(
-                MapPointSigns(isOutletAllTT = true), context.bitmapFromDrawableRes(
+                MapPointSigns(isOutletAllTT = true), resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         isOutletAllTT = true
                     )
                 )
             )
             put(
-                MapPointSigns(isPromisingOutlet = true), context.bitmapFromDrawableRes(
+                MapPointSigns(isPromisingOutlet = true), resManager.getBitmapFromDrawableRes(
                     drawableResForSigns(
                         isPromisingOutlet = true
                     )
                 )
             )
             put(
-                null, context.bitmapFromDrawableRes(drawableResForSigns())
+                null, resManager.getBitmapFromDrawableRes(drawableResForSigns())
             )
         }
 

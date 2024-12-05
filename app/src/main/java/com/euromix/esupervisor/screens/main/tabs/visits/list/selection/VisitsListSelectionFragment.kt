@@ -6,12 +6,12 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.visits.entities.VisitsListSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.app.utils.popupWindowForSelections
 import com.euromix.esupervisor.app.utils.setEtOnEditorActionListener
@@ -19,6 +19,7 @@ import com.euromix.esupervisor.app.utils.setOnClickListenerServerSelection
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.VisitsListSelectionFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class VisitsListSelectionFragment: BaseFragment(R.layout.visits_list_selection_fragment) {
@@ -26,6 +27,9 @@ class VisitsListSelectionFragment: BaseFragment(R.layout.visits_list_selection_f
     override val viewModel by viewModels<VisitsListSelectionViewModel>()
     private val binding by viewBinding<VisitsListSelectionFragmentBinding>()
     private val args by navArgs<VisitsListSelectionFragmentArgs>()
+
+    @Inject
+    lateinit var resManager: ResourceManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,7 +73,7 @@ class VisitsListSelectionFragment: BaseFragment(R.layout.visits_list_selection_f
             )
 
             if (VisitsListSelection.isEmpty(it)) {
-                binding.tvClear.setTextColor(App.getColor(requireContext(), R.color.gray_500))
+                binding.tvClear.setTextColor(resManager.getColor(R.color.gray_500))
                 binding.tvClear.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_gray_basket,
                     0,
@@ -77,7 +81,7 @@ class VisitsListSelectionFragment: BaseFragment(R.layout.visits_list_selection_f
                     0
                 )
             } else {
-                binding.tvClear.setTextColor(App.getColor(requireContext(), R.color.blue))
+                binding.tvClear.setTextColor(resManager.getColor(R.color.blue))
                 binding.tvClear.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_blue_basket,
                     0,

@@ -6,11 +6,11 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.app.utils.popupWindowForSelections
 import com.euromix.esupervisor.app.utils.setEtOnEditorActionListener
@@ -20,6 +20,7 @@ import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.app.utils.visibility
 import com.euromix.esupervisor.databinding.StatisticsSelectionFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class StatisticsSelectionFragment : BaseFragment(R.layout.statistics_selection_fragment) {
@@ -28,6 +29,9 @@ class StatisticsSelectionFragment : BaseFragment(R.layout.statistics_selection_f
 
     private val binding by viewBinding<StatisticsSelectionFragmentBinding>()
     private val args by navArgs<StatisticsSelectionFragmentArgs>()
+
+    @Inject
+    lateinit var resManager: ResourceManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -98,7 +102,7 @@ class StatisticsSelectionFragment : BaseFragment(R.layout.statistics_selection_f
             )
 
             if (selection.isEmpty(viewModel.jumpCount)) {
-                binding.tvClear.setTextColor(App.getColor(requireContext(), R.color.gray_500))
+                binding.tvClear.setTextColor(resManager.getColor(R.color.gray_500))
                 binding.tvClear.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_gray_basket,
                     0,
@@ -106,7 +110,7 @@ class StatisticsSelectionFragment : BaseFragment(R.layout.statistics_selection_f
                     0
                 )
             } else {
-                binding.tvClear.setTextColor(App.getColor(requireContext(), R.color.blue))
+                binding.tvClear.setTextColor(resManager.getColor(R.color.blue))
                 binding.tvClear.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_blue_basket,
                     0,
@@ -142,7 +146,7 @@ class StatisticsSelectionFragment : BaseFragment(R.layout.statistics_selection_f
                 binding.tvBalanceUnit.setOnClickListenerLocalSelection(
                     balanceUnits,
                     viewModel::updateBalanceUnitsSelection,
-                    viewModel::handleViewClick,
+                    ::handleViewClick,
                     viewModel::checkBalanceUnitEmpty
                 )
 
@@ -153,7 +157,7 @@ class StatisticsSelectionFragment : BaseFragment(R.layout.statistics_selection_f
                 binding.tvTradingTeam.setOnClickListenerLocalSelection(
                     tradingTeams,
                     viewModel::updateTradingTeamSelection,
-                    viewModel::handleViewClick,
+                    ::handleViewClick,
                     viewModel::checkTradingTeamEmpty
                 )
             }
@@ -173,4 +177,23 @@ class StatisticsSelectionFragment : BaseFragment(R.layout.statistics_selection_f
 
     }
 
+    // 0-common click
+    //1-right drawable click
+    fun handleViewClick(
+        itemsList: List<ServerPair>,
+        updaterSelection: (ServerPair?) -> Unit,
+        anchor: View,
+        click: Int,
+        emptyChecker: () -> Boolean
+    ) {
+
+        if (click == 0 || emptyChecker())
+            popupWindowForSelections(
+                anchor.context,
+                itemsList,
+                updaterSelection
+            ).showAsDropDown(anchor)
+        else updaterSelection(null)
+
+    }
 }

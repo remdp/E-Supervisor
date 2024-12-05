@@ -11,6 +11,7 @@ import androidx.navigation.ui.NavigationUI
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.Role
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.app.utils.visible
@@ -33,7 +34,7 @@ class TabsFragment : BaseFragment(R.layout.fragment_tabs) {
             childFragmentManager.findFragmentById(R.id.tabsContainer) as NavHostFragment
         navController = navHostFragment.navController
 
-        if (viewModel.getCurrentRole() != Role.SUPERVISOR) {
+        if (viewModel.accountRepository.getCurrentRole() != Role.SUPERVISOR) {
             val navGraph = navController.navInflater.inflate(R.navigation.tabs_graph)
             navGraph.setStartDestination(R.id.rates_graph)
             navController.graph = navGraph

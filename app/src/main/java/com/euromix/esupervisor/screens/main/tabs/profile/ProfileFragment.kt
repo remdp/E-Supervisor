@@ -6,13 +6,12 @@ import androidx.fragment.app.viewModels
 import com.euromix.esupervisor.BuildConfig
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.Language
-import com.euromix.esupervisor.app.enums.Role
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.FragmentProfileAndSettingsBinding
 import com.yariksoffice.lingver.Lingver
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import java.util.Locale
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment(R.layout.fragment_profile_and_settings) {
@@ -26,6 +25,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile_and_settings) {
 
         binding.tvLogout.setOnClickListener { logout() }
         binding.tvVersion.text = BuildConfig.VERSION_NAME
+        viewModel.init()
         setupObservers()
         setCheckedRBtn()
         setLanguageListeners()
@@ -39,9 +39,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile_and_settings) {
         }
 
         viewModel.role.observe(viewLifecycleOwner) {
-
-            binding.tvRole.text = Role.stringRepresentation(requireContext(), it)
-
+            binding.tvRole.text = context?.getString(it.nameStringsRes())
         }
     }
 
@@ -78,8 +76,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile_and_settings) {
             rbtnEn.text = getString(R.string.lang_eng)
             tvVersionLabel.text = getString(R.string.version)
             tvRoleLabel.text = getString(R.string.role)
-            tvRole.text = Role.stringRepresentation(requireContext(), viewModel.getCurrentRole())
-
+            tvRole.text = requireContext().getString(viewModel.getCurrentRole().nameStringsRes())
         }
     }
 }

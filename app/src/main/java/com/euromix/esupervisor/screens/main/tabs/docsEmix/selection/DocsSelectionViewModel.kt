@@ -1,7 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.selection
 
-import android.content.Context
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.euromix.esupervisor.app.Const.MIN_LENGTH_SEARCH_STRING
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
@@ -11,13 +9,14 @@ import com.euromix.esupervisor.app.model.common.SearchRepository
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
-import com.euromix.esupervisor.app.utils.popupWindowForSelections
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.share
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class DocsSelectionViewModel @Inject constructor(
+    private val resManager: ResourceManager,
     private val searchRepository: SearchRepository
 ) : BaseViewModel() {
 
@@ -91,7 +90,7 @@ class DocsSelectionViewModel @Inject constructor(
         _selection.value = null
     }
 
-    fun getOperationTypesForChoose(context: Context): List<ServerPair> {
+    fun getOperationTypesForChoose(): List<ServerPair> {
 
         val operationTypesForChoose = mutableListOf<ServerPair>()
 
@@ -100,7 +99,7 @@ class DocsSelectionViewModel @Inject constructor(
             operationTypesForChoose.add(
                 ServerPair(
                     count.toString(),
-                    DocEmixOperationType.stringRepresentation(context, it)
+                    resManager.getString(it.nameStringRes())
                 )
             )
             count++
@@ -108,7 +107,7 @@ class DocsSelectionViewModel @Inject constructor(
         return operationTypesForChoose
     }
 
-    fun getStatusesForChoose(context: Context): List<ServerPair> {
+    fun getStatusesForChoose(): List<ServerPair> {
 
         val statusesForChoose = mutableListOf<ServerPair>()
 
@@ -117,33 +116,12 @@ class DocsSelectionViewModel @Inject constructor(
             statusesForChoose.add(
                 ServerPair(
                     count.toString(),
-                    Status.stringRepresentation(context, it)
+                    resManager.getString(it.nameStringRes())
                 )
             )
             count++
         }
         return statusesForChoose
-    }
-
-    //click
-    // 0-common click
-    //1-right drawable click
-    fun handleViewClick(
-        itemsList: List<ServerPair>,
-        updaterSelection: (ServerPair?) -> Unit,
-        anchor: View,
-        click: Int,
-        emptyChecker: () -> Boolean
-    ) {
-
-        if (click == 0 || emptyChecker())
-            popupWindowForSelections(
-                anchor.context,
-                itemsList,
-                updaterSelection
-            ).showAsDropDown(anchor)
-        else updaterSelection(null)
-
     }
 
     private fun verifyMinLength(searchString: String, indexVerifyField: Int): Boolean {
@@ -153,6 +131,7 @@ class DocsSelectionViewModel @Inject constructor(
                 when (indexVerifyField) {
                     0 -> _errorsMinLength.value =
                         _errorsMinLength.value?.copy(minLengthTradingAgentError = true)
+
                     else -> _errorsMinLength.value =
                         _errorsMinLength.value?.copy(minLengthPartnerError = true)
                 }

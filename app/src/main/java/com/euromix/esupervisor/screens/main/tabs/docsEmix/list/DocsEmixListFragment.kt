@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
+import com.euromix.esupervisor.app.Const.NEED_RELOAD
 import com.euromix.esupervisor.app.Const.SELECTION_KEY
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
@@ -84,6 +85,10 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
 
             if (!cancelSelection)
                 viewModel.updateSelection(selection)
+        }
+
+        setFragmentResultListener(NEED_RELOAD){ _, _ ->
+            viewModel.reload()
         }
     }
 

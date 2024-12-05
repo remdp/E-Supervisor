@@ -10,6 +10,7 @@ import com.euromix.esupervisor.app.model.routes.RoutesSource
 import com.euromix.esupervisor.app.model.taskDetail.TaskDetailSource
 import com.euromix.esupervisor.app.model.tasks.TasksSource
 import com.euromix.esupervisor.app.model.visits.VisitsSource
+import com.euromix.esupervisor.app.model.visitsSupervisors.VisitsSupervisorsSource
 import com.euromix.esupervisor.sources.account.RetrofitAccountSource
 import com.euromix.esupervisor.sources.common.RetrofitSearchSource
 import com.euromix.esupervisor.sources.docsEmix.RetrofitDocsEmixSource
@@ -20,6 +21,7 @@ import com.euromix.esupervisor.sources.salesRate.RetrofitRatesSource
 import com.euromix.esupervisor.sources.tasks.taskDetail.RetrofitTaskDetailSource
 import com.euromix.esupervisor.sources.tasks.list.RetrofitTasksSource
 import com.euromix.esupervisor.sources.visits.RetrofitVisitsSource
+import com.euromix.esupervisor.sources.visitsSupervisors.RetrofitVisitsSupervisorsSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -58,4 +60,7 @@ abstract class SourcesModule {
 
     @Binds
     abstract fun bindOdometersSource(retrofitOdometersSource: RetrofitOdometersSource): OdometersSource
+
+    @Binds
+    abstract fun bindVisitsSupervisorsSource(retrofitVisitsSupervisorsSource: RetrofitVisitsSupervisorsSource): VisitsSupervisorsSource
 }

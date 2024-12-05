@@ -1,20 +1,16 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail
 
-import androidx.lifecycle.MutableLiveData
-import com.euromix.esupervisor.app.model.Empty
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
+import com.euromix.esupervisor.app.model.Result
+import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.docEmix.DocEmixDetailRepository
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
-import com.euromix.esupervisor.app.utils.share
-import com.euromix.esupervisor.app.model.Result
-import com.euromix.esupervisor.app.model.Success
-import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.publishEvent
+import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.screens.main.BaseViewState
-import com.euromix.esupervisor.screens.main.tabs.docsEmix.list.DocsEmixListViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -67,6 +63,10 @@ class DocEmixDetailViewModel @AssistedInject constructor(
         }
     }
 
+    private fun setUpdateParentList(){
+        _viewState = _viewState.copy(updateParentList = true)
+    }
+
     fun reload() {
         getDocEmixDetail()
     }
@@ -78,6 +78,7 @@ class DocEmixDetailViewModel @AssistedInject constructor(
     fun acceptDocEmixDetail() {
         safeLaunch {
             docEmixDetailRepository.acceptDocEmixDetail(extId).collect { result ->
+                setUpdateParentList()
                 updateViewState(result)
             }
         }
@@ -86,6 +87,7 @@ class DocEmixDetailViewModel @AssistedInject constructor(
     fun rejectDocEmixDetail(reason: String) {
         safeLaunch {
             docEmixDetailRepository.rejectDocEmixDetail(extId, reason).collect { result ->
+                setUpdateParentList()
                 updateViewState(result)
             }
         }
@@ -99,6 +101,7 @@ class DocEmixDetailViewModel @AssistedInject constructor(
     data class ViewState(
         override val isLoading: Boolean = false,
         override val error: Throwable? = null,
+        val updateParentList: Boolean = false,
         val docEmixDetail: DocEmixDetail? = null
     ) : BaseViewState()
 }

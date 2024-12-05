@@ -1,7 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.rates
 
-import com.euromix.esupervisor.App.Companion.beginCurrentMonth
-import com.euromix.esupervisor.App.Companion.endCurrentMonth
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
@@ -13,9 +11,12 @@ import com.euromix.esupervisor.app.model.rates.entities.RateData
 import com.euromix.esupervisor.app.model.rates.entities.RateStructure
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
+import com.euromix.esupervisor.app.utils.beginCurrentMonth
 import com.euromix.esupervisor.app.utils.dateToJsonString
+import com.euromix.esupervisor.app.utils.endCurrentMonth
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
+import com.euromix.esupervisor.app.utils.toDate
 import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.sources.salesRate.entities.RateRequestEntity
 import com.squareup.moshi.Json
@@ -29,7 +30,7 @@ class RatesViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private var _viewState: ViewState =
-        ViewState(period = Pair(beginCurrentMonth(), endCurrentMonth()))
+        ViewState(period = Pair(beginCurrentMonth().toDate(), endCurrentMonth().toDate()))
     val viewState: ViewState
         get() = _viewState
 

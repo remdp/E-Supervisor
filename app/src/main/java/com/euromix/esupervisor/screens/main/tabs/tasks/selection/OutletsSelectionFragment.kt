@@ -7,14 +7,14 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.model.tasks.entities.TasksCreateOutletsSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.OutletsTaskSelectionFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OutletsSelectionFragment : BaseFragment(R.layout.outlets_task_selection_fragment) {
@@ -24,7 +24,10 @@ class OutletsSelectionFragment : BaseFragment(R.layout.outlets_task_selection_fr
 
     override val viewModel by viewModels<OutletsSelectionViewModel>()
 
-    private val searchAdapter by lazy { OutletsSearchItemsAdapter(viewModel, viewLifecycleOwner) }
+    private val searchAdapter by lazy { OutletsSearchItemsAdapter(resManager, viewModel, viewLifecycleOwner) }
+
+    @Inject
+    lateinit var resManager: ResourceManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

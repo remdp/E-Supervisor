@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.TaskState
 import com.euromix.esupervisor.app.model.tasks.entities.Task
@@ -50,8 +49,7 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
             )
 
             tvDeadline.setTextColor(
-                getColor(
-                    root.context,
+                root.context.getColor(
                     if (task.deadline < LocalDate.now()) R.color.red_light else R.color.black
                 )
             )

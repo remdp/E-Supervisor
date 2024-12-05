@@ -1,0 +1,140 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvOutlet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Точка на ринку Солодкий формат'ринок Народний, м.Львів, вул.Червоної Калини, буд. 94" />
+
+    <TextView
+        android:id="@+id/tvLatitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutlet"
+        tools:text="38.56435434" />
+
+    <TextView
+        android:id="@+id/tvLongitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLatitude"
+        tools:text="38.56435434" />
+
+    <TextView
+        android:id="@+id/tvCurrentLocationLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_32"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLongitude"
+        android:text="Поточне розташування:" />
+
+    <TextView
+        android:id="@+id/tvCurrentLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCurrentLocationLabel"
+        tools:text="Поточне розташування:" />
+
+    <TextView
+        android:id="@+id/tvCurrentLongitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCurrentLocation"
+        tools:text="38.56435434" />
+
+    <TextView
+        android:id="@+id/tvCurrentLatitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCurrentLongitude"
+        tools:text="38.56435434" />
+
+    <ImageButton
+        android:id="@+id/ibUpdate"
+        android:layout_width="@dimen/DP_32"
+        android:background="@drawable/bg_8dp_blue"
+        android:layout_height="@dimen/DP_32"
+        android:layout_marginEnd="@dimen/DP_32"
+        app:srcCompat = "@drawable/ic_update"
+        android:text="check-in"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCurrentLatitude"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvCurrentLongitude" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clAppbarBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:paddingStart="@dimen/DP_8"
+        android:paddingTop="@dimen/DP_8"
+        android:paddingEnd="@dimen/DP_8"
+        android:paddingBottom="@dimen/DP_8"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible">
+
+        <Button
+            android:id="@+id/btnCancel"
+            style="@style/Text.Label.14.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/DP_8"
+            android:backgroundTint="@color/white"
+            android:paddingTop="@dimen/DP_12"
+            android:paddingBottom="@dimen/DP_12"
+            android:text="@string/cancel"
+            android:textColor="@color/blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnCheckIn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="2dp" />
+
+        <Button
+            android:id="@+id/btnCheckIn"
+            style="@style/Text.Label.14.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/DP_12"
+            android:paddingBottom="@dimen/DP_12"
+            android:text="Check-in"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnCancel"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.euromix.esupervisor.app.views.ResultView
+        android:id="@+id/vResult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+</androidx.constraintlayout.widget.ConstraintLayout>

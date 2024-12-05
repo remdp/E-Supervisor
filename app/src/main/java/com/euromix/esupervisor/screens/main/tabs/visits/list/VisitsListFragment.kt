@@ -8,12 +8,12 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.enums.VisitType
 import com.euromix.esupervisor.app.model.visits.entities.VisitsListSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.observeEvent
@@ -25,6 +25,7 @@ import com.euromix.esupervisor.databinding.VisitsListFragmentBinding
 import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.screens.main.tabs.visits.changeType.ChangeVisitTypeDialog
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class VisitsListFragment : BaseFragment(R.layout.visits_list_fragment) {
@@ -34,6 +35,9 @@ class VisitsListFragment : BaseFragment(R.layout.visits_list_fragment) {
     private val binding by viewBinding<VisitsListFragmentBinding>()
 
     private lateinit var adapter: VisitsAdapter
+
+    @Inject
+    lateinit var resManager: ResourceManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -175,21 +179,17 @@ class VisitsListFragment : BaseFragment(R.layout.visits_list_fragment) {
     }
 
     private fun setTextColorAndBackground(pressedTV: TextView) {
-        val context = requireContext()
-
         with(binding) {
             listOf(
                 tvAllVisits, tvRegularVisits, tvRemoteVisits, tvOneTimeVisits
             ).forEach {
                 if (it == pressedTV) {
-                    it.setTextColor(App.getColor(context, R.color.blue))
+                    it.setTextColor(resManager.getColor(R.color.blue))
                     it.background =
-                        App.getDrawable(context, R.drawable.bg_4dp_border_blue)
+                        resManager.getDrawable(R.drawable.bg_4dp_border_blue)
                 } else {
-                    it.setTextColor(App.getColor(context, R.color.gray_400))
-                    it.background = App.getDrawable(
-                        context, R.drawable.bg_4dp_border_dark_alpha_10
-                    )
+                    it.setTextColor(resManager.getColor(R.color.gray_400))
+                    it.background = resManager.getDrawable(R.drawable.bg_4dp_border_dark_alpha_10)
                 }
             }
         }

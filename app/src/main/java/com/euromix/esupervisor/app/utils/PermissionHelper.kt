@@ -16,11 +16,11 @@ object PermissionHelper {
             emptyList()
         }
 
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
-            listOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        }
+     //   Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
+            //listOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+      //  }
 
-        else -> emptyList()
+        else -> listOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
 }

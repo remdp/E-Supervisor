@@ -2,6 +2,7 @@ package com.euromix.esupervisor.app.utils
 
 import android.content.pm.PackageManager
 import android.util.SparseArray
+import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import androidx.core.util.containsKey
 import androidx.fragment.app.Fragment
@@ -12,6 +13,9 @@ import java.util.concurrent.atomic.AtomicInteger
  */
 fun Fragment.permissionManager(): PermissionManager {
     val requestCode = AtomicInteger()
+
+    lateinit var requestMultiplePermissionsLauncher: ActivityResultLauncher<Array<String>>
+
     return PermissionManager(
         permissionChecker = { permission ->
             ContextCompat.checkSelfPermission(requireContext(), permission) == PackageManager.PERMISSION_GRANTED
@@ -43,7 +47,7 @@ class PermissionManager(
             val requestCode = requestCodeGenerator()
             val handler = PermissionResultHandler(onAccepted, onDenied)
             requestHandlers.put(requestCode,handler)
-            permissionRequester(requestCode, permissions.toTypedArray())
+            permissionRequester(requestCode, notGrantedPermissions.toTypedArray())
         }
     }
 

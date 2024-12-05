@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.PopupWindow
 import androidx.annotation.LayoutRes
-import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.databinding.SelectionDropdownItemBinding
@@ -35,12 +34,7 @@ fun popupWindow(
     popupWindow.isFocusable = true
     popupWindow.width = anchor.width
     popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT
-    popupWindow.setBackgroundDrawable(
-        App.getDrawable(
-            context,
-            R.drawable.bg_8dp_white_border_gray_200
-        )
-    )
+    popupWindow.setBackgroundDrawable(context.getDrawable(R.drawable.bg_8dp_white_border_gray_200))
 
     listView.onItemClickListener =
         AdapterView.OnItemClickListener { parent, view, position, id ->
@@ -80,10 +74,7 @@ fun popupWindowForSelections(
     popupWindow.width = WindowManager.LayoutParams.MATCH_PARENT
     popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT
     popupWindow.setBackgroundDrawable(
-        App.getDrawable(
-            context,
-            R.drawable.bg_8dp_white
-        )
+        context.getDrawable(R.drawable.bg_8dp_white)
     )
 
     popupWindow.contentView = listView

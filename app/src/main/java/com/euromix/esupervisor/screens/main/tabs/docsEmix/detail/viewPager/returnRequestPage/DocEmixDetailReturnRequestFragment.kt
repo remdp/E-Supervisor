@@ -6,21 +6,24 @@ import android.widget.LinearLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
-import com.euromix.esupervisor.App
-import com.euromix.esupervisor.App.Companion.getDrawable
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const.ROWS
-import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.model.docEmix.entities.RowReturnRequest
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.parcelable
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.DocEmixDetailReturnRequestFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DocEmixDetailReturnRequestFragment :
     Fragment(R.layout.doc_emix_detail_return_request_fragment) {
 
     private val binding by viewBinding<DocEmixDetailReturnRequestFragmentBinding>()
+
+    @Inject
+    lateinit var resManager: ResourceManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,9 +35,8 @@ class DocEmixDetailReturnRequestFragment :
             binding.rvRowsReturnRequest.context,
             LinearLayout.VERTICAL
         )
-        val drawable = getDrawable(requireContext(), R.drawable.line_divider)
-        if (drawable != null) {
-            divider.setDrawable(drawable)
+        resManager.getDrawable(R.drawable.line_divider)?.let {
+            divider.setDrawable(it)
             binding.rvRowsReturnRequest.addItemDecoration(divider)
         }
 

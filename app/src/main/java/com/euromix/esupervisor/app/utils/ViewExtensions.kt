@@ -18,7 +18,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
-import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.Status
 import com.euromix.esupervisor.app.enums.TaskState
@@ -179,10 +178,7 @@ fun CustomProgressIndicator.draw(
     indicatorWidth: Int = 10
 ) {
 
-    val colorPi = getColor(
-        context,
-        if (totalFact < totalPlan) R.color.blue else R.color.green
-    )
+    val colorPi = context.getColor(if (totalFact < totalPlan) R.color.blue else R.color.green)
 
     val percentage = totalFact / totalPlan
     var startAngleC = (270 + (percentage - percentage.toInt()) * 360).toInt()
@@ -209,11 +205,11 @@ fun CustomProgressIndicator.clear(indicatorWidth: Int = 10) {
     progressBackgroundColor = ContextCompat.getColor(context, R.color.gray_100)
     setGradient(
         CustomProgressIndicator.NO_GRADIENT,
-        ContextCompat.getColor(context, R.color.white)
+        context.getColor(R.color.white)
     )
 
     setProgress(0.0, 0.0)
-    textColor = getColor(context, R.color.gray_200)
+    textColor =context.getColor(R.color.gray_200)
 
     setProgressTextAdapter { return@setProgressTextAdapter "0%" }
 
@@ -245,7 +241,7 @@ fun TabLayout.addDivider() {
         if (it is LinearLayout) {
             it.showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
             val drawable = GradientDrawable()
-            drawable.setColor(getColor(it.context, R.color.dark_alpha_20))
+            drawable.setColor(context.getColor(R.color.dark_alpha_20))
             drawable.setSize(3, 1)
             it.dividerDrawable = drawable
         }

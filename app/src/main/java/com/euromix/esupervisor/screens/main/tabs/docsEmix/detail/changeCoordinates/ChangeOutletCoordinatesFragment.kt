@@ -1,6 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.changeCoordinates
 
-import android.location.Geocoder
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -9,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
-import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.ConnectionException
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.dialogPositiveButton
 import com.euromix.esupervisor.app.utils.observeEvent
@@ -28,7 +27,6 @@ import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
 import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
 import com.mapbox.maps.plugin.gestures.gestures
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Locale
 import javax.inject.Inject
 
 
@@ -37,17 +35,19 @@ class ChangeOutletCoordinatesFragment : BaseFragment(R.layout.change_outlet_coor
 
     @Inject
     lateinit var factory: ChangeOutletCoordinatesViewModel.Factory
-    override val viewModel by viewModelCreator { factory.create(args.extId) }
+    override val viewModel by viewModelCreator { factory.create(args.extId, resManager) }
     private val args by navArgs<ChangeOutletCoordinatesFragmentArgs>()
 
     private val binding by viewBinding<ChangeOutletCoordinatesFragmentBinding>()
 
     private lateinit var mapboxMap: MapboxMap
     private lateinit var pointAnnotationManager: PointAnnotationManager
-    private lateinit var geocoder: Geocoder
 
     private var x = 0f
     private var y = 0f
+
+    @Inject
+    lateinit var resManager: ResourceManager
 
     private val visiblePopups = HashMap<String, PopupWindow>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,8 +58,6 @@ class ChangeOutletCoordinatesFragment : BaseFragment(R.layout.change_outlet_coor
 
         pointAnnotationManager =
             binding.mapView.annotations.createPointAnnotationManager()
-
-        geocoder = Geocoder(requireContext(), Locale.getDefault())
 
         setupObservers()
         setupListeners()
@@ -72,10 +70,10 @@ class ChangeOutletCoordinatesFragment : BaseFragment(R.layout.change_outlet_coor
 
     private fun setupObservers() {
 
-        viewModel.viewStateEvent.observeEvent(viewLifecycleOwner) {viewState->
+        viewModel.viewStateEvent.observeEvent(viewLifecycleOwner) { viewState ->
             renderState(viewState)
             if (!viewState.isLoading) {
-                showPoints(viewModel.createPointsAnnotationOptions(requireContext()))
+                showPoints(viewModel.createPointsAnnotationOptions())
 
                 viewModel.calculateMidpoint(
                     viewState.longitudeOld,
@@ -90,8 +88,8 @@ class ChangeOutletCoordinatesFragment : BaseFragment(R.layout.change_outlet_coor
                         second
                     )
                 }
-                viewModel.setGeoAddress(geocoder, false)
-                viewModel.setGeoAddress(geocoder, true)
+                viewModel.setGeoAddress(false)
+                viewModel.setGeoAddress(true)
             }
         }
     }
@@ -184,10 +182,10 @@ class ChangeOutletCoordinatesFragment : BaseFragment(R.layout.change_outlet_coor
 
             tvCoordinates.text = paData.coordinates
             tvNewOld.text = if (paData.new) "NEW" else "OLD"
-            tvNewOld.background = if (paData.new) App.getDrawable(
-                requireContext(),
-                R.drawable.bg_4dp_green_light
-            ) else App.getDrawable(requireContext(), R.drawable.bg_4dp_red_light)
+            tvNewOld.background =
+                if (paData.new) resManager.getDrawable(R.drawable.bg_4dp_green_light) else resManager.getDrawable(
+                    R.drawable.bg_4dp_red_light
+                )
             tvAddress.text = viewModel.getAddressFromViewState(paData.new)
 
         }
@@ -205,10 +203,7 @@ class ChangeOutletCoordinatesFragment : BaseFragment(R.layout.change_outlet_coor
         }
 
         popupWindow.setBackgroundDrawable(
-            App.getDrawable(
-                requireContext(),
-                R.drawable.bg_8dp_white_border_gray_200
-            )
+            resManager.getDrawable(R.drawable.bg_8dp_white_border_gray_200)
         )
         popupWindow.showAtLocation(
             binding.root,

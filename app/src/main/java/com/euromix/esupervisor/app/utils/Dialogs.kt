@@ -7,7 +7,6 @@ import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.FragmentManager
-import com.euromix.esupervisor.App.Companion.getString
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.databinding.DialogReactDislikeBinding
 import com.euromix.esupervisor.databinding.DialogReasonRejectionBinding
@@ -30,7 +29,7 @@ fun dialogPositiveButton(
         dialogBinding.cbAdditional.gone()
         dialogBinding.tvDeadline.gone()
     } else {
-        dialogBinding.cbAdditional.text = getString(context, addTextId)
+        dialogBinding.cbAdditional.text = context.getString(addTextId)
         setDateSelection(dialogBinding.tvDeadline, fm!!) {
             deadline = it
         }
@@ -76,10 +75,10 @@ fun dialogErrors(
     context: Context, errors: List<Int>
 ) {
 
-    var message = getString(context, R.string.need_fill_colon)
+    var message = context.getString(R.string.need_fill_colon)
 
     errors.forEach {
-        message = message + "\n" + getString(context, it)
+        message = message + "\n" + context.getString(it)
     }
 
     val builder = android.app.AlertDialog.Builder(context)
@@ -111,7 +110,7 @@ fun dialogReactDislike(
 
     var deadline: Date = Calendar.getInstance().time
 
-    binding.cbAdditional.text = getString(context, addTextId)
+    binding.cbAdditional.text = context.getString(addTextId)
     setDateSelection(binding.tvDeadline, fm) {
         if (it != null) {
             deadline = it
@@ -139,10 +138,10 @@ fun dialogReactDislike(
         }
     }
 
-    if (abilityCreateTask){
+    if (abilityCreateTask) {
         binding.cbAdditional.visible()
         binding.tvDeadline.visible()
-    }else{
+    } else {
         binding.cbAdditional.gone()
         binding.tvDeadline.gone()
     }
@@ -158,10 +157,10 @@ fun showErrors(context: Context, errors: List<Int>) {
     showDialog(context, message)
 }
 
-private fun buildErrorMessage(context: Context, errors: List<*>) : String {
+private fun buildErrorMessage(context: Context, errors: List<*>): String {
     var message = context.getString(R.string.need_fill_colon)
     errors.forEach {
-        if(it is Int)
+        if (it is Int)
             message = message + "\n" + context.getString(it)
         else if (it is String)
             message = message + "\n" + it

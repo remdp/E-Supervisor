@@ -10,6 +10,7 @@ import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.model.routes.entities.StatisticsSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.setPeriodSelection
@@ -17,23 +18,28 @@ import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.StatisticsFragmentBinding
 import com.euromix.esupervisor.screens.main.BaseViewState
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class StatisticsFragment : BaseFragment(R.layout.statistics_fragment) {
 
     override val viewModel by viewModels<StatisticsViewModel>()
-
     private val binding by viewBinding<StatisticsFragmentBinding>()
-
     private lateinit var adapter: StatisticsAdapter
+
+    @Inject
+    lateinit var resManager: ResourceManager
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.init()
+
         adapter = StatisticsAdapter(
-            binding.rvStatistic,
-            viewModel::expandItem,
-            viewModel::changeWatchAllManufacturersLogo,
-            viewModel::decipher
+            resManager = resManager,
+            onDetailClick = viewModel::onItemClick,
+            onWatchAllClick = viewModel::changeWatchAllManufacturersLogo,
+            onDecipherClick = viewModel::decipher
         )
 
         binding.rvStatistic.adapter = adapter
@@ -97,23 +103,20 @@ class StatisticsFragment : BaseFragment(R.layout.statistics_fragment) {
             designByViewState(
                 this as BaseViewState, binding.root, binding.vResult, binding.srl
             )
-            with(binding) {
 
-                visitsData.apply {
-                    tvAnalysisVisits.text = backStackPath()
-                    tvAnalysisVisits.setCompoundDrawablesWithIntrinsicBounds(
-                        if (viewModel.canBack()) R.drawable.ic_arrow_back else 0,
-                        0,
-                        0,
-                        0
-                    )
+            if (!isLoading && error == null) {
+                with(binding) {
 
-                    adapter.submitList(visitsData)
-
-                    binding.rvStatistic.postDelayed({
-                        viewModel.disableAnimateCharts()
-                    }, 1200)
-
+                    visitsData.apply {
+                        tvAnalysisVisits.text = backStackPath()
+                        tvAnalysisVisits.setCompoundDrawablesWithIntrinsicBounds(
+                            if (viewModel.canBack()) R.drawable.ic_arrow_back else 0,
+                            0,
+                            0,
+                            0
+                        )
+                        adapter.submitList(visitsData)
+                    }
                 }
             }
         }

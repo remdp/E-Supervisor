@@ -4,6 +4,7 @@ enum class ServerType(val typeName: String) {
 
     BALANCE_UNIT("СправочникСсылка.БалансовыеЕдиницы"),
     TRADING_TEAM("СправочникСсылка.ТорговыеКоманды"),
+    TRADING_TEAM_HR("СправочникСсылка.ТорговыеКомандыЗУП"),
     TRADING_AGENT("СправочникСсылка.ТорговыеАгенты");
 
     companion object {

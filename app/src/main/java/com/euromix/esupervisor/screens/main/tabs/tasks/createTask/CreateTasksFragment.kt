@@ -14,6 +14,7 @@ import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
+import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.tasks.entities.TasksCreateOutletsSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.ActivitySubscription
@@ -21,6 +22,7 @@ import com.euromix.esupervisor.app.utils.addSoftKeyboardVisibilityListener
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.observeResults
+import com.euromix.esupervisor.app.utils.popupWindowForSelections
 import com.euromix.esupervisor.app.utils.setDateSelection
 import com.euromix.esupervisor.app.utils.setDrawableOnClickListener
 import com.euromix.esupervisor.app.utils.setOnClickListenerLocalSelection
@@ -186,7 +188,7 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
             binding.tvTaskType.setOnClickListenerLocalSelection(
                 it,
                 viewModel::updateChosenTaskType,
-                viewModel::handleViewClick,
+                ::handleViewClick,
                 viewModel::checkTaskTypeEmpty
             )
         }
@@ -272,5 +274,25 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
             binding.tiSearch.visible()
             binding.rvSelectionItems.visible()
         }
+    }
+
+    // 0-common click
+    //1-right drawable click
+    private fun handleViewClick(
+        itemsList: List<ServerPair>,
+        updaterSelection: (ServerPair?) -> Unit,
+        anchor: View,
+        click: Int,
+        emptyChecker: () -> Boolean
+    ) {
+
+        if (click == 0 || emptyChecker())
+            popupWindowForSelections(
+                anchor.context,
+                itemsList,
+                updaterSelection
+            ).showAsDropDown(anchor)
+        else updaterSelection(null)
+
     }
 }

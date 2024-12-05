@@ -68,8 +68,7 @@ class SelectPictureDialog : BottomSheetDialogFragment() {
         view.findViewById<ConstraintLayout>(R.id.camera).setOnClickListener {
             permissionManager.request(
                 permissions = listOf(
-                    Manifest.permission.CAMERA,
-                    PermissionHelper.getImagePermission()
+                    Manifest.permission.CAMERA
                 ) + PermissionHelper.getWriteStoragePermissionList(),
                 onAccepted = { photoManager.takePhoto(TAKE_PHOTO) },
                 onDenied = { }

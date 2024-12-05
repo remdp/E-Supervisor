@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/visits_supervisors_graph"
+    app:startDestination="@id/visitsSupervisorsListFragment">
+
+    <fragment
+        android:id="@+id/visitsSupervisorsListFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.list.VisitsSupervisorsListFragment"
+        android:label="VisitsSupervisorsListFragment" >
+        <action
+            android:id="@+id/action_visitsSupervisorsListFragment_to_visitSupervisorDetailFragment"
+            app:destination="@id/visitSupervisorDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/visitSupervisorDetailFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.detail.VisitSupervisorDetailFragment"
+        android:label="VisitSupervisorDetailFragment" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+        <action
+            android:id="@+id/action_visitSupervisorDetailFragment_to_visitSupervisorCheckInFragment"
+            app:destination="@id/visitSupervisorCheckInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/visitSupervisorCheckInFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.checkIn.VisitSupervisorCheckInFragment"
+        android:label="VisitSupervisorCheckInFragment" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+        <argument
+            android:name="outlet"
+            app:argType="string" />
+    </fragment>
+</navigation>

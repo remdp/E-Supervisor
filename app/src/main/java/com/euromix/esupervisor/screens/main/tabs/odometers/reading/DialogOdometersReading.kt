@@ -14,9 +14,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.euromix.esupervisor.App.Companion.getDrawable
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.common.Action
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.isTimeZero
 import com.euromix.esupervisor.app.utils.observeEvent
@@ -28,6 +28,7 @@ import com.euromix.esupervisor.dialogs.selectPictureDialog.SelectPictureDialog
 import com.euromix.esupervisor.dialogs.selectPictureDialog.SelectPictureViewModel
 import com.euromix.esupervisor.screens.main.BaseViewState
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DialogOdometersReading(private val listUpdater: Action) : DialogFragment() {
@@ -37,6 +38,9 @@ class DialogOdometersReading(private val listUpdater: Action) : DialogFragment()
     private val selectPictureViewModel by activityViewModels<SelectPictureViewModel>()
 
     private val viewModel by viewModels<DialogOdometersViewModel>()
+
+    @Inject
+    lateinit var resManager: ResourceManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -201,8 +205,11 @@ class DialogOdometersReading(private val listUpdater: Action) : DialogFragment()
                 val startKmString = (startKm ?: "").toString()
                 val stopKmString = (stopKm ?: "").toString()
 
-                etStartOdometer.setText(startKmString)
-                etStopOdometer.setText(stopKmString)
+                if (etStartOdometer.text.toString() != startKmString)
+                    etStartOdometer.setText(startKmString)
+
+                if (etStopOdometer.text.toString() != stopKmString)
+                    etStopOdometer.setText(startKmString)
 
                 tvOdometerDifference.text = if ((stopKm ?: 0) > 0) {
                     ((stopKm ?: 0) - (startKm ?: 0)).toString()
@@ -224,14 +231,10 @@ class DialogOdometersReading(private val listUpdater: Action) : DialogFragment()
                 } else
                     ivOdometerPhotoStop.setBitmapFromBase64String(stopPhoto)
 
-                binding.tiStartOdometer.background = getDrawable(
-                    requireContext(),
-                    if (isStart) R.drawable.bg_8dp_dark_alpha_10 else R.drawable.bg_8dp_white
-                )
-                binding.tiStopOdometer.background = getDrawable(
-                    requireContext(),
-                    if (isStop) R.drawable.bg_8dp_dark_alpha_10 else R.drawable.bg_8dp_white
-                )
+                binding.tiStartOdometer.background =
+                    resManager.getDrawable(if (isStart) R.drawable.bg_8dp_dark_alpha_10 else R.drawable.bg_8dp_white)
+                binding.tiStopOdometer.background =
+                    resManager.getDrawable(if (isStop) R.drawable.bg_8dp_dark_alpha_10 else R.drawable.bg_8dp_white)
 
                 startTime?.let {
                     if (!it.isTimeZero())

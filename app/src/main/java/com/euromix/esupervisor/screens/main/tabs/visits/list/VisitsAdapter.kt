@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.VisitType
 import com.euromix.esupervisor.app.model.routes.entities.MapPointSigns
@@ -87,10 +86,10 @@ class VisitsAdapter(
 
             if (currentItem.type == VisitType.REMOTE) {
                 ivChangeVisitType.setImageResource(R.drawable.ic_visit_regular)
-                llIv.setBackgroundColor(App.getColor(context, R.color.blue_80))
+                llIv.setBackgroundColor(context.getColor(R.color.blue_80))
             } else {
                 ivChangeVisitType.setImageResource(R.drawable.ic_visit_remote)
-                llIv.setBackgroundColor(App.getColor(context, R.color.orange_80))
+                llIv.setBackgroundColor(context.getColor(R.color.orange_80))
             }
 
             ivChangeVisitType.setOnClickListener {

@@ -3,17 +3,17 @@ package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
-import com.euromix.esupervisor.App
-import com.euromix.esupervisor.App.Companion.getColor
-import com.euromix.esupervisor.App.Companion.getDrawable
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
 import com.euromix.esupervisor.app.enums.Status
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.addDivider
 import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.dialogPositiveButton
@@ -40,6 +40,9 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
     override val viewModel by viewModelCreator { factory.create(args.extId) }
     private val binding by viewBinding<DocEmixDetailFragmentBinding>()
     private val args by navArgs<DocEmixDetailFragmentArgs>()
+
+    @Inject
+    lateinit var resManager: ResourceManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,6 +71,9 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                 if (docEmixDetail != null)
                     setupViewPager(docEmixDetail)
             }
+
+            if(viewModel.viewState.updateParentList)
+                setFragmentResult(Const.NEED_RELOAD, Bundle())
         }
     }
 
@@ -76,7 +82,11 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
 
         val viewState = viewModel.viewState
         designByViewState(
-            viewState as BaseViewState, binding.root, binding.vResult
+            viewState as BaseViewState,
+            binding.root,
+            binding.vResult,
+            null,
+            listOf(binding.clAppbarBottom)
         )
 
         if (viewState.docEmixDetail != null)
@@ -90,7 +100,7 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                     tvDescription.text = description
 
                     tvTradingAgent.text = tradingAgent
-                    clAppbarBottom.isVisible = canBeAgreed
+                      clAppbarBottom.isVisible = canBeAgreed
 
                     if (operationType == DocEmixOperationType.NEW_PARTNER_FACT) {
                         tvDistribChannelLabel.visible()
@@ -138,12 +148,12 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
 
                 tab.customView?.let {
                     val bindingTab = TabHeaderBinding.bind(it)
-                    bindingTab.tvLeft.setTextColor(getColor(it.context, R.color.blue))
+                    bindingTab.tvLeft.setTextColor(resManager.getColor(R.color.blue))
 
-                    bindingTab.tvRight.setTextColor(getColor(it.context, R.color.blue))
+                    bindingTab.tvRight.setTextColor(resManager.getColor(R.color.blue))
 
                     bindingTab.tvRight.background =
-                        getDrawable(it.context, R.drawable.bg_4dp_blue_10)
+                        resManager.getDrawable(R.drawable.bg_4dp_blue_10)
                 }
             }
 
@@ -151,11 +161,11 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
 
                 tab.customView?.let {
                     val bindingTab = TabHeaderBinding.bind(it)
-                    bindingTab.tvLeft.setTextColor(getColor(it.context, R.color.gray_400))
+                    bindingTab.tvLeft.setTextColor(resManager.getColor(R.color.gray_400))
 
-                    bindingTab.tvRight.setTextColor(getColor(it.context, R.color.gray_400))
+                    bindingTab.tvRight.setTextColor(resManager.getColor(R.color.gray_400))
                     bindingTab.tvRight.background =
-                        getDrawable(it.context, R.drawable.bg_4dp_dark_5)
+                        resManager.getDrawable(R.drawable.bg_4dp_dark_5)
                 }
             }
 
@@ -179,18 +189,18 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                     DocEmixOperationType.NEW_PARTNER_FACT -> {
                         when (position) {
                             0 -> {
-                                tvLeft.text = App.getString(requireContext(), R.string.outlet)
+                                tvLeft.text = resManager.getString(R.string.outlet)
                                 tvRight.gone()
                             }
 
                             1 -> {
-                                tvLeft.text = App.getString(requireContext(), R.string.tc_data)
+                                tvLeft.text = resManager.getString(R.string.tc_data)
                                 tvRight.text =
                                     (if (docEmixDetail.rowsTradeConditions == null) 0 else docEmixDetail.rowsTradeConditions.size).toString()
                             }
 
                             else -> {
-                                tvLeft.text = App.getString(requireContext(), R.string.photo)
+                                tvLeft.text = resManager.getString(R.string.photo)
                                 tvRight.text = docEmixDetail.images.toString()
                             }
                         }
@@ -199,13 +209,13 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                     DocEmixOperationType.RETURN_REQUEST -> {
                         when (position) {
                             0 -> {
-                                tvLeft.text = App.getString(requireContext(), R.string.goods)
+                                tvLeft.text = resManager.getString(R.string.goods)
                                 tvRight.text =
                                     (if (docEmixDetail.rowsReturnRequest == null) 0 else docEmixDetail.rowsReturnRequest.size).toString()
                             }
 
                             else -> {
-                                tvLeft.text = App.getString(requireContext(), R.string.gallery)
+                                tvLeft.text = resManager.getString(R.string.gallery)
                                 tvRight.text = docEmixDetail.images.toString()
                             }
                         }

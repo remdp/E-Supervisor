@@ -1,8 +1,6 @@
 package com.euromix.esupervisor.app.enums
 
-import android.content.Context
 import android.widget.TextView
-import com.euromix.esupervisor.App.Companion.getString
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.utils.setIconStatus
 import com.euromix.esupervisor.app.utils.setTextColorStatus
@@ -57,19 +55,10 @@ enum class Status {
     companion object {
 
         fun designTV(tvStatus: TextView, status: Status) {
-            tvStatus.text = stringRepresentation(tvStatus.context, status)
-//            tvStatus.setNonStandardStatusText(
-//                stringRepresentation(
-//                    tvStatus.context,
-//                    status
-//                )
-//            )
+            tvStatus.text = tvStatus.context.getString(status.nameStringRes())
             tvStatus.setTextColorStatus(status)
             tvStatus.setIconStatus(status)
         }
-
-        fun stringRepresentation(context: Context, status: Status): String =
-            getString(context, status.nameStringRes())
 
         fun statuses() = arrayOf(DONE, PARTIALLY_DONE, IN_THE_PROCESS_OF_APPROVAL, AGREED, ERROR, REJECTED, IN_WORK)
 

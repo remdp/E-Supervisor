@@ -13,7 +13,6 @@ data class VisitsStatisticDetailResponseEntity(
     @field:Json(name = "amount_payments") val amountPayments: Double = 0.0,
     @field:Json(name = "manufacturers_portfolio") val manufacturersPortfolio: Int = 0,
     @field:Json(name = "manufacturers_route") val manufacturersRoute: Int = 0,
-    @field:Json(name = "manufacturers_sale") val manufacturersSale: Int = 0,
     @field:Json(name = "manufacturers_logo") val manufacturersLogo: List<ManufacturerLogo>? = null
 ) {
     fun toVisitsStatisticDetail() = VisitsStatisticDetailData(
@@ -26,7 +25,6 @@ data class VisitsStatisticDetailResponseEntity(
         amountPayments = amountPayments,
         manufacturersPortfolio = manufacturersPortfolio,
         manufacturersRoute = manufacturersRoute,
-        manufacturersSale = manufacturersSale,
         manufacturersLogo = manufacturersLogo?.chunked(MANUFACTURERS_IN_ITEM) ?: listOf()
     )
 
@@ -37,6 +35,8 @@ data class VisitsStatisticDetailResponseEntity(
 
 data class ManufacturerLogo(
     val name: String,
-    val URL: String,
-    @field:Json(name = "current_sale") val currentSale: Boolean
+    val url: String,
+    @field:Json(name = "current_order") val currentOrder: Boolean,
+    @field:Json(name = "number_orders") val numberOrders: Int,
+    @field:Json(name = "orders_sum") val ordersSum: Double
 )

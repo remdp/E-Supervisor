@@ -1,8 +1,6 @@
 package com.euromix.esupervisor.app.enums
 
-import android.content.Context
 import android.widget.TextView
-import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.utils.setIconTaskState
 import com.euromix.esupervisor.app.utils.setTextColorTaskState
@@ -41,12 +39,9 @@ enum class TaskState {
 
     companion object {
 
-        fun stringRepresentation(context: Context, taskState: TaskState): String =
-            App.getString(context, taskState.nameStringRes())
-
 
         fun designTV(tvTaskState: TextView, taskState: TaskState) {
-            tvTaskState.text = stringRepresentation(tvTaskState.context, taskState)
+            tvTaskState.text = tvTaskState.context.getString(taskState.nameStringRes())
             tvTaskState.setTextColorTaskState(taskState)
             tvTaskState.setIconTaskState(taskState)
         }

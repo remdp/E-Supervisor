@@ -6,7 +6,6 @@ import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.docEmix.DocEmixDetailRepository
 import com.euromix.esupervisor.app.model.docEmix.entities.ImageReaction
-import com.euromix.esupervisor.app.model.visits.entities.Visit
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.publishEvent

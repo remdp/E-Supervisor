@@ -6,7 +6,6 @@ import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
-import com.euromix.esupervisor.app.model.account.AccountRepository
 import com.euromix.esupervisor.app.model.common.entities.ServerObject
 import com.euromix.esupervisor.app.model.common.entities.ServerSelectionItem
 import com.euromix.esupervisor.app.model.routes.RoutesRepository
@@ -22,24 +21,24 @@ import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.sources.routes.entities.RoutesStatisticDetailRequestEntity
 import com.euromix.esupervisor.sources.routes.entities.RoutesStatisticRequestEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.Base64
 import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
-    accountRepository: AccountRepository,
     private val routesRepository: RoutesRepository
 ) :
-    BaseViewModel(accountRepository) {
+    BaseViewModel() {
 
-    private var _viewState: ViewState
+    private lateinit var _viewState: ViewState
     val viewState: ViewState
         get() = _viewState
 
     private val _viewStateEvent = MutableLiveEvent<Unit>()
     val viewStateEvent = _viewStateEvent.share()
 
-    init {
+    fun init(){
 
         val detailLevel = if (accountRepository.getCurrentRole() != Role.DIRECTOR)
             1
@@ -54,6 +53,7 @@ class StatisticsViewModel @Inject constructor(
             jumpCount = detailLevel
         )
         getRoutesStatistics()
+
 
     }
 
@@ -120,7 +120,6 @@ class StatisticsViewModel @Inject constructor(
                         balanceUnitId = selection.balanceUnit?.id,
                         tradingTeamId = selection.tradingTeam?.id,
                         tradingAgentId = selection.tradingAgent?.id,
-                        // detailLevel = if (selection.tradingTeam != null || selection.tradingAgent != null) 2 else selection.detailLevel
                         detailLevel = selection.detailLevel
                     )
                 ).collect {
@@ -149,7 +148,7 @@ class StatisticsViewModel @Inject constructor(
 
 
     fun canBack() = when (viewState.jumpCount) {
-        1 -> accountRepository?.getCurrentRole() == Role.DIRECTOR
+        1 -> accountRepository.getCurrentRole() == Role.DIRECTOR
         2 -> true
         else -> false
     }
@@ -165,8 +164,46 @@ class StatisticsViewModel @Inject constructor(
         getRoutesStatistics()
     }
 
-    fun expandItem(itemSelection: ServerSelectionItem) {
-        _viewState = _viewState.copy(detailSelection = itemSelection)
+    fun onItemClick(item: VisitsStatisticData) {
+
+        if (item.isExpanded) {
+            collapseItem(item)
+        } else {
+            expandItem(
+                ServerSelectionItem(
+                    item.serverObject.serverPair.id,
+                    Base64.getEncoder()
+                        .encodeToString(item.serverObject.serverType.toByteArray(Charsets.UTF_8))
+                )
+            )
+        }
+    }
+
+    private fun collapseItem(item: VisitsStatisticData) {
+        _viewState = _viewState.copy(
+            detailSelection = null,
+            visitsData = _viewState.visitsData.map {
+                if (it.serverObject.serverPair.id == item.serverObject.serverPair.id) {
+                    it.copy(isExpanded = !it.isExpanded)
+                } else {
+                    it
+                }
+            })
+
+        _viewStateEvent.publishEvent()
+    }
+
+    private fun expandItem(itemSelection: ServerSelectionItem) {
+
+        _viewState = _viewState.copy(
+            detailSelection = itemSelection,
+            visitsData = _viewState.visitsData.map { item ->
+                if (item.serverObject.serverPair.id == itemSelection.id) {
+                    item.copy(isExpanded = !item.isExpanded)
+                } else {
+                    item
+                }
+            })
         getVisitsStatisticDetail()
     }
 
@@ -189,29 +226,6 @@ class StatisticsViewModel @Inject constructor(
 
     }
 
-    fun disableAnimateCharts() {
-
-        var isChanges = false
-
-        val newDataList = _viewState.visitsData.map { item: VisitsStatisticData ->
-
-            item.detailData?.let { detailData ->
-                if (detailData.animateCharts) {
-                    isChanges = true
-                }
-                item.copy(detailData = detailData.copy(animateCharts = false))
-            } ?: item
-        }
-
-        if (isChanges) {
-            _viewState = _viewState.copy(
-                visitsData = newDataList
-            )
-            _viewStateEvent.publishEvent()
-        }
-
-    }
-
     fun decipher(serverObject: ServerObject) {
 
         val newSelection = when (ServerType.fromTypeName(serverObject.serverType)) {
@@ -221,6 +235,11 @@ class StatisticsViewModel @Inject constructor(
             )
 
             ServerType.TRADING_TEAM -> _viewState.selection.copy(
+                tradingTeam = serverObject.serverPair,
+                detailLevel = 2
+            )
+
+            ServerType.TRADING_TEAM_HR -> _viewState.selection.copy(
                 tradingTeam = serverObject.serverPair,
                 detailLevel = 2
             )
@@ -278,7 +297,6 @@ class StatisticsViewModel @Inject constructor(
         override val error: Throwable? = null,
         val selection: StatisticsSelection,
         val visitsData: List<VisitsStatisticData> = listOf(),
-        val posExpandItem: Int? = null,
         val detailSelection: ServerSelectionItem? = null,
         val jumpCount: Int = 0,
         val backStackItems: List<String> = listOf()

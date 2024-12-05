@@ -11,13 +11,13 @@ import android.widget.PopupWindow
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.model.routes.entities.MapPoint
 import com.euromix.esupervisor.app.model.routes.entities.OutletData
 import com.euromix.esupervisor.app.model.routes.entities.RouteMapSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.dateToString
 import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.observeEvent
@@ -40,7 +40,10 @@ import com.mapbox.maps.plugin.annotation.generated.OnPointAnnotationClickListene
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
 import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
 
     override val viewModel by viewModels<RouteMapViewModel>()
@@ -50,6 +53,9 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
 
     private lateinit var pointAnnotationManager: PointAnnotationManager
     private lateinit var clusterAnnotationManager: PointAnnotationManager
+
+    @Inject
+    lateinit var resManager: ResourceManager
 
     private val annotationConfig = AnnotationConfig(
         annotationSourceOptions = AnnotationSourceOptions(
@@ -82,7 +88,7 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
         setupListeners()
         setupObservers()
 
-        viewModel.setBitmapCache(requireContext())
+        viewModel.setBitmapCache()
         binding.tvDay.text = viewModel.selection.day.dateToString()
         viewModel.publishViewStateEvent()
     }
@@ -257,10 +263,7 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
         }
 
         popupWindow.setBackgroundDrawable(
-            App.getDrawable(
-                requireContext(),
-                R.drawable.bg_8dp_white_border_gray_200
-            )
+            resManager.getDrawable(R.drawable.bg_8dp_white_border_gray_200)
         )
         popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, -300)
     }

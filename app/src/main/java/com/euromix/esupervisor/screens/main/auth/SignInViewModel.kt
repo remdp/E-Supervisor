@@ -4,18 +4,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.Field
-import com.euromix.esupervisor.app.model.*
-import com.euromix.esupervisor.app.model.account.AccountRepository
+import com.euromix.esupervisor.app.model.BackendException
+import com.euromix.esupervisor.app.model.ConnectionException
+import com.euromix.esupervisor.app.model.EmptyFieldException
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
-import com.euromix.esupervisor.app.utils.*
+import com.euromix.esupervisor.app.utils.MutableUnitLiveEvent
+import com.euromix.esupervisor.app.utils.publishEvent
+import com.euromix.esupervisor.app.utils.requireValue
+import com.euromix.esupervisor.app.utils.share
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    accountRepository: AccountRepository
-) : BaseViewModel(accountRepository) {
+) : BaseViewModel() {
 
     private val _state = MutableLiveData(State())
     val state = _state.share()

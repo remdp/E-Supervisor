@@ -52,32 +52,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tvVisitsTimeCreation" />
 
     <View
-        android:id="@+id/vDivider1"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/DP_1"
-        android:background="@color/dark_alpha_10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iPlanVisits" />
-
-    <include
-        android:id="@+id/iUnscheduledVisits"
-        layout="@layout/item_statistic_visits"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
-        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
-        app:layout_constraintTop_toBottomOf="@+id/vDivider1"
-         />
-
-    <View
         android:id="@+id/vDivider2"
         android:layout_width="0dp"
         android:layout_height="@dimen/DP_8"
         android:background="@color/gray_100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iUnscheduledVisits" />
+        app:layout_constraintTop_toBottomOf="@+id/iPlanVisits" />
 
     <TextView
         android:id="@+id/tvVisitsByTypeVisit"
@@ -136,7 +117,7 @@
         app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
         app:layout_constraintStart_toStartOf="@+id/gdlnStart"
         app:layout_constraintTop_toBottomOf="@+id/vDivider4"
-        tools:visibility="visible" />
+        tools:visibility="gone" />
 
     <View
         android:id="@+id/vDivider5"
@@ -154,7 +135,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
         app:layout_constraintStart_toStartOf="@+id/gdlnStart"
-        app:layout_constraintTop_toBottomOf="@+id/vDivider5" />
+        app:layout_constraintTop_toBottomOf="@+id/vDivider5"
+        tools:visibility="gone"/>
 
     <View
         android:id="@+id/view5"
@@ -425,32 +407,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvOutletsTimeLabel" />
 
-    <TextView
-        android:id="@+id/tvTravelTimeLabel"
-        style="@style/Text.Label.14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/DP_8"
-        android:layout_marginTop="@dimen/DP_16"
-        android:drawablePadding="@dimen/DP_8"
-        android:text="@string/avg_travel_time_colon"
-        app:drawableStartCompat="@drawable/ic_travel_time"
-        app:layout_constraintStart_toStartOf="@+id/gdlnStart"
-        app:layout_constraintTop_toBottomOf="@+id/tvOutletsTimeLabel"
-        tools:text="Час на переїзди:" />
-
-    <TextView
-        android:id="@+id/tvTravelTime"
-        style="@style/Text.Label.14.Medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/DP_8"
-        android:text="@string/number_of_visits"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTravelTimeLabel"
-        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
-        app:layout_constraintTop_toTopOf="@+id/tvTravelTimeLabel"
-        tools:text="4:14:25" />
-
     <View
         android:id="@+id/vSeparator2"
         android:layout_width="match_parent"
@@ -459,7 +415,7 @@
         android:background="@color/gray_100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTravelTimeLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/tvOutletsTimeLabel" />
 
     <TextView
         android:id="@+id/tvSalesByManufacturers"
@@ -467,10 +423,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/DP_16"
-        android:text="@string/sales_by_manufacturers"
+        android:text="@string/data_on_manufacturers"
         app:layout_constraintStart_toStartOf="@+id/gdlnStart"
         app:layout_constraintTop_toBottomOf="@+id/vSeparator2"
-        tools:text="Продажі по виробникам" />
+        tools:text="Дані по виробникам" />
 
     <com.github.mikephil.charting.charts.HorizontalBarChart
         android:id="@+id/chManufacturers"
@@ -481,23 +437,6 @@
         app:layout_constraintEnd_toStartOf="@+id/tvMnfChartRouteLabel"
         app:layout_constraintStart_toStartOf="@+id/gdlnStart"
         app:layout_constraintTop_toBottomOf="@+id/tvSalesByManufacturers" />
-
-
-    <TextView
-        android:id="@+id/tvMnfChartSaleLabel"
-        style="@style/Text.Label.8.Medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/DP_2"
-        android:paddingStart="@dimen/DP_8"
-        android:paddingEnd="@dimen/DP_8"
-        android:text="@string/sales"
-        android:textAllCaps="true"
-        android:textColor="@color/blue"
-        app:layout_constraintBottom_toTopOf="@+id/tvMnfChartPortfolioLabel"
-        app:layout_constraintEnd_toEndOf="@+id/tvMnfChartPortfolioLabel"
-        app:layout_constraintTop_toTopOf="@+id/chManufacturers"
-        tools:text="Продажі" />
 
     <TextView
         android:id="@+id/tvMnfChartPortfolioLabel"
@@ -512,7 +451,7 @@
         android:textColor="@color/blue_80"
         app:layout_constraintBottom_toTopOf="@+id/tvMnfChartRouteLabel"
         app:layout_constraintEnd_toStartOf="@+id/tvMnfChartPortfolio"
-        app:layout_constraintTop_toBottomOf="@+id/tvMnfChartSaleLabel"
+        app:layout_constraintTop_toTopOf="@+id/chManufacturers"
         tools:text="Портфель" />
 
     <TextView
@@ -524,30 +463,13 @@
         android:padding="@dimen/DP_2"
         android:paddingStart="@dimen/DP_8"
         android:paddingEnd="@dimen/DP_8"
-        android:text="@string/route"
+        android:text="@string/orders"
         android:textAllCaps="true"
         android:textColor="@color/blue_60"
         app:layout_constraintBottom_toBottomOf="@+id/chManufacturers"
         app:layout_constraintEnd_toStartOf="@+id/tvMnfChartPortfolio"
         app:layout_constraintTop_toBottomOf="@+id/tvMnfChartPortfolioLabel"
-        tools:text="Маршрут" />
-
-    <TextView
-        android:id="@+id/tvMnfChartSale"
-        style="@style/Text.Label.8.Medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_2dp_blue_10"
-        android:padding="@dimen/DP_2"
-        android:paddingStart="@dimen/DP_4"
-        android:paddingEnd="@dimen/DP_4"
-        android:textAllCaps="true"
-        android:textColor="@color/blue"
-        app:layout_constraintBottom_toTopOf="@+id/tvMnfChartPortfolio"
-        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
-        app:layout_constraintTop_toTopOf="@+id/chManufacturers"
-        app:layout_constraintVertical_chainStyle="spread"
-        tools:text="22" />
+        tools:text="Замовлення" />
 
     <TextView
         android:id="@+id/tvMnfChartPortfolio"
@@ -560,9 +482,9 @@
         android:paddingEnd="@dimen/DP_4"
         android:textAllCaps="true"
         android:textColor="@color/blue_80"
-        app:layout_constraintBottom_toTopOf="@+id/tvMnfChartRoute"
+        app:layout_constraintBottom_toBottomOf="@+id/tvMnfChartPortfolioLabel"
         app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
-        app:layout_constraintTop_toBottomOf="@+id/tvMnfChartSale"
+        app:layout_constraintTop_toTopOf="@+id/tvMnfChartPortfolioLabel"
         tools:text="70" />
 
     <TextView
@@ -576,9 +498,9 @@
         android:paddingEnd="@dimen/DP_4"
         android:textAllCaps="true"
         android:textColor="@color/blue_60"
-        app:layout_constraintBottom_toBottomOf="@+id/chManufacturers"
+        app:layout_constraintBottom_toBottomOf="@+id/tvMnfChartRouteLabel"
         app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
-        app:layout_constraintTop_toBottomOf="@+id/tvMnfChartPortfolio"
+        app:layout_constraintTop_toTopOf="@+id/tvMnfChartRouteLabel"
         tools:text="45" />
 
     <View

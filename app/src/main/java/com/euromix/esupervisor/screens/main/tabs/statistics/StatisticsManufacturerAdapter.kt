@@ -6,16 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.invisible
 import com.euromix.esupervisor.databinding.ItemStatisticManufacturersBinding
 import com.euromix.esupervisor.sources.routes.entities.ManufacturerLogo
 
-class StatisticsManufacturerAdapter :
+class StatisticsManufacturerAdapter(private val resManager: ResourceManager) :
     ListAdapter<List<ManufacturerLogo>, StatisticsManufacturerAdapter.ItemViewHolder>(
         DiffCallback()
     ) {
+
 
     inner class ItemViewHolder(val binding: ItemStatisticManufacturersBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -39,15 +40,22 @@ class StatisticsManufacturerAdapter :
                 val inc = includes[i]
                 if (i in currentItem.indices) {
                     inc.tvManufacturer.text = currentItem[i].name
-                    inc.iv.background = App.getDrawable(
-                        root.context,
-                        if (currentItem[i].currentSale) R.drawable.bg_4dp_white_border_blue else R.drawable.bg_4dp_white
+                    inc.iv.background =
+                        resManager.getDrawable(if (currentItem[i].currentOrder) R.drawable.bg_4dp_white_border_blue else R.drawable.bg_4dp_white)
+                    Glide.with(root.context).load(currentItem[i].url).into(inc.iv)
+
+                    inc.iv.tooltipText = resManager.getString(
+                        R.string.orders_by_manufacturer,
+                        currentItem[i].numberOrders,
+                        currentItem[i].ordersSum
                     )
-                    Glide.with(root.context).load(currentItem[i].URL).into(inc.iv)
+
                 } else {
                     inc.root.invisible()
                 }
             }
+
+
         }
     }
 
@@ -69,7 +77,7 @@ class StatisticsManufacturerAdapter :
         }
     }
 
-    companion object{
+    companion object {
         const val MANUFACTURERS_IN_ITEM = 6
     }
 }

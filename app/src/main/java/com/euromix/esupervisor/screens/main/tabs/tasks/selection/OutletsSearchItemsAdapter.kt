@@ -1,17 +1,14 @@
 package com.euromix.esupervisor.screens.main.tabs.tasks.selection
 
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.forEach
-import androidx.core.view.forEachIndexed
-import androidx.core.view.size
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.setIconCollapse
@@ -20,6 +17,7 @@ import com.euromix.esupervisor.databinding.ItemSelectionBinding
 import com.euromix.esupervisor.databinding.ItemSelectionSearchBinding
 
 class OutletsSearchItemsAdapter(
+    private val resManager: ResourceManager,
     val viewModel: OutletsSelectionViewModel,
     val viewLifecycleOwner: LifecycleOwner
 ) : RecyclerView.Adapter<OutletsSearchItemsAdapter.ViewHolder>() {
@@ -45,7 +43,7 @@ class OutletsSearchItemsAdapter(
         holder.serverPairsAdapter.selectionItems = searchItem
 
         with(holder.binding) {
-            cbOutletTypes.text = nameStringRes(position, holder.binding.root.context)
+            cbOutletTypes.text = nameStringRes(position)
             cbOutletTypes.setButtonIconDrawableResource(
                 viewModel.drawableForParentCheckBox(
                     position
@@ -128,10 +126,10 @@ class OutletsSearchItemsAdapter(
         )
     }
 
-    private fun nameStringRes(index: Int, context: Context) = when (index) {
-        0 -> App.getString(context, R.string.trading_agents)
+    private fun nameStringRes(index: Int) = when (index) {
+        0 -> resManager.getString(R.string.trading_agents)
         else -> {
-            App.getString(context, R.string.outlets_types)
+            resManager.getString(R.string.outlets_types)
         }
     }
 

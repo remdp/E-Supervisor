@@ -1,22 +1,18 @@
 package com.euromix.esupervisor.screens.main.tabs.statistics
 
-import android.content.Context
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.euromix.esupervisor.App
-import com.euromix.esupervisor.App.Companion.getString
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.common.entities.ServerObject
-import com.euromix.esupervisor.app.model.common.entities.ServerSelectionItem
 import com.euromix.esupervisor.app.model.routes.entities.VisitsStatisticData
 import com.euromix.esupervisor.app.model.routes.entities.VisitsStatisticDetailData
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.toIntString
 import com.euromix.esupervisor.app.utils.toStringOrDefault
@@ -30,15 +26,16 @@ import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import java.util.Base64
+import javax.inject.Inject
 import kotlin.math.max
 
-class StatisticsAdapter(
-    private val recyclerView: RecyclerView,
-    private val onDetailClick: (itemSelection: ServerSelectionItem) -> Unit,
+class StatisticsAdapter @Inject constructor(
+    private val resManager: ResourceManager,
+    private val onDetailClick: (item: VisitsStatisticData) -> Unit,
     private val onWatchAllClick: (id: String) -> Unit,
     private val onDecipherClick: (serverObject: ServerObject) -> Unit,
 ) : ListAdapter<VisitsStatisticData, StatisticsAdapter.ItemViewHolder>(DiffCallBack()) {
+
 
     inner class ItemViewHolder(val binding: ItemStatisticBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -51,31 +48,10 @@ class StatisticsAdapter(
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
-
         val currentItem = getItem(position)
         renderItem(holder.binding, currentItem)
 
-        holder.binding.tvCollapse.setOnClickListener {
-            currentItem.isExpanded = !currentItem.isExpanded
-            renderItem(holder.binding, currentItem)
-
-            if (!currentItem.isExpanded) recyclerView.post {
-                recyclerView.layoutManager?.smoothScrollToPosition(
-                    recyclerView, RecyclerView.State(), position
-                )
-            } else {
-                currentItem.serverObject.let {
-                    onDetailClick(
-                        ServerSelectionItem(
-                            it.serverPair.id,
-                            Base64.getEncoder()
-                                .encodeToString(it.serverType.toByteArray(Charsets.UTF_8))
-                        )
-                    )
-                }
-            }
-        }
-
+        holder.binding.tvCollapse.setOnClickListener { onDetailClick(currentItem) }
 
         holder.binding.incDetail.tvWatchAll.setOnClickListener {
             onWatchAllClick(currentItem.serverObject.serverPair.id)
@@ -91,7 +67,7 @@ class StatisticsAdapter(
             if (isExpanded) {
                 incDetail.root.visible()
                 grpTop.gone()
-                tvCollapse.text = root.context.getString(R.string.collapse)
+                tvCollapse.text = resManager.getString(R.string.collapse)
                 tvCollapse.setCompoundDrawablesWithIntrinsicBounds(
                     0, 0, R.drawable.ic_arrow_drop_up_blue, 0
                 )
@@ -99,7 +75,7 @@ class StatisticsAdapter(
 
                 incDetail.root.gone()
                 grpTop.visible()
-                tvCollapse.text = root.context.getString(R.string.more_details)
+                tvCollapse.text = resManager.getString(R.string.more_details)
                 tvCollapse.setCompoundDrawablesWithIntrinsicBounds(
                     0, 0, R.drawable.ic_arrow_drop_down_blue, 0
                 )
@@ -108,10 +84,14 @@ class StatisticsAdapter(
     }
 
     private fun renderItem(
-        itemBinding: ItemStatisticBinding, currentItem: VisitsStatisticData
+        itemBinding: ItemStatisticBinding,
+        currentItem: VisitsStatisticData,
+        isExpanded: Boolean? = null
     ) {
 
-        setExpandState(itemBinding, currentItem.isExpanded)
+        val isExpanded = isExpanded ?: currentItem.isExpanded
+
+        setExpandState(itemBinding, isExpanded)
 
         itemBinding.tvStatDetail.text = currentItem.serverObject.serverPair.presentation
         itemBinding.tvStatDetailChildrenCount.text = currentItem.childrenCount.toString()
@@ -119,7 +99,7 @@ class StatisticsAdapter(
         itemBinding.tvStatDetailChildrenCount.visibility(currentItem.childrenCount != 0)
         itemBinding.ivDecipher.visibility(currentItem.childrenCount != 0)
 
-        if (currentItem.isExpanded)
+        if (isExpanded)
             renderDetailData(currentItem, itemBinding)
         else
             renderCommonData(currentItem, itemBinding)
@@ -130,19 +110,18 @@ class StatisticsAdapter(
         itemBinding: ItemStatisticBinding
     ) {
 
-        val ctx = itemBinding.root.context
         with(itemBinding) {
 
-            tvPlanVisits.text = planFactString(ctx, currentItem.planVisits)
-            tvUnscheduledVisits.text = planFactString(ctx, currentItem.unscheduledVisits)
-            tvRegularVisits.text = planFactString(ctx, currentItem.regularVisits)
+            tvPlanVisits.text = planFactString(currentItem.planVisits)
+            tvUnscheduledVisits.text = currentItem.unscheduledVisits.fact.toString()
+            tvRegularVisits.text = planFactString(currentItem.regularVisits)
             tvDistanceVisits.text = planFactString(
-                ctx, PlanFact(
+                PlanFact(
                     currentItem.remoteConstantVisits.plan + currentItem.remoteSituationalVisits.plan,
                     currentItem.remoteConstantVisits.fact + currentItem.remoteSituationalVisits.fact
                 )
             )
-            tvEffectiveVisits.text = planFactString(ctx, currentItem.effectiveVisits)
+            tvEffectiveVisits.text = planFactString(currentItem.effectiveVisits)
         }
     }
 
@@ -151,12 +130,11 @@ class StatisticsAdapter(
         itemBinding: ItemStatisticBinding
     ) {
 
-        val ctx = itemBinding.root.context
         val detailData = currentItem.detailData
 
         renderVisitsItem(
             itemBinding.incDetail.iPlanVisits,
-            getString(ctx, R.string.planned),
+            resManager.getString(R.string.planned),
             R.drawable.ic_calendar_statistic,
             detailData?.let { currentItem.planVisits.plan } ?: 0,
             detailData?.let { currentItem.planVisits.fact } ?: 0,
@@ -165,17 +143,8 @@ class StatisticsAdapter(
         )
 
         renderVisitsItem(
-            itemBinding.incDetail.iUnscheduledVisits,
-            getString(ctx, R.string.unscheduled),
-            R.drawable.ic_calendar_statistic_cross,
-            detailData?.let { currentItem.unscheduledVisits.plan } ?: 0,
-            detailData?.let { currentItem.unscheduledVisits.fact } ?: 0,
-            detailData?.animateCharts ?: false
-        )
-
-        renderVisitsItem(
             itemBinding.incDetail.iRegularVisits,
-            getString(ctx, R.string.regular_visits),
+            resManager.getString(R.string.regular_visits),
             R.drawable.ic_run_man_statistic,
             detailData?.let { currentItem.regularVisits.plan } ?: 0,
             detailData?.let { currentItem.regularVisits.fact } ?: 0,
@@ -184,7 +153,7 @@ class StatisticsAdapter(
 
         renderVisitsItem(
             itemBinding.incDetail.iDistanceVisits,
-            getString(ctx, R.string.distance_constants),
+            resManager.getString(R.string.distance_constants),
             R.drawable.ic_phone_statistic,
             detailData?.let { currentItem.remoteConstantVisits.plan } ?: 0,
             detailData?.let { currentItem.remoteConstantVisits.fact } ?: 0,
@@ -193,7 +162,7 @@ class StatisticsAdapter(
 
         renderVisitsItem(
             itemBinding.incDetail.iOneTimeVisits,
-            getString(ctx, R.string.distance_situational),
+            resManager.getString(R.string.distance_situational),
             R.drawable.ic_phone_statistic,
             detailData?.let { currentItem.remoteSituationalVisits.plan } ?: 0,
             detailData?.let { currentItem.remoteSituationalVisits.fact } ?: 0,
@@ -202,7 +171,7 @@ class StatisticsAdapter(
 
         renderVisitsItem(
             itemBinding.incDetail.iEffectiveVisits,
-            getString(ctx, R.string.effective_visits),
+            resManager.getString(R.string.effective_visits),
             R.drawable.ic_stars_statistic,
             detailData?.let { currentItem.effectiveVisits.plan } ?: 0,
             detailData?.let { currentItem.effectiveVisits.fact } ?: 0,
@@ -211,10 +180,8 @@ class StatisticsAdapter(
 
         renderManufacturersItem(
             itemBinding.incDetail, prepareManufacturersBarData(
-                ctx,
                 detailData?.manufacturersRoute?.toFloat() ?: 0f,
-                detailData?.manufacturersPortfolio?.toFloat() ?: 0f,
-                detailData?.manufacturersSale?.toFloat() ?: 0f
+                detailData?.manufacturersPortfolio?.toFloat() ?: 0f
             ),
             detailData,
             detailData?.animateCharts ?: false
@@ -228,35 +195,17 @@ class StatisticsAdapter(
                 tvAvgNumberOrders.text = detailData.avgNumberOrders.toStringOrDefault()
                 tvAvgAmountOrders.text = detailData.avgAmountOrders.toStringOrDefault()
                 tvOverdueReceivables.text = detailData.overdueReceivables.toStringOrDefault()
-                tvOverdueReceivablesRoute.text = detailData.overdueReceivablesRoute.toStringOrDefault()
+                tvOverdueReceivablesRoute.text =
+                    detailData.overdueReceivablesRoute.toStringOrDefault()
                 tvAmountPayments.text = detailData.amountPayments.toStringOrDefault()
                 tvOutletsTime.text = currentItem.outletsTime
-                tvTravelTime.text = currentItem.travelTime
-
-                tvManufacturersInPortfolioLabel.text = ctx.getString(
+                tvManufacturersInPortfolioLabel.text = resManager.getString(
                     R.string.the_number_of_manufacturers_in_the_portfolio,
                     detailData.manufacturersPortfolio
                 )
-
-            } ?: run {
-
-                tvOutletsTime.text = getString(ctx, R.string.empty_time)
-                tvTravelTime.text = getString(ctx, R.string.empty_time)
-                tvAvgNumberOfOrders20.text = "0"
-                tvAvgNumberOrders.text = "0"
-                tvAvgAmountOrders.text = "0"
-                tvOverdueReceivables.text = "0"
-                tvOverdueReceivablesRoute.text = "0"
-                tvAmountPayments.text = "0"
-
-                tvManufacturersInPortfolioLabel.text = ctx.getString(
-                    R.string.the_number_of_manufacturers_in_the_portfolio,
-                    0
-                )
-
             }
 
-            rvManufacturersLogo.adapter = StatisticsManufacturerAdapter().apply {
+            rvManufacturersLogo.adapter = StatisticsManufacturerAdapter(resManager).apply {
                 submitList(
                     if (detailData?.watchAllManufacturersLogo == true)
                         detailData.manufacturersLogo
@@ -274,8 +223,8 @@ class StatisticsAdapter(
         }
     }
 
-    private fun planFactString(ctx: Context, planFact: PlanFact) =
-        ctx.getString(R.string.plan_fact, planFact.fact, planFact.plan)
+    private fun planFactString(planFact: PlanFact) =
+        resManager.getString(R.string.plan_fact, planFact.plan, planFact.fact)
 
     private fun renderVisitsItem(
         item: ItemStatisticVisitsBinding,
@@ -289,11 +238,10 @@ class StatisticsAdapter(
         val planF = plan.toFloat()
         val factF = fact.toFloat()
 
-        val ctx = item.chart.context
-        val percent = (if (plan != 0f) (factF / planF) * 100 else 0f)
+        val percent = if (planF != 0f) (factF / planF) * 100 else 100f
 
         item.tvVisits.text = title
-        item.tvPercent.text = ctx.getString(R.string.percent, percent.toInt().toString())
+        item.tvPercent.text = resManager.getString(R.string.percent, percent.toInt().toString())
 
         item.tvVisits.setCompoundDrawablesWithIntrinsicBounds(
             icon, 0, 0, 0
@@ -304,7 +252,7 @@ class StatisticsAdapter(
 
         renderChart(
             item.chart,
-            prepareVisitsBarData(ctx, planF, factF),
+            prepareVisitsBarData(planF, factF),
             max(planF, factF),
             animateChart
         )
@@ -312,6 +260,7 @@ class StatisticsAdapter(
             setMargin(item.tvPercent, item.chart.width, percent)
         }
     }
+
 
     private fun renderChart(
         chart: HorizontalBarChart,
@@ -341,8 +290,8 @@ class StatisticsAdapter(
             description.isEnabled = false
 
             data = if (barData.entryCount == 0) {
-                setNoDataText(context.getString(R.string.no_data))
-                setNoDataTextColor(App.getColor(context, R.color.colorSelectiveYellow))
+                setNoDataText(resManager.getString(R.string.no_data))
+                setNoDataTextColor(resManager.getColor(R.color.colorSelectiveYellow))
                 setNoDataTextTypeface(Typeface.DEFAULT_BOLD)
                 null
             } else {
@@ -375,11 +324,9 @@ class StatisticsAdapter(
 
         val manufacturersRoute = detailData?.manufacturersRoute?.toFloat() ?: 0f
         val manufacturersPortfolio = detailData?.manufacturersPortfolio?.toFloat() ?: 0f
-        val manufacturersSale = detailData?.manufacturersSale?.toFloat() ?: 0f
-        val maxIndicator = max(max(manufacturersSale, manufacturersPortfolio), manufacturersRoute)
+        val maxIndicator = max(manufacturersPortfolio, manufacturersRoute)
 
         with(item) {
-            tvMnfChartSale.text = manufacturersSale.toIntString()
             tvMnfChartPortfolio.text = manufacturersPortfolio.toIntString()
             tvMnfChartRoute.text = manufacturersRoute.toIntString()
         }
@@ -392,16 +339,11 @@ class StatisticsAdapter(
         )
     }
 
-    private fun prepareVisitsBarData(ctx: Context, plan: Float, fact: Float): BarData {
+    private fun prepareVisitsBarData(plan: Float, fact: Float): BarData {
 
-        val progressList = if (plan != 0f && fact != 0f)
-            listOf(BarEntry(0f, plan), BarEntry(0.5f, fact))
-        else
-            listOf()
-
-        val dataSet = BarDataSet(progressList, "progressList")
+        val dataSet = BarDataSet(listOf(BarEntry(0f, plan), BarEntry(0.5f, fact)), "progressList")
         dataSet.setColors(
-            ContextCompat.getColor(ctx, R.color.blue_20), ContextCompat.getColor(ctx, R.color.blue)
+            resManager.getColor(R.color.blue_20), resManager.getColor(R.color.blue)
         )
 
         dataSet.setDrawValues(false)
@@ -414,29 +356,22 @@ class StatisticsAdapter(
     }
 
     private fun prepareManufacturersBarData(
-        ctx: Context,
         manufacturersRoute: Float,
-        manufacturersPortfolio: Float,
-        manufacturersSale: Float
+        manufacturersPortfolio: Float
     ): BarData {
         val progressList = listOf(
-            BarEntry(0f, manufacturersRoute),
-            BarEntry(0.5f, manufacturersPortfolio),
-            BarEntry(1f, manufacturersSale)
+            BarEntry(0.5f, manufacturersRoute),
+            BarEntry(1f, manufacturersPortfolio)
         )
 
         val dataSet = BarDataSet(progressList, "progressList")
         dataSet.setColors(
-            ContextCompat.getColor(ctx, R.color.blue_20),
-            ContextCompat.getColor(ctx, R.color.blue_60),
-            ContextCompat.getColor(ctx, R.color.blue)
+            resManager.getColor(R.color.blue_20),
+            resManager.getColor(R.color.blue)
         )
 
         dataSet.setDrawValues(false)
         dataSet.valueTextSize = 12f
-//        dataSet.valueFormatter =
-//            ValueFormatter(displayedBar = 0.5f)
-
         dataSet.valueFormatter =
             ValueFormatter()
 

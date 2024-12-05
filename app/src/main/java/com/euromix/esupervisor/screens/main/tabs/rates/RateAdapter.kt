@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.RecyclerView
-import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.rates.entities.RateDataRow
 import com.euromix.esupervisor.app.utils.clear
@@ -54,8 +53,7 @@ class RateAdapter(
                 lifecycleScope.launch {
                     delay(200)
 
-                    val colorPi = getColor(
-                        root.context,
+                    val colorPi = root.context.getColor(
                         if (fact < plan) R.color.blue else R.color.green
                     )
 

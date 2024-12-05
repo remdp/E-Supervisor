@@ -17,11 +17,11 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     private lateinit var binding: FragmentSplashBinding
 
-    //private val viewModel by viewModelCreator { SplashViewModel(Singletons.accountRepository) }
     private val viewModel by viewModels<SplashViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.init()
         binding = FragmentSplashBinding.bind(view)
 
         viewModel.launchMainScreenEvent.observeEvent(viewLifecycleOwner) { launchMainScreen(it) }

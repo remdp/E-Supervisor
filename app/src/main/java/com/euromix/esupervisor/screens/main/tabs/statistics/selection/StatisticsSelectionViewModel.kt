@@ -1,6 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.statistics.selection
 
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.euromix.esupervisor.app.Const.MIN_LENGTH_SEARCH_STRING
 import com.euromix.esupervisor.app.model.Result
@@ -8,7 +7,6 @@ import com.euromix.esupervisor.app.model.common.SearchRepository
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.routes.entities.StatisticsSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
-import com.euromix.esupervisor.app.utils.popupWindowForSelections
 import com.euromix.esupervisor.app.utils.share
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -95,28 +93,6 @@ class StatisticsSelectionViewModel @Inject constructor(
 
     fun checkBalanceUnitEmpty(): Boolean = _selection.value?.balanceUnit == null
     fun checkTradingTeamEmpty(): Boolean = _selection.value?.tradingTeam == null
-
-    //TODO get rid of function duplication
-    //click
-    // 0-common click
-    //1-right drawable click
-    fun handleViewClick(
-        itemsList: List<ServerPair>,
-        updaterSelection: (ServerPair?) -> Unit,
-        anchor: View,
-        click: Int,
-        emptyChecker: () -> Boolean
-    ) {
-
-        if (click == 0 || emptyChecker())
-            popupWindowForSelections(
-                anchor.context,
-                itemsList,
-                updaterSelection
-            ).showAsDropDown(anchor)
-        else updaterSelection(null)
-
-    }
 
     private fun verifyMinLength(searchString: String) =
         (searchString.length >= MIN_LENGTH_SEARCH_STRING).also {

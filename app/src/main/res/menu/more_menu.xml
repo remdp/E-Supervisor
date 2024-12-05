@@ -11,5 +11,8 @@
         android:title="@string/analysis_of_visits" />
     <item
         android:id="@+id/odometers_graph"
-        android:title="Одометри" />
+        android:title="@string/odometers" />
+<!--    <item-->
+<!--        android:id="@+id/visits_supervisors_graph"-->
+<!--        android:title="@string/visits_supervisors" />-->
 </menu>

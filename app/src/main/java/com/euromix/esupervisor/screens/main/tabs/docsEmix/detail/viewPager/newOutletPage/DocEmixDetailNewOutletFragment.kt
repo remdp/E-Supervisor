@@ -5,22 +5,29 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.euromix.esupervisor.App.Companion.getColor
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const.VIEW_STATE
 import com.euromix.esupervisor.app.model.docEmix.entities.DocEmixDetail
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.parcelable
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.DocEmixDetailNewOutletFragmentBinding
 import com.euromix.esupervisor.screens.main.tabs.TitleData
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.DocEmixDetailFragmentDirections
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DocEmixDetailNewOutletFragment :
     BaseFragment(R.layout.doc_emix_detail_new_outlet_fragment) {
 
     override val viewModel by viewModels<DocEmixDetailNewOutletViewModel>()
     private val binding by viewBinding<DocEmixDetailNewOutletFragmentBinding>()
+
+    @Inject
+    lateinit var resManager: ResourceManager
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -81,7 +88,7 @@ class DocEmixDetailNewOutletFragment :
                                 R.drawable.ic_check_blue, 0, 0, 0
                             )
                             textViews[i].setTextColor(
-                                getColor(requireContext(), R.color.blue)
+                                resManager.getColor(R.color.blue)
                             )
                         }
                     }

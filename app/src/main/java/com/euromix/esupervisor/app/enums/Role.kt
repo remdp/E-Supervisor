@@ -1,13 +1,6 @@
 package com.euromix.esupervisor.app.enums
 
-import android.content.Context
-import com.euromix.esupervisor.App
-import com.euromix.esupervisor.App.Companion.getString
 import com.euromix.esupervisor.R
-import java.lang.Enum
-import kotlin.Exception
-import kotlin.Int
-import kotlin.String
 
 enum class Role {
 
@@ -44,16 +37,6 @@ enum class Role {
                 }
             }
         }
-
-        fun getMinDetailLevel(role: Role?) =
-            when(role){
-                DIRECTOR -> 0
-                HEAD_OF_THE_TRADING_DEPARTMENT -> 1
-                else -> 2
-            }
-
-        fun stringRepresentation(context: Context, role: Role): String =
-            getString(context, role.nameStringsRes())
     }
 
 }

@@ -34,6 +34,7 @@
     <string name="more">More</string>
     <string name="map">Map</string>
     <string name="sales">Sales</string>
+    <string name="orders">Orders</string>
     <string name="portfolio">Portfolio</string>
 
     <!-- Statuses -->
@@ -240,13 +241,14 @@
     <string name="average_amount_of_orders_colon">The average amount of orders for the selected period:</string>
     <string name="amount_of_OR_colon">Amount of OR for the current day:</string>
     <string name="amount_of_OR_route_colon">Amount of OR for the current day along the route:</string>
-    <string name="amount_of_payments_colon">Amount of payments for the current day:</string>
+    <string name="amount_of_payments_colon">Amount of payments for the selected period:</string>
     <string name="avg_time_in_outlets_colon">The average time in outlets:</string>
     <string name="avg_travel_time_colon">The average travel time:</string>
     <string name="sales_by_manufacturers">Sales by manufacturers</string>
+    <string name="data_on_manufacturers">Data on manufacturers</string>
     <string name="the_number_of_manufacturers_in_the_portfolio">The number of manufacturers in the portfolio: %1$d</string>
     <string name="watch_all">Watch all</string>
-    <string name="plan_fact" translatable="false">%1$d/%2$d</string>
+    <string name="plan_fact" translatable="false">%1$d | %2$d</string>
     <string name="more_details">More details</string>
     <string name="collapse">Collapse</string>
     <string name="visits_at_the_time_of_creation">Visits at the time of creation</string>
@@ -256,6 +258,7 @@
     <string name="scheduled_visits">Scheduled visits</string>
     <string name="unscheduled_visits">Unscheduled visits</string>
     <string name="no_data">NO DATA</string>
+    <string name="orders_by_manufacturer">%1$d orders for a total of %2$.2f</string>
 
     <!-- Visits screen -->
     <string name="visits_count">%1$s visit(s)</string>
@@ -267,7 +270,8 @@
     <string name="visits_counts" translatable="false">%1$d/%2$d</string>
 
     <!-- Odometers screen -->
-    <string name="odometer_reading">Odometer reading</string>
+    <string name="odometers">Odometers</string>
+    <string name="odometer_readings">Odometer readings</string>
     <string name="at_beginning_of_day">At beginning of day</string>
     <string name="at_ending_of_day">At ending of day</string>
     <string name="difference_colon">Difference:</string>
@@ -277,6 +281,9 @@
     <string name="created_colon">Created:</string>
     <string name="mileage_colon">Mileage:</string>
     <string name="km">km</string>
+
+    <!-- Visits  supervisors screen -->
+    <string name="visits_supervisors">Supervisors\' visits</string>
 
 
 </resources>

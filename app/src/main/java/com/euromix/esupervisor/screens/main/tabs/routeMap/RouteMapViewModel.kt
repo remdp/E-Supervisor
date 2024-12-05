@@ -1,6 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.routeMap
 
-import android.content.Context
 import android.graphics.Bitmap
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
@@ -13,6 +12,7 @@ import com.euromix.esupervisor.app.model.routes.entities.OutletData
 import com.euromix.esupervisor.app.model.routes.entities.RouteMapSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.dateToJsonString
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
@@ -31,6 +31,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RouteMapViewModel @Inject constructor(
+    private val resManager: ResourceManager,
     private val routesRepository: RoutesRepository
 ) : BaseViewModel() {
 
@@ -189,10 +190,10 @@ class RouteMapViewModel @Inject constructor(
         getMapPoints()
     }
 
-    fun setBitmapCache(context: Context) {
+    fun setBitmapCache() {
 
         if (bitmapCache == null)
-            bitmapCache = MapPointSigns.bitmapCache(context)
+            bitmapCache = MapPointSigns.bitmapCache(resManager)
     }
 
     fun getBitmap(mapPoint: MapPoint) = bitmapCache?.let {

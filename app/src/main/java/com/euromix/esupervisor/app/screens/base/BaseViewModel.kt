@@ -1,5 +1,6 @@
 package com.euromix.esupervisor.app.screens.base
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.euromix.esupervisor.R
@@ -10,12 +11,14 @@ import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 //todo get rid of accountRepository in constructor
-open class BaseViewModel(val accountRepository: AccountRepository?) :
+open class BaseViewModel @Inject constructor() :
     ViewModel() {
 
-    constructor() : this(null)
+    @Inject
+    lateinit var accountRepository: AccountRepository
 
     private val _showErrorMessageResEvent = MutableLiveEvent<Int>()
     val showErrorMessageResEvent = _showErrorMessageResEvent.share()
@@ -23,10 +26,21 @@ open class BaseViewModel(val accountRepository: AccountRepository?) :
     private val _showErrorMessageEvent = MutableLiveEvent<String>()
     val showErrorMessageEvent = _showErrorMessageEvent.share()
 
+    private var currentJob: Job? = null
 
-    fun safeLaunch(block: suspend () -> Unit): Job {
-        return viewModelScope.launch {
-            block()
+    fun safeLaunch(cancelPreviousJob: Boolean = false, block: suspend () -> Unit) {
+
+        if (cancelPreviousJob && currentJob?.isActive == true) {
+            currentJob?.cancel()
+            currentJob?.invokeOnCompletion {
+                currentJob = viewModelScope.launch {
+                    block()
+                }
+            }
+        } else {
+            currentJob = viewModelScope.launch {
+                block()
+            }
         }
     }
 
@@ -51,7 +65,7 @@ open class BaseViewModel(val accountRepository: AccountRepository?) :
     }
 
     fun logout() {
-        accountRepository?.logout()
+        accountRepository.logout()
     }
 
 }

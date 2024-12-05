@@ -1,7 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.tasks.selection
 
-import android.content.Context
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.enums.TaskState
@@ -10,13 +8,14 @@ import com.euromix.esupervisor.app.model.common.SearchRepository
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.tasks.entities.TasksSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
-import com.euromix.esupervisor.app.utils.popupWindowForSelections
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.share
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class TasksSelectionViewModel @Inject constructor(
+    private val resManager: ResourceManager,
     private val searchRepository: SearchRepository
 ) : BaseViewModel() {
 
@@ -110,7 +109,7 @@ class TasksSelectionViewModel @Inject constructor(
         _selection.value = TasksSelection(period = _selection.value?.period)
     }
 
-    fun getTasksStateForChoose(context: Context): List<ServerPair> {
+    fun getTasksStateForChoose(): List<ServerPair> {
 
         val taskStatesForChoose = mutableListOf<ServerPair>()
 
@@ -119,33 +118,12 @@ class TasksSelectionViewModel @Inject constructor(
             taskStatesForChoose.add(
                 ServerPair(
                     count.toString(),
-                    TaskState.stringRepresentation(context, it)
+                    resManager.getString(it.nameStringRes())
                 )
             )
             count++
         }
         return taskStatesForChoose
-    }
-
-    //click
-    // 0-common click
-    //1-right drawable click
-    fun handleViewClick(
-        itemsList: List<ServerPair>,
-        updaterSelection: (ServerPair?) -> Unit,
-        anchor: View,
-        click: Int,
-        emptyChecker: () -> Boolean
-    ) {
-
-        if (click == 0 || emptyChecker())
-            popupWindowForSelections(
-                anchor.context,
-                itemsList,
-                updaterSelection
-            ).showAsDropDown(anchor)
-        else updaterSelection(null)
-
     }
 
     private fun verifyMinLength(searchString: String, indexVerifyField: Int): Boolean {

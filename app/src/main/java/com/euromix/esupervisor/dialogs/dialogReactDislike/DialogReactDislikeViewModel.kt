@@ -29,7 +29,7 @@ class DialogReactDislikeViewModel @AssistedInject constructor(
     val viewStateEvent = _viewStateEvent.share()
 
     init {
-        _viewStateEvent.publishEvent()
+        _viewStateEvent.publishEvent(Unit)
     }
 
     private fun <T> updateViewState(result: Result<T>) {
@@ -43,7 +43,7 @@ class DialogReactDislikeViewModel @AssistedInject constructor(
             is Error -> handleError(result.error)
             else -> {}
         }
-        _viewStateEvent.publishEvent()
+        _viewStateEvent.publishEvent(Unit)
     }
 
     private fun handlePendingState() {
@@ -75,7 +75,7 @@ class DialogReactDislikeViewModel @AssistedInject constructor(
 
     fun onChangeCreateTask(createTask: Boolean) {
         _viewState = _viewState.copy(createTask = createTask)
-        if (createTask) getDeadline() else _viewStateEvent.publishEvent()
+        if (createTask) getDeadline() else _viewStateEvent.publishEvent(Unit)
     }
 
     fun setDeadline(deadline: Date) {

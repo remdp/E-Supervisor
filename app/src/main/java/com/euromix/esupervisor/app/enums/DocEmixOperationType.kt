@@ -1,9 +1,7 @@
 package com.euromix.esupervisor.app.enums
 
-import android.content.Context
 import android.widget.TextView
-import com.euromix.esupervisor.App
-import com.euromix.esupervisor.App.Companion.getColor
+import androidx.appcompat.content.res.AppCompatResources
 import com.euromix.esupervisor.R
 
 enum class DocEmixOperationType {
@@ -27,12 +25,6 @@ enum class DocEmixOperationType {
 
     companion object {
 
-        fun stringRepresentation(
-            context: Context,
-            docEmixOperationType: DocEmixOperationType
-        ): String =
-            App.getString(context, docEmixOperationType.nameStringRes())
-
         fun designTV(
             tvOperationType: TextView,
             operationType: DocEmixOperationType,
@@ -40,12 +32,17 @@ enum class DocEmixOperationType {
             detail: Boolean = false
         ) {
 
-            tvOperationType.text = stringRepresentation(tvOperationType.context, operationType)
-            tvOperationType.background =
-                getOperationTypeDrawable(tvOperationType.context, status, detail)
+            tvOperationType.text = tvOperationType.context.getString(operationType.nameStringRes())
+            tvOperationType.background = AppCompatResources.getDrawable(
+                tvOperationType.context,
+                when (status) {
+                    Status.IN_THE_PROCESS_OF_APPROVAL -> R.drawable.bg_4dp_blue_40_border_gray_200
+                    else -> if (detail) R.drawable.bg_4dp_white_border_gray_200 else R.drawable.bg_4dp_gray_100_border_gray_200
+                }
+            )
+
             tvOperationType.setTextColor(
-                getColor(
-                    tvOperationType.context,
+                tvOperationType.context.getColor(
                     getOperationTypeTextColor(status)
                 )
             )
@@ -56,18 +53,6 @@ enum class DocEmixOperationType {
                 Status.IN_THE_PROCESS_OF_APPROVAL -> R.color.blue
                 else -> R.color.gray_400
             }
-
-        private fun getOperationTypeDrawable(
-            context: Context,
-            status: Status,
-            detail: Boolean = false
-        ) =
-            App.getDrawable(
-                context, when (status) {
-                    Status.IN_THE_PROCESS_OF_APPROVAL -> R.drawable.bg_4dp_blue_40_border_gray_200
-                    else -> if (detail) R.drawable.bg_4dp_white_border_gray_200 else R.drawable.bg_4dp_gray_100_border_gray_200
-                }
-            )
 
         fun operationTypes() = arrayOf(ADD_TC, NEW_PARTNER_FACT, RETURN_REQUEST, CHANGE_COORDINATES)
 

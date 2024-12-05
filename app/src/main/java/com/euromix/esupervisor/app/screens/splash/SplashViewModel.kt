@@ -21,7 +21,7 @@ class SplashViewModel @Inject constructor(
     private val _launchMainScreenEvent = MutableLiveEvent<Boolean>()
     val launchMainScreenEvent = _launchMainScreenEvent.share()
 
-    init {
+    fun init(){
         viewModelScope.launch {
             _launchMainScreenEvent.publishEvent(accountRepository.isSignedIn())
         }

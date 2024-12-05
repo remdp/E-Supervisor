@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TitleData(
-    val startText: String?,
-    val endText: String?
+    val startText: String? = null,
+    val endText: String? = null
 ):Parcelable

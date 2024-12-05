@@ -1,6 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.changeCoordinates
 
-import android.content.Context
 import android.location.Geocoder
 import android.os.Build
 import com.euromix.esupervisor.R
@@ -12,7 +11,7 @@ import com.euromix.esupervisor.app.model.docEmix.DocEmixDetailRepository
 import com.euromix.esupervisor.app.model.docEmix.entities.ChangeCoordinates
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
-import com.euromix.esupervisor.app.utils.bitmapFromDrawableRes
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.screens.main.BaseViewState
@@ -29,6 +28,8 @@ import dagger.assisted.AssistedInject
 
 class ChangeOutletCoordinatesViewModel @AssistedInject constructor(
     @Assisted private val extId: String,
+    @Assisted private val resManager: ResourceManager,
+    private val geocoder: Geocoder,
     private val docEmixDetailRepository: DocEmixDetailRepository
 ) : BaseViewModel() {
 
@@ -96,14 +97,13 @@ class ChangeOutletCoordinatesViewModel @AssistedInject constructor(
      * @param up need for render popup when user clicked on point, popup will be shown at the top or bottom of the screen
      */
     private fun createPointAnnotationOptions(
-        context: Context,
         icon: Int,
         latitude: Double,
         longitude: Double,
         new: Boolean,
         up: Boolean
     ): PointAnnotationOptions {
-        val bitmap = context.bitmapFromDrawableRes(icon) ?: return PointAnnotationOptions()
+        val bitmap = resManager.getBitmapFromDrawableRes(icon) ?: return PointAnnotationOptions()
 
         val options = PointAnnotationOptions()
             .withPoint(Point.fromLngLat(longitude, latitude))
@@ -123,7 +123,6 @@ class ChangeOutletCoordinatesViewModel @AssistedInject constructor(
     }
 
     fun setGeoAddress(
-        geocoder: Geocoder,
         new: Boolean
     ) {
 
@@ -155,11 +154,10 @@ class ChangeOutletCoordinatesViewModel @AssistedInject constructor(
     fun getAddressFromViewState(new: Boolean) =
         if (new) _viewState.newGeoAddress else _viewState.oldGeoAddress
 
-    fun createPointsAnnotationOptions(context: Context): List<PointAnnotationOptions> {
+    fun createPointsAnnotationOptions(): List<PointAnnotationOptions> {
         val oldPointUp = _viewState.latitudeOld > _viewState.latitudeNew
 
         val oldOptions = createPointAnnotationOptions(
-            context,
             R.drawable.ic_person_grey,
             _viewState.latitudeOld,
             _viewState.longitudeOld,
@@ -168,7 +166,6 @@ class ChangeOutletCoordinatesViewModel @AssistedInject constructor(
         )
 
         val newOptions = createPointAnnotationOptions(
-            context,
             R.drawable.ic_person_blue,
             _viewState.latitudeNew,
             _viewState.longitudeNew,
@@ -183,7 +180,7 @@ class ChangeOutletCoordinatesViewModel @AssistedInject constructor(
         mapboxMap: MapboxMap,
         zoom: Double = 6.0,
         longitude: Double = 31.41933250,
-        latitude: Double= 49.02459717
+        latitude: Double = 49.02459717
     ) {
         mapboxMap.setCamera(
             CameraOptions.Builder()
@@ -233,7 +230,7 @@ class ChangeOutletCoordinatesViewModel @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(extId: String): ChangeOutletCoordinatesViewModel
+        fun create(extId: String, resManager: ResourceManager): ChangeOutletCoordinatesViewModel
     }
 
     companion object {

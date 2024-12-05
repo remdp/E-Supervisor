@@ -5,11 +5,12 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const.MIN_LENGTH_SEARCH_STRING
+import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.tasks.entities.TasksSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.app.utils.popupWindowForSelections
 import com.euromix.esupervisor.app.utils.setEtOnEditorActionListener
@@ -18,6 +19,7 @@ import com.euromix.esupervisor.app.utils.setOnClickListenerServerSelection
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.TasksSelectionFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
@@ -26,6 +28,9 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
 
     private val binding by viewBinding<TasksSelectionFragmentBinding>()
     private val args by navArgs<TasksSelectionFragmentArgs>()
+
+    @Inject
+    lateinit var resManager: ResourceManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,9 +60,9 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
         binding.etPartner.setOnClickListenerServerSelection(viewModel::updatePartnerSelection)
 
         binding.tvTaskState.setOnClickListenerLocalSelection(
-            viewModel.getTasksStateForChoose(requireContext()),
+            viewModel.getTasksStateForChoose(),
             viewModel::updateTaskStateSelection,
-            viewModel::handleViewClick,
+            ::handleViewClick,
             viewModel::checkTaskStateEmpty
         )
 
@@ -137,7 +142,7 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
             )
 
             if (TasksSelection.isEmpty(it)) {
-                binding.tvClear.setTextColor(App.getColor(requireContext(), R.color.gray_500))
+                binding.tvClear.setTextColor(resManager.getColor(R.color.gray_500))
                 binding.tvClear.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_gray_basket,
                     0,
@@ -145,7 +150,7 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
                     0
                 )
             } else {
-                binding.tvClear.setTextColor(App.getColor(requireContext(), R.color.blue))
+                binding.tvClear.setTextColor(resManager.getColor(R.color.blue))
                 binding.tvClear.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_blue_basket,
                     0,
@@ -165,7 +170,7 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
             binding.tvTaskType.setOnClickListenerLocalSelection(
                 it,
                 viewModel::updateTasksTypeSelection,
-                viewModel::handleViewClick,
+                ::handleViewClick,
                 viewModel::checkTaskTypeEmpty
             )
 
@@ -185,6 +190,26 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
                 R.string.error_min_length, MIN_LENGTH_SEARCH_STRING
             ) else null
         }
+    }
+
+    // 0-common click
+    //1-right drawable click
+    private fun handleViewClick(
+        itemsList: List<ServerPair>,
+        updaterSelection: (ServerPair?) -> Unit,
+        anchor: View,
+        click: Int,
+        emptyChecker: () -> Boolean
+    ) {
+
+        if (click == 0 || emptyChecker())
+            popupWindowForSelections(
+                anchor.context,
+                itemsList,
+                updaterSelection
+            ).showAsDropDown(anchor)
+        else updaterSelection(null)
+
     }
 
 }

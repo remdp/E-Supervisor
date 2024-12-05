@@ -31,6 +31,7 @@
     <string name="more">Ще</string>
     <string name="map">Мапа</string>
     <string name="sales">Продажі</string>
+    <string name="orders">Замовлення</string>
     <string name="portfolio">Портфель</string>
 
     <!-- Statuses -->
@@ -224,10 +225,11 @@
     <string name="average_amount_of_orders_colon">Середня сума замовлень за обраний період:</string>
     <string name="amount_of_OR_colon">Сума ПДЗ на поточний день:</string>
     <string name="amount_of_OR_route_colon">Сума ПДЗ на поточний день по маршруту:</string>
-    <string name="amount_of_payments_colon">Сума оплат за поточний день:</string>
+    <string name="amount_of_payments_colon">Сума оплат за обраний період:</string>
     <string name="avg_time_in_outlets_colon">Середній час у точках:</string>
     <string name="avg_travel_time_colon">Середній час на переїзди:</string>
     <string name="sales_by_manufacturers">Продажі по виробникам</string>
+    <string name="data_on_manufacturers">Дані по виробникам</string>
     <string name="the_number_of_manufacturers_in_the_portfolio">Кількість виробників в портфелі: %1$d</string>
     <string name="watch_all">Дивитись усі</string>
     <string name="more_details">Детальніше</string>
@@ -239,6 +241,7 @@
     <string name="scheduled_visits">Планові візити</string>
     <string name="unscheduled_visits">Позапланові візити</string>
     <string name="no_data">НЕМАЄ ДАНИХ</string>
+    <string name="orders_by_manufacturer">%1$d замовлень(ня) на суму %2$.2f</string>
 
     <!-- Visits screen -->
     <string name="visits_count">%1$s візит(ів)</string>
@@ -249,7 +252,8 @@
     <string name="result_changing_visits">Для %1$s візита(ів) змінено тип відвідування</string>
 
     <!-- Odometers screen -->
-    <string name="odometer_reading">Показання одометра</string>
+    <string name="odometers">Одометри</string>
+    <string name="odometer_readings">Показання одометра</string>
     <string name="at_beginning_of_day">На початок дня</string>
     <string name="at_ending_of_day">Після завершення дня</string>
     <string name="difference_colon">Різниця:</string>
@@ -259,6 +263,9 @@
     <string name="created_colon">Створено:</string>
     <string name="mileage_colon">Кілометраж:</string>
     <string name="km">км</string>
+
+    <!-- Visits  supervisors screen -->
+    <string name="visits_supervisors">Візити супервайзерів</string>
 
 
 </resources>

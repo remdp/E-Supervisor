@@ -6,12 +6,12 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.euromix.esupervisor.App
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.routes.entities.RouteMapSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.ResourceManager
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.app.utils.popupWindowForSelections
@@ -22,6 +22,7 @@ import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.RouteMapSelectionFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RouteMapSelectionFragment : BaseFragment(R.layout.route_map_selection_fragment) {
@@ -29,6 +30,9 @@ class RouteMapSelectionFragment : BaseFragment(R.layout.route_map_selection_frag
     override val viewModel by viewModels<RouteMapSelectionViewModel>()
     private val binding by viewBinding<RouteMapSelectionFragmentBinding>()
     private val args by navArgs<RouteMapSelectionFragmentArgs>()
+
+    @Inject
+    lateinit var resManager: ResourceManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -121,7 +125,7 @@ class RouteMapSelectionFragment : BaseFragment(R.layout.route_map_selection_frag
             )
 
             if (RouteMapSelection.isEmpty(it)) {
-                binding.tvClear.setTextColor(App.getColor(requireContext(), R.color.gray_500))
+                binding.tvClear.setTextColor(resManager.getColor(R.color.gray_500))
                 binding.tvClear.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_gray_basket,
                     0,
@@ -129,7 +133,7 @@ class RouteMapSelectionFragment : BaseFragment(R.layout.route_map_selection_frag
                     0
                 )
             } else {
-                binding.tvClear.setTextColor(App.getColor(requireContext(), R.color.blue))
+                binding.tvClear.setTextColor(resManager.getColor(R.color.blue))
                 binding.tvClear.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_blue_basket,
                     0,
