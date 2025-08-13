@@ -18,4 +18,7 @@ object Const {
     const val MIN_LENGTH_SEARCH_STRING = 3
     const val NEED_RELOAD = "NEED_RELOAD"
 
+    //FragmentResultKeys
+    const val REQUEST_TASK_CREATION = "request_task_creation"
+    const val BUNDLE_KEY_TASK_CREATION_SUCCESSFUL = "task_creation_successful"
 }

@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="@dimen/DP_2"
+    android:paddingTop="@dimen/DP_2"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/gray_100">
+    android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/etPeriod"
@@ -30,7 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/DP_8"
-        android:background="@drawable/bg_8dp_white"
+
+        android:background="@drawable/bg_8dp_white_border_gray_200"
         android:padding="@dimen/DP_12"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,7 +45,7 @@
         android:id="@+id/ivFunnel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_8dp_white"
+        android:background="@drawable/bg_8dp_white_border_gray_200"
         android:padding="@dimen/DP_12"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -12,7 +12,7 @@ import com.euromix.esupervisor.app.model.rates.entities.RateStructure
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.beginCurrentMonth
-import com.euromix.esupervisor.app.utils.dateToJsonString
+import com.euromix.esupervisor.app.utils.toJsonString
 import com.euromix.esupervisor.app.utils.endCurrentMonth
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
@@ -105,8 +105,8 @@ class RatesViewModel @Inject constructor(
         return _viewState.currentRate?.let { rate ->
             RateRequestEntity(
                 rateId = rate.rate.id,
-                startDate = _viewState.period.first.dateToJsonString(),
-                endDate = _viewState.period.second.dateToJsonString(),
+                startDate = _viewState.period.first.toJsonString(),
+                endDate = _viewState.period.second.toJsonString(),
                 detailLevel = _viewState.rateSelection.lastOrNull()?.detailLevel
                     ?: _viewState.detailLevel,
                 planType = _viewState.planType,

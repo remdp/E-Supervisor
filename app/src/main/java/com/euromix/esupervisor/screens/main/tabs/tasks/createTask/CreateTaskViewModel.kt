@@ -13,7 +13,7 @@ import com.euromix.esupervisor.app.model.tasks.TasksRepository
 import com.euromix.esupervisor.app.model.tasks.entities.TasksCreateOutletsSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
-import com.euromix.esupervisor.app.utils.dateToJsonString
+import com.euromix.esupervisor.app.utils.toJsonString
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.screens.main.tabs.tasks.selection.SelectionItemOutlet
@@ -51,10 +51,15 @@ class CreateTaskViewModel @Inject constructor(
 
     var attachPhoto: Boolean = false
 
+    private var _storeCheckId: String? = null
+//    private val storeCheckId: String?
+//        get()  = _storeCheckId
+
     init {
         updateChosenTaskType(null)
         findTasksType()
     }
+
 
     private fun findTasksType() {
         safeLaunch {
@@ -66,24 +71,39 @@ class CreateTaskViewModel @Inject constructor(
 
     fun createTasks(description: String) {
         safeLaunch {
-            val chosenOutlets = (outlets.value as Success).value
-                .filter { it.marked }
-                .map { it.outlet.serverPair.id }
 
-            if (chosenOutlets.isNotEmpty()) {
+            val request = if (_storeCheckId == null) {
 
-                val cf = tasksRepository.createTasks(
+                val chosenOutlets = (outlets.value as Success).value
+                    .filter { it.marked }
+                    .map { it.outlet.serverPair.id }
+                if (chosenOutlets.isNotEmpty()) {
+
                     TasksCreateRequestEntity(
-                        deadline = (deadline ?: Calendar.getInstance().time).dateToJsonString(),
+                        deadline = (deadline ?: Calendar.getInstance().time).toJsonString(),
                         taskTypeId = _chosenTasksType.value!!.id,
                         tradingAgentIds = chosenTA,
                         description = description,
                         outletsIds = chosenOutlets,
                         attachPhoto = attachPhoto
                     )
+                } else {
+                    return@safeLaunch
+                }
+            } else {
+                TasksCreateRequestEntity(
+                    deadline = (deadline ?: Calendar.getInstance().time).toJsonString(),
+                    taskTypeId = _chosenTasksType.value!!.id,
+                    description = description,
+                    attachPhoto = attachPhoto,
+                    storeCheckId = _storeCheckId
                 )
-                cf.collect { _tasksCreationResult.publishEvent(it) }
             }
+
+            val cf = tasksRepository.createTasks(request)
+            cf.collect { _tasksCreationResult.publishEvent(it) }
+
+
         }
     }
 
@@ -190,6 +210,9 @@ class CreateTaskViewModel @Inject constructor(
     fun drawableForChildCheckBox(mark: Boolean) =
         if (mark) R.drawable.ic_checkbox_white_on else R.drawable.ic_checkbox_white_off
 
+    fun setStoreCheckId(storeCheckId: String?) {
+        _storeCheckId = storeCheckId
+    }
 
     fun verifyPossibilityCreation(description: String): List<Int> {
 
@@ -204,12 +227,15 @@ class CreateTaskViewModel @Inject constructor(
         val checkDescription = description.isNotBlank()
         if (!checkDescription) errors.add(R.string.description)
 
-        val checkTradingAgents = chosenTA.isNotEmpty()
-        if (!checkTradingAgents) errors.add(R.string.trading_agents)
+        if (_storeCheckId == null) {
 
-        val checkOutlets =
-            if (outlets.value == null) false else (outlets.value as Success).value.any { it.marked }
-        if (!checkOutlets) errors.add(R.string.outlets)
+            val checkTradingAgents = chosenTA.isNotEmpty()
+            if (!checkTradingAgents) errors.add(R.string.trading_agents)
+
+            val checkOutlets =
+                if (outlets.value == null) false else (outlets.value as Success).value.any { it.marked }
+            if (!checkOutlets) errors.add(R.string.outlets)
+        }
 
         return errors
     }

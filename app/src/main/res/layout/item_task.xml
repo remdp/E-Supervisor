@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="@dimen/DP_8"
+    android:paddingBottom="@dimen/DP_8"
     android:layout_marginTop="@dimen/DP_8"
-    android:background="@drawable/layout_background">
+    android:background="@drawable/bg_8dp_gray_light">
 
     <TextView
         android:id="@+id/tvNumber"
@@ -44,8 +46,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/DP_10"
-        android:background="@drawable/layout_background_gray100"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

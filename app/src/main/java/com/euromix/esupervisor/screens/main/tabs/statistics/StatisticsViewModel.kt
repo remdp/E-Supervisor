@@ -14,7 +14,7 @@ import com.euromix.esupervisor.app.model.routes.entities.VisitsStatisticData
 import com.euromix.esupervisor.app.model.routes.entities.VisitsStatisticDetailData
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
-import com.euromix.esupervisor.app.utils.dateToJsonString
+import com.euromix.esupervisor.app.utils.toJsonString
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.screens.main.BaseViewState
@@ -115,8 +115,8 @@ class StatisticsViewModel @Inject constructor(
             _viewState.selection.let { selection ->
                 routesRepository.getVisitsStatistic(
                     RoutesStatisticRequestEntity(
-                        startDate = selection.period.first.dateToJsonString(),
-                        endDate = selection.period.second.dateToJsonString(),
+                        startDate = selection.period.first.toJsonString(),
+                        endDate = selection.period.second.toJsonString(),
                         balanceUnitId = selection.balanceUnit?.id,
                         tradingTeamId = selection.tradingTeam?.id,
                         tradingAgentId = selection.tradingAgent?.id,
@@ -135,8 +135,8 @@ class StatisticsViewModel @Inject constructor(
             safeLaunch {
                 routesRepository.getVisitsStatisticDetail(
                     RoutesStatisticDetailRequestEntity(
-                        startDate = _viewState.selection.period.first.dateToJsonString(),
-                        endDate = _viewState.selection.period.second.dateToJsonString(),
+                        startDate = _viewState.selection.period.first.toJsonString(),
+                        endDate = _viewState.selection.period.second.toJsonString(),
                         it
                     )
                 ).collect {

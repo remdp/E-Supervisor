@@ -8,7 +8,7 @@ import com.euromix.esupervisor.app.model.odometers.OdometersRepository
 import com.euromix.esupervisor.app.model.odometers.entities.OdometersReading
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
-import com.euromix.esupervisor.app.utils.dateToJsonString
+import com.euromix.esupervisor.app.utils.toJsonString
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.screens.main.BaseViewState
@@ -74,8 +74,8 @@ class OdometersListViewModel @Inject constructor(private val odometersRepository
     }
 
     private fun requestFromSelection() = OdometersReadingRequestEntity(
-        startDate = _viewState.period?.first?.dateToJsonString(),
-        endDate = _viewState.period?.second?.dateToJsonString()
+        startDate = _viewState.period?.first?.toJsonString(),
+        endDate = _viewState.period?.second?.toJsonString()
     )
 
     fun reload() {

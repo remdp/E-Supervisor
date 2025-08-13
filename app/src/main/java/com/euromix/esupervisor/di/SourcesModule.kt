@@ -1,5 +1,6 @@
 package com.euromix.esupervisor.di
 
+import com.euromix.esupervisor.app.common.geoCoding.LocationManager
 import com.euromix.esupervisor.app.model.account.AccountSource
 import com.euromix.esupervisor.app.model.common.SearchSource
 import com.euromix.esupervisor.app.model.docEmix.DocEmixDetailSource
@@ -7,6 +8,7 @@ import com.euromix.esupervisor.app.model.docsEmix.DocsEmixSource
 import com.euromix.esupervisor.app.model.odometers.OdometersSource
 import com.euromix.esupervisor.app.model.rates.RatesSource
 import com.euromix.esupervisor.app.model.routes.RoutesSource
+import com.euromix.esupervisor.app.model.storeCheck.StoreCheckSource
 import com.euromix.esupervisor.app.model.taskDetail.TaskDetailSource
 import com.euromix.esupervisor.app.model.tasks.TasksSource
 import com.euromix.esupervisor.app.model.visits.VisitsSource
@@ -18,6 +20,7 @@ import com.euromix.esupervisor.sources.docsEmixDetail.RetrofitDocEmixDetailSourc
 import com.euromix.esupervisor.sources.odometers.RetrofitOdometersSource
 import com.euromix.esupervisor.sources.routes.RetrofitRoutesSource
 import com.euromix.esupervisor.sources.salesRate.RetrofitRatesSource
+import com.euromix.esupervisor.sources.storeCheck.RetrofitStoreCheckSource
 import com.euromix.esupervisor.sources.tasks.taskDetail.RetrofitTaskDetailSource
 import com.euromix.esupervisor.sources.tasks.list.RetrofitTasksSource
 import com.euromix.esupervisor.sources.visits.RetrofitVisitsSource
@@ -63,4 +66,8 @@ abstract class SourcesModule {
 
     @Binds
     abstract fun bindVisitsSupervisorsSource(retrofitVisitsSupervisorsSource: RetrofitVisitsSupervisorsSource): VisitsSupervisorsSource
+
+    @Binds
+    abstract fun bindStoreCheckSource(retrofitStoreCheckSource: RetrofitStoreCheckSource): StoreCheckSource
+
 }

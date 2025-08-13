@@ -15,6 +15,8 @@ fun <R> serverCallbackFlowFetcher(fetcher: fetcher<R>) =
             trySend(Success(fetcher()))
         } catch (e: Exception) {
             trySend(Error(e))
+        }finally {
+            close()
         }
         awaitClose { }
     }

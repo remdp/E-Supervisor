@@ -7,10 +7,13 @@ import android.view.View
 import androidx.core.view.forEach
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
@@ -28,9 +31,12 @@ import com.euromix.esupervisor.app.utils.setDrawableOnClickListener
 import com.euromix.esupervisor.app.utils.setOnClickListenerLocalSelection
 import com.euromix.esupervisor.app.utils.showErrors
 import com.euromix.esupervisor.app.utils.viewBinding
+import com.euromix.esupervisor.app.utils.visibility
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.CreateTasksFragmentBinding
+
 import com.euromix.esupervisor.databinding.ItemOutletCreateTaskBinding
+import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOutletPage.newOutletMap.MapFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,7 +45,6 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
     private val navController: NavController by lazy { findNavController() }
 
     override val viewModel by viewModels<CreateTaskViewModel>()
-
     private val binding by viewBinding<CreateTasksFragmentBinding>()
 
     private val outletsAdapter by lazy { OutletsAdapter(viewModel) }
@@ -48,6 +53,10 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
     private lateinit var keyboardSubscription: ActivitySubscription
 
     private var collapseOutlets = false
+
+    private val hasStoreCheckId: Boolean by lazy {
+        arguments?.containsKey(STORE_CHECK_ID) ?: false
+    }
 
     override fun onResume() {
         super.onResume()
@@ -90,7 +99,7 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
 
         setupListeners()
         observeNavigationCallBack()
-
+        viewModel.setStoreCheckId(storeCheckId())
         designViews()
     }
 
@@ -232,6 +241,13 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
             dialog.getButton(DialogInterface.BUTTON_POSITIVE)
                 .setOnClickListener {
                     dialog.dismiss()
+
+                    if (result is Success) {
+                        val resultBundle = Bundle().apply {
+                            putBoolean(Const.BUNDLE_KEY_TASK_CREATION_SUCCESSFUL, true)
+                        }
+                        setFragmentResult(Const.REQUEST_TASK_CREATION, resultBundle)
+                    }
                     navController.popBackStack()
                 }
         }
@@ -250,7 +266,21 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
         else binding.tvDescription.setBackgroundResource(
             R.drawable.bg_8dp_white_border_gray_200
         )
+
+        if (hasStoreCheckId) {
+            binding.tvPartner.text = arguments?.getString(PARTNER)
+            binding.tvOutlet.text = arguments?.getString(OUTLET)
+            binding.tvTradeAgent.text = arguments?.getString(TRADE_AGENT)
+        }
+
+        //manage visibility for outlets views
+        binding.grOutletsFilterViews.visibility(!hasStoreCheckId)
+        binding.grStoreCheckFilterViews.visibility(hasStoreCheckId)
+
     }
+
+    private fun storeCheckId() = arguments?.getString(STORE_CHECK_ID)
+
 
     private fun collapseOutlets() {
 
@@ -294,5 +324,12 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
             ).showAsDropDown(anchor)
         else updaterSelection(null)
 
+    }
+
+    companion object {
+        private const val STORE_CHECK_ID = "store_check_id"
+        private const val PARTNER = "partner"
+        private const val OUTLET = "outlet"
+        private const val TRADE_AGENT = "tradeAgent"
     }
 }

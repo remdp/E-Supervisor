@@ -18,10 +18,10 @@ import com.euromix.esupervisor.app.model.routes.entities.OutletData
 import com.euromix.esupervisor.app.model.routes.entities.RouteMapSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.ResourceManager
-import com.euromix.esupervisor.app.utils.dateToString
 import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.toLong
+import com.euromix.esupervisor.app.utils.toText
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.RouteMapFragmentBinding
 import com.euromix.esupervisor.databinding.StatisticPopupBinding
@@ -89,7 +89,7 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
         setupObservers()
 
         viewModel.setBitmapCache()
-        binding.tvDay.text = viewModel.selection.day.dateToString()
+        binding.tvDay.text = viewModel.selection.day.toText()
         viewModel.publishViewStateEvent()
     }
 
@@ -146,7 +146,7 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
         }
 
         viewModel.selectionEvent.observeEvent(viewLifecycleOwner) {
-            binding.tvDay.text = it.day.dateToString()
+            binding.tvDay.text = it.day.toText()
             viewModel.reload()
         }
 
@@ -165,7 +165,7 @@ class RouteMapFragment : BaseFragment(R.layout.route_map_fragment) {
             if (!cancelSelection)
                 viewModel.updateSelection(selection)
             else {
-                binding.tvDay.text = viewModel.selection.day.dateToString()
+                binding.tvDay.text = viewModel.selection.day.toText()
             }
         }
     }

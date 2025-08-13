@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import com.euromix.esupervisor.R
-import com.euromix.esupervisor.app.utils.dateToJsonString
-import com.euromix.esupervisor.app.utils.dateToString
+import com.euromix.esupervisor.app.utils.toJsonString
 import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.designedDateView
 import com.euromix.esupervisor.app.utils.dialogErrors
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.setDateSelection
+import com.euromix.esupervisor.app.utils.toText
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.DialogReasonRejectionCustomBinding
 import com.euromix.esupervisor.screens.main.BaseViewState
@@ -93,7 +93,7 @@ class DialogReactDislikeFragment(
                 taskCreator(
                     binding.etDislikeReason.text.toString(),
                     viewState.createTask,
-                    if (viewState.deadline !=null) viewState.deadline.dateToJsonString() else Calendar.getInstance().time.dateToJsonString()
+                    if (viewState.deadline !=null) viewState.deadline.toJsonString() else Calendar.getInstance().time.toJsonString()
                 )
                 dismiss()
             }
@@ -131,7 +131,7 @@ class DialogReactDislikeFragment(
                 underlineIfNull = true
             )
 
-            tvDeadline.text = viewState.deadline?.dateToString()
+            tvDeadline.text = viewState.deadline?.toText()
             cbCreateTask.isChecked = viewState.createTask
             if (viewState.createTask) tvDeadline.visible() else tvDeadline.gone()
             if (viewState.abilityCreateTask) cbCreateTask.visible() else cbCreateTask.gone()

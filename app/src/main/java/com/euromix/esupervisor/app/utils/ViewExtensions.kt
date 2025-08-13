@@ -209,7 +209,7 @@ fun CustomProgressIndicator.clear(indicatorWidth: Int = 10) {
     )
 
     setProgress(0.0, 0.0)
-    textColor =context.getColor(R.color.gray_200)
+    textColor = context.getColor(R.color.gray_200)
 
     setProgressTextAdapter { return@setProgressTextAdapter "0%" }
 
@@ -251,9 +251,11 @@ fun TabLayout.addDivider() {
 fun ImageView.setBitmapFromBase64String(base64String: String?) {
 
     base64String?.let {
-        val imageBytes = Base64.decode(base64String, Base64.DEFAULT)
-        val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-        setImageBitmap(bitmap)
+        if (base64String.isNotEmpty()) {
+            val imageBytes = Base64.decode(base64String, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            setImageBitmap(bitmap)
+        }
     }
 
 }

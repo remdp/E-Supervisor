@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
             setSupportActionBar(binding.toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
             supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
-            supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.gray_100)))
+         //   supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.gray_100)))
             supportActionBar?.show()
 
             val titleData = arguments.parcelable<TitleData>(KEY_TITLE_DATA)

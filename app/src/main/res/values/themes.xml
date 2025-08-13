@@ -8,11 +8,10 @@
         <item name="colorPrimaryDark">@color/gray_100</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="textInputStyle">@style/GlobalTextInputStyle</item>
+        <item name="android:statusBarColor">@color/white</item>
         <!--        <item name="android:windowBackground">@color/colorLayout</item>-->
         <item name="materialButtonStyle">@style/GlobalButtonStyle</item>
     </style>
-
-
 
     <!--        <style name="GlobalTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
     <!--            <item name="android:minWidth">@dimen/big_width</item>-->
@@ -111,5 +110,6 @@
         <item name="android:button">@drawable/selector_checkbox</item>
         <item name="android:textAppearance">@style/Text.Label.14</item>
     </style>
+
 
 </resources>

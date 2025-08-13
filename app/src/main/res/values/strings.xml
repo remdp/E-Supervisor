@@ -13,6 +13,9 @@
     <string name="media_store_error">Error while accessing the file system</string>
     <string name="send">Send</string>
     <string name="close">Close</string>
+    <string name="save">Save</string>
+    <string name="number_date">%1$s from %2$s</string>
+    <string name="two_double_parameters" translatable="false">%1$f, %2$f</string>
 
     <string name="partner">Partner</string>
     <string name="partner_colon">Partner:</string>
@@ -31,6 +34,8 @@
     <string name="create_task_next_visit_result">The result of creating a task for the next visit</string>
     <string name="day">Day</string>
     <string name="visits">Visits</string>
+    <string name="ta_visits">TA visits</string>
+    <string name="sv_visits">SV visits</string>
     <string name="more">More</string>
     <string name="map">Map</string>
     <string name="sales">Sales</string>
@@ -262,6 +267,7 @@
 
     <!-- Visits screen -->
     <string name="visits_count">%1$s visit(s)</string>
+    <string name="TA_visits">TA visits</string>
     <string name="regular">Regular</string>
     <string name="remote">Remote</string>
     <string name="change_visit_type">Changing the type of visit</string>
@@ -284,6 +290,34 @@
 
     <!-- Visits  supervisors screen -->
     <string name="visits_supervisors">Supervisors\' visits</string>
-
+    <string name="check_in" translatable="false">Check-In</string>
+    <string name="check_out" translatable="false">Check-Out</string>
+    <string name="store_check" translatable="false">Store check</string>
+    <string name="current_location">Current location</string>
+    <string name="address_not_found">Address not found</string>
+    <string name="deviation_m">%1d m</string>
+    <string name="in_stock">In stock</string>
+    <string name="not_available">Not available</string>
+    <string name="amount_of_sku">Amount of SKU</string>
+    <string name="shelf_length_cm">Shelf length, cm</string>
+    <string name="length_cm">Length, cm</string>
+    <string name="shelf_length_total_cm">Total shelf length, cm</string>
+    <string name="length_total_cm">Total length, cm</string>
+    <string name="facing_amount">Amount of facing</string>
+    <string name="facing" translatable="false">Facing</string>
+    <string name="facing_amount_total">Total amount of facing</string>
+    <string name="facing_total">Total of facing</string>
+    <string name="new_product">New product</string>
+    <string name="pos_materials">POS materials</string>
+    <string name="check_in_by_photo">Check in by photo</string>
+    <string name="coordinates_not_defined">Coordinates not defined</string>
+    <string name="check_in_necessary">First you need to Check in.</string>
+    <string name="sales_amount_for_3_months_colon">Sales amount for 3 months:</string>
+    <string name="new_task_on_store_check">New task on store check %1$s</string>
+    <string name="add_task">Add task</string>
+    <string name="schedule_a_repeat_store_check">Schedule a repeat store check</string>
+    <string name="repeat_store_checks_creation_result">%1$s repeat store checks created</string>
+    <string name="repeat_store_checks_creation_error">An error occurred while creating repeat store checks</string>
+    <string name="repeat_store_checks_creation_result_title">Repeat store checks creation result</string>
 
 </resources>

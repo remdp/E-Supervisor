@@ -13,7 +13,7 @@ import com.euromix.esupervisor.app.model.routes.entities.RouteMapSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.ResourceManager
-import com.euromix.esupervisor.app.utils.dateToJsonString
+import com.euromix.esupervisor.app.utils.toJsonString
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.app.utils.toLocalDate
@@ -178,7 +178,7 @@ class RouteMapViewModel @Inject constructor(
     fun getOutletData(outletId: String) {
 
         safeLaunch {
-            routesRepository.getOutletData(_selection.day.dateToJsonString().let { day ->
+            routesRepository.getOutletData(_selection.day.toJsonString().let { day ->
                 OutletDataRequestEntity(day, day, outletId)
             }).collect {
                 updateViewState(it)

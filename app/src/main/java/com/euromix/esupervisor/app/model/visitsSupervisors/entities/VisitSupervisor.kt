@@ -7,5 +7,12 @@ data class VisitSupervisor(
     val date: LocalDateTime,
     val number: String,
     val outlet: String,
-    val partner: String
+    val partner: String,
+    val outletVerified: Boolean,
+    val fieldVisitType: Int,
+    val isCheckIn: Boolean,
+    val isCheckOut: Boolean,
+    val isDone: Boolean,
+    val showMark: Boolean = false,
+    val mark: Boolean = false,
 )

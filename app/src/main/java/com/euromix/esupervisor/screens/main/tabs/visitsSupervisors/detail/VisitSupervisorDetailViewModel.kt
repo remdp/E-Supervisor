@@ -28,7 +28,7 @@ class VisitSupervisorDetailViewModel @AssistedInject constructor(
     val viewStateEvent = _viewStateEvent.share()
 
     init {
-        reload()
+    //    reload()
     }
 
     private fun <T> updateViewState(result: Result<T>) {
@@ -65,6 +65,20 @@ class VisitSupervisorDetailViewModel @AssistedInject constructor(
         }
     }
 
+    fun expandStoreChecks(){
+        if (_viewState.detailData?.storeChecks?.isNotEmpty() == true){
+            _viewState = _viewState.copy(storeChecksExpand = !_viewState.storeChecksExpand)
+            _viewStateEvent.publishEvent(_viewState)
+        }
+    }
+
+    fun expandTasks(){
+        if (_viewState.detailData?.tasks?.isNotEmpty() == true){
+            _viewState = _viewState.copy(tasksExpand = !_viewState.tasksExpand)
+            _viewStateEvent.publishEvent(_viewState)
+        }
+    }
+
     fun reload(){
         getVisitSupervisorDetail()
     }
@@ -77,6 +91,8 @@ class VisitSupervisorDetailViewModel @AssistedInject constructor(
     data class ViewState(
         override val isLoading: Boolean = false,
         override val error: Throwable? = null,
+        val storeChecksExpand: Boolean = false,
+        val tasksExpand: Boolean = false,
         val detailData: VisitSupervisorDetail? = null,
     ) : BaseViewState()
 }

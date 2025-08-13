@@ -2,7 +2,10 @@ package com.euromix.esupervisor.di
 
 import android.content.Context
 import android.location.Geocoder
+import com.euromix.esupervisor.app.common.geoCoding.LocationManager
+import com.euromix.esupervisor.app.common.geoCoding.MapboxLocationManager
 import com.mapbox.android.core.location.LocationEngineProvider
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,5 +25,4 @@ class LocationModule {
     @Provides
     @Singleton
     fun provideGeocoder(@ApplicationContext context: Context) = Geocoder(context, Locale.getDefault())
-
 }

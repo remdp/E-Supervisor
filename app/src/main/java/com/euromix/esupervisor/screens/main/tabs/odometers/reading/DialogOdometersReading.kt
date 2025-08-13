@@ -5,7 +5,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,11 +16,12 @@ import com.bumptech.glide.Glide
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.common.Action
 import com.euromix.esupervisor.app.utils.ResourceManager
+import com.euromix.esupervisor.app.utils.base64StringFromUri
 import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.isTimeZero
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.setBitmapFromBase64String
-import com.euromix.esupervisor.app.utils.toTimeString
+import com.euromix.esupervisor.app.utils.toTextHMS
 import com.euromix.esupervisor.app.utils.visibility
 import com.euromix.esupervisor.databinding.OdometerReadingFragmentBinding
 import com.euromix.esupervisor.dialogs.selectPictureDialog.SelectPictureDialog
@@ -94,19 +94,9 @@ class DialogOdometersReading(private val listUpdater: Action) : DialogFragment()
             btnCancel.setOnClickListener { dismiss() }
 
             btnSend.setOnClickListener {
-
-                val uri =
-                    if (!viewModel.viewState.isStart) viewModel.viewState.startUri else viewModel.viewState.stopUri
-
-                if (uri != null) {
-                    val bytesArray =
-                        requireContext().contentResolver.openInputStream(uri)?.buffered()
-                            ?.use { it.readBytes() }
+                (if (!viewModel.viewState.isStart) viewModel.viewState.startUri else viewModel.viewState.stopUri)?.let { uri ->
                     viewModel.sendTodayOdometersReading(
-                        Base64.encodeToString(
-                            bytesArray,
-                            Base64.DEFAULT
-                        )
+                        base64StringFromUri(requireContext(), uri)
                     )
                 }
             }
@@ -238,11 +228,11 @@ class DialogOdometersReading(private val listUpdater: Action) : DialogFragment()
 
                 startTime?.let {
                     if (!it.isTimeZero())
-                        binding.tvStartTime.text = it.toTimeString()
+                        binding.tvStartTime.text = it.toTextHMS()
                 }
                 stopTime?.let {
                     if (!it.isTimeZero())
-                        binding.tvStopTime.text = it.toTimeString()
+                        binding.tvStopTime.text = it.toTextHMS()
                 }
 
                 btnCancel.text =

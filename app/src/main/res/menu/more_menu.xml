@@ -12,7 +12,7 @@
     <item
         android:id="@+id/odometers_graph"
         android:title="@string/odometers" />
-<!--    <item-->
-<!--        android:id="@+id/visits_supervisors_graph"-->
-<!--        android:title="@string/visits_supervisors" />-->
+    <item
+        android:id="@+id/map_graph"
+        android:title="@string/map" />
 </menu>

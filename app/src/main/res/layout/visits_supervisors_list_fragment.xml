@@ -3,34 +3,106 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray_100"
-    android:paddingStart="@dimen/DP_8"
-    android:paddingEnd="@dimen/DP_8">
+    android:layout_height="match_parent">
 
-<!--    <include-->
-<!--        android:id="@+id/iSelection"-->
-<!--        layout="@layout/selection"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--    <include-->
+    <!--        android:id="@+id/iSelection"-->
+    <!--        layout="@layout/selection"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <TextView
+        android:id="@+id/tvDate"
+        style="@style/Text.Label.16.Gray500"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:background="@drawable/bg_8dp_white_border_gray_200"
+        android:drawablePadding="@dimen/DP_12"
+        android:focusable="false"
+        android:hint="@string/date_selection"
+        android:padding="@dimen/DP_12"
+        app:drawableStartCompat="@drawable/ic_calendar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Вибір дати" />
+
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/ibRepeatStoreCheck"-->
+    <!--        android:layout_width="@dimen/DP_48"-->
+    <!--        android:layout_height="@dimen/DP_48"-->
+    <!--        android:background="@drawable/bg_8dp_white_border_gray_200"-->
+    <!--        android:contentDescription="@string/schedule_a_repeat_store_check"-->
+    <!--        android:src="@drawable/ic_calendar_check"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiSearch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_marginEnd="@dimen/DP_8"
+        app:endIconDrawable="@drawable/ic_cross_grey"
+        app:endIconMode="custom"
+        app:endIconTint="@color/gray_300"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate"
+        app:startIconDrawable="@drawable/ic_search"
+        app:startIconTint="@color/gray_300">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearch"
+            style="@style/Text.Label.16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:hint="@string/search"
+            android:imeOptions="actionSearch"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+<!--    <com.google.android.material.checkbox.MaterialCheckBox-->
+<!--        android:id="@+id/cbMarks"-->
+<!--        android:layout_width="32dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:visibility="gone"-->
+<!--        app:buttonIcon="@drawable/ic_checkbox_white_off"-->
+<!--        app:buttonTint="@color/white"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/ivChecker"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:visibility="gone"/>-->
+<!--        app:layout_constraintTop_toTopOf="@+id/ivChecker"-->
+<!--        tools:visibility="visible" />-->
 
-
-
-
+<!--    <ImageView-->
+<!--        android:id="@+id/ivChecker"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginStart="@dimen/DP_4"-->
+<!--        android:layout_marginTop="@dimen/DP_8"-->
+<!--        android:backgroundTint="@color/gray_100"-->
+<!--        android:scaleType="fitCenter"-->
+<!--        android:src="@drawable/ic_visits_list_checker"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/cbMarks"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tiSearch" />-->
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/DP_8"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tiSearch">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvList"

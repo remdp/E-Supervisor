@@ -2,16 +2,16 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tabs_graph"
-    app:startDestination="@id/dashboard_graph">
+    app:startDestination="@id/docs_emix_graph">
 
-    <include app:graph="@navigation/dashboard_graph" />
+    <include app:graph="@navigation/docs_emix_graph" />
     <include app:graph="@navigation/visits_graph" />
     <include app:graph="@navigation/rates_graph" />
-    <include app:graph="@navigation/map_graph" />
+    <include app:graph="@navigation/visits_supervisors_graph" />
     <include app:graph="@navigation/profile_graph" />
     <include app:graph="@navigation/tasks_graph" />
     <include app:graph="@navigation/statistics_graph" />
     <include app:graph="@navigation/odometers_graph" />
-    <include app:graph="@navigation/visits_supervisors_graph" />
+    <include app:graph="@navigation/map_graph" />
 
 </navigation>

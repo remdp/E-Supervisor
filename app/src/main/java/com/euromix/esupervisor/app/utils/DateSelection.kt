@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import com.euromix.esupervisor.R
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 @SuppressLint("ClickableViewAccessibility")
@@ -15,19 +16,27 @@ fun setDateSelection(
     fm: FragmentManager,
     showClearView: Boolean = true,
     underlineIfNull: Boolean = false,
+    titleText: String? = null,
+    currentDateProvider: () -> LocalDate? = { null },
     dateUpdater: ((date: Date?) -> Unit)? = null
 ) {
-    val datePicker = MaterialDatePicker.Builder.datePicker()
-    val picker = datePicker.build()
-
     designedDateView(tv, null, showClearView, underlineIfNull)
 
     tv.setOnTouchListener { v, event ->
 
         when (event.action) {
+
             MotionEvent.ACTION_UP -> {
+
                 val textLocation = IntArray(2)
                 v.getLocationOnScreen(textLocation)
+
+                val currentDate = currentDateProvider()
+
+                val picker = MaterialDatePicker.Builder.datePicker().apply {
+                    setSelection(currentDate?.toLong())
+                    titleText?.let { setTitleText(it) }
+                }.build()
 
                 if (event.rawX >= textLocation[0] + tv.width - tv.totalPaddingRight) {
                     // Right drawable was tapped
@@ -41,6 +50,7 @@ fun setDateSelection(
                     dateUpdater?.invoke(Date(dateLong))
 
                 }
+
                 picker.show(fm, picker.toString())
             }
         }

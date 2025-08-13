@@ -8,22 +8,176 @@
         android:id="@+id/tvOutlet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_100"
+        android:layout_marginStart="@dimen/DP_32"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Точка на ринку Солодкий формат'ринок Народний, м.Львів, вул.Червоної Калини, буд. 94" />
 
-    <Button
-        android:id="@+id/btnCheckIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/DP_32"
-        android:layout_marginEnd="@dimen/DP_32"
-        android:text="check-in"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOutlet" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutlet">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvCheckIn"
+                style="@style/Text.Label.16.Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_16"
+                android:background="@drawable/bg_underline_gray_200"
+                android:drawablePadding="@dimen/DP_16"
+                android:gravity="center_vertical"
+                android:padding="@dimen/DP_16"
+                android:text="@string/check_in"
+                app:drawableEndCompat="@drawable/ic_arrow_right_gray"
+                app:drawableStartCompat="@drawable/ic_check_circle_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvStoreCheck"
+                style="@style/Text.Label.16.Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/DP_16"
+                android:gravity="center_vertical"
+                android:padding="@dimen/DP_16"
+                android:text="@string/store_check"
+                app:drawableStartCompat="@drawable/ic_check_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCheckIn" />
+
+            <TextView
+                android:id="@+id/tvStoreCheckEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:padding="@dimen/DP_16"
+                app:drawableEndCompat="@drawable/ic_arrow_right_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/tvStoreCheck"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCheckIn" />
+
+            <TextView
+                android:id="@+id/tvNumberStoreChecks"
+                style="@style/Text.Label.12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_4dp_gray_100"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/DP_4"
+                android:paddingEnd="@dimen/DP_4"
+
+                app:layout_constraintBottom_toBottomOf="@+id/tvStoreCheck"
+                app:layout_constraintStart_toEndOf="@+id/tvStoreCheck"
+                app:layout_constraintTop_toTopOf="@+id/tvStoreCheck"
+                tools:text="3" />
+
+            <View
+                android:id="@+id/vUnderlineStoreCheck"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DP_1"
+                android:background="@color/gray_200"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvStoreCheck" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvStoreChecks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/vUnderlineStoreCheck"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_store_check" />
+
+            <TextView
+                android:id="@+id/tvTasks"
+                style="@style/Text.Label.16.Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/DP_16"
+                android:gravity="center_vertical"
+                android:padding="@dimen/DP_16"
+                android:text="@string/tasks"
+                app:drawableStartCompat="@drawable/ic_check_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvStoreChecks"
+                tools:text="Завдання" />
+
+            <View
+                android:id="@+id/vUnderlineTasks"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/DP_1"
+                android:background="@color/gray_200"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTasks" />
+
+            <TextView
+                android:id="@+id/tvTasksEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:padding="@dimen/DP_16"
+                app:drawableEndCompat="@drawable/ic_arrow_right_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTasks"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvStoreChecks" />
+
+            <TextView
+                android:id="@+id/tvNumberTasks"
+                style="@style/Text.Label.12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_4dp_gray_100"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/DP_4"
+                android:paddingEnd="@dimen/DP_4"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTasks"
+                app:layout_constraintStart_toEndOf="@+id/tvTasks"
+                app:layout_constraintTop_toTopOf="@+id/tvTasks"
+                tools:text="2" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTasks"
+                android:layout_width="0dp"
+                android:layout_marginEnd="@dimen/DP_16"
+                android:layout_marginStart="@dimen/DP_16"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vUnderlineTasks"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_task" />
+
+            <TextView
+                android:id="@+id/tvCheckOut"
+                style="@style/Text.Label.16.Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_underline_gray_200"
+                android:drawablePadding="@dimen/DP_16"
+                android:gravity="center_vertical"
+                android:padding="@dimen/DP_16"
+                android:text="@string/check_out"
+                app:drawableEndCompat="@drawable/ic_arrow_right_gray"
+                app:drawableStartCompat="@drawable/ic_check_circle_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvTasks" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <com.euromix.esupervisor.app.views.ResultView
         android:id="@+id/vResult"

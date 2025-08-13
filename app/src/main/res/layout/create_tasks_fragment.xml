@@ -17,25 +17,47 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray_100"
             android:paddingStart="@dimen/DP_8"
             android:paddingEnd="@dimen/DP_8"
             android:clipToPadding="false">
+
+            <TextView
+                android:id="@+id/tvPartner"
+                style="@style/Text.Label.16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/DP_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="ФОП Аввакумова" />
+
+            <TextView
+                android:id="@+id/tvOutlet"
+                style="@style/Text.Label.14.Gray500"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPartner"
+                tools:text="м. Дніпро, вул.Центральна 17, ТЦ Європа, перший поверх, отдел 4" />
 
             <TextView
                 android:id="@+id/tvDeadline"
                 style="@style/Text.Label.16.Gray500"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_16"
                 android:background="@drawable/bg_8dp_white_border_gray_200"
-                android:drawableStart="@drawable/ic_calendar"
                 android:drawablePadding="@dimen/DP_12"
                 android:focusable="false"
                 android:hint="@string/deadline"
                 android:padding="@dimen/DP_12"
+                app:drawableStartCompat="@drawable/ic_calendar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvOutlet"
                 tools:text="Строк виконання" />
 
             <TextView
@@ -70,7 +92,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/DP_8"
-                android:background="@drawable/bg_8dp_white"
+                android:background="@drawable/bg_8dp_white_border_gray_200"
                 android:hint="@string/description"
                 android:lines="2"
                 android:paddingStart="@dimen/DP_12"
@@ -90,6 +112,19 @@
                 app:srcCompat="@drawable/ic_bottom_right_multiline" />
 
             <TextView
+                android:id="@+id/tvTradeAgent"
+                style="@style/Text.Label.16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_8"
+                android:background="@drawable/bg_8dp_white_border_gray_200"
+                android:padding="@dimen/DP_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+                tools:text="Адамив Е.Я" />
+
+            <TextView
                 android:id="@+id/tvOutlets"
                 style="@style/Text.Label.16.Gray500"
                 android:layout_width="match_parent"
@@ -100,10 +135,10 @@
                 android:background="@color/white"
                 android:hint="@string/outlets"
                 android:padding="@dimen/DP_12"
-                android:drawableRight="@drawable/ic_arrow_drop_up_gray_400"
+                app:drawableRightCompat="@drawable/ic_arrow_drop_up_gray_400"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/tvTradeAgent" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/cbOutlets"
@@ -120,7 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_marginTop="@dimen/DP_8"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_8dp_white"
+                android:background="@drawable/bg_8dp_white_border_gray_200"
                 android:padding="@dimen/DP_12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvOutlets"
@@ -162,10 +197,20 @@
                 tools:itemCount="5"
                 tools:listitem="@layout/item_outlet_create_task" />
 
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/grOutletsFilterViews"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:constraint_referenced_ids="tvOutlets, cbOutlets, ivFunnel, tiSearch, rvSelectionItems" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/grStoreCheckFilterViews"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:constraint_referenced_ids="tvPartner, tvOutlet, tvTradeAgent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
 
     <Button
         android:id="@+id/btnCancel"

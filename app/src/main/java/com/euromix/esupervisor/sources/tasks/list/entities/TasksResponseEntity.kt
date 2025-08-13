@@ -1,10 +1,13 @@
 package com.euromix.esupervisor.sources.tasks.list.entities
 
+import android.os.Parcelable
 import com.euromix.esupervisor.app.enums.TaskState
 import com.euromix.esupervisor.app.model.tasks.entities.Task
 import com.squareup.moshi.Json
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
+@Parcelize
 data class TasksResponseEntity(
     val extId: String,
     @field:Json(name = "deletion_mark") val deletionMark: Boolean,
@@ -18,7 +21,7 @@ data class TasksResponseEntity(
     @field:Json(name = "attach_photo") val attachPhoto: Boolean,
     val partner: String = "",
     val outlet: String =""
-) {
+) : Parcelable {
     fun toTask() = Task(
         extId = extId,
         date = LocalDateTime.parse(date),

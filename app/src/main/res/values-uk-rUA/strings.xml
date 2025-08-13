@@ -10,6 +10,8 @@
     <string name="media_store_error">Помилка при зверненні до файлової системи</string>
     <string name="send">Відправити</string>
     <string name="close">Закрити</string>
+    <string name="save">Зберегти</string>
+    <string name="number_date">%1$s від %2$s</string>
 
     <string name="partner">Контрагент</string>
     <string name="partner_colon">Контрагент:</string>
@@ -28,6 +30,8 @@
     <string name="create_task_next_visit_result">Результат створення завдання на наступний візит</string>
     <string name="day">День</string>
     <string name="visits">Візити</string>
+    <string name="ta_visits">Візити ТА</string>
+    <string name="sv_visits">Візити СВ</string>
     <string name="more">Ще</string>
     <string name="map">Мапа</string>
     <string name="sales">Продажі</string>
@@ -44,7 +48,7 @@
     <string name="in_work">У роботі</string>>
 
     <string name="from">від </string>
-    <string name="cancel">Відміна </string>
+    <string name="cancel">Скасувати </string>
 
     <!-- Sign in screen -->
     <string name="authorization">Авторизація</string>
@@ -245,6 +249,7 @@
 
     <!-- Visits screen -->
     <string name="visits_count">%1$s візит(ів)</string>
+    <string name="TA_visits">Візити ТА</string>
     <string name="regular">Регулярний</string>
     <string name="remote">Дистанційний</string>
     <string name="change_visit_type">Зміна типу відвідування</string>
@@ -266,6 +271,29 @@
 
     <!-- Visits  supervisors screen -->
     <string name="visits_supervisors">Візити супервайзерів</string>
-
-
+    <string name="current_location">Поточне розташування</string>
+    <string name="address_not_found">Адреса не знайдена</string>
+    <string name="deviation_m">%1d м</string>
+    <string name="in_stock">Є</string>
+    <string name="not_available">Немає</string>
+    <string name="amount_of_sku">Кількість SKU</string>
+    <string name="shelf_length_cm">Довжина полиці, см</string>
+    <string name="length_cm">Довжина, см</string>
+    <string name="shelf_length_total_cm">Загальна довжина полиці, см</string>
+    <string name="length_total_cm">Загальна довжина, см</string>
+    <string name="facing_amount">Кількість facing</string>
+    <string name="facing_amount_total">Загальна кількість facing</string>
+    <string name="facing_total">Загальна facing</string>
+    <string name="new_product">Новинка</string>
+    <string name="pos_materials">POS матеріали</string>
+    <string name="check_in_by_photo">Check in по фото</string>
+    <string name="coordinates_not_defined">Координати не визначено</string>
+    <string name="check_in_necessary">Спочатку потрібно зробити Check in</string>
+    <string name="sales_amount_for_3_months_colon">Сума продажу за 3 місяці:"</string>
+    <string name="new_task_on_store_check">Нове завдання по store check %1$s</string>
+    <string name="add_task">Додати завдання</string>
+    <string name="schedule_a_repeat_store_check">Запланувати повторний store check</string>
+    <string name="repeat_store_checks_creation_result">Створено %1$s повторний(их) store checks</string>
+    <string name="repeat_store_checks_creation_error">Виникла помилка у процесі створення повторних store checks</string>
+    <string name="repeat_store_checks_creation_result_title">Результат створення повторних store checks</string>
 </resources>

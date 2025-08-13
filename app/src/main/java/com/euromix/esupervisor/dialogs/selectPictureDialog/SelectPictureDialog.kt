@@ -14,7 +14,6 @@ import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const.REQUEST_CODE_CHOOSE_FILE_PERMISSION
 import com.euromix.esupervisor.app.Const.TAKE_PHOTO
 import com.euromix.esupervisor.app.common.media.PhotoManager
-import com.euromix.esupervisor.app.utils.PermissionHelper
 import com.euromix.esupervisor.app.utils.PermissionManager
 import com.euromix.esupervisor.app.utils.permissionManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -23,6 +22,8 @@ import kotlinx.coroutines.launch
 class SelectPictureDialog : BottomSheetDialogFragment() {
 
     private lateinit var photoManager: PhotoManager
+
+    //private lateinit var permissionManager: PermissionManager
     private lateinit var permissionManager: PermissionManager
 
     private val selectPictureViewModel by activityViewModels<SelectPictureViewModel>()
@@ -48,30 +49,42 @@ class SelectPictureDialog : BottomSheetDialogFragment() {
         return view
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        permissionManager.onRequestResult(requestCode, permissions, grantResults)
-    }
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<String>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        permissionManager.onRequestResult(requestCode, permissions, grantResults)
+//    }
 
     private fun setupUI(view: View) {
-        view.findViewById<ConstraintLayout>(R.id.gallery).setOnClickListener {
-            permissionManager.request(
-                permissions = listOf(PermissionHelper.getImagePermission()),
-                onAccepted = { photoManager.takePhotoFromGallery(REQUEST_CODE_CHOOSE_FILE_PERMISSION) },
-                onDenied = { }
-            )
-        }
+//        view.findViewById<ConstraintLayout>(R.id.gallery).setOnClickListener {
+//            permissionManager.request(
+//                permissions = listOf(PermissionHelper.getImagePermission()),
+//                onAccepted = { photoManager.takePhotoFromGallery(REQUEST_CODE_CHOOSE_FILE_PERMISSION) },
+//                onDenied = { }
+//            )
+//        }
         view.findViewById<ConstraintLayout>(R.id.camera).setOnClickListener {
-            permissionManager.request(
-                permissions = listOf(
-                    Manifest.permission.CAMERA
-                ) + PermissionHelper.getWriteStoragePermissionList(),
+//            permissionManager.request(
+//                permissions = listOf(
+//                    Manifest.permission.CAMERA
+//                ) + PermissionHelper.getWriteStoragePermissionList(),
+//                onAccepted = { photoManager.takePhoto(TAKE_PHOTO) },
+//                onDenied = { }
+//            )
+
+//            permissionManager.request(
+//                permissions = listOf(Manifest.permission.CAMERA),
+//                onAccepted = { photoManager.takePhoto(TAKE_PHOTO) },
+//                onDenied = { }
+//            )
+
+            permissionManager.requestPermissions(
+                arrayOf(Manifest.permission.CAMERA),
                 onAccepted = { photoManager.takePhoto(TAKE_PHOTO) },
-                onDenied = { }
+                onDenied = {}
             )
         }
     }
@@ -84,6 +97,7 @@ class SelectPictureDialog : BottomSheetDialogFragment() {
                     dismiss()
                 }
             }
+
             TAKE_PHOTO -> if (resultCode == Activity.RESULT_OK) {
                 photoManager.onPhotoTakeResult()
                 dismiss()

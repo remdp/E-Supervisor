@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivItemLogo"
+        android:layout_width="@dimen/DP_96"
+        android:layout_height="@dimen/DP_64"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_8"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_logo" />
+
+    <TextView
+        android:id="@+id/tvLowerLevel"
+        style="@style/Text.Label.16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_16"
+        app:layout_constraintBottom_toBottomOf="@+id/ivItemLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivItemLogo"
+        app:layout_constraintTop_toTopOf="@+id/ivItemLogo"
+        tools:text="Чай, кава" />
+
+    <View
+        android:id="@+id/vButtons"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/DP_8"
+
+        android:background="@drawable/bg_6dp_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivItemLogo" />
+
+    <TextView
+        android:id="@+id/tvInStock"
+        style="@style/Text.Label.12.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_4"
+        android:background="@drawable/bg_6dp_white_border_gray"
+        android:paddingTop="@dimen/DP_8"
+        android:paddingBottom="@dimen/DP_8"
+        android:text="@string/in_stock"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="@+id/vButtons"
+        app:layout_constraintEnd_toStartOf="@+id/tvNotAvailable"
+        app:layout_constraintStart_toStartOf="@+id/vButtons"
+        app:layout_constraintTop_toTopOf="@+id/vButtons" />
+
+    <TextView
+        android:id="@+id/tvNotAvailable"
+        style="@style/Text.Label.12.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_2"
+        android:background="@drawable/bg_6dp_white_border_gray"
+        android:paddingTop="@dimen/DP_8"
+        android:paddingBottom="@dimen/DP_8"
+        android:text="@string/not_available"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/blue"
+
+        app:layout_constraintBottom_toBottomOf="@+id/vButtons"
+        app:layout_constraintEnd_toStartOf="@+id/tvAvailabilityRepeated"
+        app:layout_constraintStart_toEndOf="@+id/tvInStock"
+        app:layout_constraintTop_toTopOf="@+id/vButtons" />
+
+    <TextView
+        android:id="@+id/tvAvailabilityRepeated"
+        style="@style/Text.Label.12.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_14"
+        android:background="@drawable/bg_6dp_green_light"
+        android:padding="@dimen/DP_8"
+        android:paddingBottom="@dimen/DP_8"
+        android:text="@string/not_available"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/vButtons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/vButtons" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grFormatYesNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tvInStock, tvNotAvailable, vButtons" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiAmountSKU"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_16"
+        android:hint="@string/amount_of_sku"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vButtons">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAmountSKU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:fontFamily="@font/roboto_regular"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="7"
+            android:textSize="@dimen/SP_16" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvAmountSKUBasis"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/DP_6"
+        android:padding="@dimen/DP_8"
+        android:layout_marginBottom="@dimen/DP_1"
+        android:layout_marginEnd="@dimen/DP_1"
+        android:background="@drawable/bg_6dp_green_light_right_corners"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/tiAmountSKU"
+        app:layout_constraintEnd_toEndOf="@+id/tiAmountSKU"
+        app:layout_constraintTop_toTopOf="@+id/tiAmountSKU"
+        tools:text="8" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiShelfLength"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:hint="@string/length_cm"
+        app:layout_constraintEnd_toStartOf="@+id/tiShelfLengthTotal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiAmountSKU">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etShelfLength"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:fontFamily="@font/roboto_regular"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="7"
+            android:textSize="@dimen/SP_16" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvShelfLengthBasis"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/DP_6"
+        android:padding="@dimen/DP_8"
+        android:layout_marginBottom="@dimen/DP_1"
+        android:layout_marginEnd="@dimen/DP_1"
+        android:background="@drawable/bg_6dp_green_light_right_corners"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/tiShelfLength"
+        app:layout_constraintEnd_toEndOf="@+id/tiShelfLength"
+        app:layout_constraintTop_toTopOf="@+id/tiShelfLength"
+        tools:text="25" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiShelfLengthTotal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_16"
+        android:hint="@string/length_total_cm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tiShelfLength"
+        app:layout_constraintTop_toBottomOf="@+id/tiAmountSKU">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etShelfLengthTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:fontFamily="@font/roboto_regular"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="7"
+            android:textSize="@dimen/SP_16" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvShelfLengthTotalBasis"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/DP_6"
+        android:padding="@dimen/DP_8"
+        android:layout_marginBottom="@dimen/DP_1"
+        android:layout_marginEnd="@dimen/DP_1"
+        android:background="@drawable/bg_6dp_green_light_right_corners"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/tiShelfLengthTotal"
+        app:layout_constraintEnd_toEndOf="@+id/tiShelfLengthTotal"
+        app:layout_constraintTop_toTopOf="@+id/tiShelfLengthTotal"
+        tools:text="6" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grShelfShareCm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tiShelfLength,tiShelfLengthTotal" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiFacingAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:hint="@string/facing"
+        app:layout_constraintEnd_toStartOf="@+id/tiFacingAmountTotal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiShelfLength">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etFacingAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:fontFamily="@font/roboto_regular"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="7"
+            android:textSize="@dimen/SP_16" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvFacingAmountBasis"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/DP_6"
+        android:padding="@dimen/DP_8"
+        android:layout_marginBottom="@dimen/DP_1"
+        android:layout_marginEnd="@dimen/DP_1"
+        android:background="@drawable/bg_6dp_green_light_right_corners"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/tiFacingAmount"
+        app:layout_constraintEnd_toEndOf="@+id/tiFacingAmount"
+        app:layout_constraintTop_toTopOf="@+id/tiFacingAmount"
+        tools:text="12" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiFacingAmountTotal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_16"
+        android:hint="@string/facing_total"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tiFacingAmount"
+        app:layout_constraintTop_toBottomOf="@+id/tiShelfLengthTotal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etFacingAmountTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:fontFamily="@font/roboto_regular"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="7"
+            android:textSize="@dimen/SP_16" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvFacingAmountTotalBasis"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/DP_6"
+        android:padding="@dimen/DP_8"
+        android:layout_marginBottom="@dimen/DP_1"
+        android:layout_marginEnd="@dimen/DP_1"
+        android:background="@drawable/bg_6dp_green_light_right_corners"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/tiFacingAmountTotal"
+        app:layout_constraintEnd_toEndOf="@+id/tiFacingAmountTotal"
+        app:layout_constraintTop_toTopOf="@+id/tiFacingAmountTotal"
+        tools:text="16" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grFacingAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tiFacingAmount,tiFacingAmountTotal" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiNewProduct"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginTop="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_16"
+        android:hint="@string/new_product"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiFacingAmount">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNewProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:fontFamily="@font/roboto_regular"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="7"
+            android:textSize="@dimen/SP_16" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvNewProductBasis"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/DP_6"
+        android:padding="@dimen/DP_8"
+        android:layout_marginBottom="@dimen/DP_1"
+        android:layout_marginEnd="@dimen/DP_1"
+        android:background="@drawable/bg_6dp_green_light_right_corners"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/tiNewProduct"
+        app:layout_constraintEnd_toEndOf="@+id/tiNewProduct"
+        app:layout_constraintTop_toTopOf="@+id/tiNewProduct"
+        tools:text="13" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="@dimen/DP_8"
+        android:background="@color/gray_200"
+        app:layout_constraintTop_toBottomOf="@+id/tiNewProduct" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/visitsSupervisorsListFragment"
-        android:name="com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.list.VisitsSupervisorsListFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.list.VisitsSupervisorListFragment"
         android:label="VisitsSupervisorsListFragment" >
         <action
             android:id="@+id/action_visitsSupervisorsListFragment_to_visitSupervisorDetailFragment"
@@ -25,6 +25,23 @@
         <action
             android:id="@+id/action_visitSupervisorDetailFragment_to_visitSupervisorCheckInFragment"
             app:destination="@id/visitSupervisorCheckInFragment" />
+        <action
+            android:id="@+id/action_visitSupervisorDetailFragment_to_storeCheckTopLevelFragment"
+            app:destination="@id/storeCheckTopLevelFragment" />
+        <argument
+            android:name="storeChecks"
+            app:argType="com.euromix.esupervisor.app.model.common.entities.ServerPair[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_visitSupervisorDetailFragment_to_storeCheckLowerLevelFragment"
+            app:destination="@id/storeCheckLowerLevelFragment" />
+        <action
+            android:id="@+id/action_visitSupervisorDetailFragment_to_visitSupervisorCheckOutFragment"
+            app:destination="@id/visitSupervisorCheckOutFragment" />
+        <action
+            android:id="@+id/action_visitSupervisorDetailFragment_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/visitSupervisorCheckInFragment"
@@ -36,8 +53,142 @@
         <argument
             android:name="titleData"
             app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/visitSupervisorCheckOutFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.checkOut.VisitSupervisorCheckOutFragment"
+        android:label="VisitSupervisorCheckOutFragment" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/storeCheckTopLevelFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.storecheck.topLevel.StoreCheckTopLevelFragment"
+        android:label="StoreCheckTopLevelFragment" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+        <action
+            android:id="@+id/action_storeCheckTopLevelFragment_to_storeCheckLowerLevelFragment"
+            app:destination="@id/storeCheckLowerLevelFragment" />
+        <action
+            android:id="@+id/action_storeCheckTopLevelFragment_to_visitsSupervisorSalesFragment"
+            app:destination="@id/visitsSupervisorSalesFragment" />
+        <argument
+            android:name="twoLevels"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeCheckLowerLevelFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.storecheck.lowerLevel.StoreCheckLowerLevelFragment"
+        android:label="StoreCheckLowerLevelFragment" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+        <argument
+            android:name="topLevelId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+        <argument
+            android:name="topLevelServerType"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+        <action
+            android:id="@+id/action_storeCheckLowerLevelFragment_to_visitsSupervisorSalesFragment"
+            app:destination="@id/visitsSupervisorSalesFragment" />
+        <action
+            android:id="@+id/action_storeCheckLowerLevelFragment_to_createTasksForStorecheckFragment"
+            app:destination="@id/createTasksForStorecheckFragment" />
+        <argument
+            android:name="twoLevels"
+            app:argType="boolean" />
+        <!--        <argument-->
+<!--            android:name="storeCheckFormat"-->
+<!--            app:argType="integer" />-->
+<!--        <argument-->
+<!--            android:name="shelfShare"-->
+<!--            app:argType="integer" />-->
+<!--        <argument-->
+<!--            android:name="newProducts"-->
+<!--            app:argType="boolean" />-->
+    </fragment>
+    <fragment
+        android:id="@+id/visitsSupervisorSalesFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.storecheck.sales.VisitsSupervisorSalesFragment"
+        android:label="VisitsSupervisorSalesFragment" >
+        <argument
+            android:name="sales"
+            app:argType="com.euromix.esupervisor.app.model.storeCheck.entities.StoreCheckSale[]" />
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+    </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/storeCheckListFragment"-->
+<!--        android:name="com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.storecheck.list.StoreCheckListFragment"-->
+<!--        android:label="StoreCheckListFragment" >-->
+<!--        <argument-->
+<!--            android:name="id"-->
+<!--            app:argType="string" />-->
+<!--        <argument-->
+<!--            android:name="titleData"-->
+<!--            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_storeCheckListFragment_to_createTasksFragment"-->
+<!--            app:destination="@id/createTasksForStorecheckFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_storeCheckListFragment_to_storeCheckTopLevelFragment"-->
+<!--            app:destination="@id/storeCheckTopLevelFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_storeCheckListFragment_to_storeCheckLowerLevelFragment"-->
+<!--            app:destination="@id/storeCheckLowerLevelFragment" />-->
+<!--    </fragment>-->
+    <fragment
+        android:id="@+id/createTasksForStorecheckFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.tasks.createTask.CreateTasksFragment"
+        android:label="CreateTasksFragment" >
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+        <argument
+            android:name="store_check_id"
+            app:argType="string" />
+        <argument
+            android:name="partner"
+            app:argType="string"
+            android:defaultValue='""' />
         <argument
             android:name="outlet"
+            app:argType="string"
+            android:defaultValue='""' />
+        <argument
+            android:name="tradeAgent"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
+    <fragment
+        android:id="@+id/taskDetailFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.tasks.detail.TaskDetailFragment"
+        android:label="TaskDetailFragment" >
+        <argument
+            android:name="id"
             app:argType="string" />
+        <argument
+            android:name="titleData"
+            app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
     </fragment>
 </navigation>

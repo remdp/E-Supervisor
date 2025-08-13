@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tvAddTask"-->
+    <!--        style="@style/Text.Label.14.Bold"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="@dimen/DP_16"-->
+    <!--        android:layout_marginEnd="@dimen/DP_16"-->
+
+    <!--        android:background="@drawable/bg_8dp_gray_light"-->
+    <!--        android:drawablePadding="@dimen/DP_16"-->
+    <!--        android:paddingBottom="@dimen/DP_8"-->
+    <!--        android:paddingStart="@dimen/DP_8"-->
+    <!--        android:paddingTop="@dimen/DP_8"-->
+    <!--        android:paddingEnd="@dimen/DP_8"-->
+    <!--        android:text="@string/tasks"-->
+    <!--        app:drawableStartCompat="@drawable/ic_plus_blue"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <FrameLayout
+        android:id="@+id/flAddTask"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvAddTask"
+            style="@style/Text.Label.14.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/DP_16"
+            android:layout_marginEnd="@dimen/DP_16"
+            android:background="@drawable/bg_8dp_gray_light"
+            android:paddingStart="@dimen/DP_40"
+            android:padding="@dimen/DP_8"
+            android:text="@string/tasks"
+            tools:text="Завдання"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivAddTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/DP_24"
+            android:src="@drawable/ic_plus_blue"/>
+
+        <!-- Цифра в кружке -->
+        <TextView
+            android:id="@+id/tvTasksCount"
+            style="@style/Text.Label.12"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:translationX="122dp"
+            android:translationY="2dp"
+            android:background="@drawable/bg_circle_blue"
+            android:gravity="center"
+            tools:text="3"
+            android:textColor="@android:color/white"
+            android:visibility="visible" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvPOS"
+        style="@style/Text.Label.14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:text="@string/pos_materials"
+        app:layout_constraintBottom_toBottomOf="@+id/swPOS"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/swPOS" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/swPOS"
+        style="@style/CustomSwitchMaterial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/swPOSBasis"
+        app:layout_constraintTop_toBottomOf="@+id/flAddTask" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/swPOSBasis"
+        style="@style/CustomSwitchMaterial"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:enabled="false"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/DP_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flAddTask" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_200"
+        app:layout_constraintBottom_toTopOf="@+id/rvLowerLevel" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grPOS"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:constraint_referenced_ids="tvPOS, swPOS"
+        tools:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLowerLevel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/DP_8"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/clAppbarBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swPOS"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_store_check_lower_level" />
+
+    <com.euromix.esupervisor.app.views.ResultView
+        android:id="@+id/vResult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clAppbarBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:paddingStart="@dimen/DP_8"
+        android:paddingTop="@dimen/DP_8"
+        android:paddingEnd="@dimen/DP_8"
+        android:paddingBottom="@dimen/DP_8"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
+
+        <Button
+            android:id="@+id/btnCancel"
+            style="@style/Text.Label.14.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/DP_8"
+            android:backgroundTint="@color/white"
+            android:paddingTop="@dimen/DP_12"
+            android:paddingBottom="@dimen/DP_12"
+            android:text="@string/cancel"
+            android:textColor="@color/blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnSave"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="2dp" />
+
+        <Button
+            android:id="@+id/btnSave"
+            style="@style/Text.Label.14.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/DP_12"
+            android:paddingBottom="@dimen/DP_12"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnCancel"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

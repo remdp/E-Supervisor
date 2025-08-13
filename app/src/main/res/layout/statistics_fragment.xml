@@ -3,20 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray_100">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tvAnalysisVisits"
         style="@style/Text.Label.16.Bold"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginStart="@dimen/DP_16"
         android:layout_marginTop="@dimen/DP_16"
         android:layout_marginEnd="@dimen/DP_8"
         android:drawablePadding="@dimen/DP_16"
         android:text="@string/analysis_of_visits"
-        app:drawableStartCompat="@drawable/ic_arrow_back"
         app:layout_constraintEnd_toStartOf="@+id/ivFunnel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/DP_8"
         android:layout_marginEnd="@dimen/DP_8"
-        android:background="@drawable/bg_8dp_white"
+        android:background="@drawable/bg_8dp_white_border_gray_200"
         android:padding="@dimen/DP_12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

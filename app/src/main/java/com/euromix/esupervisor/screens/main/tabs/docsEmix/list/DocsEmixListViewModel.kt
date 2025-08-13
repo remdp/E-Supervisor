@@ -9,7 +9,7 @@ import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
-import com.euromix.esupervisor.app.utils.dateToJsonString
+import com.euromix.esupervisor.app.utils.toJsonString
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.screens.main.BaseViewState
@@ -74,8 +74,8 @@ class DocsEmixListViewModel @Inject constructor(
     }
 
     private fun requestFromSelection() = DocsEmixRequestEntity(
-        startDate = _selection.period?.first?.dateToJsonString(),
-        endDate = _selection.period?.second?.dateToJsonString(),
+        startDate = _selection.period?.first?.toJsonString(),
+        endDate = _selection.period?.second?.toJsonString(),
         tradingAgentId = _selection.tradingAgent?.id,
         partnerId = _selection.partner?.id,
         operationType = selection.operationType?.id,

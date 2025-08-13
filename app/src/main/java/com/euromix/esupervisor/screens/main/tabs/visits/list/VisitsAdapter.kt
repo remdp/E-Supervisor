@@ -15,9 +15,11 @@ import com.euromix.esupervisor.app.model.visits.entities.Visit
 import com.euromix.esupervisor.app.utils.bitmapFromDrawableRes
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.setIcon
-import com.euromix.esupervisor.app.utils.textDate
+import com.euromix.esupervisor.app.utils.toText
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.ItemVisitsListFragmentBinding
+import androidx.core.graphics.scale
+import androidx.core.graphics.drawable.toDrawable
 
 class VisitsAdapter(
     val context: Context,
@@ -52,14 +54,12 @@ class VisitsAdapter(
                 isDistanceVisitOutlet = currentItem.type == VisitType.REMOTE
             ).let { drawableRes ->
 
-                tvDate.text = textDate(currentItem.date)
+                tvDate.text = currentItem.date.toText()
                 tvNumber.text = currentItem.number
 
-                val drawable = BitmapDrawable(
-                    context.resources, Bitmap.createScaledBitmap(
-                        context.bitmapFromDrawableRes(drawableRes) ?: return@let, 80, 80, true
-                    )
-                )
+                val drawable =
+                    (context.bitmapFromDrawableRes(drawableRes) ?: return@let).scale(80, 80)
+                        .toDrawable(context.resources)
                 tvPartner.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
             }
 

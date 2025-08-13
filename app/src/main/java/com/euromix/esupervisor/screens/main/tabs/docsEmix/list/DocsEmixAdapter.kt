@@ -10,11 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.euromix.esupervisor.app.enums.DocEmixOperationType
 import com.euromix.esupervisor.app.enums.Status
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
-import com.euromix.esupervisor.app.model.visits.entities.Visit
-import com.euromix.esupervisor.app.utils.textDate
+import com.euromix.esupervisor.app.utils.toText
 import com.euromix.esupervisor.databinding.ItemDocEmixListFragmentBinding
 import com.euromix.esupervisor.screens.main.tabs.TitleData
-import com.euromix.esupervisor.screens.main.tabs.visits.list.VisitsAdapter
 
 class DocsEmixAdapter(
     private val docEmixActionListener: (direction: NavDirections) -> Unit
@@ -28,14 +26,14 @@ class DocsEmixAdapter(
             if (docEmix.operationType == DocEmixOperationType.CHANGE_COORDINATES)
                 DocsEmixListFragmentDirections.actionDocsEmixListFragmentToChangeOutletCoordinatesFragment(
                     extId = docEmix.extId,
-                    titleData = TitleData(docEmix.partners, textDate(docEmix.date))
+                    titleData = TitleData(docEmix.partners, docEmix.date.toText())
                 )
             else
                 DocsEmixListFragmentDirections.actionDocsEmixListFragmentToDocEmixDetailFragment(
                     extId = docEmix.extId,
                     titleData = TitleData(
                         docEmix.number,
-                        textDate(docEmix.date)
+                        docEmix.date.toText()
                     )
                 )
 
@@ -58,7 +56,7 @@ class DocsEmixAdapter(
             Status.designTV(tvStatus, docEmix.status)
             DocEmixOperationType.designTV(tvOperationType, docEmix.operationType, docEmix.status)
 
-            tvDate.text = textDate(docEmix.date)
+            tvDate.text = docEmix.date.toText()
             tvNumber.text = docEmix.number
             tvPartner.text = docEmix.partner
             tvTradingAgent.text = docEmix.tradingAgent

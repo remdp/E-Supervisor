@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.euromix.esupervisor.app.model.odometers.entities.OdometersReading
 import com.euromix.esupervisor.app.utils.isTimeZero
 import com.euromix.esupervisor.app.utils.setBitmapFromBase64String
-import com.euromix.esupervisor.app.utils.textDate
-import com.euromix.esupervisor.app.utils.toTimeString
+import com.euromix.esupervisor.app.utils.toText
+import com.euromix.esupervisor.app.utils.toTextHMS
 import com.euromix.esupervisor.app.utils.visibility
 import com.euromix.esupervisor.databinding.ItemOdometersReadingBinding
 
@@ -31,12 +31,12 @@ class OdometersReadingAdapter() :
         val currentItem = getItem(position)
 
         with(holder.binding) {
-            tvDate.text = textDate(currentItem.date)
+            tvDate.text = currentItem.date.toText()
             tvDriver.text = currentItem.driver
             tvMileage.text = if (currentItem.mileage > 0) currentItem.mileage.toString() else ""
             tvStartTime.text =
-                if (!currentItem.startTime.isTimeZero()) currentItem.startTime.toTimeString() else ""
-            currentItem.stopTime?.let { if (!it.isTimeZero()) tvStopTime.text = it.toTimeString() }
+                if (!currentItem.startTime.isTimeZero()) currentItem.startTime.toTextHMS() else ""
+            currentItem.stopTime?.let { if (!it.isTimeZero()) tvStopTime.text = it.toTextHMS() }
 
             ivStartPhoto.setBitmapFromBase64String(currentItem.startPhoto)
             ivStopPhoto.setBitmapFromBase64String(currentItem.stopPhoto)

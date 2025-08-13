@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivPicture"
+        android:layout_width="@dimen/DP_80"
+        android:layout_height="@dimen/DP_80"
+        android:layout_marginTop="@dimen/DP_32"
+        android:layout_marginBottom="@dimen/DP_32"
+        android:layout_marginStart="@dimen/DP_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_logo"
+        tools:srcCompat="@drawable/ic_logo" />
+
+    <TextView
+        android:id="@+id/tvProduct"
+        style="@style/Text.Label.16.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivPicture"
+        app:layout_constraintTop_toTopOf="@+id/ivPicture"
+        tools:text="Перець чорний горошок 20 г ТМ Чемпіон" />
+
+    <TextView
+        android:id="@+id/tvSalesAmountLabel"
+        style="@style/Text.Label.14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_16"
+        android:text="@string/sales_amount_for_3_months_colon"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPicture"
+        app:layout_constraintStart_toEndOf="@+id/ivPicture" />
+
+    <TextView
+        android:id="@+id/tvSalesAmount"
+        style="@style/Text.Label.14.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_16"
+        android:text="456 ₴"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPicture"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_200"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

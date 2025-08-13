@@ -9,7 +9,7 @@ import com.euromix.esupervisor.app.enums.TaskState
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.observeEvent
-import com.euromix.esupervisor.app.utils.textDate
+import com.euromix.esupervisor.app.utils.toText
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.TaskDetailFragmentBinding
 import com.euromix.esupervisor.screens.main.BaseViewState
@@ -56,7 +56,7 @@ class TaskDetailFragment : BaseFragment(R.layout.task_detail_fragment) {
 
                 tvTaskType.text = taskDetail.taskType
                 TaskState.designTV(tvTaskState, taskDetail.taskState)
-                tvDeadline.text = textDate(taskDetail.deadline)
+                tvDeadline.text = taskDetail.deadline.toText()
                 tvExecutor.text = taskDetail.executor
                 tvDescription.text = taskDetail.description
                 tvPartner.text = taskDetail.partner

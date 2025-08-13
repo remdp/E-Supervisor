@@ -1,7 +1,7 @@
 package com.euromix.esupervisor.sources.routes.entities
 
 import com.euromix.esupervisor.app.model.routes.entities.RouteMapSelection
-import com.euromix.esupervisor.app.utils.dateToJsonString
+import com.euromix.esupervisor.app.utils.toJsonString
 import com.squareup.moshi.Json
 
 data class MapPointsRequestEntity(
@@ -20,7 +20,7 @@ data class MapPointsRequestEntity(
     companion object {
 
         fun mapPointsRequestEntity(selection: RouteMapSelection) =
-            selection.day.dateToJsonString()
+            selection.day.toJsonString()
                 .let {
                     MapPointsRequestEntity(
                         it,

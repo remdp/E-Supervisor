@@ -3,12 +3,14 @@ package com.euromix.esupervisor.screens.main.tabs.tasks.list
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.app.utils.setPeriodSelection
+import com.euromix.esupervisor.app.utils.toText
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.TasksFragmentBinding
@@ -20,8 +22,16 @@ class TasksFragment : BaseFragment(R.layout.tasks_fragment) {
 
     private val binding by viewBinding<TasksFragmentBinding>()
     private val args by navArgs<TasksFragmentArgs>()
+    private val navController: NavController by lazy { findNavController() }
 
-    private val adapter = TasksAdapter()
+    private val adapter = TasksAdapter { task ->
+        navController.navigate(
+            TasksFragmentDirections.actionTasksFragmentToTaskDetailFragment(
+                task.extId,
+                TitleData(task.number, task.date.toText())
+            )
+        )
+    }
 
     override val viewModel by viewModels<TasksViewModel>()
 
@@ -48,7 +58,7 @@ class TasksFragment : BaseFragment(R.layout.tasks_fragment) {
     private fun setupObservers(view: View) {
 
         viewModel.tasks.observeResults(this, view, binding.vResult, binding.srl) {
-            adapter.tasks = it
+            adapter.submitList(it)
         }
 
         viewModel.selection.observe(viewLifecycleOwner) {

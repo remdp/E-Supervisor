@@ -40,6 +40,7 @@ class TabsFragment : BaseFragment(R.layout.fragment_tabs) {
             navController.graph = navGraph
             binding.bottomNavigationView.selectedItemId = R.id.rates_graph
         }
+        binding.bottomNavigationView.itemIconTintList = null
 
         setupListeners()
     }

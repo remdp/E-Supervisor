@@ -8,8 +8,9 @@ import kotlinx.parcelize.Parcelize
 data class TasksCreateRequestEntity(
     @Json(name = "dead_line") val deadline: String,
     @Json(name = "task_type_id") val taskTypeId: String,
-    @Json(name = "trading_agent_ids") val tradingAgentIds: List<String>,
+    @Json(name = "trading_agent_ids") val tradingAgentIds: List<String>? = null,
     val description: String? = null,
-    @Json(name = "outlets_ids") val outletsIds: List<String>,
-    @Json(name = "attach_photo") val attachPhoto: Boolean
+    @Json(name = "outlets_ids") val outletsIds: List<String>? = null,
+    @Json(name = "attach_photo") val attachPhoto: Boolean,
+    @Json(name = "store_check_id") val storeCheckId: String? = null
 ):Parcelable

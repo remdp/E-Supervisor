@@ -5,25 +5,62 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvNumber"
-        style="@style/Text.Label.14.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/DP_8"
+    <View
+        android:id="@+id/vVerticalBlueLine"
+        android:layout_width="@dimen/DP_2"
+        android:layout_height="0dp"
+        android:background="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="DP_B0000000328" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvDate"
-        style="@style/Text.Label.14.Gray400"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbMark"
+        android:layout_width="32dp"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/DP_8"
-        app:layout_constraintStart_toEndOf="@id/tvNumber"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="30.01.2023" />
+        app:buttonIcon="@drawable/ic_checkbox_white_off"
+        app:buttonTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vVerticalBlueLine"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vHorizontalTopBlueLine"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vHorizontalBottomBlueLine"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/tvNumber"-->
+    <!--        style="@style/Text.Label.14.Bold"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="@dimen/DP_8"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        tools:text="DP_B0000000328" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tvDate"-->
+    <!--        style="@style/Text.Label.14.Gray400"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="@dimen/DP_8"-->
+    <!--        app:layout_constraintStart_toEndOf="@id/tvNumber"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        tools:text="30.01.2023" />-->
 
     <TextView
         android:id="@+id/tvPartner"
@@ -31,41 +68,51 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/DP_8"
-        android:layout_marginTop="@dimen/DP_8"
-        android:layout_marginEnd="@dimen/DP_8"
+        android:layout_marginTop="@dimen/DP_16"
+        android:layout_marginEnd="@dimen/DP_16"
         android:drawablePadding="@dimen/DP_8"
         android:gravity="center_vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNumber"
-        tools:drawableStartCompat="@drawable/ic_person_blue1"
+        app:drawableStartCompat="@drawable/ic_check_list_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cbMark"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Вишняковский К. В." />
 
+    <ImageView
+        android:id="@+id/ivCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_18"
+        android:layout_marginTop="-6dp"
+        android:src="@drawable/ic_check_blue_round"
+        app:layout_constraintStart_toStartOf="@+id/tvPartner"
+        app:layout_constraintTop_toTopOf="@+id/tvPartner" />
 
     <TextView
         android:id="@+id/tvOutlet"
         style="@style/Text.Label.14.Gray400"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/DP_8"
-        android:layout_marginTop="@dimen/DP_8"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="@dimen/DP_16"
+        android:layout_marginBottom="@dimen/DP_16"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cbMark"
         app:layout_constraintTop_toBottomOf="@+id/tvPartner"
-        app:layout_goneMarginBottom="@dimen/DP_8"
         tools:text="м. Дніпро, вул. Глінки 2-б, ТРК Мост-Сіті, другий поверх" />
-
 
     <!--    <View-->
     <!--        android:id="@+id/vBottom"-->
+    <!--        android:layout_marginTop="@dimen/DP_8"-->
     <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="@dimen/DP_8"-->
-    <!--        android:background="@color/gray_100"-->
+    <!--        android:layout_height="@dimen/DP_1"-->
+    <!--        android:background="@color/gray_200"-->
     <!--        app:layout_constraintBottom_toBottomOf="parent"-->
     <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent">-->
-
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/tvOutlet">-->
     <!--    </View>-->
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/dashboard_graph"
-        android:icon="@drawable/ic_agreement"
+        android:id="@+id/docs_emix_graph"
+        android:icon="@drawable/selector_menu_agreement"
         android:title="@string/agreement" />
     <item
         android:id="@+id/visits_graph"
-        android:icon="@drawable/ic_visits"
-        android:title="@string/visits" />
+        android:icon="@drawable/selector_menu_visits_ta"
+        android:title="@string/ta_visits" />
     <item
         android:id="@+id/rates_graph"
-        android:icon="@drawable/ic_rates"
+        android:icon="@drawable/selector_menu_rates"
         android:title="@string/rates" />
     <item
-        android:id="@+id/map_graph"
-        android:icon="@drawable/ic_map"
-        android:title="@string/map">
-    </item>
+        android:id="@+id/visits_supervisors_graph"
+        android:icon="@drawable/selector_menu_visits_sv"
+        android:title="@string/sv_visits" />
     <item
         android:id="@+id/more_graph"
-        android:icon="@drawable/ic_additional"
+        android:icon="@drawable/selector_menu_more"
         android:title="@string/more" />
 </menu>
