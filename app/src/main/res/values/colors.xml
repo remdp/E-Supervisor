@@ -93,5 +93,6 @@
     <color name="dark_alpha_10">#1A041329</color>
     <color name="light_alpha_60">#99FFFFFF</color>
     <color name="green_primary">#6B8E5A</color>
+    <color name="gray_done">#E7EFF8</color>
 
 </resources>

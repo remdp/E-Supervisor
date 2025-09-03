@@ -44,7 +44,7 @@
         android:layout_marginTop="@dimen/DP_8"
         android:padding="@dimen/DP_8"
         android:text="@string/create_task_next_visit"
-        app:buttonIcon="@animator/checkbox_selector"
+        app:buttonIcon="@drawable/checkbox_selector"
         app:buttonTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etDislikeReason" />

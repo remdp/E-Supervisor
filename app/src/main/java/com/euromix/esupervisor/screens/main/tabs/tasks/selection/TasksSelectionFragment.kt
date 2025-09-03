@@ -2,10 +2,12 @@ package com.euromix.esupervisor.screens.main.tabs.tasks.selection
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.Const.MIN_LENGTH_SEARCH_STRING
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
 import com.euromix.esupervisor.app.model.tasks.entities.TasksSelection
@@ -18,6 +20,7 @@ import com.euromix.esupervisor.app.utils.setOnClickListenerLocalSelection
 import com.euromix.esupervisor.app.utils.setOnClickListenerServerSelection
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.TasksSelectionFragmentBinding
+import com.euromix.esupervisor.screens.main.tabs.tasks.list.TasksFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -45,14 +48,10 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
     private fun setupListeners() {
 
         binding.btnOk.setOnClickListener {
-            val direction =
-                TasksSelectionFragmentDirections.actionTasksSelectionFragmentToTasksFragment(
-                    selection = viewModel.selection.value
-                )
-            findNavController().navigate(direction)
+            setFragmentResult()
         }
 
-        binding.btnCancel.setOnClickListener { findNavController().popBackStack() }
+        binding.btnCancel.setOnClickListener {  findNavController().popBackStack() }
 
         binding.etPartner.setOnClickListener { binding.tiPartner.error = null }
         binding.etPartner.setOnFocusChangeListener { _, _ -> binding.tiPartner.error = null }
@@ -192,6 +191,16 @@ class TasksSelectionFragment : BaseFragment(R.layout.tasks_selection_fragment) {
         }
     }
 
+    private fun setFragmentResult(cancel: Boolean = false) {
+        setFragmentResult(
+            TasksFragment.TASKS_FRAGMENT_SELECTION_KEY,
+            Bundle().apply {
+                putParcelable(TasksFragment.TASKS_FRAGMENT_SELECTION_KEY, viewModel.selection.value)
+                if (cancel)
+                    putBoolean(Const.CANCEL, true)
+            })
+        findNavController().popBackStack()
+    }
     // 0-common click
     //1-right drawable click
     private fun handleViewClick(

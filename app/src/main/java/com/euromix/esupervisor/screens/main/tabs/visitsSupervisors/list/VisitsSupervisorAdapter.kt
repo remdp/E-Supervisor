@@ -1,5 +1,6 @@
 package com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.list
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavDirections
@@ -8,10 +9,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.visitsSupervisors.entities.VisitSupervisor
-import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.setIcon
 import com.euromix.esupervisor.app.utils.visibility
-import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.ItemVisitsSupervisorsListFragmentBinding
 import com.euromix.esupervisor.screens.main.tabs.TitleData
 
@@ -33,8 +32,6 @@ class VisitsSupervisorAdapter(
 
         with(holder.binding) {
 
-            // tvDate.text = textDate(currentItem.date)
-            // tvNumber.text = currentItem.number
             cbMark.visibility(currentItem.showMark)
             cbMark.setIcon(currentItem.mark)
             cbMark.setOnClickListener { onChangeMarkClick(currentItem.id) }
@@ -45,20 +42,18 @@ class VisitsSupervisorAdapter(
                 ) else 0
             )
 
-            vVerticalBlueLine.visibility(currentItem.isDone)
+            root.setBackgroundColor(if (currentItem.isDone) root.context.getColor(R.color.gray_done) else Color.TRANSPARENT)
 
             vHorizontalTopBlueLine.setBackgroundColor(
                 if (currentItem.isDone) root.context.getColor(
-                    R.color.blue
+                    R.color.white
                 ) else root.context.getColor(R.color.gray_200)
             )
             vHorizontalBottomBlueLine.setBackgroundColor(
                 if (currentItem.isDone) root.context.getColor(
-                    R.color.blue
+                    R.color.white
                 ) else root.context.getColor(R.color.gray_200)
             )
-
-            //vBottom.visibility(!currentItem.isDone)
 
             tvPartner.text = currentItem.partner
             tvPartner.setCompoundDrawablesWithIntrinsicBounds(

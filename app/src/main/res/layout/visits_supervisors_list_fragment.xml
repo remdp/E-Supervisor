@@ -3,16 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <!--    <include-->
-    <!--        android:id="@+id/iSelection"-->
-    <!--        layout="@layout/selection"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/DP_4">
 
     <TextView
         android:id="@+id/tvDate"
@@ -27,20 +19,21 @@
         android:hint="@string/date_selection"
         android:padding="@dimen/DP_12"
         app:drawableStartCompat="@drawable/ic_calendar"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivFunnel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Вибір дати" />
 
-    <!--    <ImageButton-->
-    <!--        android:id="@+id/ibRepeatStoreCheck"-->
-    <!--        android:layout_width="@dimen/DP_48"-->
-    <!--        android:layout_height="@dimen/DP_48"-->
-    <!--        android:background="@drawable/bg_8dp_white_border_gray_200"-->
-    <!--        android:contentDescription="@string/schedule_a_repeat_store_check"-->
-    <!--        android:src="@drawable/ic_calendar_check"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <ImageView
+        android:id="@+id/ivFunnel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:background="@drawable/bg_8dp_white_border_gray_200"
+        android:padding="@dimen/DP_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_funnel" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tiSearch"
@@ -70,35 +63,11 @@
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
-<!--    <com.google.android.material.checkbox.MaterialCheckBox-->
-<!--        android:id="@+id/cbMarks"-->
-<!--        android:layout_width="32dp"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:visibility="gone"-->
-<!--        app:buttonIcon="@drawable/ic_checkbox_white_off"-->
-<!--        app:buttonTint="@color/white"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/ivChecker"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/ivChecker"-->
-<!--        tools:visibility="visible" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/ivChecker"-->
-<!--        android:layout_width="40dp"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_marginStart="@dimen/DP_4"-->
-<!--        android:layout_marginTop="@dimen/DP_8"-->
-<!--        android:backgroundTint="@color/gray_100"-->
-<!--        android:scaleType="fitCenter"-->
-<!--        android:src="@drawable/ic_visits_list_checker"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/cbMarks"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tiSearch" />-->
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="0dp"
         android:layout_height="0dp"
-
+        android:layout_marginTop="@dimen/DP_8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +86,6 @@
             tools:itemCount="3"
             tools:listitem="@layout/item_visits_supervisors_list_fragment" />
 
-
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.euromix.esupervisor.app.views.ResultView
@@ -129,6 +97,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

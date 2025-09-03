@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/tasksFragment"
         android:name="com.euromix.esupervisor.screens.main.tabs.tasks.list.TasksFragment"
-        android:label="TasksFragment" >
+        android:label="TasksFragment">
         <action
             android:id="@+id/action_tasksFragment_to_taskDetailFragment"
             app:destination="@id/taskDetailFragment" />
@@ -30,14 +30,14 @@
             app:destination="@id/tasksSelectionFragment" />
         <argument
             android:name="selection"
+            android:defaultValue="@null"
             app:argType="com.euromix.esupervisor.app.model.tasks.entities.TasksSelection"
-            app:nullable="true"
-            android:defaultValue="@null"/>
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/taskDetailFragment"
         android:name="com.euromix.esupervisor.screens.main.tabs.tasks.detail.TaskDetailFragment"
-        android:label="TaskDetailFragment" >
+        android:label="TaskDetailFragment">
         <argument
             android:name="id"
             app:argType="string" />
@@ -51,38 +51,53 @@
     <fragment
         android:id="@+id/createTaskFragment"
         android:name="com.euromix.esupervisor.screens.main.tabs.tasks.createTask.CreateTasksFragment"
-        android:label="CreateTaskFragment" >
+        android:label="CreateTaskFragment">
         <argument
             android:name="titleData"
             app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
-        <action
-            android:id="@+id/action_createTaskFragment_to_outletsSelectionFragment"
-            app:destination="@id/outletsSelectionFragment" />
         <argument
             android:name="outletsSelection"
+            android:defaultValue="@null"
             app:argType="com.euromix.esupervisor.app.model.tasks.entities.TasksCreateOutletsSelection"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_createTaskFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+        <argument
+            android:name="graphId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/tasksSelectionFragment"
         android:name="com.euromix.esupervisor.screens.main.tabs.tasks.selection.TasksSelectionFragment"
-        android:label="TasksSelectionFragment" >
-        <action
-            android:id="@+id/action_tasksSelectionFragment_to_tasksFragment"
-            app:destination="@id/tasksFragment" />
+        android:label="TasksSelectionFragment">
         <argument
             android:name="selection"
+            android:defaultValue="@null"
             app:argType="com.euromix.esupervisor.app.model.tasks.entities.TasksSelection"
-            app:nullable="true"
-            android:defaultValue="@null"/>
+            app:nullable="true" />
     </fragment>
     <fragment
-        android:id="@+id/outletsSelectionFragment"
-        android:name="com.euromix.esupervisor.screens.main.tabs.tasks.selection.OutletsSelectionFragment"
-        android:label="OutletsSelectionFragment" >
-        <action
-            android:id="@+id/action_outletsSelectionFragment_to_createTaskFragment"
-            app:destination="@id/createTaskFragment" />
+        android:id="@+id/filterFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.filter.FilterFragment"
+        android:label="FilterFragment">
+        <argument
+            android:name="filterSource"
+            app:argType="com.euromix.esupervisor.app.enums.FilterSource" />
+        <argument
+            android:name="filterTitles"
+            app:argType="string[]" />
+        <argument
+            android:name="graphId"
+            app:argType="integer" />
+        <argument
+            android:name="flagsTitles"
+            android:defaultValue="@null"
+            app:argType="string[]"
+            app:nullable="true" />
+        <argument
+            android:name="date"
+            android:defaultValue="0L"
+            app:argType="long" />
     </fragment>
 </navigation>

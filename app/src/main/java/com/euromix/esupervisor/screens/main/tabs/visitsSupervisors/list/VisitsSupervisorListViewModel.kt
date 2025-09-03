@@ -1,6 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.list
 
-import com.euromix.esupervisor.app.model.Empty
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Pending
 import com.euromix.esupervisor.app.model.Result
@@ -10,9 +9,9 @@ import com.euromix.esupervisor.app.model.visitsSupervisors.entities.VisitSupervi
 import com.euromix.esupervisor.app.model.visitsSupervisors.entities.VisitsSupervisorsListSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
-import com.euromix.esupervisor.app.utils.toJsonString
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
+import com.euromix.esupervisor.app.utils.toJsonString
 import com.euromix.esupervisor.app.utils.toLocalDate
 import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.RepeatStoreCheckRequestEntity
@@ -53,7 +52,6 @@ class VisitsSupervisorListViewModel @Inject constructor(private val visitsSuperv
 
     private fun handlePendingState() {
         _viewState = _viewState.copy(isLoading = true, error = null)
-
     }
 
     private fun handleSuccess(value: List<VisitSupervisor>) {
@@ -83,7 +81,9 @@ class VisitsSupervisorListViewModel @Inject constructor(private val visitsSuperv
 
     private fun requestFromSelection() = VisitsSupervisorsRequestEntity(
         startDate = _viewState.selection.period?.first?.toJsonString(),
-        endDate = _viewState.selection.period?.second?.toJsonString()
+        endDate = _viewState.selection.period?.second?.toJsonString(),
+        onlyMyVisits = _viewState.selection.onlyMyVisits,
+        supervisors = _viewState.selection.supervisors
     )
 
     private fun filterItems(searchString: String) =
@@ -108,6 +108,16 @@ class VisitsSupervisorListViewModel @Inject constructor(private val visitsSuperv
         _viewState = _viewState.copy(
             selection = _viewState.selection.copy(
                 period = localDate to localDate
+            )
+        )
+        fetchVisitsSupervisors()
+    }
+
+    fun changeSelection(onlyMyVisits: Boolean, selection: List<String>){
+        _viewState = _viewState.copy(
+            selection = _viewState.selection.copy(
+                onlyMyVisits = onlyMyVisits,
+                supervisors = selection
             )
         )
         fetchVisitsSupervisors()

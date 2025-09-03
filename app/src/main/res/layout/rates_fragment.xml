@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="@dimen/DP_4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="RtlHardcoded">
@@ -43,7 +44,6 @@
                     android:id="@+id/spRates"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/DP_8"
                     android:background="@drawable/bg_8dp_white_border_gray_200"
                     app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
                     app:layout_constraintStart_toStartOf="@+id/gdlnStart"

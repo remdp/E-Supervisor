@@ -1,6 +1,7 @@
 package com.euromix.esupervisor.sources.common
 
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
+import com.euromix.esupervisor.sources.filter.entities.FilterResponseEntity
 import com.euromix.esupervisor.sources.routes.entities.TAWithTTResponseEntity
 import com.euromix.esupervisor.sources.tasks.createTask.entities.OutletsForCreateTaskResponseEntity
 import retrofit2.http.GET
@@ -18,9 +19,6 @@ interface SearchApi {
     @GET("task_types")
     suspend fun findTasksType(): List<ServerPair>
 
-    @GET("search_selection_create_tasks")
-    suspend fun searchSelectionsForCreateTasks(): List<List<ServerPair>>
-
     @GET("outlets_create_tasks")
     suspend fun findOutletsForCreateTask(@Header("request") request: String): List<OutletsForCreateTaskResponseEntity>
 
@@ -32,4 +30,11 @@ interface SearchApi {
 
     @GET("balance_units_and_trading_teams")
     suspend fun findBUAndTradingTeams(): List<List<ServerPair>>
+
+    @GET("search_selection_create_tasks")
+    suspend fun selectionsForCreateTasks(): FilterResponseEntity
+
+    //@GET("subordinates_trading_agents")
+    @GET("subordinates_supervisors")
+    suspend fun selectionsForVisitsSupervisors(@Header("date") date: String): FilterResponseEntity
 }

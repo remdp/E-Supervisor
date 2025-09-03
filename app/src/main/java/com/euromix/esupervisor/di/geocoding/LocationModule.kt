@@ -1,11 +1,8 @@
-package com.euromix.esupervisor.di
+package com.euromix.esupervisor.di.geocoding
 
 import android.content.Context
 import android.location.Geocoder
-import com.euromix.esupervisor.app.common.geoCoding.LocationManager
-import com.euromix.esupervisor.app.common.geoCoding.MapboxLocationManager
 import com.mapbox.android.core.location.LocationEngineProvider
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

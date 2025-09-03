@@ -18,13 +18,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
+@Singleton
 class MapboxLocationManager @Inject constructor(private val locationEngine: LocationEngine) : LocationManager {
 
     @SuppressLint("MissingPermission")
-    override suspend fun getLocation(): Result<LocationEngineResult> = withContext(Dispatchers.IO) {
+    override suspend fun getLocation(): Result<Location> = withContext(Dispatchers.IO) {
         try {
             val request = LocationEngineRequest.Builder(1000L)
                 .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
@@ -49,7 +51,7 @@ class MapboxLocationManager @Inject constructor(private val locationEngine: Loca
                 )
             }
 
-            locationResult?.let { Success(it) } ?: Empty()
+            locationResult?.lastLocation?.let { Success(it) } ?: Empty()
         } catch (e: Exception) {
             Error(e)
         }

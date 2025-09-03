@@ -78,7 +78,8 @@ class StoreCheckLowerLevelFragment : BaseFragment(R.layout.store_check_lower_lev
                         storeCheckId = viewState.extId,
                         partner = viewState.data.partner,
                         outlet = viewState.data.outlet,
-                        tradeAgent = viewState.data.tradeAgent
+                        tradeAgent = viewState.data.tradeAgent,
+                        graphId = R.id.visits_supervisors_graph
                     )
                 )
             }
@@ -156,7 +157,5 @@ class StoreCheckLowerLevelFragment : BaseFragment(R.layout.store_check_lower_lev
                 sales = item.sales.toTypedArray()
             )
         )
-
     }
-
 }

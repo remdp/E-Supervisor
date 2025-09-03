@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/DP_8"
+    android:paddingTop="@dimen/DP_4"
     tools:context=".screens.main.tabs.profile.ProfileFragment">
 
     <ImageView

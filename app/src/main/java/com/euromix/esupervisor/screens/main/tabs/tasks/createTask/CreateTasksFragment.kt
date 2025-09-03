@@ -3,6 +3,7 @@ package com.euromix.esupervisor.screens.main.tabs.tasks.createTask
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.forEach
 import androidx.core.widget.addTextChangedListener
@@ -12,8 +13,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navGraphViewModels
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
+import com.euromix.esupervisor.app.enums.FilterSource
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
@@ -34,17 +37,23 @@ import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.app.utils.visibility
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.CreateTasksFragmentBinding
-
 import com.euromix.esupervisor.databinding.ItemOutletCreateTaskBinding
-import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.newOutletPage.newOutletMap.MapFragmentArgs
+import com.euromix.esupervisor.screens.main.tabs.filter.FilterValidationEvent
+import com.euromix.esupervisor.screens.main.tabs.filter.SharedFilterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
 
     private val navController: NavController by lazy { findNavController() }
+    private val args by navArgs<CreateTasksFragmentArgs>()
 
     override val viewModel by viewModels<CreateTaskViewModel>()
+
+    private val sharedViewModel: SharedFilterViewModel by lazy {
+        navGraphViewModels<SharedFilterViewModel>(args.graphId).value
+    }
+
     private val binding by viewBinding<CreateTasksFragmentBinding>()
 
     private val outletsAdapter by lazy { OutletsAdapter(viewModel) }
@@ -72,7 +81,6 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
         }
 
         setupObservers(binding.root)
-
         binding.etSearch.text?.clear()
     }
 
@@ -87,6 +95,19 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
         taskTypesAdapter = TaskTypesAdapter(requireContext())
         binding.rvSelectionItems.adapter = outletsAdapter
 
+        sharedViewModel.setFilterValidator { filter ->
+
+            val isValid = filter[0].detailFilterItems.any { it.marked }
+
+            return@setFilterValidator if (isValid) {
+                FilterValidationEvent.FilterValid
+            } else {
+                val errorTitle = getString(R.string.validation_errors)
+                val errorMessage = getString(R.string.need_select_ta)
+                FilterValidationEvent.FilterNotValid(errorTitle, errorMessage)
+            }
+        }
+
         setDateSelection(
             binding.tvDeadline,
             parentFragmentManager,
@@ -98,18 +119,8 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
         }
 
         setupListeners()
-        observeNavigationCallBack()
         viewModel.setStoreCheckId(storeCheckId())
         designViews()
-    }
-
-    private fun observeNavigationCallBack() {
-
-        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<TasksCreateOutletsSelection?>(
-            "key"
-        )?.observe(viewLifecycleOwner) {
-            if (it != null) viewModel.updateOutletsSelection(it)
-        }
     }
 
     private fun setupListeners() {
@@ -128,7 +139,16 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
         binding.btnCancel.setOnClickListener { navController.popBackStack() }
 
         binding.ivFunnel.setOnClickListener {
-            navController.navigate(CreateTasksFragmentDirections.actionCreateTaskFragmentToOutletsSelectionFragment())
+            Log.d("NavDebug", "Current destination: ${navController.currentDestination?.label}")
+            navController.navigate(
+                CreateTasksFragmentDirections.actionCreateTaskFragmentToFilterFragment(
+                    filterSource = FilterSource.FROM_CREATE_TASK_FRAGMENT, filterTitles = arrayOf(
+                        getString(R.string.trading_agents),
+                        getString(R.string.outlets_types)
+                    ),
+                    graphId = R.id.tasks_graph
+                )
+            )
         }
 
         binding.etSearch.doAfterTextChanged { text ->
@@ -181,6 +201,16 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
     }
 
     private fun setupObservers(view: View) {
+        sharedViewModel.filterResult.observe(viewLifecycleOwner) { filter ->
+
+            viewModel.updateOutletsSelection(
+                TasksCreateOutletsSelection(
+                    tradingAgents = filter.items[0].detailFilterItems.filter { it.marked }
+                        .map { it.serverPair.id },
+                    outletsInnerTypes = filter.items[1].detailFilterItems.filter { it.marked }
+                        .map { it.serverPair.id })
+            )
+        }
 
         viewModel.outlets.observeResults(this, binding.root, binding.vResult) {
             outletsAdapter.list = it

@@ -1,6 +1,7 @@
 package com.euromix.esupervisor.app.model.common
 
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
+import com.euromix.esupervisor.app.model.filter.entities.FilterSelection
 import com.euromix.esupervisor.sources.routes.entities.TradingAgentsAndTeams
 import com.euromix.esupervisor.sources.tasks.createTask.entities.OutletsForCreateTaskRequestEntity
 import com.euromix.esupervisor.sources.tasks.createTask.entities.OutletsForCreateTaskResponseEntity
@@ -14,8 +15,6 @@ interface SearchSource {
 
     suspend fun findExecutors(searchString: String): List<ServerPair>
 
-    suspend fun searchSelectionsForCreateTasks(): List<List<ServerPair>>
-
     suspend fun findOutletsForCreateTask(request: OutletsForCreateTaskRequestEntity): List<OutletsForCreateTaskResponseEntity>
 
     suspend fun findTradingTeams(): List<ServerPair>
@@ -23,4 +22,8 @@ interface SearchSource {
     suspend fun findTradingAgentsAndTeams(searchString: String): List<TradingAgentsAndTeams>
 
     suspend fun findBUAndTradingTeams(): List<List<ServerPair>>
+
+    suspend fun selectionsForCreateTasks(): FilterSelection
+
+    suspend fun selectionsForVisitsSupervisors(date: String): FilterSelection
 }

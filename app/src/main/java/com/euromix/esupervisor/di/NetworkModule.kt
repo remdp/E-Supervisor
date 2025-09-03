@@ -22,7 +22,6 @@ class NetworkModule {
     @Singleton
     fun provideMoshi(): Moshi {
         return Moshi.Builder()
-            //.add(PairAdapter())
             .build()
     }
 
@@ -33,7 +32,18 @@ class NetworkModule {
             .readTimeout(45, TimeUnit.SECONDS)
             .connectTimeout(45, TimeUnit.SECONDS)
             .addInterceptor(createAuthorizationInterceptor(settings))
+            .addInterceptor(createAppVersionInterceptor())
             .build()
+    }
+
+    private fun createAppVersionInterceptor(): Interceptor {
+        val appVersion = BuildConfig.VERSION_NAME
+        return Interceptor { chain ->
+            val newRequest = chain.request().newBuilder()
+                .addHeader("AppVersion", appVersion)
+                .build()
+            chain.proceed(newRequest)
+        }
     }
 
     private fun createAuthorizationInterceptor(settings: AppSettings): Interceptor {

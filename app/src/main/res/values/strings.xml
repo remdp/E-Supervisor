@@ -319,5 +319,7 @@
     <string name="repeat_store_checks_creation_result">%1$s repeat store checks created</string>
     <string name="repeat_store_checks_creation_error">An error occurred while creating repeat store checks</string>
     <string name="repeat_store_checks_creation_result_title">Repeat store checks creation result</string>
-
+    <string name="only_my_visits">Only my visits</string>
+    <string name="supervisors">Supervisors</string>
+    <string name="error_getting_address">Error getting address</string>
 </resources>

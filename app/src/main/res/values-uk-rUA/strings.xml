@@ -296,4 +296,7 @@
     <string name="repeat_store_checks_creation_result">Створено %1$s повторний(их) store checks</string>
     <string name="repeat_store_checks_creation_error">Виникла помилка у процесі створення повторних store checks</string>
     <string name="repeat_store_checks_creation_result_title">Результат створення повторних store checks</string>
+    <string name="only_my_visits">Тільки мої візити</string>
+    <string name="supervisors">Супервайзери</string>
+    <string name="error_getting_address">Помилка визначення адреси</string>
 </resources>

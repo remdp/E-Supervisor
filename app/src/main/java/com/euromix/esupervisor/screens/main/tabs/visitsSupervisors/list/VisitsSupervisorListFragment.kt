@@ -1,42 +1,36 @@
 package com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.list
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.enums.FilterSource
 import com.euromix.esupervisor.app.model.Error
 import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.designByViewState
-import com.euromix.esupervisor.app.utils.designedDateView
-import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.setDateSelection
-import com.euromix.esupervisor.app.utils.setIcon
-import com.euromix.esupervisor.app.utils.toLocalDate
 import com.euromix.esupervisor.app.utils.toLong
 import com.euromix.esupervisor.app.utils.toText
 import com.euromix.esupervisor.app.utils.viewBinding
-import com.euromix.esupervisor.app.utils.visibility
-import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.VisitsSupervisorsListFragmentBinding
 import com.euromix.esupervisor.screens.main.BaseViewState
-import com.euromix.esupervisor.screens.main.tabs.visits.list.VisitsAdapter
-import com.google.android.material.datepicker.MaterialDatePicker
+import com.euromix.esupervisor.screens.main.tabs.filter.SharedFilterViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Date
 
 @AndroidEntryPoint
 class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_list_fragment) {
 
     private val navController: NavController by lazy { findNavController() }
     override val viewModel by viewModels<VisitsSupervisorListViewModel>()
+    private val sharedViewModel: SharedFilterViewModel by navGraphViewModels(R.id.visits_supervisors_graph)
 
     private val binding by viewBinding<VisitsSupervisorsListFragmentBinding>()
 
@@ -70,20 +64,41 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
     private fun setupListeners() {
 
         with(binding) {
-           // ibRepeatStoreCheck.setOnClickListener { chooseRepeatStoreCheckDate() }
+            ivFunnel.setOnClickListener {
+                navController.navigate(
+                    VisitsSupervisorListFragmentDirections.actionVisitsSupervisorsListFragmentToFilterFragment(
+                        filterSource = FilterSource.FROM_VISITS_SUPERVISORS_FRAGMENT,
+                        filterTitles = arrayOf(
+                            getString(R.string.supervisors)
+                        ),
+                        graphId = R.id.visits_supervisors_graph,
+                        flagsTitles = arrayOf(getString(R.string.only_my_visits)),
+                        date = viewModel.viewState.selection.period?.second?.toLong() ?: 0L,
+                        initialSelection = sharedViewModel.getFilterSelection()
+
+                    )
+                )
+
+            }
             srl.setOnRefreshListener { viewModel.reload() }
             vResult.setTryAgainAction { viewModel.reload() }
 
             etSearch.doAfterTextChanged { text -> viewModel.changeSearchString(text.toString()) }
 
             tiSearch.setEndIconOnClickListener { etSearch.setText("") }
-
-//            cbMarks.setOnClickListener { viewModel.changeMarks() }
-//            ivChecker.setOnClickListener { viewModel.changeShowMarks() }
         }
     }
 
     private fun setupObservers() {
+
+        sharedViewModel.filterResult.observe(viewLifecycleOwner) { filter ->
+            viewModel.changeSelection(
+                onlyMyVisits = filter.flags[0].flag,
+                selection = filter.items[0].detailFilterItems.filter { it.marked }
+                    .map { it.serverPair.id }
+            )
+        }
+
         viewModel.viewStateEvent.observeEvent(viewLifecycleOwner) {
             renderState()
         }
@@ -103,34 +118,15 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
             binding.root,
             binding.vResult,
             binding.srl
-            //listOf(binding.cbMarks)
         )
 
         with(binding) {
             tvDate.text = viewState.selection.period?.first?.toText()
 
             if (!viewState.isLoading && viewState.error == null) {
-
-                val currentTotalMark = viewState.totalMark
-//                cbMarks.setIcon(currentTotalMark)
-//                cbMarks.visibility(viewState.showMarks)
-
                 adapter.submitList(viewModel.getListForSubmit())
             }
         }
-    }
-
-    private fun chooseRepeatStoreCheckDate() {
-
-        val picker = MaterialDatePicker.Builder.datePicker().apply {
-            setTitleText(R.string.schedule_a_repeat_store_check)
-        }.build()
-
-        picker.addOnPositiveButtonClickListener { dateLong ->
-            viewModel.createRepeatStoreChecks(dateLong.toLocalDate())
-        }
-
-        picker.show(parentFragmentManager, picker.toString())
     }
 
     private fun showResultRepeatStoreChecksCreate(result: Result<String>) {

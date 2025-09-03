@@ -52,8 +52,6 @@ class CreateTaskViewModel @Inject constructor(
     var attachPhoto: Boolean = false
 
     private var _storeCheckId: String? = null
-//    private val storeCheckId: String?
-//        get()  = _storeCheckId
 
     init {
         updateChosenTaskType(null)
@@ -111,8 +109,8 @@ class CreateTaskViewModel @Inject constructor(
         safeLaunch {
 
             val request = OutletsForCreateTaskRequestEntity(
-                tradingAgents = selection?.tradingAgents?.map { it.id },
-                outletsInnerTypes = selection?.outletsInnerTypes?.map { it.id }
+                tradingAgents = selection?.tradingAgents,
+                outletsInnerTypes = selection?.outletsInnerTypes
             )
 
             initialOutlets.clear()
@@ -141,8 +139,8 @@ class CreateTaskViewModel @Inject constructor(
     }
 
     fun updateOutletsSelection(selection: TasksCreateOutletsSelection) {
-        chosenTA = selection.tradingAgents.map { it.id }
-        chosenOutletsInnerTypes = selection.outletsInnerTypes?.map { it.id }
+        chosenTA = selection.tradingAgents
+        chosenOutletsInnerTypes = selection.outletsInnerTypes
         _outletsSelection.publishEvent(selection)
     }
 

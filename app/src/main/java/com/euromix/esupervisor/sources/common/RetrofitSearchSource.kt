@@ -2,6 +2,7 @@ package com.euromix.esupervisor.sources.common
 
 import com.euromix.esupervisor.app.model.common.SearchSource
 import com.euromix.esupervisor.app.model.common.entities.ServerPair
+import com.euromix.esupervisor.app.model.filter.entities.FilterSelection
 import com.euromix.esupervisor.sources.base.BaseRetrofitSource
 import com.euromix.esupervisor.sources.base.RetrofitConfig
 import com.euromix.esupervisor.sources.routes.entities.TradingAgentsAndTeams
@@ -42,9 +43,15 @@ class RetrofitSearchSource @Inject constructor(
         }
     }
 
-    override suspend fun searchSelectionsForCreateTasks(): List<List<ServerPair>> {
+    override suspend fun selectionsForCreateTasks(): FilterSelection {
         return wrapRetrofitException {
-            searchApi.searchSelectionsForCreateTasks()
+            searchApi.selectionsForCreateTasks().toFilterSelection()
+        }
+    }
+
+    override suspend fun selectionsForVisitsSupervisors(date: String): FilterSelection {
+        return wrapRetrofitException {
+            searchApi.selectionsForVisitsSupervisors(date).toFilterSelection()
         }
     }
 

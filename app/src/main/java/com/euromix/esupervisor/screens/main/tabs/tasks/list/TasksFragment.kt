@@ -1,12 +1,16 @@
 package com.euromix.esupervisor.screens.main.tabs.tasks.list
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.Const
+import com.euromix.esupervisor.app.model.tasks.entities.TasksSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.app.utils.setPeriodSelection
@@ -43,8 +47,6 @@ class TasksFragment : BaseFragment(R.layout.tasks_fragment) {
         setupObservers(view)
         setupListeners()
 
-        viewModel.updateSelection(args.selection)
-
         setPeriodSelection(
             binding.iSelection.etPeriod,
             viewModel.selection.value?.period,
@@ -64,6 +66,22 @@ class TasksFragment : BaseFragment(R.layout.tasks_fragment) {
         viewModel.selection.observe(viewLifecycleOwner) {
             viewModel.reload()
         }
+
+        setFragmentResultListener(TASKS_FRAGMENT_SELECTION_KEY) { requestKey, bundle ->
+
+            val selection: TasksSelection?
+            val cancelSelection: Boolean
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                selection = bundle.getParcelable(requestKey, TasksSelection::class.java)
+                cancelSelection = bundle.getBoolean(Const.CANCEL)
+            } else {
+                selection = bundle.getParcelable(requestKey)
+                cancelSelection = bundle.getBoolean(Const.CANCEL)
+            }
+
+            if (!cancelSelection)
+                viewModel.updateSelection(selection)
+        }
     }
 
     private fun setupListeners() {
@@ -82,9 +100,14 @@ class TasksFragment : BaseFragment(R.layout.tasks_fragment) {
         binding.iSelection.ivAdditionalAction.setOnClickListener {
 
             val direction = TasksFragmentDirections.actionTasksFragmentToCreateTaskFragment(
-                TitleData(getString(R.string.new_task), null)
+                TitleData(getString(R.string.new_task), null),
+                graphId = R.id.tasks_graph
             )
             findNavController().navigate(direction)
         }
+    }
+
+    companion object{
+        const val TASKS_FRAGMENT_SELECTION_KEY = "TASKS_FRAGMENT_SELECTION_KEY"
     }
 }

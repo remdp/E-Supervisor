@@ -20,8 +20,12 @@ class SearchRepository @Inject constructor(
     fun findExecutors(stringSearch: String) =
         serverCallbackFlowFetcher { searchSource.findExecutors(stringSearch) }
 
-    fun searchSelectionsForCreateTasks() =
-        serverCallbackFlowFetcher { searchSource.searchSelectionsForCreateTasks() }
+    fun selectionsForCreateTasks() =
+        serverCallbackFlowFetcher { searchSource.selectionsForCreateTasks() }
+
+    fun selectionsForVisitsSupervisors(date: String) =
+        serverCallbackFlowFetcher { searchSource.selectionsForVisitsSupervisors(date) }
+
 
     fun findOutletsForCreateTask(request: OutletsForCreateTaskRequestEntity) =
         serverCallbackFlowFetcher { searchSource.findOutletsForCreateTask(request) }

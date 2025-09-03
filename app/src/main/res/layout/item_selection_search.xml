@@ -10,7 +10,7 @@
     android:paddingEnd="@dimen/DP_16">
 
     <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/cbOutletTypes"
+        android:id="@+id/cbAllCheck"
         style="@style/CheckBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -31,9 +31,9 @@
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:padding="@dimen/DP_8"
         android:src="@drawable/ic_arrow_drop_up_black"
-        app:layout_constraintBottom_toBottomOf="@+id/cbOutletTypes"
+        app:layout_constraintBottom_toBottomOf="@+id/cbAllCheck"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cbOutletTypes"
+        app:layout_constraintTop_toTopOf="@+id/cbAllCheck"
         tools:ignore="ContentDescription" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -46,7 +46,7 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cbOutletTypes"
+        app:layout_constraintTop_toBottomOf="@id/cbAllCheck"
         app:startIconDrawable="@drawable/ic_search"
         app:startIconTint="@color/gray_300">
 
@@ -75,10 +75,5 @@
         app:layout_constraintTop_toBottomOf="@id/tiSearch"
         tools:itemCount="3"
         tools:listitem="@layout/item_selection" />
-
-    <!--    android:orientation="vertical"-->
-    <!--    app:layout_constrainedHeight="true"-->
-    <!--        app:layout_constraintHeight_max="300dp"-->
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
