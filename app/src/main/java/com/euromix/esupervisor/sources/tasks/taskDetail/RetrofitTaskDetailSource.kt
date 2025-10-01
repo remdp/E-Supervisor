@@ -4,6 +4,7 @@ import com.euromix.esupervisor.app.model.taskDetail.TaskDetailSource
 import com.euromix.esupervisor.app.model.taskDetail.entities.TaskDetail
 import com.euromix.esupervisor.sources.base.BaseRetrofitSource
 import com.euromix.esupervisor.sources.base.RetrofitConfig
+import com.euromix.esupervisor.sources.tasks.createTask.entities.TaskChangeRequestEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,4 +20,7 @@ class RetrofitTaskDetailSource @Inject constructor(config: RetrofitConfig) :
             taskDetailApi.getTaskDetail(id).toTaskDetail()
         }
     }
+
+    override suspend fun changeTask(body: TaskChangeRequestEntity) =
+        wrapRetrofitException { taskDetailApi.changeTask(body) }
 }

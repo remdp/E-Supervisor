@@ -154,19 +154,21 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvExecutor"
                     tools:drawableStartCompat="@drawable/ic_checkbox_on" />
 
-                <TextView
-                    android:id="@+id/tvDescription"
+                <EditText
+                    android:id="@+id/etDescription"
                     style="@style/Text.Label.16.Gray500"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/DP_10"
                     android:layout_marginBottom="@dimen/DP_8"
+                    android:autofillHints=""
                     android:background="@drawable/bg_4dp_gray_200_alpha_40_border_gray_200"
                     android:hint="@string/description"
                     android:lines="3"
                     android:paddingStart="@dimen/DP_12"
                     android:paddingTop="@dimen/DP_18"
                     android:paddingEnd="@dimen/DP_12"
+                    android:enabled="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -178,8 +180,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/DP_2"
                     android:layout_marginBottom="@dimen/DP_2"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvDescription"
-                    app:layout_constraintEnd_toEndOf="@+id/tvDescription"
+                    app:layout_constraintBottom_toBottomOf="@+id/etDescription"
+                    app:layout_constraintEnd_toEndOf="@+id/etDescription"
                     app:srcCompat="@drawable/ic_bottom_right_multiline" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -203,15 +205,29 @@
             app:layout_constraintTop_toBottomOf="parent" />
     </androidx.core.widget.NestedScrollView>
 
+    <Button
+        android:id="@+id/btnSave"
+        style="@style/Text.Label.14.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="@dimen/DP_8"
+        android:layout_marginEnd="@dimen/DP_8"
+        android:backgroundTint="@color/white"
+        android:paddingTop="@dimen/DP_12"
+        android:paddingBottom="@dimen/DP_12"
+        android:text="@string/save"
+        android:textColor="@color/blue"
+        android:visibility="gone"
+        app:strokeColor="@color/blue"
+        app:strokeWidth="2dp"
+        tools:visibility="visible" />
+
     <com.euromix.esupervisor.app.views.ResultView
         android:id="@+id/vResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,6 +2,8 @@ package com.euromix.esupervisor.screens.main.tabs.tasks.detail
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
@@ -11,10 +13,12 @@ import com.euromix.esupervisor.app.utils.designByViewState
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.toText
 import com.euromix.esupervisor.app.utils.viewBinding
+import com.euromix.esupervisor.app.utils.visibility
 import com.euromix.esupervisor.databinding.TaskDetailFragmentBinding
 import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.screens.main.tabs.TitleData
 import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.imagesPage.ImagesFragment
+import com.euromix.esupervisor.screens.main.tabs.tasks.list.TasksFragment
 import com.euromix.esupervisor.screens.viewModelCreator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -28,6 +32,7 @@ class TaskDetailFragment : BaseFragment(R.layout.task_detail_fragment) {
     override val viewModel by viewModelCreator { factory.create(args.id) }
     private val binding by viewBinding<TaskDetailFragmentBinding>()
     private val args by navArgs<TaskDetailFragmentArgs>()
+    private val navController: NavController by lazy { findNavController() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,31 +53,52 @@ class TaskDetailFragment : BaseFragment(R.layout.task_detail_fragment) {
     private fun renderState() {
 
         designByViewState(
-            viewModel.viewState as BaseViewState, binding.root, binding.vResult
+            viewModel.viewState as BaseViewState,
+            binding.root,
+            binding.vResult,
+            null,
+            listOf(binding.btnSave)
         )
-        viewModel.viewState.taskDetail?.let { taskDetail ->
 
-            with(binding) {
+        if (viewModel.viewState.closeTask) {
+            setFragmentResult()
+        } else
+            viewModel.viewState.taskDetail
+                ?.takeIf { !viewModel.viewState.isLoading }
+                ?.apply {
+                    with(binding) {
+                        val editAvailable = taskState != TaskState.DONE
 
-                tvTaskType.text = taskDetail.taskType
-                TaskState.designTV(tvTaskState, taskDetail.taskState)
-                tvDeadline.text = taskDetail.deadline.toText()
-                tvExecutor.text = taskDetail.executor
-                tvDescription.text = taskDetail.description
-                tvPartner.text = taskDetail.partner
-                tvOutlet.text = taskDetail.outlet
-                tvAttachPhoto.setCompoundDrawablesWithIntrinsicBounds(
-                    if (taskDetail.attachPhoto) R.drawable.ic_checkbox_on else R.drawable.ic_checkbox_off,
-                    0,
-                    0,
-                    0
-                )
-            }
-        }
+                        tvTaskType.text = taskType
+                        TaskState.designTV(tvTaskState, taskState)
+                        tvDeadline.text = deadline.toText()
+                        tvExecutor.text = executor
+                        etDescription.setText(description)
+                        etDescription.setSelection(etDescription.text.length)
+                        etDescription.isEnabled = editAvailable
+                        tvPartner.text = partner
+                        tvOutlet.text = outlet
+                        tvAttachPhoto.setCompoundDrawablesWithIntrinsicBounds(
+                            if (attachPhoto) R.drawable.ic_checkbox_on else R.drawable.ic_checkbox_off,
+                            0, 0, 0
+                        )
+                        btnSave.visibility(editAvailable)
+                    }
+                }
+    }
+
+    private fun setFragmentResult() {
+        setFragmentResult(
+            TasksFragment.TASKS_FRAGMENT_SELECTION_KEY,
+            Bundle().apply {
+                putBoolean(TasksFragment.UPDATE_DETAIL_TASK, true)
+            })
+        navController.popBackStack()
     }
 
     private fun setupListeners() {
         binding.vResult.setTryAgainAction { viewModel.reload() }
+        binding.btnSave.setOnClickListener { viewModel.changeTask(binding.etDescription.text.toString()) }
     }
 
     private fun setupImagesFragment(id: String, titleData: TitleData) {
@@ -92,7 +118,7 @@ class TaskDetailFragment : BaseFragment(R.layout.task_detail_fragment) {
                                 titleData = titleData
                             )
 
-                        findNavController().navigate(direction)
+                        navController.navigate(direction)
                     }
                 )
                 commit()

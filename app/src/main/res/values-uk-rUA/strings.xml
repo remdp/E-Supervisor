@@ -141,6 +141,8 @@
     <string name="decipher_to">Розшифрувати до</string>
     <string name="month_plan">Місячний \n план</string>
     <string name="daily_plan">Денний \n план</string>
+    <string name="common">Загальні</string>
+    <string name="team_rates">Командні</string>
 
     <!-- Result view -->
     <string name="connection_error">Сервер не відповідає</string>

@@ -155,7 +155,8 @@
     <string name="decipher_to">Decipher to</string>
     <string name="month_plan">Month \n plan</string>
     <string name="daily_plan">Daily \n plan</string>
-    <!--    <string name="total_plan">plan %1$s</string>-->
+    <string name="common">Common</string>
+    <string name="team_rates">Team</string>
 
 
     <!-- Result view -->
@@ -322,4 +323,5 @@
     <string name="only_my_visits">Only my visits</string>
     <string name="supervisors">Supervisors</string>
     <string name="error_getting_address">Error getting address</string>
+
 </resources>

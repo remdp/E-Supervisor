@@ -11,6 +11,7 @@ import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.screens.main.BaseViewState
+import com.euromix.esupervisor.sources.tasks.createTask.entities.TaskChangeRequestEntity
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -34,8 +35,14 @@ class TaskDetailViewModel @AssistedInject constructor(
     private fun <T> updateViewState(result: Result<T>) {
 
         when (result) {
+
             is Pending -> handlePendingState()
-            is Success -> handleSuccess(result.value as TaskDetail)
+            is Success -> {
+                if (result.value is Unit)
+                    handleClose()
+                else
+                    handleSuccess(result.value as TaskDetail)
+            }
             is Error -> handleError(result.error)
             else -> {}
         }
@@ -48,6 +55,10 @@ class TaskDetailViewModel @AssistedInject constructor(
 
     private fun handleSuccess(value: TaskDetail) {
         _viewState = _viewState.copy(isLoading = false, error = null, taskDetail = value)
+    }
+
+    private fun handleClose() {
+        _viewState = _viewState.copy(isLoading = false, error = null, closeTask = true)
     }
 
     private fun handleError(error: Throwable) {
@@ -66,6 +77,23 @@ class TaskDetailViewModel @AssistedInject constructor(
         getTaskDetail()
     }
 
+    fun changeTask(description: String) {
+
+        _viewState.taskDetail?.let { taskDetail ->
+
+            safeLaunch {
+                taskDetailRepository.changeTask(
+                    TaskChangeRequestEntity(
+                        id = taskDetail.id,
+                        description = description
+                    )
+                ).collect { result ->
+                    updateViewState(result)
+                }
+            }
+        }
+    }
+
     @AssistedFactory
     interface Factory {
         fun create(id: String): TaskDetailViewModel
@@ -74,6 +102,7 @@ class TaskDetailViewModel @AssistedInject constructor(
     data class ViewState(
         override val isLoading: Boolean = false,
         override val error: Throwable? = null,
+        val closeTask: Boolean = false,
         val taskDetail: TaskDetail? = null
     ) : BaseViewState()
 }

@@ -102,6 +102,8 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
                 viewModel.reloadRate()
         }
         binding.tvDetailPath.setOnClickListener { viewModel.decipher() }
+//        binding.btnCommonRates.setOnClickListener {  }
+//        binding.btnTeamRates.setOnClickListener {  }
 
     }
 

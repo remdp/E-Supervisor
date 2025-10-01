@@ -7,7 +7,6 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.model.tasks.entities.TasksSelection
@@ -25,7 +24,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class TasksFragment : BaseFragment(R.layout.tasks_fragment) {
 
     private val binding by viewBinding<TasksFragmentBinding>()
-    private val args by navArgs<TasksFragmentArgs>()
     private val navController: NavController by lazy { findNavController() }
 
     private val adapter = TasksAdapter { task ->
@@ -69,18 +67,22 @@ class TasksFragment : BaseFragment(R.layout.tasks_fragment) {
 
         setFragmentResultListener(TASKS_FRAGMENT_SELECTION_KEY) { requestKey, bundle ->
 
-            val selection: TasksSelection?
-            val cancelSelection: Boolean
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                selection = bundle.getParcelable(requestKey, TasksSelection::class.java)
-                cancelSelection = bundle.getBoolean(Const.CANCEL)
-            } else {
-                selection = bundle.getParcelable(requestKey)
-                cancelSelection = bundle.getBoolean(Const.CANCEL)
-            }
+            if (bundle.containsKey(UPDATE_DETAIL_TASK))
+                viewModel.reload()
+            else {
+                val selection: TasksSelection?
+                val cancelSelection: Boolean
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    selection = bundle.getParcelable(requestKey, TasksSelection::class.java)
+                    cancelSelection = bundle.getBoolean(Const.CANCEL)
+                } else {
+                    selection = bundle.getParcelable(requestKey)
+                    cancelSelection = bundle.getBoolean(Const.CANCEL)
+                }
 
-            if (!cancelSelection)
-                viewModel.updateSelection(selection)
+                if (!cancelSelection)
+                    viewModel.updateSelection(selection)
+            }
         }
     }
 
@@ -107,7 +109,8 @@ class TasksFragment : BaseFragment(R.layout.tasks_fragment) {
         }
     }
 
-    companion object{
+    companion object {
         const val TASKS_FRAGMENT_SELECTION_KEY = "TASKS_FRAGMENT_SELECTION_KEY"
+        const val UPDATE_DETAIL_TASK = "UPDATE_DETAIL_TASK"
     }
 }

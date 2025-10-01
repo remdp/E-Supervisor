@@ -2,9 +2,9 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingTop="@dimen/DP_4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/DP_4"
     tools:ignore="RtlHardcoded">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -40,9 +40,45 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_end="@dimen/DP_8" />
 
+<!--                <RadioGroup-->
+<!--                    android:id="@+id/rgRates"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/gdlnEnd"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/gdlnStart"-->
+<!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/btnCommonRates"-->
+
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginEnd="@dimen/DP_4"-->
+<!--                        android:background="@drawable/selector_radio_button"-->
+<!--                        android:button="@null"-->
+<!--                        android:text="@string/common"-->
+<!--                        android:textAlignment="center"/>-->
+
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/btnTeamRates"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="@dimen/DP_4"-->
+<!--                        android:background="@drawable/selector_radio_button"-->
+<!--                        android:button="@null"-->
+<!--                        android:text="@string/team_rates"-->
+<!--                        android:textAlignment="center"/>-->
+
+<!--                </RadioGroup>-->
+
+
                 <Spinner
                     android:id="@+id/spRates"
                     android:layout_width="0dp"
+                    android:layout_marginTop="@dimen/DP_8"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_8dp_white_border_gray_200"
                     app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
@@ -64,12 +100,12 @@
                     style="@style/Text.Label.16.Gray500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:trackTint="@drawable/switch_track_selector"
-                    app:thumbTint="@drawable/switch_thumb_selector"
                     android:text="@string/month_plan"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/gdlnStart"
-                    app:layout_constraintTop_toBottomOf="@+id/spDetailing"                     />
+                    app:layout_constraintTop_toBottomOf="@+id/spDetailing"
+                    app:thumbTint="@drawable/switch_thumb_selector"
+                    app:trackTint="@drawable/switch_track_selector" />
 
                 <EditText
                     android:id="@+id/etPeriodSelection"
@@ -139,9 +175,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@id/clTotal"
-                android:layout_marginTop="@dimen/DP_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/DP_8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvDetailPath">
@@ -162,8 +198,8 @@
                     android:id="@+id/ivPlan"
                     android:layout_width="@dimen/DP_135"
                     android:layout_height="@dimen/DP_100"
-                    android:background="@drawable/bg_8dp_gray_100_border_dark_alpha_5"
                     android:layout_marginStart="@dimen/DP_8"
+                    android:background="@drawable/bg_8dp_gray_100_border_dark_alpha_5"
                     app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/ivTopWhite" />
@@ -217,9 +253,9 @@
                     android:id="@+id/ivFact"
                     android:layout_width="@dimen/DP_135"
                     android:layout_height="@dimen/DP_100"
+                    android:layout_marginEnd="@dimen/DP_8"
                     android:background="@drawable/bg_8dp_blue_10_border_blue_10"
                     app:layout_constraintBottom_toBottomOf="@+id/ivTopWhite"
-                    android:layout_marginEnd="@dimen/DP_8"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/ivTopWhite" />
 
