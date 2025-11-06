@@ -8,17 +8,31 @@
     android:layout_marginEnd="@dimen/DP_8"
     android:background="@drawable/bg_16dp_gray_100"
     android:paddingHorizontal="@dimen/DP_16"
-    android:paddingTop="@dimen/DP_32">
+    android:paddingTop="@dimen/DP_24">
 
     <TextView
         android:id="@+id/tvOdometerLabel"
+        android:layout_marginTop="@dimen/DP_8"
         style="@style/Text.Label.20.Bold"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/odometer_readings"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCarNumber"
+        style="@style/Text.Label.20.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_8dp_white"
+        android:gravity="center_vertical"
+android:padding="@dimen/DP_8"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOdometerLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvOdometerLabel"
+        tools:text="AI7277AB" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glMiddle"

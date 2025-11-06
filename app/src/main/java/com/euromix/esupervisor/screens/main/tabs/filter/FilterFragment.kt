@@ -90,6 +90,7 @@ class FilterFragment : BaseFragment(R.layout.filter_fragment) {
             navController.popBackStack()
         }
         binding.vResult.setTryAgainAction { viewModel.loadFilterData() }
+        binding.srl.setOnRefreshListener { viewModel.loadFilterData()  }
         binding.ivArrowBack.setOnClickListener {
             navController.popBackStack()
         }
@@ -126,6 +127,7 @@ class FilterFragment : BaseFragment(R.layout.filter_fragment) {
         if (!viewState.isLoading && viewState.error == null) {
             addFlags()
             filterAdapter.submitList(viewState.selection.items)
+            binding.srl.isEnabled = viewModel.initialData == null
         }
     }
 

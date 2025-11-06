@@ -10,7 +10,7 @@ import com.euromix.esupervisor.app.utils.getSpinnerView
 class RatesDetailingAdapter(
     context: Context,
     resource: Int,
-    private val ratesDetailing: MutableList<String>
+    private val ratesDetailing: MutableList<String> = mutableListOf()
 ) :
     ArrayAdapter<String>(context, resource, ratesDetailing) {
 

@@ -29,6 +29,7 @@ import com.euromix.esupervisor.dialogs.selectPictureDialog.SelectPictureViewMode
 import com.euromix.esupervisor.screens.main.BaseViewState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import androidx.core.graphics.drawable.toDrawable
 
 @AndroidEntryPoint
 class DialogOdometersReading(private val listUpdater: Action) : DialogFragment() {
@@ -68,7 +69,7 @@ class DialogOdometersReading(private val listUpdater: Action) : DialogFragment()
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
 
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
 
         val dialogView =
             dialog?.window?.decorView?.findViewById<View>(android.R.id.content) as ViewGroup
@@ -192,6 +193,8 @@ class DialogOdometersReading(private val listUpdater: Action) : DialogFragment()
         with(viewModel.viewState) {
             with(binding) {
 
+                tvCarNumber.text = carNUmber
+
                 val startKmString = (startKm ?: "").toString()
                 val stopKmString = (stopKm ?: "").toString()
 
@@ -199,7 +202,7 @@ class DialogOdometersReading(private val listUpdater: Action) : DialogFragment()
                     etStartOdometer.setText(startKmString)
 
                 if (etStopOdometer.text.toString() != stopKmString)
-                    etStopOdometer.setText(startKmString)
+                    etStopOdometer.setText(stopKmString)
 
                 tvOdometerDifference.text = if ((stopKm ?: 0) > 0) {
                     ((stopKm ?: 0) - (startKm ?: 0)).toString()
@@ -208,16 +211,16 @@ class DialogOdometersReading(private val listUpdater: Action) : DialogFragment()
                 }
 
                 if (startUri != null) {
-                    Glide.with(binding.ivOdometerPhotoStart)
+                    Glide.with(ivOdometerPhotoStart)
                         .load(startUri)
-                        .into(binding.ivOdometerPhotoStart)
+                        .into(ivOdometerPhotoStart)
                 } else
                     ivOdometerPhotoStart.setBitmapFromBase64String(startPhoto)
 
                 if (stopUri != null) {
-                    Glide.with(binding.ivOdometerPhotoStop)
+                    Glide.with(ivOdometerPhotoStop)
                         .load(stopUri)
-                        .into(binding.ivOdometerPhotoStop)
+                        .into(ivOdometerPhotoStop)
                 } else
                     ivOdometerPhotoStop.setBitmapFromBase64String(stopPhoto)
 

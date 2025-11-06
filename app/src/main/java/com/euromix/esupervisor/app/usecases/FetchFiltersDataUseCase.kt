@@ -16,10 +16,11 @@ class FetchFiltersDataUseCaseFactory @Inject constructor(
     private val fetchFiltersForVisitsSupervisorUseCaseImpl: FetchFiltersForVisitsSupervisorUseCaseImpl
 
 ) {
-    fun create(source: FilterSource): FetchFiltersDataUseCase {
+    fun create(source: FilterSource): FetchFiltersDataUseCase? {
         return when (source) {
             FilterSource.FROM_CREATE_TASK_FRAGMENT -> fetchFiltersForCreateTasksUseCaseImpl
             FilterSource.FROM_VISITS_SUPERVISORS_FRAGMENT -> fetchFiltersForVisitsSupervisorUseCaseImpl
+            FilterSource.FROM_RATES_FRAGMENT -> null
             else -> throw IllegalArgumentException("Unsupported filter source: $source")
         }
     }

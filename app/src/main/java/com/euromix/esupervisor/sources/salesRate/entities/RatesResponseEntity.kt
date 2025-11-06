@@ -6,6 +6,7 @@ import com.squareup.moshi.Json
 
 data class RatesResponseEntity(
     val rate: ServerPair,
+    val overall: Boolean,
     val dimensions: List<String>,
     @field:Json(name = "day_dimensions") val dayDimensions: List<String>,
 ) {
@@ -13,6 +14,7 @@ data class RatesResponseEntity(
         RateStructure(
             rate = rate,
             dimensions = dimensions,
-            dayDimensions = dayDimensions
+            dayDimensions = dayDimensions,
+            overall = overall
         )
 }

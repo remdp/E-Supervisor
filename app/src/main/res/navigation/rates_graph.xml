@@ -7,11 +7,14 @@
     <fragment
         android:id="@+id/rates"
         android:name="com.euromix.esupervisor.screens.main.tabs.rates.RatesFragment"
-        android:label="@string/rates" >
+        android:label="@string/rates">
         <argument
             android:name="screenTitle"
-            app:argType="string"
-            android:defaultValue="" />
+            android:defaultValue=""
+            app:argType="string" />
+        <action
+            android:id="@+id/action_rates_to_filter_graph"
+            app:destination="@id/filter_graph" />
     </fragment>
-
+    <include app:graph="@navigation/filter_graph" />
 </navigation>

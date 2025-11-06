@@ -10,9 +10,7 @@ import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.setPeriodSelection
 import com.euromix.esupervisor.app.utils.viewBinding
-import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.OdometersListFragmentBinding
-import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.screens.main.tabs.odometers.reading.DialogOdometersReading
 
 class OdometersListFragment : BaseFragment(R.layout.odometers_list_fragment) {
@@ -25,7 +23,7 @@ class OdometersListFragment : BaseFragment(R.layout.odometers_list_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.iSelection.ivAdditionalAction.visible()
+        binding.iSelection.ivAdditionalAction.gone()
         binding.iSelection.ivFunnel.gone()
         binding.rvList.adapter = adapter
 
@@ -44,7 +42,7 @@ class OdometersListFragment : BaseFragment(R.layout.odometers_list_fragment) {
 
         binding.srl.setOnRefreshListener { viewModel.reload() }
         binding.vResult.setTryAgainAction { viewModel.reload() }
-        binding.iSelection.ivAdditionalAction.setOnClickListener {
+        binding.tvOdometerCount.setOnClickListener {
             DialogOdometersReading.newInstance(viewModel::reload).show(parentFragmentManager, null)
         }
     }
@@ -58,12 +56,15 @@ class OdometersListFragment : BaseFragment(R.layout.odometers_list_fragment) {
     private fun renderState() {
 
         with(viewModel.viewState) {
+            binding.tvOdometerCount.text = getString(R.string.odometer_today, todayReadings)
             designByViewState(
-                this as BaseViewState, binding.root, binding.vResult, binding.srl
+                this, binding.root, binding.vResult, binding.srl
             )
 
-            if (!isLoading && error == null) adapter.submitList(viewModel.getListForSubmit())
-            binding.rvList.post { binding.rvList.scrollToPosition(0) }
+            if (!isLoading && error == null) {
+                adapter.submitList(viewModel.getListForSubmit())
+                binding.rvList.post { binding.rvList.scrollToPosition(0) }
+            }
         }
     }
 

@@ -6,10 +6,13 @@ import android.widget.AdapterView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.euromix.esupervisor.R
+import com.euromix.esupervisor.app.enums.FilterSource
 import com.euromix.esupervisor.app.model.rates.entities.RateData
 import com.euromix.esupervisor.app.model.rates.entities.RateDataRow
-import com.euromix.esupervisor.app.model.rates.entities.RateStructure
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.clear
 import com.euromix.esupervisor.app.utils.designByViewState
@@ -17,20 +20,24 @@ import com.euromix.esupervisor.app.utils.draw
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.setPeriodSelection
+import com.euromix.esupervisor.app.utils.toStringOrDefault
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.RatesFragmentBinding
 import com.euromix.esupervisor.screens.main.BaseViewState
+import com.euromix.esupervisor.screens.main.tabs.filter.FilterFragmentArgs
+import com.euromix.esupervisor.screens.main.tabs.filter.SharedFilterViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class RatesFragment : BaseFragment(R.layout.rates_fragment) {
 
+    private val navController: NavController by lazy { findNavController() }
     override val viewModel by viewModels<RatesViewModel>()
+    private val sharedViewModel: SharedFilterViewModel by navGraphViewModels(R.id.rates_graph)
     private val binding by viewBinding<RatesFragmentBinding>()
 
-    private var rateAdapter = RateAdapter(lifecycleScope) {
+    private val rateAdapter = RateAdapter(lifecycleScope) {
 
         val rate = it?.tag as RateDataRow
 
@@ -46,10 +53,16 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
             }.create().show()
     }
 
+    private lateinit var ratesDetailingAdapter: RatesDetailingAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.rvList.adapter = rateAdapter
+
+        ratesDetailingAdapter = RatesDetailingAdapter(requireContext(), R.layout.item_spinner)
+
+        binding.spDetailing.adapter = ratesDetailingAdapter
 
         setupObservers()
         setupListeners()
@@ -64,35 +77,62 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
         viewModel.viewStateEvent.observeEvent(viewLifecycleOwner) {
             renderState()
         }
+
+        sharedViewModel.filterResult.observe(viewLifecycleOwner) { filter ->
+            viewModel.changeRate(filter)
+        }
     }
 
     private fun renderState() {
 
         with(viewModel.viewState) {
             designByViewState(
-                this as BaseViewState, binding.root, binding.vResult, binding.srl
+                this as BaseViewState,
+                binding.root,
+                binding.vResult,
+                binding.srl
             )
 
-            binding.swPlanType.text =
-                getString(if (planType == 0) R.string.month_plan else R.string.daily_plan)
-            binding.swPlanType.isChecked = planType == 1
+            if (!isLoading) {
+                binding.tvCurrentRate.text = currentRate?.rate?.presentation
+                binding.swPlanType.text =
+                    getString(if (planType == 0) R.string.month_plan else R.string.daily_plan)
+                binding.swPlanType.isChecked = planType == 1
 
-            binding.tvDetailPath.text = viewModel.backStackPath()
+                binding.tvDetailPath.text = viewModel.backStackPath()
 
-            rateData?.let {
-                renderTotalViews(it)
-                rateAdapter.rates = it.rows
+                rateData?.let {
+                    renderTotalViews(it)
+                    rateAdapter.rates = it.rows
+                }
+
+                ratesDetailingAdapter.setList(currentDimensions)
+
+                if (binding.spDetailing.selectedItemPosition != detailLevel) {
+                    binding.spDetailing.setSelection(detailLevel)
+                }
+
+                visibilityViews()
+                setViewStateListeners()
             }
-
-            setRatesSpinner()
-            setRatesDetailSpinner()
-            visibilityViews()
-
-            setViewStateListeners()
         }
     }
 
     private fun setupListeners() {
+
+        binding.tvCurrentRate.setOnClickListener {
+            navController.navigate(
+                R.id.action_rates_to_filter_graph,
+                FilterFragmentArgs(
+                    filterSource = FilterSource.FROM_RATES_FRAGMENT,
+                    filterTitles = arrayOf(getString(R.string.rates)),
+                    graphId = R.id.rates_graph,
+                    initialData = viewModel.ratesForFilter(),
+                    singleChoice = true
+                ).toBundle()
+            )
+        }
+
         binding.srl.setOnRefreshListener { viewModel.reloadRate() }
         binding.vResult.setTryAgainAction {
 
@@ -102,8 +142,25 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
                 viewModel.reloadRate()
         }
         binding.tvDetailPath.setOnClickListener { viewModel.decipher() }
-//        binding.btnCommonRates.setOnClickListener {  }
-//        binding.btnTeamRates.setOnClickListener {  }
+        binding.btnOverallRates.setOnClickListener {
+            viewModel.changeRateGroup(true)
+        }
+        binding.btnTeamRates.setOnClickListener {
+            viewModel.changeRateGroup(false)
+        }
+
+        binding.spDetailing.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
+                ) {
+                    if (viewModel.viewState.detailLevel != position) {
+                        viewModel.changeDetailLevel(position)
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
 
     }
 
@@ -113,103 +170,14 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
         } else {
             binding.piTotal.clear()
         }
-        binding.tvTotalFact.text = DecimalFormat("###,###.##").format(rate.totalFact)
-        binding.tvTotalPlan.text = DecimalFormat("###,###.##").format(rate.totalPlan)
-    }
-
-    private fun setRatesSpinner() {
-
-        with(viewModel.viewState) {
-
-            rates?.let { rates ->
-                if (binding.spRates.adapter == null) {
-                    binding.spRates.adapter = SpinnerRatesAdapter(
-                        requireContext(), R.layout.item_spinner, rates
-                    )
-
-                    currentRate?.let {
-                        binding.spRates.setSelection(rates.indexOf(it))
-                    }
-
-                    if (rateData == null)
-                        viewModel.reloadRate()
-                }
-            }
-        }
-    }
-
-    private fun setRatesDetailSpinner(force: Boolean = false) {
-        with(viewModel.viewState) {
-            currentRate?.let {
-
-                if (binding.spDetailing.adapter == null || force) {
-                    binding.spDetailing.adapter = RatesDetailingAdapter(
-                        requireContext(), R.layout.item_spinner, (if (planType == 0)
-                            currentRate.dimensions
-                        else
-                            currentRate.dayDimensions).toMutableList()
-                    )
-
-                    binding.spDetailing.setSelection(detailLevel)
-                }
-            }
-        }
-    }
-
-    private fun setRatesListener() {
-
-        if (binding.spRates.onItemSelectedListener == null) {
-            binding.spRates.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
-                ) {
-
-                    val currentRate = parent?.getItemAtPosition(position) as RateStructure
-                    viewModel.changeRate(currentRate)
-                    setRatesDetailSpinner(true)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
-        }
-    }
-
-    private fun setRatesDetailListener() {
-
-        if (binding.spDetailing.onItemSelectedListener == null) {
-
-            binding.spDetailing.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?, view: View?, position: Int, id: Long
-                    ) {
-                        viewModel.changeDetailLevel(position)
-                    }
-
-                    override fun onNothingSelected(parent: AdapterView<*>?) {}
-                }
-        }
+        binding.tvTotalFact.text = rate.totalFact.toStringOrDefault()
+        binding.tvTotalPlan.text = rate.totalPlan.toStringOrDefault()
     }
 
     private fun setViewStateListeners() {
 
-        with(viewModel.viewState) {
-            rates?.let {
-                binding.spRates.post { setRatesListener() }
-            }
-
-            rateData?.let {
-                binding.spDetailing.post { setRatesDetailListener() }
-            }
-        }
-
         binding.swPlanType.setOnCheckedChangeListener { _, isChecked ->
             viewModel.changePlanType(if (isChecked) 1 else 0)
-
-            binding.spDetailing.onItemSelectedListener = null
-            setRatesDetailSpinner(true)
-            binding.spDetailing.post { setRatesDetailListener() }
-
         }
     }
 
@@ -217,7 +185,8 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
 
         with(binding) {
             if (viewModel.viewState.rateSelection.isEmpty()) {
-                spRates.visible()
+                rgRates.visible()
+                tvCurrentRate.visible()
 
                 etPeriodSelection.visible()
                 tvDetailPath.gone()
@@ -231,7 +200,8 @@ class RatesFragment : BaseFragment(R.layout.rates_fragment) {
                     clTotal.gone()
                 }
             } else {
-                spRates.gone()
+                rgRates.gone()
+                tvCurrentRate.gone()
 
                 etPeriodSelection.gone()
                 tvDetailPath.visible()

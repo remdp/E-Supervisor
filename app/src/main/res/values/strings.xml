@@ -155,7 +155,7 @@
     <string name="decipher_to">Decipher to</string>
     <string name="month_plan">Month \n plan</string>
     <string name="daily_plan">Daily \n plan</string>
-    <string name="common">Common</string>
+    <string name="overall">Overall</string>
     <string name="team_rates">Team</string>
 
 
@@ -288,6 +288,7 @@
     <string name="created_colon">Created:</string>
     <string name="mileage_colon">Mileage:</string>
     <string name="km">km</string>
+    <string name="odometer_today">Odometer %1$d/2</string>
 
     <!-- Visits  supervisors screen -->
     <string name="visits_supervisors">Supervisors\' visits</string>

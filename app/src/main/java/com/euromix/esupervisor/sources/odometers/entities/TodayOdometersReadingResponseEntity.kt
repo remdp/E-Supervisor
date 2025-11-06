@@ -5,6 +5,7 @@ import com.squareup.moshi.Json
 import java.time.LocalDateTime
 
 data class TodayOdometersReadingResponseEntity(
+    @field:Json(name = "car_number") val carNumber: String,
     @field:Json(name = "start_km") val startKm: Int? = null,
     @field:Json(name = "start_uri") val startUri: String? = null,
     @field:Json(name = "start_time") val startTime: String? = null,
@@ -16,6 +17,7 @@ data class TodayOdometersReadingResponseEntity(
 ) {
 
     fun toOdometersReading() = TodayOdometersReading(
+        carNumber = carNumber,
         startKm = startKm,
         startUri = startUri,
         startTime = startTime?.let { LocalDateTime.parse(it) },

@@ -59,6 +59,7 @@ class DialogOdometersViewModel @Inject constructor(private val odometersReposito
         _viewState = _viewState.copy(
             isLoading = false,
             error = null,
+            carNUmber = value.carNumber,
             startKm = value.startKm,
             startUri = null,
             startTime = value.startTime,
@@ -130,6 +131,7 @@ class DialogOdometersViewModel @Inject constructor(private val odometersReposito
     data class ViewState(
         override val isLoading: Boolean = false,
         override val error: Throwable? = null,
+        val carNUmber: String = "",
         val startKm: Int? = null,
         val startUri: Uri? = null,
         val startTime: LocalDateTime? = null,

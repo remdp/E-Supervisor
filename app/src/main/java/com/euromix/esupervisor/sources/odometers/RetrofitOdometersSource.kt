@@ -27,12 +27,10 @@ class RetrofitOdometersSource @Inject constructor(private val config: RetrofitCo
         }
     }
 
-    override suspend fun getOdometersReading(request: OdometersReadingRequestEntity): List<OdometersReading> {
+    override suspend fun getOdometersReading(request: OdometersReadingRequestEntity): OdometersReading {
         return wrapRetrofitException {
             val jsonAdapter = config.moshi.adapter(OdometersReadingRequestEntity::class.java)
-            odometersApi.getOdometersReadingList(jsonAdapter.toJson(request)).map {
-                it.toOdometersReading()
-            }
+            odometersApi.getOdometersReadingList(jsonAdapter.toJson(request)).toOdometersReading()
         }
     }
 }

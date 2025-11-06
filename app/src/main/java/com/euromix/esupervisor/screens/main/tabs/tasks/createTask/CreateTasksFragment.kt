@@ -3,7 +3,6 @@ package com.euromix.esupervisor.screens.main.tabs.tasks.createTask
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.forEach
 import androidx.core.widget.addTextChangedListener
@@ -38,6 +37,7 @@ import com.euromix.esupervisor.app.utils.visibility
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.CreateTasksFragmentBinding
 import com.euromix.esupervisor.databinding.ItemOutletCreateTaskBinding
+import com.euromix.esupervisor.screens.main.tabs.filter.FilterFragmentArgs
 import com.euromix.esupervisor.screens.main.tabs.filter.FilterValidationEvent
 import com.euromix.esupervisor.screens.main.tabs.filter.SharedFilterViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -139,15 +139,15 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
         binding.btnCancel.setOnClickListener { navController.popBackStack() }
 
         binding.ivFunnel.setOnClickListener {
-            Log.d("NavDebug", "Current destination: ${navController.currentDestination?.label}")
             navController.navigate(
-                CreateTasksFragmentDirections.actionCreateTaskFragmentToFilterFragment(
-                    filterSource = FilterSource.FROM_CREATE_TASK_FRAGMENT, filterTitles = arrayOf(
+                R.id.action_createTaskFragment_to_filter_graph, FilterFragmentArgs(
+                    filterSource = FilterSource.FROM_CREATE_TASK_FRAGMENT,
+                    filterTitles = arrayOf(
                         getString(R.string.trading_agents),
                         getString(R.string.outlets_types)
                     ),
                     graphId = R.id.tasks_graph
-                )
+                ).toBundle()
             )
         }
 

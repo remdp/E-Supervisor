@@ -22,6 +22,7 @@ import com.euromix.esupervisor.app.utils.toText
 import com.euromix.esupervisor.app.utils.viewBinding
 import com.euromix.esupervisor.databinding.VisitsSupervisorsListFragmentBinding
 import com.euromix.esupervisor.screens.main.BaseViewState
+import com.euromix.esupervisor.screens.main.tabs.filter.FilterFragmentArgs
 import com.euromix.esupervisor.screens.main.tabs.filter.SharedFilterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -65,19 +66,14 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
 
         with(binding) {
             ivFunnel.setOnClickListener {
-                navController.navigate(
-                    VisitsSupervisorListFragmentDirections.actionVisitsSupervisorsListFragmentToFilterFragment(
-                        filterSource = FilterSource.FROM_VISITS_SUPERVISORS_FRAGMENT,
-                        filterTitles = arrayOf(
-                            getString(R.string.supervisors)
-                        ),
-                        graphId = R.id.visits_supervisors_graph,
-                        flagsTitles = arrayOf(getString(R.string.only_my_visits)),
-                        date = viewModel.viewState.selection.period?.second?.toLong() ?: 0L,
-                        initialSelection = sharedViewModel.getFilterSelection()
-
-                    )
-                )
+                navController.navigate(R.id.action_visitsSupervisorsListFragment_to_filter_graph,  FilterFragmentArgs(
+                    filterSource = FilterSource.FROM_VISITS_SUPERVISORS_FRAGMENT,
+                    filterTitles = arrayOf(getString(R.string.supervisors)),
+                    flagsTitles = arrayOf(getString(R.string.only_my_visits)),
+                    date = viewModel.viewState.selection.period?.second?.toLong() ?: 0L,
+                    initialSelection = sharedViewModel.getFilterSelection(),
+                    graphId = R.id.visits_supervisors_graph
+                ).toBundle())
 
             }
             srl.setOnRefreshListener { viewModel.reload() }

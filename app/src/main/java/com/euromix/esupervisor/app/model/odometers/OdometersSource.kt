@@ -10,6 +10,6 @@ interface OdometersSource {
 
     suspend fun sendTodayOdometersReading(request: TodayOdometersReadingRequestEntity): TodayOdometersReading
 
-    suspend fun getOdometersReading(request: OdometersReadingRequestEntity): List<OdometersReading>
+    suspend fun getOdometersReading(request: OdometersReadingRequestEntity): OdometersReading
 
 }

@@ -6,6 +6,7 @@ import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.odometers.OdometersRepository
 import com.euromix.esupervisor.app.model.odometers.entities.OdometersReading
+import com.euromix.esupervisor.app.model.odometers.entities.OdometersReadingItem
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.toJsonString
@@ -47,8 +48,8 @@ class OdometersListViewModel @Inject constructor(private val odometersRepository
         when (result) {
             is Pending -> handlePendingState()
             is Success -> {
-                if (result.value is List<*>)
-                    handleSuccess(result.value as List<OdometersReading>)
+                if (result.value is OdometersReading)
+                    handleSuccess(result.value as OdometersReading)
             }
 
             is Error -> handleError(result.error)
@@ -65,11 +66,12 @@ class OdometersListViewModel @Inject constructor(private val odometersRepository
         _viewState = _viewState.copy(isLoading = false, error = error)
     }
 
-    private fun handleSuccess(value: List<OdometersReading>) {
+    private fun handleSuccess(value: OdometersReading) {
         _viewState = _viewState.copy(
             isLoading = false,
             error = null,
-            odometersReadingList = value
+            todayReadings = value.todayReadings,
+            odometersReadingList = value.readings
         )
     }
 
@@ -87,12 +89,13 @@ class OdometersListViewModel @Inject constructor(private val odometersRepository
         getOdometersReadingList()
     }
 
-    fun getListForSubmit(): List<OdometersReading> = _viewState.odometersReadingList
+    fun getListForSubmit(): List<OdometersReadingItem> = _viewState.odometersReadingList
 
     data class ViewState(
         override val isLoading: Boolean = false,
         override val error: Throwable? = null,
         val period: Pair<Date, Date>? = null,
-        val odometersReadingList: List<OdometersReading>
+        val todayReadings: Int = 0,
+        val odometersReadingList: List<OdometersReadingItem>
     ) : BaseViewState()
 }

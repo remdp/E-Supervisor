@@ -11,11 +11,26 @@
     <include
         android:id="@+id/iSelection"
         layout="@layout/selection"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvOdometerCount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvOdometerCount"
+        android:layout_width="wrap_content"
+        android:background="@drawable/bg_8dp_blue"
+        style="@style/Text.Label.14"
+        android:textColor="@color/white"
+        android:padding="@dimen/DP_6"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        tools:text="Одометр 0/2"
+        android:text="@string/odometer_today"
+        app:layout_constraintBottom_toBottomOf="@+id/iSelection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iSelection" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srl"

@@ -6,17 +6,20 @@ import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.common.entities.ServerObject
 import com.euromix.esupervisor.app.model.common.entities.ServerSelectionItem
+import com.euromix.esupervisor.app.model.filter.entities.DetailFilterItem
+import com.euromix.esupervisor.app.model.filter.entities.FilterItem
+import com.euromix.esupervisor.app.model.filter.entities.FilterSelection
 import com.euromix.esupervisor.app.model.rates.RatesRepository
 import com.euromix.esupervisor.app.model.rates.entities.RateData
 import com.euromix.esupervisor.app.model.rates.entities.RateStructure
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.beginCurrentMonth
-import com.euromix.esupervisor.app.utils.toJsonString
 import com.euromix.esupervisor.app.utils.endCurrentMonth
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.app.utils.toDate
+import com.euromix.esupervisor.app.utils.toJsonString
 import com.euromix.esupervisor.screens.main.BaseViewState
 import com.euromix.esupervisor.sources.salesRate.entities.RateRequestEntity
 import com.squareup.moshi.Json
@@ -70,8 +73,9 @@ class RatesViewModel @Inject constructor(
             error = null,
             rates = value,
             currentRate = if (value.isNotEmpty()) value[0] else null,
-            currentDimensions = if (value.isNotEmpty()) getCurrentDimensions(value[0]) else listOf()
+            currentDimensions = getCurrentDimensions(_viewState.planType, value.firstOrNull())
         )
+        getRate()
     }
 
     private fun handleSuccessRate(value: RateData) {
@@ -119,8 +123,8 @@ class RatesViewModel @Inject constructor(
         }
     }
 
-    private fun getCurrentDimensions(rate: RateStructure) =
-        if (_viewState.planType == 1) rate.dayDimensions else rate.dimensions
+    private fun getCurrentDimensions(planType: Int, rate: RateStructure?) =
+        (if (planType == 1) rate?.dayDimensions else rate?.dimensions) ?: listOf()
 
     fun restoreViewState() {
         _viewStateEvent.publishEvent()
@@ -134,11 +138,30 @@ class RatesViewModel @Inject constructor(
         getRate()
     }
 
-    fun changeRate(rate: RateStructure) {
+    fun changeRate(filter: FilterSelection) {
+
+        if (filter.items.isNotEmpty()) {
+
+            val detailFilterItem = filter.items.first().detailFilterItems.find { it.marked }
+            val rate = _viewState.rates?.find { it.rate.id == detailFilterItem?.serverPair?.id }
+
+            _viewState = _viewState.copy(
+                currentRate = rate,
+                detailLevel = 0,
+                currentDimensions = getCurrentDimensions(_viewState.planType, rate)
+            )
+            getRate()
+        }
+    }
+
+    fun changeRateGroup(overall: Boolean) {
+
+        val newCurrentRate = _viewState.rates?.find { it.overall == overall }
         _viewState = _viewState.copy(
-            currentRate = rate,
+            currentRate = newCurrentRate,
             detailLevel = 0,
-            currentDimensions = getCurrentDimensions(rate)
+            currentDimensions = getCurrentDimensions(_viewState.planType, newCurrentRate),
+            overall = overall
         )
         getRate()
     }
@@ -155,7 +178,7 @@ class RatesViewModel @Inject constructor(
 
     fun decipher(dimension: String? = null, serverObject: ServerObject? = null) {
         if (serverObject == null) {
-            _viewState.rateSelection.removeLast()
+            _viewState.rateSelection.removeAt(_viewState.rateSelection.lastIndex)
         } else {
             _viewState.rateSelection.add(
                 RateSelection(
@@ -174,7 +197,7 @@ class RatesViewModel @Inject constructor(
         _viewState = _viewState.copy(
             planType = planType,
             detailLevel = 0,
-            currentDimensions = if (currentRate != null) getCurrentDimensions(currentRate) else listOf()
+            currentDimensions = getCurrentDimensions(planType, currentRate)
         )
         getRate()
     }
@@ -203,6 +226,27 @@ class RatesViewModel @Inject constructor(
         return path
     }
 
+    fun ratesForFilter(): FilterSelection? {
+        return _viewState.rates?.let { rates ->
+            FilterSelection(
+                flags = listOf(),
+                items = listOf(
+                    FilterItem(
+                        id = 0,
+                        detailFilterItems = rates.filter { it.overall == _viewState.overall }
+                            .map { rateStructure ->
+                                DetailFilterItem(
+                                    marked = false,
+                                    serverPair = rateStructure.rate
+                                )
+                            }
+                    )
+                )
+            )
+        }
+    }
+
+
     data class ViewState(
         override val isLoading: Boolean = false,
         override val error: Throwable? = null,
@@ -213,7 +257,8 @@ class RatesViewModel @Inject constructor(
         var currentDimensions: List<String> = listOf(),
         val planType: Int = 0,
         val rateSelection: MutableList<RateSelection> = mutableListOf(),
-        val detailLevel: Int = 0
+        val detailLevel: Int = 0,
+        val overall: Boolean = true
 
     ) : BaseViewState()
 

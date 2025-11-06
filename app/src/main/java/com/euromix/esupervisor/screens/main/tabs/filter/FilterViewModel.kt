@@ -35,17 +35,22 @@ class FilterViewModel @Inject constructor(
 
     private val filterSource: FilterSource = savedStateHandle.get<FilterSource>("filterSource")
         ?: throw IllegalStateException("Filter source argument is missing")
-    private val useCase: FetchFiltersDataUseCase = useCaseFactory.create(filterSource)
+    private val useCase: FetchFiltersDataUseCase? = useCaseFactory.create(filterSource)
 
-    val date: Long = savedStateHandle["date"]
-        ?: throw IllegalArgumentException("Missing 'date' argument")
+    val date: Long? = savedStateHandle["date"]
+    val initialData: FilterSelection? = savedStateHandle["initialData"]
+    val singleChoice: Boolean = savedStateHandle["singleChoice"] ?: false
 
     init {
         val initialSelection: FilterSelection? = savedStateHandle["initialSelection"]
         if (initialSelection != null) {
             restoreSavedSelection(initialSelection)
         } else {
-            loadFilterData()
+
+            if (initialData == null)
+                loadFilterData()
+            else
+                updateViewState(Success(initialData))
         }
     }
 
@@ -84,9 +89,10 @@ class FilterViewModel @Inject constructor(
 
     fun loadFilterData() {
         safeLaunch {
-            useCase(date.toLocalDate().toJsonString()).collect {
-                updateViewState(it)
-            }
+            if (date != null)
+                useCase?.invoke(date.toLocalDate().toJsonString())?.collect {
+                    updateViewState(it)
+                }
         }
     }
 
@@ -120,8 +126,7 @@ class FilterViewModel @Inject constructor(
 
             if (newText.isBlank() || isMatched) {
                 detailItem
-            }
-            else {
+            } else {
                 detailItem.copy(marked = false)
             }
         }
@@ -142,9 +147,13 @@ class FilterViewModel @Inject constructor(
     fun onDetailItemMarked(parentPosition: Int, updatedDetailItem: DetailFilterItem) {
         val currentList = _viewState.selection.items.toMutableList()
         val parentItem = currentList.getOrNull(parentPosition) ?: return
-
+        
         val newDetailList = parentItem.detailFilterItems.map {
-            if (it.serverPair.id == updatedDetailItem.serverPair.id) updatedDetailItem else it
+            when {
+                it.serverPair.id == updatedDetailItem.serverPair.id -> updatedDetailItem
+                singleChoice -> it.copy(marked = false)
+                else -> it
+            }
         }
 
         currentList[parentPosition] = parentItem.copy(detailFilterItems = newDetailList)
@@ -159,18 +168,22 @@ class FilterViewModel @Inject constructor(
     }
 
     fun onAllItemsChecked(position: Int, isChecked: Boolean) {
-        val currentList = _viewState.selection.items.toMutableList()
-        val parentItem = currentList.getOrNull(position) ?: return
 
-        val newDetailList = parentItem.detailFilterItems.map { it.copy(marked = isChecked) }
+        if (!singleChoice) {
 
-        currentList[position] = parentItem.copy(detailFilterItems = newDetailList)
-        _viewState = _viewState.copy(
-            isLoading = false,
-            error = null,
-            selection = _viewState.selection.copy(items = currentList)
-        )
-        _viewStateEvent.publishEvent(_viewState)
+            val currentList = _viewState.selection.items.toMutableList()
+            val parentItem = currentList.getOrNull(position) ?: return
+
+            val newDetailList = parentItem.detailFilterItems.map { it.copy(marked = isChecked) }
+
+            currentList[position] = parentItem.copy(detailFilterItems = newDetailList)
+            _viewState = _viewState.copy(
+                isLoading = false,
+                error = null,
+                selection = _viewState.selection.copy(items = currentList)
+            )
+            _viewStateEvent.publishEvent(_viewState)
+        }
     }
 
     fun onClearFilter() {
@@ -188,7 +201,7 @@ class FilterViewModel @Inject constructor(
         _viewStateEvent.publishEvent(_viewState)
     }
 
-    fun filterIsClear()= _viewState.selection.isFilterClear()
+    fun filterIsClear() = _viewState.selection.isFilterClear()
 
     fun getFilter() = _viewState.selection.items
 

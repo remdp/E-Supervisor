@@ -9,11 +9,11 @@
         android:name="com.euromix.esupervisor.screens.main.tabs.visitsSupervisors.list.VisitsSupervisorListFragment"
         android:label="VisitsSupervisorsListFragment">
         <action
-            android:id="@+id/action_visitsSupervisorsListFragment_to_FilterFragment"
-            app:destination="@id/FilterFragment" />
-        <action
             android:id="@+id/action_visitsSupervisorsListFragment_to_visitSupervisorDetailFragment"
             app:destination="@id/visitSupervisorDetailFragment" />
+        <action
+            android:id="@+id/action_visitsSupervisorsListFragment_to_filter_graph"
+            app:destination="@id/filter_graph" />
     </fragment>
     <fragment
         android:id="@+id/visitSupervisorDetailFragment"
@@ -169,32 +169,5 @@
             android:name="titleData"
             app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
     </fragment>
-    <fragment
-        android:id="@+id/FilterFragment"
-        android:name="com.euromix.esupervisor.screens.main.tabs.filter.FilterFragment"
-        android:label="FilterFragment">
-        <argument
-            android:name="filterSource"
-            app:argType="com.euromix.esupervisor.app.enums.FilterSource" />
-        <argument
-            android:name="filterTitles"
-            app:argType="string[]" />
-        <argument
-            android:name="graphId"
-            app:argType="integer" />
-        <argument
-            android:name="flagsTitles"
-            android:defaultValue="@null"
-            app:argType="string[]"
-            app:nullable="true" />
-        <argument
-            android:name="date"
-            android:defaultValue="0L"
-            app:argType="long" />
-        <argument
-            android:name="initialSelection"
-            android:defaultValue="@null"
-            app:argType="com.euromix.esupervisor.app.model.filter.entities.FilterSelection"
-            app:nullable="true" />
-    </fragment>
+    <include app:graph="@navigation/filter_graph" />
 </navigation>

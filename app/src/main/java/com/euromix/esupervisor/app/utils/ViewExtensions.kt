@@ -248,16 +248,19 @@ fun TabLayout.addDivider() {
     }
 }
 
+// TODO: use coroutine fo decoding
 fun ImageView.setBitmapFromBase64String(base64String: String?) {
-
-    base64String?.let {
-        if (base64String.isNotEmpty()) {
-            val imageBytes = Base64.decode(base64String, Base64.DEFAULT)
-            val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-            setImageBitmap(bitmap)
-        }
+    if (base64String.isNullOrEmpty()){
+            setImageDrawable(null)
+        return
     }
 
+    try {
+        val imageBytes = Base64.decode(base64String, Base64.DEFAULT)
+        val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        setImageBitmap(bitmap)
+    } catch (e: IllegalArgumentException) {
+    }
 }
 
 

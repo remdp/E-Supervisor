@@ -3,6 +3,7 @@ package com.euromix.esupervisor.app.model.odometers.entities
 import java.time.LocalDateTime
 
 data class TodayOdometersReading(
+    val carNumber: String,
     val startKm: Int?,
     val startUri: String?,
     val startTime: LocalDateTime?,

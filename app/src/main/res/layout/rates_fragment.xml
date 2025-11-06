@@ -40,50 +40,55 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_end="@dimen/DP_8" />
 
-<!--                <RadioGroup-->
-<!--                    android:id="@+id/rgRates"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    app:layout_constraintEnd_toEndOf="@+id/gdlnEnd"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/gdlnStart"-->
-<!--                    app:layout_constraintTop_toTopOf="parent">-->
-
-<!--                    <RadioButton-->
-<!--                        android:id="@+id/btnCommonRates"-->
-
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginEnd="@dimen/DP_4"-->
-<!--                        android:background="@drawable/selector_radio_button"-->
-<!--                        android:button="@null"-->
-<!--                        android:text="@string/common"-->
-<!--                        android:textAlignment="center"/>-->
-
-<!--                    <RadioButton-->
-<!--                        android:id="@+id/btnTeamRates"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="@dimen/DP_4"-->
-<!--                        android:background="@drawable/selector_radio_button"-->
-<!--                        android:button="@null"-->
-<!--                        android:text="@string/team_rates"-->
-<!--                        android:textAlignment="center"/>-->
-
-<!--                </RadioGroup>-->
-
-
-                <Spinner
-                    android:id="@+id/spRates"
+                <RadioGroup
+                    android:id="@+id/rgRates"
                     android:layout_width="0dp"
-                    android:layout_marginTop="@dimen/DP_8"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@+id/gdlnEnd"
+                    app:layout_constraintStart_toStartOf="@+id/gdlnStart"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/btnOverallRates"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        style="@style/Text.Label.16.Gray500"
+                        android:layout_marginEnd="@dimen/DP_4"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_radio_button"
+                        android:button="@null"
+                        android:checked="true"
+                        android:text="@string/overall"
+                        android:textAlignment="center" />
+
+                    <RadioButton
+                        android:id="@+id/btnTeamRates"
+                        android:layout_width="0dp"
+                        style="@style/Text.Label.16.Gray500"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/DP_4"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_radio_button"
+                        android:button="@null"
+                        android:text="@string/team_rates"
+                        android:textAlignment="center" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvCurrentRate"
+                    android:layout_width="0dp"
+                    style="@style/Text.Label.16.Gray500"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/DP_8"
                     android:background="@drawable/bg_8dp_white_border_gray_200"
+                    android:padding="@dimen/DP_8"
+                    android:textAlignment="center"
                     app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
                     app:layout_constraintStart_toStartOf="@+id/gdlnStart"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/rgRates"
+                    tools:text="План продаж" />
 
                 <Spinner
                     android:id="@+id/spDetailing"
@@ -93,7 +98,7 @@
                     android:background="@drawable/bg_8dp_white_border_gray_200"
                     app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
                     app:layout_constraintStart_toStartOf="@+id/gdlnStart"
-                    app:layout_constraintTop_toBottomOf="@+id/spRates" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvCurrentRate" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/swPlanType"

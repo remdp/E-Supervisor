@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/filter_graph"
+    app:startDestination="@id/filterFragment">
+
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.euromix.esupervisor.screens.main.tabs.filter.FilterFragment"
+        android:label="FilterFragment">
+        <argument
+            android:name="filterSource"
+            app:argType="com.euromix.esupervisor.app.enums.FilterSource" />
+        <argument
+            android:name="filterTitles"
+            app:argType="string[]" />
+        <argument
+            android:name="graphId"
+            app:argType="integer" />
+        <argument
+            android:name="flagsTitles"
+            android:defaultValue="@null"
+            app:argType="string[]"
+            app:nullable="true" />
+        <argument
+            android:name="initialData"
+            android:defaultValue="@null"
+            app:argType="com.euromix.esupervisor.app.model.filter.entities.FilterSelection"
+            app:nullable="true" />
+        <argument
+            android:name="singleChoice"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="date"
+            android:defaultValue="0L"
+            app:argType="long" />
+        <argument
+            android:name="initialSelection"
+            android:defaultValue="@null"
+            app:argType="com.euromix.esupervisor.app.model.filter.entities.FilterSelection"
+            app:nullable="true" />
+    </fragment>
+</navigation>

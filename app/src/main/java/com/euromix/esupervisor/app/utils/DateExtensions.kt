@@ -35,7 +35,9 @@ fun Long.toLocalDate(): LocalDate =
 fun LocalDate.toJsonString(): String =
     atStartOfDay().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
 
-fun LocalDateTime.toTextHMS(): String = format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+fun LocalDateTime.toTextHMS(emptyDatePresentation: String? = null): String {
+    return emptyDatePresentation?.takeIf { this.isTimeZero() } ?: format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+}
 
 fun LocalDateTime.isTimeZero() = hour == 0 && minute == 0 && second == 0
 

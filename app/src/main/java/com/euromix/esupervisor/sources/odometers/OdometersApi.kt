@@ -16,5 +16,5 @@ interface OdometersApi {
     suspend fun sendTodayOdometersReading(@Body request: TodayOdometersReadingRequestEntity): TodayOdometersReadingResponseEntity
 
     @GET("odometers_reading_list")
-    suspend fun getOdometersReadingList(@Header("request") request: String? = null): List<OdometersReadingResponseEntity>
+    suspend fun getOdometersReadingList(@Header("request") request: String? = null): OdometersReadingResponseEntity
 }
