@@ -297,9 +297,18 @@
     <string name="add_task">Додати завдання</string>
     <string name="schedule_a_repeat_store_check">Запланувати повторний store check</string>
     <string name="repeat_store_checks_creation_result">Створено %1$s повторний(их) store checks</string>
-    <string name="repeat_store_checks_creation_error">Виникла помилка у процесі створення повторних store checks</string>
+    <string name="repeat_store_checks_creation_error">Виникла помилка у процесі створення повторних store checks: %1$s</string>
     <string name="repeat_store_checks_creation_result_title">Результат створення повторних store checks</string>
+    <string name="transferring_store_checks_result">%1$s store checks перенесено</string>
+    <string name="store_checks_transferring_error">Виникла помилка у процесі перенесення store checks: %1$s</string>
+    <string name="store_checks_transferring_result_title">Результат перенесення store checks</string>
     <string name="only_my_visits">Тільки мої візити</string>
     <string name="supervisors">Супервайзери</string>
     <string name="error_getting_address">Помилка визначення адреси</string>
+    <string name="all">Всі</string>
+    <string name="completed">Виконані</string>
+    <string name="uncompleted">Невиконані</string>
+    <string name="choose_a_date">Обрати дату</string>
+    <string name="repeat">Повторити</string>
+    <string name="transfer">Перенести</string>
 </resources>

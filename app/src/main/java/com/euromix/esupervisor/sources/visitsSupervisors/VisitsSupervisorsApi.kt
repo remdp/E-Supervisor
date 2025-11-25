@@ -5,6 +5,7 @@ import com.euromix.esupervisor.sources.visitsSupervisors.entities.CheckInRespons
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.CheckOutRequestEntity
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.CheckOutResponseEntity
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.RepeatStoreCheckRequestEntity
+import com.euromix.esupervisor.sources.visitsSupervisors.entities.TransferStoreCheckRequestEntity
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.VisitSupervisorDetailResponseEntity
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.VisitsSupervisorResponseEntity
 import retrofit2.http.Body
@@ -33,4 +34,8 @@ interface VisitsSupervisorsApi {
 
     @POST("store_checks_repeat")
     suspend fun createRepeatStoreCheck(@Body request: RepeatStoreCheckRequestEntity): String
+
+    @POST("store_checks_transfer")
+    suspend fun transferStoreCheck(@Body request: TransferStoreCheckRequestEntity): String
+
 }

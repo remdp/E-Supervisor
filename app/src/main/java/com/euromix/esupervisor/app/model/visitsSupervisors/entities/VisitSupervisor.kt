@@ -3,7 +3,7 @@ package com.euromix.esupervisor.app.model.visitsSupervisors.entities
 import java.time.LocalDateTime
 
 data class VisitSupervisor(
-    val id: String,
+    val extId: String,
     val date: LocalDateTime,
     val number: String,
     val outlet: String,
@@ -15,4 +15,5 @@ data class VisitSupervisor(
     val isDone: Boolean,
     val showMark: Boolean = false,
     val mark: Boolean = false,
+    val canBeRepeated: Boolean
 )

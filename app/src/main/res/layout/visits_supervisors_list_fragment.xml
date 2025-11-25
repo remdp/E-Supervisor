@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="@dimen/DP_8"
+    android:paddingEnd="@dimen/DP_8"
     android:paddingTop="@dimen/DP_4">
 
     <TextView
@@ -11,7 +13,6 @@
         style="@style/Text.Label.16.Gray500"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/DP_8"
         android:layout_marginEnd="@dimen/DP_8"
         android:background="@drawable/bg_8dp_white_border_gray_200"
         android:drawablePadding="@dimen/DP_12"
@@ -28,7 +29,6 @@
         android:id="@+id/ivFunnel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/DP_8"
         android:background="@drawable/bg_8dp_white_border_gray_200"
         android:padding="@dimen/DP_12"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,9 +39,7 @@
         android:id="@+id/tiSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/DP_8"
         android:layout_marginTop="@dimen/DP_8"
-        android:layout_marginEnd="@dimen/DP_8"
         app:endIconDrawable="@drawable/ic_cross_grey"
         app:endIconMode="custom"
         app:endIconTint="@color/gray_300"
@@ -63,6 +61,69 @@
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbMarks"
+        android:layout_width="32dp"
+        android:layout_height="40dp"
+        app:buttonIcon="@drawable/ic_checkbox_white_off"
+        app:buttonTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/ivChecker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivChecker"/>
+
+    <ImageView
+        android:id="@+id/ivChecker"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/DP_4"
+        android:layout_marginTop="@dimen/DP_8"
+        android:backgroundTint="@color/gray_100"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_visits_list_checker"
+        app:layout_constraintStart_toEndOf="@+id/cbMarks"
+        app:layout_constraintTop_toBottomOf="@+id/tiSearch" />
+
+    <TextView
+        android:id="@+id/tvAllVisits"
+        style="@style/Text.Label.12.Medium.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/DP_4"
+        android:background="@drawable/bg_4dp_gray_100_gray_border"
+        android:text="@string/all"
+        android:padding="@dimen/DP_4"
+        app:layout_constraintBottom_toBottomOf="@+id/ivChecker"
+        app:layout_constraintStart_toEndOf="@+id/ivChecker"
+        app:layout_constraintTop_toTopOf="@+id/ivChecker" />
+
+    <TextView
+        android:id="@+id/tvCompletedVisits"
+        style="@style/Text.Label.12.Medium.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_4dp_gray_100_gray_border"
+        android:layout_marginStart="@dimen/DP_4"
+        android:drawablePadding="@dimen/DP_4"
+        android:text="@string/completed"
+        android:padding="@dimen/DP_4"
+        app:layout_constraintBottom_toBottomOf="@+id/ivChecker"
+        app:layout_constraintStart_toEndOf="@+id/tvAllVisits"
+        app:layout_constraintTop_toTopOf="@+id/ivChecker" />
+
+    <TextView
+        android:id="@+id/tvUnCompletedVisits"
+        style="@style/Text.Label.12.Medium.Gray400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_4dp_gray_100_gray_border"
+        android:layout_marginStart="@dimen/DP_4"
+        android:drawablePadding="@dimen/DP_4"
+        android:text="@string/uncompleted"
+        android:padding="@dimen/DP_4"
+        app:layout_constraintBottom_toBottomOf="@+id/ivChecker"
+        app:layout_constraintStart_toEndOf="@+id/tvCompletedVisits"
+        app:layout_constraintTop_toTopOf="@+id/ivChecker" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="0dp"
@@ -71,7 +132,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiSearch">
+        app:layout_constraintTop_toBottomOf="@+id/ivChecker">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvList"
@@ -87,6 +148,50 @@
             tools:listitem="@layout/item_visits_supervisors_list_fragment" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clAppbarBottom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:paddingTop="@dimen/DP_8"
+        android:paddingBottom="@dimen/DP_8"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/srl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
+
+        <Button
+            android:id="@+id/btnRepeat"
+            style="@style/Text.Label.14.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/DP_8"
+            android:paddingTop="@dimen/DP_12"
+            android:paddingBottom="@dimen/DP_12"
+            android:text="@string/repeat"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnTransfer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnTransfer"
+            style="@style/Text.Label.14.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/DP_12"
+            android:paddingBottom="@dimen/DP_12"
+            android:text="@string/transfer"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnRepeat"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.euromix.esupervisor.app.views.ResultView
         android:id="@+id/vResult"

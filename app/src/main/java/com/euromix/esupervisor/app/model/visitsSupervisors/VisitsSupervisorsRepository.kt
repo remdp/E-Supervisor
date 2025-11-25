@@ -4,6 +4,7 @@ import com.euromix.esupervisor.app.utils.async.serverCallbackFlowFetcher
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.CheckInRequestEntity
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.CheckOutRequestEntity
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.RepeatStoreCheckRequestEntity
+import com.euromix.esupervisor.sources.visitsSupervisors.entities.TransferStoreCheckRequestEntity
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.VisitsSupervisorsRequestEntity
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -30,4 +31,7 @@ class VisitsSupervisorsRepository @Inject constructor(private val visitsSupervis
 
     fun createRepeatStoreCheck(request: RepeatStoreCheckRequestEntity) =
         serverCallbackFlowFetcher { visitsSupervisorsSource.createRepeatStoreCheck(request)}
+
+    fun transferStoreCheck(request: TransferStoreCheckRequestEntity) =
+        serverCallbackFlowFetcher { visitsSupervisorsSource.transferStoreCheck(request)}
 }

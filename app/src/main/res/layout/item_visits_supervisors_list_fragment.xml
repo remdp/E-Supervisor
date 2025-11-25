@@ -9,7 +9,7 @@
         android:id="@+id/cbMark"
         android:layout_width="32dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/DP_8"
+        android:background="@color/gray_100"
         app:buttonIcon="@drawable/ic_checkbox_white_off"
         app:buttonTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

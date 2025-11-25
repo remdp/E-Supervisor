@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.visitsSupervisors.entities.VisitSupervisor
+import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.setIcon
 import com.euromix.esupervisor.app.utils.visibility
+import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.ItemVisitsSupervisorsListFragmentBinding
 import com.euromix.esupervisor.screens.main.tabs.TitleData
 
@@ -32,9 +34,9 @@ class VisitsSupervisorAdapter(
 
         with(holder.binding) {
 
-            cbMark.visibility(currentItem.showMark)
+            if (currentItem.showMark && currentItem.canBeRepeated) cbMark.visible() else cbMark.gone()
             cbMark.setIcon(currentItem.mark)
-            cbMark.setOnClickListener { onChangeMarkClick(currentItem.id) }
+            cbMark.setOnClickListener { onChangeMarkClick(currentItem.extId) }
 
             root.setBackgroundColor(
                 if (currentItem.isCheckIn && !currentItem.isCheckOut) root.context.getColor(
@@ -79,7 +81,7 @@ class VisitsSupervisorAdapter(
             root.setOnClickListener {
                 onItemClick(
                     VisitsSupervisorListFragmentDirections.actionVisitsSupervisorsListFragmentToVisitSupervisorDetailFragment(
-                        id = currentItem.id,
+                        id = currentItem.extId,
                         titleData = TitleData(currentItem.partner)
                     )
                 )
@@ -93,7 +95,7 @@ class VisitsSupervisorAdapter(
 
     class DiffCallback : DiffUtil.ItemCallback<VisitSupervisor>() {
         override fun areItemsTheSame(oldItem: VisitSupervisor, newItem: VisitSupervisor) =
-            oldItem.id == newItem.id
+            oldItem.extId == newItem.extId
 
         override fun areContentsTheSame(oldItem: VisitSupervisor, newItem: VisitSupervisor) =
             oldItem == newItem

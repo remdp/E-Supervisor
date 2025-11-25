@@ -319,10 +319,19 @@
     <string name="add_task">Add task</string>
     <string name="schedule_a_repeat_store_check">Schedule a repeat store check</string>
     <string name="repeat_store_checks_creation_result">%1$s repeat store checks created</string>
-    <string name="repeat_store_checks_creation_error">An error occurred while creating repeat store checks</string>
+    <string name="repeat_store_checks_creation_error">An error occurred while creating repeat store checks: %1$s</string>
     <string name="repeat_store_checks_creation_result_title">Repeat store checks creation result</string>
+    <string name="transferring_store_checks_result">%1$s store checks transferred</string>
+    <string name="store_checks_transferring_error">An error occurred while transferring store checks: %1$s</string>
+    <string name="store_checks_transferring_result_title">Store checks transferring result</string>
     <string name="only_my_visits">Only my visits</string>
     <string name="supervisors">Supervisors</string>
     <string name="error_getting_address">Error getting address</string>
+    <string name="all">All</string>
+    <string name="completed">Completed</string>
+    <string name="uncompleted">Uncompleted</string>
+    <string name="choose_a_date">Сhoose a date</string>
+    <string name="repeat">Repeat</string>
+    <string name="transfer">Transfer</string>
 
 </resources>

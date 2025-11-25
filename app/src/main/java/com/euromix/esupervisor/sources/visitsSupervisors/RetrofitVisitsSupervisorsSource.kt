@@ -10,6 +10,7 @@ import com.euromix.esupervisor.sources.base.RetrofitConfig
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.CheckInRequestEntity
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.CheckOutRequestEntity
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.RepeatStoreCheckRequestEntity
+import com.euromix.esupervisor.sources.visitsSupervisors.entities.TransferStoreCheckRequestEntity
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.VisitsSupervisorsRequestEntity
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -63,5 +64,8 @@ class RetrofitVisitsSupervisorsSource @Inject constructor(private val config: Re
 
     override suspend fun createRepeatStoreCheck(request: RepeatStoreCheckRequestEntity) =
         wrapRetrofitException { visitsSupervisorsApi.createRepeatStoreCheck(request) }
+
+    override suspend fun transferStoreCheck(request: TransferStoreCheckRequestEntity) =
+        wrapRetrofitException { visitsSupervisorsApi.transferStoreCheck(request) }
 
 }

@@ -64,7 +64,6 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
         setFilteredItems()
     }
 
-
     private fun handleError(error: Throwable) {
         _viewState = _viewState.copy(isLoading = false, error = error)
     }

@@ -7,6 +7,7 @@ import com.euromix.esupervisor.app.model.visitsSupervisors.entities.VisitSupervi
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.CheckInRequestEntity
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.CheckOutRequestEntity
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.RepeatStoreCheckRequestEntity
+import com.euromix.esupervisor.sources.visitsSupervisors.entities.TransferStoreCheckRequestEntity
 import com.euromix.esupervisor.sources.visitsSupervisors.entities.VisitsSupervisorsRequestEntity
 
 interface VisitsSupervisorsSource {
@@ -17,4 +18,5 @@ interface VisitsSupervisorsSource {
     suspend fun checkOutPost(id: String, request: CheckOutRequestEntity): CheckOut
     suspend fun checkOutGet(id: String): CheckOut
     suspend fun createRepeatStoreCheck(request: RepeatStoreCheckRequestEntity): String
+    suspend fun transferStoreCheck(request: TransferStoreCheckRequestEntity): String
 }

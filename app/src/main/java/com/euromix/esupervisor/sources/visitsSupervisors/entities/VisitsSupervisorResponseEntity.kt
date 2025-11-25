@@ -14,10 +14,11 @@ data class VisitsSupervisorResponseEntity(
     @field:Json(name = "field_visit_type") val fieldVisitType: Int, //0 - store check, 1 - field training
     @field:Json(name = "is_checkin") val isCheckIn: Boolean,
     @field:Json(name = "is_checkout") val isCheckOut: Boolean,
-    @field:Json(name = "is_done") val isDone: Boolean
+    @field:Json(name = "is_done") val isDone: Boolean,
+    @field:Json(name = "can_be_repeated") val canBeRepeated: Boolean
 ) {
     fun toVisitSupervisor() = VisitSupervisor(
-        id = id,
+        extId = id,
         date = LocalDateTime.parse(date),
         number = number,
         outlet = outlet,
@@ -26,6 +27,7 @@ data class VisitsSupervisorResponseEntity(
         fieldVisitType = fieldVisitType,
         isCheckIn = isCheckIn,
         isCheckOut = isCheckOut,
-        isDone = isDone
+        isDone = isDone,
+        canBeRepeated = canBeRepeated
     )
 }

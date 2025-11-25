@@ -30,8 +30,8 @@ android {
         applicationId "com.euromix.esupervisorview"
         minSdk 26
         targetSdk 33
-        versionCode 27
-        versionName "1.7.4.1"
+        versionCode 29
+        versionName "1.7.5.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
