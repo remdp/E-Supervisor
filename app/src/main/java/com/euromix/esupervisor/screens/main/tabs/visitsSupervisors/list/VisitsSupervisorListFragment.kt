@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.enums.FilterSource
 import com.euromix.esupervisor.app.model.Error
@@ -62,6 +63,7 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
         adapter = VisitsSupervisorAdapter(viewModel::changeMark) {
             navController.navigate(it)
         }
+        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding.rvList.adapter = adapter
 
         setDateSelection(
@@ -92,6 +94,7 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
         setupListeners()
         setupObservers()
 
+        viewModel.reload()
     }
 
     private fun setupListeners() {
@@ -201,7 +204,8 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
             state as BaseViewState,
             binding.root,
             binding.vResult,
-            binding.srl
+            binding.srl,
+            specialViews = listOf(binding.clAppbarBottom, binding.cbMarks)
         )
 
         with(binding) {
@@ -224,7 +228,7 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
                 if (state.totalMark != false) {
                     clAppbarBottom.visible()
 
-                    when (state.quickFilter) {
+                    when (state.selectionType) {
                         VisitFilter.ALL -> {
                             btnRepeat.visible()
                             btnTransfer.visible()

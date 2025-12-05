@@ -81,7 +81,6 @@ class StoreCheckLowerLevelAdapter(
 
                 if (settings.storeCheckFormat == StoreCheckFormat.YES_NO) {
                     grFormatYesNo.visible()
-                    renderYESNOGroup(item.accountingBoolean, item.accountingBooleanBasis)
                     tiAmountSKU.gone()
                 } else {
                     grFormatYesNo.gone()
@@ -95,10 +94,7 @@ class StoreCheckLowerLevelAdapter(
                     tvAmountSKUBasis.visibility(settings.isBasis)
                 }
 
-                tvAvailabilityRepeated.text =
-                    resManager.getString(if (item.accountingBooleanBasis) R.string.in_stock else R.string.not_available)
-                tvAvailabilityRepeated.visibility(settings.isBasis)
-
+                renderYESNOGroup(item.accountingBoolean, item.accountingBooleanBasis)
 
                 val etShelfLengthText = item.shelfLength.toText()
                 etShelfLength.setText(etShelfLengthText)
@@ -168,6 +164,10 @@ class StoreCheckLowerLevelAdapter(
                         resManager.getDrawable(R.drawable.bg_6dp_white_border_gray)
                     tvNotAvailable.setTextColor(resManager.getColor(R.color.blue))
                 }
+
+                tvAvailabilityRepeated.text =
+                    resManager.getString(if (accountingBooleanBasis) R.string.in_stock else R.string.not_available)
+                tvAvailabilityRepeated.visibility(settings.isBasis && settings.storeCheckFormat == StoreCheckFormat.YES_NO)
             }
         }
 

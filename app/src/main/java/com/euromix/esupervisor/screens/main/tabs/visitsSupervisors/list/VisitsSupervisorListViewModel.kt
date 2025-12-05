@@ -48,7 +48,7 @@ class VisitsSupervisorListViewModel @Inject constructor(private val visitsSuperv
 
     init {
         observeSearchQuery()
-        reload()
+     //   reload()
     }
 
     @OptIn(FlowPreview::class)
@@ -81,7 +81,7 @@ class VisitsSupervisorListViewModel @Inject constructor(private val visitsSuperv
 
     private fun handlePendingState() {
         _viewState.update {
-            it.copy(isLoading = true, error = null, totalMark = false, displayVisits = emptyList())
+            it.copy(isLoading = true, error = null, totalMark = false)
                 .deriveDisplayVisits()
         }
     }
@@ -217,7 +217,9 @@ class VisitsSupervisorListViewModel @Inject constructor(private val visitsSuperv
             currentState.copy(
                 totalMark = newTotalMark,
                 markedIds = newMarks
-            ).deriveDisplayVisits()
+            )
+                .deriveDisplayVisits()
+                .deriveSelectionType()
         }
     }
 
@@ -226,6 +228,7 @@ class VisitsSupervisorListViewModel @Inject constructor(private val visitsSuperv
             it.toggleMark(extId)
                 .deriveTotalMark()
                 .deriveDisplayVisits()
+                .deriveSelectionType()
         }
     }
 
@@ -240,6 +243,7 @@ class VisitsSupervisorListViewModel @Inject constructor(private val visitsSuperv
                 .deriveFilteredMarks()
                 .deriveTotalMark()
                 .deriveDisplayVisits()
+                .deriveSelectionType()
         }
     }
 
@@ -256,6 +260,28 @@ class VisitsSupervisorListViewModel @Inject constructor(private val visitsSuperv
             }
 
         return this.copy(displayVisits = newList)
+    }
+
+    private fun ViewState.deriveSelectionType(): ViewState {
+        val selectedItems = this.visitsSupervisors.filter { it.extId in this.markedIds }
+
+        val filter = if (selectedItems.isEmpty()) {
+            VisitFilter.ALL
+        } else {
+
+            val allCompleted = selectedItems.all { it.isDone }
+            val allUncompleted = selectedItems.all { !it.isDone }
+
+            when {
+                allCompleted -> VisitFilter.COMPLETED
+                allUncompleted -> VisitFilter.UNCOMPLETED
+                else -> VisitFilter.ALL
+            }
+        }
+
+
+
+        return this.copy(selectionType = filter)
     }
 
     fun onScrolledToTop() {
@@ -294,6 +320,7 @@ class VisitsSupervisorListViewModel @Inject constructor(private val visitsSuperv
         }
     }
 
+
     data class ViewState(
         override val isLoading: Boolean = false,
         override val error: Throwable? = null,
@@ -312,7 +339,8 @@ class VisitsSupervisorListViewModel @Inject constructor(private val visitsSuperv
         val totalMark: Boolean? = false,
         val quickFilter: VisitFilter = VisitFilter.ALL,
         val scrollToTop: Boolean = false,
-        val displayVisits: List<VisitSupervisor> = emptyList()
+        val displayVisits: List<VisitSupervisor> = emptyList(),
+        val selectionType: VisitFilter = VisitFilter.ALL
     ) : BaseViewState()
 }
 
