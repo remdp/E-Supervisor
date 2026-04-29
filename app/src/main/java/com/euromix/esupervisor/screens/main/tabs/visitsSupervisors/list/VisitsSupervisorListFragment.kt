@@ -52,7 +52,11 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
 
     private val binding by viewBinding<VisitsSupervisorsListFragmentBinding>()
 
-    private lateinit var adapter: VisitsSupervisorAdapter
+    private val adapter by lazy {
+        VisitsSupervisorAdapter(viewModel::changeMark) {
+            navController.navigate(it)
+        }
+    }
 
     @Inject
     lateinit var resManager: ResourceManager
@@ -60,10 +64,8 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = VisitsSupervisorAdapter(viewModel::changeMark) {
-            navController.navigate(it)
-        }
-        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        adapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding.rvList.adapter = adapter
 
         setDateSelection(
@@ -94,7 +96,7 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
         setupListeners()
         setupObservers()
 
-        viewModel.reload()
+       // viewModel.reload()
     }
 
     private fun setupListeners() {
@@ -170,6 +172,10 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
                 errorString = R.string.store_checks_transferring_error
             )
         }
+
+        viewModel.scrollToTopEvent.observeEvent(viewLifecycleOwner) {
+            binding.rvList.post { binding.rvList.scrollToPosition(0) }
+        }
     }
 
     private fun handleProcessingResult(
@@ -186,6 +192,7 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
                     title = titleString
                 )
             }
+
             is Error -> {
                 hideActionLoading()
                 showResultProcessingStoreChecks(
@@ -193,6 +200,7 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
                     title = titleString
                 )
             }
+
             else -> {
                 showActionLoading()
             }
@@ -233,10 +241,12 @@ class VisitsSupervisorListFragment : BaseFragment(R.layout.visits_supervisors_li
                             btnRepeat.visible()
                             btnTransfer.visible()
                         }
+
                         VisitFilter.COMPLETED -> {
                             btnRepeat.visible()
                             btnTransfer.gone()
                         }
+
                         VisitFilter.UNCOMPLETED -> {
                             btnRepeat.gone()
                             btnTransfer.visible()

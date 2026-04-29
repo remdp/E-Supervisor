@@ -17,10 +17,11 @@ fun setDateSelection(
     showClearView: Boolean = true,
     underlineIfNull: Boolean = false,
     titleText: String? = null,
+    currentDate: Date? = null,
     currentDateProvider: () -> LocalDate? = { null },
-    dateUpdater: ((date: Date?) -> Unit)? = null
+    dateUpdater: ((date: Date?) -> Unit)? = null,
 ) {
-    designedDateView(tv, null, showClearView, underlineIfNull)
+    designedDateView(tv, currentDate, showClearView, underlineIfNull)
 
     tv.setOnTouchListener { v, event ->
 

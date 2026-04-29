@@ -1,6 +1,5 @@
 package com.euromix.esupervisor.screens.main.tabs.tasks.createTask
 
-import android.text.Editable
 import androidx.lifecycle.MutableLiveData
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.model.Error
@@ -13,9 +12,9 @@ import com.euromix.esupervisor.app.model.tasks.TasksRepository
 import com.euromix.esupervisor.app.model.tasks.entities.TasksCreateOutletsSelection
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
-import com.euromix.esupervisor.app.utils.toJsonString
 import com.euromix.esupervisor.app.utils.publishEvent
 import com.euromix.esupervisor.app.utils.share
+import com.euromix.esupervisor.app.utils.toJsonString
 import com.euromix.esupervisor.screens.main.tabs.tasks.selection.SelectionItemOutlet
 import com.euromix.esupervisor.sources.tasks.createTask.entities.OutletsForCreateTaskRequestEntity
 import com.euromix.esupervisor.sources.tasks.createTask.entities.TasksCreateRequestEntity
@@ -53,11 +52,17 @@ class CreateTaskViewModel @Inject constructor(
 
     private var _storeCheckId: String? = null
 
+    private var currentSearchQuery: String = ""
+
+    private var lastRequestParams: OutletsForCreateTaskRequestEntity? = null
+
+    private val _photosBase64 = MutableLiveData<List<String>>(emptyList())
+    val photosBase64 = _photosBase64.share()
+
     init {
         updateChosenTaskType(null)
         findTasksType()
     }
-
 
     private fun findTasksType() {
         safeLaunch {
@@ -83,7 +88,8 @@ class CreateTaskViewModel @Inject constructor(
                         tradingAgentIds = chosenTA,
                         description = description,
                         outletsIds = chosenOutlets,
-                        attachPhoto = attachPhoto
+                        attachPhoto = attachPhoto,
+                        photos = _photosBase64.value
                     )
                 } else {
                     return@safeLaunch
@@ -94,7 +100,8 @@ class CreateTaskViewModel @Inject constructor(
                     taskTypeId = _chosenTasksType.value!!.id,
                     description = description,
                     attachPhoto = attachPhoto,
-                    storeCheckId = _storeCheckId
+                    storeCheckId = _storeCheckId,
+                    photos = _photosBase64.value
                 )
             }
 
@@ -113,6 +120,19 @@ class CreateTaskViewModel @Inject constructor(
                 outletsInnerTypes = selection?.outletsInnerTypes
             )
 
+            if (request == lastRequestParams && initialOutlets.isNotEmpty()) {
+                if (currentSearchQuery.isNotBlank()) {
+                    filteredBy(currentSearchQuery)
+                } else {
+                    _outlets.value = Success(initialOutlets.toMutableList())
+                }
+                return@safeLaunch
+            }
+
+            lastRequestParams = request
+            initialOutlets.clear()
+             currentSearchQuery = ""
+
             initialOutlets.clear()
 
             if (request.isEmpty()) {
@@ -124,8 +144,16 @@ class CreateTaskViewModel @Inject constructor(
                         is Success -> {
                             result.value.map { it.toSelectionItemOutlet() }
                                 .also { selectionItemOutlets ->
-                                    _outlets.value = Success(selectionItemOutlets.toMutableList())
-                                    initialOutlets.addAll(selectionItemOutlets.map { it.copy() })
+
+
+                                    val list = selectionItemOutlets.toMutableList()
+                                    initialOutlets.addAll(list.map { it.copy() })
+
+                                    if (currentSearchQuery.isNotBlank()) {
+                                        filteredBy(currentSearchQuery)
+                                    } else {
+                                        _outlets.value = Success(list)
+                                    }
                                 }
                         }
 
@@ -152,40 +180,38 @@ class CreateTaskViewModel @Inject constructor(
 
     fun changeMark(checked: Boolean, selectionItemOutlet: SelectionItemOutlet? = null) {
         _outlets.value?.let { outletsResult ->
-            val items = (outletsResult as Success).value
-
-            if (selectionItemOutlet == null) {
-                items.forEach { item -> item.marked = checked }
-            } else {
-                items.find { item -> item.outlet == selectionItemOutlet.outlet }?.marked = checked
+            if (outletsResult is Success) {
+                val items = outletsResult.value
+                if (selectionItemOutlet == null) {
+                    items.forEach { it.marked = checked }
+                } else {
+                    items.find { it.outlet == selectionItemOutlet.outlet }?.marked = checked
+                }
             }
+        }
+
+        if (selectionItemOutlet == null) {
+            initialOutlets.forEach { it.marked = checked }
+        } else {
+            initialOutlets.find { it.outlet == selectionItemOutlet.outlet }?.marked = checked
         }
     }
 
-    fun filteredBy(text: Editable?) {
+    fun filteredBy(text: Any?) {
+        val query = text.toString()
 
-        val newList = if (text.isNullOrBlank()) initialOutlets
-        else initialOutlets.filter {
-            it.outlet.serverPair.presentation.contains(
-                text.toString(),
-                ignoreCase = true
-            ) || it.outlet.owner.contains(
-                text.toString(),
-                ignoreCase = true
-            )
-        }.toMutableList()
+        currentSearchQuery = query
 
-        _outlets.value?.let { result ->
-
-            if (result is Success) {
-                val currentList = result.value
-                newList.forEach { itemNewList ->
-                    val foundItem = currentList.find { it.outlet == itemNewList.outlet }
-                    itemNewList.marked = foundItem?.marked ?: false
-                }
-                _outlets.value = Success(newList)
-            }
+        val newList = if (query.isBlank()) {
+            initialOutlets.toMutableList()
+        } else {
+            initialOutlets.filter {
+                it.outlet.serverPair.presentation.contains(query, ignoreCase = true) ||
+                        it.outlet.owner.contains(query, ignoreCase = true)
+            }.toMutableList()
         }
+
+        _outlets.value = Success(newList)
     }
 
     fun drawableForParentCheckBox(): Int {
@@ -210,6 +236,20 @@ class CreateTaskViewModel @Inject constructor(
 
     fun setStoreCheckId(storeCheckId: String?) {
         _storeCheckId = storeCheckId
+    }
+
+    fun selectPicture(photoBase64String: String) {
+        val currentList = _photosBase64.value.orEmpty().toMutableList()
+        currentList.add(photoBase64String)
+        _photosBase64.value = currentList
+    }
+
+    fun removePhoto(position: Int) {
+        val currentList = _photosBase64.value.orEmpty().toMutableList()
+        if (position in currentList.indices) {
+            currentList.removeAt(position)
+            _photosBase64.value = currentList
+        }
     }
 
     fun verifyPossibilityCreation(description: String): List<Int> {

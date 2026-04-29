@@ -56,10 +56,18 @@
         android:label="ImageFragment" >
         <argument
             android:name="imageUri"
-            app:argType="string" />
+            app:argType="string"/>
         <argument
             android:name="titleData"
             app:argType="com.euromix.esupervisor.screens.main.tabs.TitleData" />
+        <argument
+            android:name="imageBase64"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="imagePosition"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"

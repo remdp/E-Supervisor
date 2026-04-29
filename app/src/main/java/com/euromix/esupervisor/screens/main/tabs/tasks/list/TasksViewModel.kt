@@ -6,6 +6,8 @@ import com.euromix.esupervisor.app.model.Result
 import com.euromix.esupervisor.app.model.tasks.TasksRepository
 import com.euromix.esupervisor.app.model.tasks.entities.Task
 import com.euromix.esupervisor.app.model.tasks.entities.TasksSelection
+import com.euromix.esupervisor.app.screens.Scrollable
+import com.euromix.esupervisor.app.screens.ScrollableDelegate
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.share
 import com.euromix.esupervisor.app.utils.toJsonString
@@ -18,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TasksViewModel @Inject constructor(
     private val tasksRepository: TasksRepository
-) : BaseViewModel() {
+) : BaseViewModel(), Scrollable by ScrollableDelegate() {
 
     private val _tasks = MutableLiveData<Result<List<Task>>>()
     val tasks = _tasks.share()
@@ -36,6 +38,7 @@ class TasksViewModel @Inject constructor(
         viewModelScope.launch {
             tasksRepository.getTasks(requestFromSelection()).collect {
                 _tasks.value = it
+                triggerScrollToTop()
             }
         }
     }

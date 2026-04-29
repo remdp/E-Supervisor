@@ -22,7 +22,6 @@ import androidx.core.graphics.scale
 import androidx.core.graphics.drawable.toDrawable
 
 class VisitsAdapter(
-    val context: Context,
     val onMarkClick: (extId: String) -> Unit,
     val onChangeVisitTypeClick: (extId: String, visitType: VisitType) -> Unit
 ) :
@@ -42,6 +41,8 @@ class VisitsAdapter(
 
         val currentItem = getItem(position)
 
+        val ctx = holder.binding.root.context
+
         with(holder.binding) {
             tvPartner.text = currentItem.partner
 
@@ -58,8 +59,8 @@ class VisitsAdapter(
                 tvNumber.text = currentItem.number
 
                 val drawable =
-                    (context.bitmapFromDrawableRes(drawableRes) ?: return@let).scale(80, 80)
-                        .toDrawable(context.resources)
+                    (ctx.bitmapFromDrawableRes(drawableRes) ?: return@let).scale(80, 80)
+                        .toDrawable(ctx.resources)
                 tvPartner.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
             }
 
@@ -86,10 +87,10 @@ class VisitsAdapter(
 
             if (currentItem.type == VisitType.REMOTE) {
                 ivChangeVisitType.setImageResource(R.drawable.ic_visit_regular)
-                llIv.setBackgroundColor(context.getColor(R.color.blue_80))
+                llIv.setBackgroundColor(ctx.getColor(R.color.blue_80))
             } else {
                 ivChangeVisitType.setImageResource(R.drawable.ic_visit_remote)
-                llIv.setBackgroundColor(context.getColor(R.color.orange_80))
+                llIv.setBackgroundColor(ctx.getColor(R.color.orange_80))
             }
 
             ivChangeVisitType.setOnClickListener {

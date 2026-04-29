@@ -28,33 +28,24 @@ class OutletsAdapter(
     override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val item = list[position]
-
         with(holder.binding) {
-
             cbPartner.text = item.outlet.owner
-            //  cbPartner.isChecked = item.marked
-            tvOutlet.text = item.outlet.serverPair.presentation
-            cbPartner.setButtonDrawable(
-                viewModel.drawableForChildCheckBox(
-                    item.marked
-                )
-            )
 
-//            cbPartner.setOnCheckedChangeListener { _, isChecked ->
-//                viewModel.changeMark(isChecked, item)
-//            }
+            cbPartner.setOnCheckedChangeListener(null)
+
+            cbPartner.isChecked = item.marked
+            cbPartner.setButtonDrawable(viewModel.drawableForChildCheckBox(item.marked))
 
             cbPartner.setOnClickListener {
-
                 val mark = !item.marked
-                itemClickListener?.invoke(position, mark)
-
+                item.marked = mark
+                cbPartner.isChecked = mark
                 cbPartner.setButtonDrawable(viewModel.drawableForChildCheckBox(mark))
+
+                itemClickListener?.invoke(position, mark)
             }
         }
-
     }
 
     inner class ViewHolder(val binding: ItemOutletCreateTaskBinding) :

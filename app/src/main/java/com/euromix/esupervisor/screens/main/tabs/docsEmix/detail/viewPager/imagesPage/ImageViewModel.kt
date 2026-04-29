@@ -16,7 +16,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
 class ImageViewModel @AssistedInject constructor(
-    @Assisted private val id: String,
+    @Assisted private val id: String?,
     private val docEmixDetailRepository: DocEmixDetailRepository,
 ) : BaseViewModel() {
 
@@ -28,7 +28,9 @@ class ImageViewModel @AssistedInject constructor(
     val viewStateEvent = _viewStateEvent.share()
 
     init {
-        getImageReactions()
+        if (!id.isNullOrEmpty()) {
+            getImageReactions()
+        }
     }
 
     private fun <T> updateViewState(result: Result<T>) {
@@ -55,8 +57,10 @@ class ImageViewModel @AssistedInject constructor(
     }
 
     private fun getImageReactions() {
+        val safeId = id ?: return
+
         safeLaunch {
-            docEmixDetailRepository.getImageReactions(id).collect {
+            docEmixDetailRepository.getImageReactions(safeId).collect {
                 updateViewState(it)
             }
         }
@@ -68,7 +72,7 @@ class ImageViewModel @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(id: String): ImageViewModel
+        fun create(id: String?): ImageViewModel
     }
 
     data class ViewState(

@@ -12,5 +12,6 @@ data class TasksCreateRequestEntity(
     val description: String? = null,
     @Json(name = "outlets_ids") val outletsIds: List<String>? = null,
     @Json(name = "attach_photo") val attachPhoto: Boolean,
-    @Json(name = "store_check_id") val storeCheckId: String? = null
+    @Json(name = "store_check_id") val storeCheckId: String? = null,
+    val photos: List<String>? = null
 ):Parcelable
