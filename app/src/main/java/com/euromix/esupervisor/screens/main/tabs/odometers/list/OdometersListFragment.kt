@@ -3,6 +3,7 @@ package com.euromix.esupervisor.screens.main.tabs.odometers.list
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.designByViewState
@@ -25,6 +26,8 @@ class OdometersListFragment : BaseFragment(R.layout.odometers_list_fragment) {
 
         binding.iSelection.ivAdditionalAction.gone()
         binding.iSelection.ivFunnel.gone()
+        adapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding.rvList.adapter = adapter
 
         setPeriodSelection(
@@ -51,6 +54,10 @@ class OdometersListFragment : BaseFragment(R.layout.odometers_list_fragment) {
         viewModel.viewStateEvent.observeEvent(viewLifecycleOwner) {
             renderState()
         }
+
+        viewModel.scrollToTopEvent.observeEvent(viewLifecycleOwner) {
+            binding.rvList.post { binding.rvList.scrollToPosition(0) }
+        }
     }
 
     private fun renderState() {
@@ -63,7 +70,7 @@ class OdometersListFragment : BaseFragment(R.layout.odometers_list_fragment) {
 
             if (!isLoading && error == null) {
                 adapter.submitList(viewModel.getListForSubmit())
-                binding.rvList.post { binding.rvList.scrollToPosition(0) }
+               // binding.rvList.post { binding.rvList.scrollToPosition(0) }
             }
         }
     }

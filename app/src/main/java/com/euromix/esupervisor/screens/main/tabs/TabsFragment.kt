@@ -34,11 +34,13 @@ class TabsFragment : BaseFragment(R.layout.fragment_tabs) {
             childFragmentManager.findFragmentById(R.id.tabsContainer) as NavHostFragment
         navController = navHostFragment.navController
 
-        if (viewModel.accountRepository.getCurrentRole() != Role.SUPERVISOR) {
-            val navGraph = navController.navInflater.inflate(R.navigation.tabs_graph)
-            navGraph.setStartDestination(R.id.rates_graph)
-            navController.graph = navGraph
-            binding.bottomNavigationView.selectedItemId = R.id.rates_graph
+        if (savedInstanceState == null) {
+            if (viewModel.accountRepository.getCurrentRole() != Role.SUPERVISOR) {
+                val navGraph = navController.navInflater.inflate(R.navigation.tabs_graph)
+                navGraph.setStartDestination(R.id.rates_graph)
+                navController.graph = navGraph
+                binding.bottomNavigationView.selectedItemId = R.id.rates_graph
+            }
         }
         binding.bottomNavigationView.itemIconTintList = null
 
@@ -61,6 +63,7 @@ class TabsFragment : BaseFragment(R.layout.fragment_tabs) {
                         NavigationUI.onNavDestinationSelected(it, navController)
                     }
                 }
+
                 else -> {
                     NavigationUI.onNavDestinationSelected(menuItem, navController)
                 }

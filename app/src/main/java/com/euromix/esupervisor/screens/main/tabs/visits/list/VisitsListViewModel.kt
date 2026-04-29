@@ -8,6 +8,8 @@ import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.visits.VisitsRepository
 import com.euromix.esupervisor.app.model.visits.entities.Visit
 import com.euromix.esupervisor.app.model.visits.entities.VisitsListSelection
+import com.euromix.esupervisor.app.screens.Scrollable
+import com.euromix.esupervisor.app.screens.ScrollableDelegate
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.toJsonString
@@ -19,9 +21,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Date
 import javax.inject.Inject
 
+
 @HiltViewModel
 class VisitsListViewModel @Inject constructor(private val visitsRepository: VisitsRepository) :
-    BaseViewModel() {
+    BaseViewModel(), Scrollable by ScrollableDelegate() {
 
     private var _viewState: ViewState = ViewState()
     val viewState: ViewState
@@ -62,6 +65,7 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
 
         _viewState.markedIds.clear()
         setFilteredItems()
+        triggerScrollToTop()
     }
 
     private fun handleError(error: Throwable) {
@@ -223,11 +227,11 @@ class VisitsListViewModel @Inject constructor(private val visitsRepository: Visi
         }
     }
 
-    fun scrollToTop(): Boolean {
-        val scrollToTop = _viewState.scrollToTop
-        _viewState = _viewState.copy(scrollToTop = false)
-        return scrollToTop
-    }
+//    fun scrollToTop(): Boolean {
+//        val scrollToTop = _viewState.scrollToTop
+//        _viewState = _viewState.copy(scrollToTop = false)
+//        return scrollToTop
+//    }
 
     fun markedVisits() = _viewState.markedIds
 

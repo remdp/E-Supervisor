@@ -7,6 +7,7 @@ data class ImagesReactions(
 
 data class ImageReactionsRow(
     val path: String,
+    val supervisorPhoto: Boolean = false,
     val likes: Int,
     var dislikes: Int,
     val comment: String?

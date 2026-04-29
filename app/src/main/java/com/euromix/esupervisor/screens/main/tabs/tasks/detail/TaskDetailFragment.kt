@@ -115,9 +115,9 @@ class TaskDetailFragment : BaseFragment(R.layout.task_detail_fragment) {
                         val direction =
                             TaskDetailFragmentDirections.actionTaskDetailFragmentToImageFragment(
                                 imageUri = imageUri,
-                                titleData = titleData
+                                titleData = titleData,
+                                imageBase64 = null
                             )
-
                         navController.navigate(direction)
                     }
                 )

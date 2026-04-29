@@ -125,7 +125,8 @@ class DocEmixDetailFragment : BaseFragment(R.layout.doc_emix_detail_fragment) {
                     val direction =
                         DocEmixDetailFragmentDirections.actionDocEmixDetailFragmentToImageFragment(
                             imageUri = imageUri,
-                            titleData = args.titleData
+                            titleData = args.titleData,
+                            imageBase64 = null
                         )
                     findNavController().navigate(direction)
                 }

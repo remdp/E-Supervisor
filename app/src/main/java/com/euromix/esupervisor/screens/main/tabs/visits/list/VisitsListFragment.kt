@@ -8,6 +8,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.enums.VisitType
@@ -34,7 +35,15 @@ class VisitsListFragment : BaseFragment(R.layout.visits_list_fragment) {
 
     private val binding by viewBinding<VisitsListFragmentBinding>()
 
-    private lateinit var adapter: VisitsAdapter
+    private val adapter by lazy {
+        VisitsAdapter(
+            onMarkClick = viewModel::changeMark,
+            onChangeVisitTypeClick = { extId, visitType ->
+                ChangeVisitTypeDialog.newInstance(listOf(extId), visitType)
+                    .show(parentFragmentManager, null)
+            },
+        )
+    }
 
     @Inject
     lateinit var resManager: ResourceManager
@@ -42,10 +51,8 @@ class VisitsListFragment : BaseFragment(R.layout.visits_list_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = VisitsAdapter(requireContext(), viewModel::changeMark) { extId, visitType ->
-            ChangeVisitTypeDialog.newInstance(listOf(extId), visitType)
-                .show(parentFragmentManager, null)
-        }
+        adapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding.rvList.adapter = adapter
 
         setPeriodSelection(
@@ -124,6 +131,10 @@ class VisitsListFragment : BaseFragment(R.layout.visits_list_fragment) {
         setFragmentResultListener(NEED_UPDATE) { _, _ ->
             viewModel.reload()
         }
+
+        viewModel.scrollToTopEvent.observeEvent(viewLifecycleOwner) {
+            binding.rvList.post { binding.rvList.scrollToPosition(0) }
+        }
     }
 
 
@@ -171,7 +182,7 @@ class VisitsListFragment : BaseFragment(R.layout.visits_list_fragment) {
                 else -> setTextColorAndBackground(binding.tvAllVisits)
             }
 
-            if (viewModel.scrollToTop()) rvList.post { rvList.scrollToPosition(0) }
+            //if (viewModel.scrollToTop()) rvList.post { rvList.scrollToPosition(0) }
 
             if (viewState.totalMark != false) clAppbarBottom.visible()
             else clAppbarBottom.gone()

@@ -7,6 +7,7 @@ import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.docsEmix.DocsEmixRepository
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocEmix
 import com.euromix.esupervisor.app.model.docsEmix.entities.DocsEmixSelection
+import com.euromix.esupervisor.app.screens.ScrollableDelegate
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.toJsonString
@@ -17,11 +18,13 @@ import com.euromix.esupervisor.sources.docsEmix.entities.DocsEmixRequestEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Date
 import javax.inject.Inject
+import com.euromix.esupervisor.app.screens.Scrollable
 
 @HiltViewModel
 class DocsEmixListViewModel @Inject constructor(
     private val docsEmixRepository: DocsEmixRepository
-) : BaseViewModel() {
+) : BaseViewModel(), Scrollable by ScrollableDelegate() {
+
 
     private var _viewState = ViewState()
     val viewState: ViewState
@@ -58,11 +61,13 @@ class DocsEmixListViewModel @Inject constructor(
 
     private fun handleSuccess(value: List<DocEmix>) {
         _viewState = _viewState.copy(isLoading = false, error = null, docsEmix = value)
+        triggerScrollToTop()
     }
 
     private fun handleError(error: Throwable) {
         _viewState = _viewState.copy(isLoading = false, error = error)
     }
+
 
     private fun getDocsEmix() {
 

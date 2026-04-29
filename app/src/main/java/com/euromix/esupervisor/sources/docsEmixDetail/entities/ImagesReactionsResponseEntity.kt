@@ -6,15 +6,23 @@ import com.euromix.esupervisor.app.model.docEmix.entities.ImageReactionsRow
 data class ImagesReactionsResponseEntity(
     val creationDislikeTaskMessage: String, val rows: List<ImageReactionResponseEntityRow>
 ) {
-
     fun toImageReaction() = ImagesReactions(creationDislikeTaskMessage, rows.map {
         it.toImageReaction()
     })
-
 }
 
 data class ImageReactionResponseEntityRow(
-    val path: String, val likes: Int, val dislikes: Int, val comment: String?
+    val path: String,
+    val supervisorPhoto: Boolean,
+    val likes: Int,
+    val dislikes: Int,
+    val comment: String?
 ) {
-    fun toImageReaction() = ImageReactionsRow(path, likes, dislikes, comment)
+    fun toImageReaction() = ImageReactionsRow(
+        path = path,
+        supervisorPhoto = supervisorPhoto,
+        likes = likes,
+        dislikes = dislikes,
+        comment = comment
+    )
 }

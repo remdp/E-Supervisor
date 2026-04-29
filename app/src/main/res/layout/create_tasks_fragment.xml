@@ -111,17 +111,50 @@
                 app:layout_constraintEnd_toEndOf="@+id/tvDescription"
                 app:srcCompat="@drawable/ic_bottom_right_multiline" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPhotoGallery"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/DP_8"
+                android:orientation="horizontal"
+                android:minHeight="48dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@+id/btnAddPhoto"
+                app:layout_constraintEnd_toStartOf="@+id/btnAddPhoto"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnAddPhoto"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_photo_gallery" />
+
+            <ImageButton
+                android:id="@+id/btnAddPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_8dp_blue"
+                android:padding="@dimen/DP_8"
+                android:src="@drawable/ic_add_photo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierPhotoRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="btnAddPhoto,rvPhotoGallery" />
+
             <TextView
                 android:id="@+id/tvTradeAgent"
                 style="@style/Text.Label.16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/DP_8"
+                android:layout_marginTop="@dimen/DP_16"
                 android:background="@drawable/bg_8dp_white_border_gray_200"
                 android:padding="@dimen/DP_12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+                app:layout_constraintTop_toBottomOf="@+id/barrierPhotoRow"
                 tools:text="Адамив Е.Я" />
 
             <TextView

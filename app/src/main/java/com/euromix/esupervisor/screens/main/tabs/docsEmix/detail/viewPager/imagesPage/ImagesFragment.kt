@@ -59,10 +59,48 @@ class ImagesFragment : BaseFragment(R.layout.images_fragment) {
             viewState as BaseViewState, binding.root, binding.vResult
         )
 
-        viewState.imagesReactions?.let {imagesReactions->
+        viewState.imagesReactions?.let { imagesReactions ->
 
-            adapter.setImages(imagesReactions.rows)
+            val adapterItems = mutableListOf<ImagesAdapterItem>()
+            val allImages = imagesReactions.rows
 
+            val svImages = allImages.filter { it.supervisorPhoto }
+            val taImages = allImages.filter { !it.supervisorPhoto }
+
+            if (svImages.isNotEmpty()) {
+                adapterItems.add(ImagesAdapterItem.Header(getString(R.string.photos_provided_by_sv)))
+
+                for (i in svImages.indices step 2) {
+                    adapterItems.add(
+                        ImagesAdapterItem.ImageRow(
+                            leftImage = svImages[i],
+                            rightImage = if (i + 1 < svImages.size) svImages[i + 1] else null,
+                            isEditable = false
+                        )
+                    )
+                }
+            }
+
+            if (taImages.isNotEmpty()) {
+                adapterItems.add(
+                    ImagesAdapterItem.Header(
+                        title = getString(R.string.photos_provided_by_ta),
+                        hasExtraTopSpace = svImages.isNotEmpty()
+                    )
+                )
+
+                for (i in taImages.indices step 2) {
+                    adapterItems.add(
+                        ImagesAdapterItem.ImageRow(
+                            leftImage = taImages[i],
+                            rightImage = if (i + 1 < taImages.size) taImages[i + 1] else null,
+                            isEditable = true
+                        )
+                    )
+                }
+            }
+
+            adapter.submitList(adapterItems)
             if (imagesReactions.creationDislikeTaskMessage.isNotBlank()) {
                 simplyMessageDialog(
                     requireContext(),
@@ -112,7 +150,6 @@ class ImagesFragment : BaseFragment(R.layout.images_fragment) {
             this.extId = extId
             this.abilityCreateTask = abilityCreateTask
             this.openerImageFragment = openerImageFragment
-
         }
     }
 }

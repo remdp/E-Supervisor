@@ -7,7 +7,9 @@ import android.view.View
 import androidx.core.view.forEach
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -24,6 +26,8 @@ import com.euromix.esupervisor.app.model.tasks.entities.TasksCreateOutletsSelect
 import com.euromix.esupervisor.app.screens.base.BaseFragment
 import com.euromix.esupervisor.app.utils.ActivitySubscription
 import com.euromix.esupervisor.app.utils.addSoftKeyboardVisibilityListener
+import com.euromix.esupervisor.app.utils.base64StringFromUri
+import com.euromix.esupervisor.app.utils.designedDateView
 import com.euromix.esupervisor.app.utils.gone
 import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.observeResults
@@ -37,6 +41,10 @@ import com.euromix.esupervisor.app.utils.visibility
 import com.euromix.esupervisor.app.utils.visible
 import com.euromix.esupervisor.databinding.CreateTasksFragmentBinding
 import com.euromix.esupervisor.databinding.ItemOutletCreateTaskBinding
+import com.euromix.esupervisor.dialogs.selectPictureDialog.SelectPictureDialog
+import com.euromix.esupervisor.dialogs.selectPictureDialog.SelectPictureViewModel
+import com.euromix.esupervisor.screens.main.tabs.TitleData
+import com.euromix.esupervisor.screens.main.tabs.docsEmix.detail.viewPager.imagesPage.ImageFragment
 import com.euromix.esupervisor.screens.main.tabs.filter.FilterFragmentArgs
 import com.euromix.esupervisor.screens.main.tabs.filter.FilterValidationEvent
 import com.euromix.esupervisor.screens.main.tabs.filter.SharedFilterViewModel
@@ -54,6 +62,8 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
         navGraphViewModels<SharedFilterViewModel>(args.graphId).value
     }
 
+    private val selectPictureViewModel by activityViewModels<SelectPictureViewModel>()
+
     private val binding by viewBinding<CreateTasksFragmentBinding>()
 
     private val outletsAdapter by lazy { OutletsAdapter(viewModel) }
@@ -65,6 +75,22 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
 
     private val hasStoreCheckId: Boolean by lazy {
         arguments?.containsKey(STORE_CHECK_ID) ?: false
+    }
+
+    private val photoGalleryAdapter by lazy {
+        PhotoGalleryAdapter(
+            onRemoveClick = { position ->
+                viewModel.removePhoto(position)
+            },
+            onImageClick = { pos, base64 ->
+                val action = CreateTasksFragmentDirections.actionCreateTaskFragmentToImageFragment(
+                    imageUri = "",
+                    titleData = TitleData(requireContext().getString(R.string.photo_deletion)),
+                    imageBase64 = base64,
+                    imagePosition = pos
+                )
+                findNavController().navigate(action)
+            })
     }
 
     override fun onResume() {
@@ -81,7 +107,6 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
         }
 
         setupObservers(binding.root)
-        binding.etSearch.text?.clear()
     }
 
     override fun onPause() {
@@ -94,6 +119,7 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
 
         taskTypesAdapter = TaskTypesAdapter(requireContext())
         binding.rvSelectionItems.adapter = outletsAdapter
+        binding.rvPhotoGallery.adapter = photoGalleryAdapter
 
         sharedViewModel.setFilterValidator { filter ->
 
@@ -112,7 +138,8 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
             binding.tvDeadline,
             parentFragmentManager,
             showClearView = true,
-            underlineIfNull = true
+            underlineIfNull = true,
+            currentDate = viewModel.deadline
         ) {
             viewModel.deadline = it
             designViews()
@@ -121,6 +148,13 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
         setupListeners()
         viewModel.setStoreCheckId(storeCheckId())
         designViews()
+
+        setFragmentResultListener(ImageFragment.PHOTO_DELETION_REQUEST) { _, bundle ->
+            val position = bundle.getInt(ImageFragment.DELETED_POSITION, -1)
+            if (position != -1) {
+                viewModel.removePhoto(position)
+            }
+        }
     }
 
     private fun setupListeners() {
@@ -135,6 +169,10 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
             } else {
                 viewModel.createTasks(description)
             }
+        }
+
+        binding.btnAddPhoto.setOnClickListener {
+            SelectPictureDialog.newInstance().show(parentFragmentManager, null)
         }
         binding.btnCancel.setOnClickListener { navController.popBackStack() }
 
@@ -152,7 +190,7 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
         }
 
         binding.etSearch.doAfterTextChanged { text ->
-            viewModel.filteredBy(text)
+            viewModel.filteredBy(text.toString())
             binding.cbOutlets.setButtonIconDrawableResource(
                 viewModel.drawableForParentCheckBox()
             )
@@ -201,6 +239,16 @@ class CreateTasksFragment : BaseFragment(R.layout.create_tasks_fragment) {
     }
 
     private fun setupObservers(view: View) {
+
+        selectPictureViewModel.uriEvent.observeEvent(viewLifecycleOwner) {
+            viewModel.selectPicture(base64StringFromUri(requireContext(), it))
+        }
+
+        viewModel.photosBase64.observe(viewLifecycleOwner) { photos ->
+            photoGalleryAdapter.submitList(photos)
+            binding.rvPhotoGallery.visibility = if (photos.isNotEmpty()) View.VISIBLE else View.GONE
+        }
+
         sharedViewModel.filterResult.observe(viewLifecycleOwner) { filter ->
 
             viewModel.updateOutletsSelection(

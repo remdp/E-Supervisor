@@ -30,8 +30,8 @@ android {
         applicationId "com.euromix.esupervisorview"
         minSdk 26
         targetSdk 33
-        versionCode 31
-        versionName "1.7.5.3"
+        versionCode 33
+        versionName "1.7.6.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -73,8 +73,8 @@ android {
             minifyEnabled = false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", "\"https://mobile.euromix.in.ua/test_da/hs/es/\""
-            versionNameSuffix "-test_da"
+            buildConfigField "String", "BASE_URL", "\"https://mobile.euromix.in.ua/testapp/hs/es/\""
+            versionNameSuffix "-testapp"
         }
 
     }

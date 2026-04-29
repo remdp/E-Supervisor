@@ -8,6 +8,8 @@ import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.visitsSupervisors.VisitsSupervisorsRepository
 import com.euromix.esupervisor.app.model.visitsSupervisors.entities.VisitSupervisor
 import com.euromix.esupervisor.app.model.visitsSupervisors.entities.VisitsSupervisorsListSelection
+import com.euromix.esupervisor.app.screens.Scrollable
+import com.euromix.esupervisor.app.screens.ScrollableDelegate
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.publishEvent
@@ -33,7 +35,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class VisitsSupervisorListViewModel @Inject constructor(private val visitsSupervisorsRepository: VisitsSupervisorsRepository) :
-    BaseViewModel() {
+    BaseViewModel(), Scrollable by ScrollableDelegate() {
 
     private val _viewState = MutableStateFlow(ViewState())
     val viewState = _viewState.asStateFlow()
@@ -98,6 +100,7 @@ class VisitsSupervisorListViewModel @Inject constructor(private val visitsSuperv
                 .deriveFilteredItems()
                 .deriveDisplayVisits()
         }
+        triggerScrollToTop()
     }
 
     private fun handleError(error: Throwable) {

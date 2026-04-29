@@ -7,10 +7,12 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.model.tasks.entities.TasksSelection
 import com.euromix.esupervisor.app.screens.base.BaseFragment
+import com.euromix.esupervisor.app.utils.observeEvent
 import com.euromix.esupervisor.app.utils.observeResults
 import com.euromix.esupervisor.app.utils.setPeriodSelection
 import com.euromix.esupervisor.app.utils.toText
@@ -37,9 +39,13 @@ class TasksFragment : BaseFragment(R.layout.tasks_fragment) {
 
     override val viewModel by viewModels<TasksViewModel>()
 
+    //private var needScrollToTop = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding.rvList.adapter = adapter
 
         setupObservers(view)
@@ -53,16 +59,13 @@ class TasksFragment : BaseFragment(R.layout.tasks_fragment) {
             viewModel.updatePeriod(it)
         }
         binding.iSelection.ivAdditionalAction.visible()
-    }
 
-    private fun setupObservers(view: View) {
-
-        viewModel.tasks.observeResults(this, view, binding.vResult, binding.srl) {
-            adapter.submitList(it)
-        }
-
-        viewModel.selection.observe(viewLifecycleOwner) {
-            viewModel.reload()
+        setFragmentResultListener(Const.REQUEST_TASK_CREATION) { _, bundle ->
+            val isSuccess = bundle.getBoolean(Const.BUNDLE_KEY_TASK_CREATION_SUCCESSFUL, false)
+            if (isSuccess) {
+               // needScrollToTop = true
+                viewModel.reload()
+            }
         }
 
         setFragmentResultListener(TASKS_FRAGMENT_SELECTION_KEY) { requestKey, bundle ->
@@ -83,6 +86,29 @@ class TasksFragment : BaseFragment(R.layout.tasks_fragment) {
                 if (!cancelSelection)
                     viewModel.updateSelection(selection)
             }
+        }
+    }
+
+    private fun setupObservers(view: View) {
+
+        viewModel.tasks.observeResults(this, view, binding.vResult, binding.srl) { newList ->
+
+//            if (needScrollToTop) {
+//                adapter.submitList(newList) {
+//                    binding.rvList.scrollToPosition(0)
+//                    needScrollToTop = false
+//                }
+//            } else {
+                adapter.submitList(newList)
+    //        }
+        }
+
+        viewModel.selection.observe(viewLifecycleOwner) {
+            viewModel.reload()
+        }
+
+        viewModel.scrollToTopEvent.observeEvent(viewLifecycleOwner) {
+            binding.rvList.post { binding.rvList.scrollToPosition(0) }
         }
     }
 

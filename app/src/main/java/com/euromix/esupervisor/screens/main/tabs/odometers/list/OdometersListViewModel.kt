@@ -7,6 +7,8 @@ import com.euromix.esupervisor.app.model.Success
 import com.euromix.esupervisor.app.model.odometers.OdometersRepository
 import com.euromix.esupervisor.app.model.odometers.entities.OdometersReading
 import com.euromix.esupervisor.app.model.odometers.entities.OdometersReadingItem
+import com.euromix.esupervisor.app.screens.Scrollable
+import com.euromix.esupervisor.app.screens.ScrollableDelegate
 import com.euromix.esupervisor.app.screens.base.BaseViewModel
 import com.euromix.esupervisor.app.utils.MutableLiveEvent
 import com.euromix.esupervisor.app.utils.toJsonString
@@ -20,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OdometersListViewModel @Inject constructor(private val odometersRepository: OdometersRepository) :
-    BaseViewModel() {
+    BaseViewModel(), Scrollable by ScrollableDelegate() {
 
     private var _viewState: ViewState =
         ViewState(odometersReadingList = listOf())
@@ -73,6 +75,7 @@ class OdometersListViewModel @Inject constructor(private val odometersRepository
             todayReadings = value.todayReadings,
             odometersReadingList = value.readings
         )
+        triggerScrollToTop()
     }
 
     private fun requestFromSelection() = OdometersReadingRequestEntity(

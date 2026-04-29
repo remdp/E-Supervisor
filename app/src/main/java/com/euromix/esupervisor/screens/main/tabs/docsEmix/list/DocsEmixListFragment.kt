@@ -7,6 +7,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.euromix.esupervisor.R
 import com.euromix.esupervisor.app.Const
 import com.euromix.esupervisor.app.Const.NEED_RELOAD
@@ -35,6 +36,8 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding.rvList.adapter = adapter
 
         setPeriodSelection(
@@ -90,6 +93,10 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
         setFragmentResultListener(NEED_RELOAD){ _, _ ->
             viewModel.reload()
         }
+
+        viewModel.scrollToTopEvent.observeEvent(viewLifecycleOwner) {
+            binding.rvList.post { binding.rvList.scrollToPosition(0) }
+        }
     }
 
     private fun renderState(viewState: DocsEmixListViewModel.ViewState) {
@@ -101,7 +108,6 @@ class DocsEmixListFragment : BaseFragment(R.layout.doc_emix_list_fragment) {
         with(viewState) {
             if (!isLoading && error == null) {
                 adapter.submitList(docsEmix)
-                binding.rvList.post { binding.rvList.scrollToPosition(0) }
             }
         }
     }
